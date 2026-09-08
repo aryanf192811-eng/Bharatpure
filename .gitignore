@@ -1,0 +1,20 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+backend/uploads/
+backend/.env
+frontend/.env
+ai/.env
+ai/__pycache__/
+ai/**/__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# Raw design export (large binary) — extracted contents are tracked under design/
+stitch_agricultural_field_app_design.zip
+stitch_export/
