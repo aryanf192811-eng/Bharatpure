@@ -22,6 +22,14 @@
   - Output convention: evolved files land at `design/evolved/<screen-folder>/index.html`; originals untouched under `stitch_export/` (gitignored — large binary, not committed).
 - Session paused here (mid-agent-run) to conserve tokens at user's request — **agent results not yet reviewed**.
 
+### Live status as of last check (2026-09-08, ~23 min after dispatch)
+All 4 agents still **running** (not yet returned a completion report). File evidence on disk — **23 of 32 evolved screens written**:
+- Batch A (Landing + Farmer, 7 screens: 01, 07–12) — **all 7 files present**, likely finishing/self-checking.
+- Batch B (Consumer, 6 screens: 19, 20, 21, 22, 24, 25) — **all 6 files present**, likely finishing/self-checking.
+- Batch C (Bulk Buyer + Logistics, 10 screens: 28–37) — **all 10 files present**, likely finishing/self-checking.
+- Batch D (Admin/Government, 9 screens: 38–46) — **0 files present yet**, still working through its screens (this is the batch with the IEI table and DPI status screens — told to take extra care, so it's the slowest).
+None of the 4 agents have sent their completion report yet, so **no batch is confirmed clean** (i.e. verified zero leftover Material-3 classes) — file presence only means a first draft was written, not that it passed the agent's own grep self-check. `design/evolved/` is untracked in git (`git status` shows `?? design/evolved/`) — nothing from this pass has been committed yet, intentionally, pending review.
+
 ### Decided / locked in (don't re-ask)
 - Priority order: evolve/finalize the 32 Stitch screens' design language first; Phase 0 code scaffold (backend/frontend/ai skeletons per `BHARATPURE-CLAUDE.md`) comes after.
 - Postman MCP: no key configured, relying on OAuth-on-first-use.
@@ -30,6 +38,10 @@
 - Git: solo authorship only, no AI/co-author attribution of any kind, for this project specifically.
 
 ### Next (pick up here)
-1. **Check the 4 background agents' results** — did each batch come back with zero leftover Material-3 classes (per their self-check grep)? Any escalated ambiguities or spec deviations to review?
-2. Assemble the 32 evolved screens into one reviewable gallery (before/after against `screen.png`) so the design gets a visual sign-off before it's treated as final — nothing should be called "done" on this pass without that review.
-3. After design sign-off: begin Phase 0 foundation build (`node-pg-migrate` setup + all 30 migrations, Express skeleton, auth routes, Vite+React+Tailwind+shadcn init, FastAPI skeleton) per `BHARATPURE-CLAUDE.md` roadmap — commit granularity target 30–40 commits for this phase alone.
+1. **Wait for / check the 4 background agents' completion reports** (none received yet as of this log entry) — did each batch come back with zero leftover Material-3 classes (per their self-check grep)? Any escalated ambiguities or spec deviations to review? Batch D (Admin/Government, screens 38–46) is the one still actively writing files — check it first.
+2. Once all 4 report back: spot-check a few `design/evolved/*/index.html` files by hand against `design/DESIGN-SYSTEM.md` (grep for leftover `on-surface`/`primary-container`/etc. tokens) before trusting the self-reported "clean" status.
+3. Assemble the 32 evolved screens into one reviewable gallery (before/after against `screen.png`) so the design gets a visual sign-off before it's treated as final — nothing should be called "done" on this pass without that review. Nothing in `design/evolved/` is committed to git yet (intentional — untracked, pending review).
+4. After design sign-off: begin Phase 0 foundation build (`node-pg-migrate` setup + all 30 migrations, Express skeleton, auth routes, Vite+React+Tailwind+shadcn init, FastAPI skeleton) per `BHARATPURE-CLAUDE.md` roadmap — commit granularity target 30–40 commits for this phase alone.
+
+### How to resume this session
+The 4 evolution agents (dispatched from this same session) may still be running in the background — check with the agent list / wait for their completion notifications rather than re-dispatching duplicate work. If they've already finished by the time you resume, their reports will just be sitting in the conversation history to review.
