@@ -47,8 +47,14 @@ Three real bugs the agent caught in its own find/replace approach (worth knowing
 - Verified Batch D via direct grep (same rigor as A/B/C — not trusting the self-report).
 - Committed the complete `design/evolved/` output (all 32 screens) — see commit list below.
 
+### Review gallery published
+**https://claude.ai/code/artifact/9273a120-45cd-4ad2-99a1-f5cb2b040f3a** — all 32 evolved screens, grouped by role in a sidebar (Landing/Auth, Farmer, Consumer, Bulk Buyer, Logistics, Admin), mobile screens shown in a phone frame / web screens full-width, each with an **Evolved / Original Stitch export** toggle for direct before/after comparison. This is the artifact to open for the actual visual sign-off — **still pending as of this entry**.
+
+### Standing rule reconfirmed + saved to persistent memory
+User re-stated (independently, as "a rule to remember"): all commits/pushes under the user's own name only, no Co-Authored-By, no AI attribution — this now lives in Claude's cross-session memory (`git_solo_authorship.md`) in addition to being written into `BHARATPURE-CLAUDE.md`, so it persists even in a fresh session on this project.
+
 ### Next (pick up here)
-1. Assemble all 32 evolved screens into one reviewable gallery (before/after against `stitch_export/*/screen.png`) so the user can visually sign off. This is the last step before the design work is actually "done" — the reconciliation being technically clean doesn't mean the user has seen/approved it yet.
+1. **Get the user's actual visual sign-off on the gallery link above.** The reconciliation being grep-verified clean does not mean it's been looked at and approved — don't skip this.
 2. **After design sign-off** (explicit user gate — do not skip ahead): start backend Phase 0 per `CLAUDE-CODE-BACKEND.md` + `chatbot.md` TASK-001 (Express skeleton: package.json, app.js, server.js, response/logger utils, health route). Node v24.14.0 / npm 11.12.1 confirmed available.
 3. Frontend work (`CLAUDE-CODE-FRONTEND.md`) starts after backend Phase 0 gate passes, per the standing sequencing — confirm with user whether backend and frontend should run as two separate sessions/agents in parallel (the docs are written as if for two separate Claude Code instances) or sequentially in this one.
 
