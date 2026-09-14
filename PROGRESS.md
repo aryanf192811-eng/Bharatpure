@@ -60,6 +60,32 @@ User re-stated (independently, as "a rule to remember"): all commits/pushes unde
 
 ---
 
+## 2026-09-14 (cont.) — Session 2 pt 2: Typography/declutter refinement pass
+
+### User feedback on the review gallery
+Design reads as **heavy, not clean**. Specifically: the Playfair Display serif heading font, and decorative glassmorphism/glow chrome inherited from the raw Stitch template. User pointed at their sibling SIH project ("Aaraksha", at `C:\Users\aryan\Desktop\Aaraksha`) as the reference for "good fonts" — confirmed by reading its `UI_GUIDE.md` and actual `tailwind.config.js` files: **Inter used for both display and body, everywhere, across all 4 of its portals** — hierarchy carried entirely by font-weight (`font-black`/`font-extrabold`/`font-bold`/`font-semibold`) and tracking, not by typeface. One of its own config files has a comment noting they tried a different display font and explicitly reverted to pure Inter for cleanliness. Also has a disciplined 5-level shadow-elevation scale (flat/sm/md/lg/xl each tied to a specific use case), which BharatPure's screens were not following consistently.
+
+Verified the problem quantitatively before fixing: `grep` across all 32 evolved screens found `blur-3xl`/`blur-2xl`/`backdrop-blur` decorative effects in **every single file**, and 211 total `font-display` (Playfair Display) usages.
+
+### Spec changes made (both committed)
+- `BHARATPURE-UI.md` — `--font-display` retired from Playfair Display to Inter (both the CSS var and the Tailwind config's `fontFamily.display`), with a dated revision note explaining why. `--font-mono` (JetBrains Mono) unchanged.
+- `design/DESIGN-SYSTEM.md` §7 (new) — full spec for this refinement pass: 7a typography swap + heading-weight compensation table (since Inter at the same weight reads flatter than a serif did, headings need to go up a notch: hero→`font-black`, h1→`font-extrabold`, h2→`font-bold`, h3 stays `font-semibold`), 7b visual-weight decluttering rules (remove decorative blur/glow orbs outright, replace glassmorphism cards with solid `bg-white`/`bg-earth-50` + border, concrete 5-level shadow-elevation discipline, `animate-pulse` restraint), 7c explicitly scopes what's NOT changing (color palette, accessibility work, component radius — all already correct/approved).
+
+### Dispatched 4 background agents (same role-based batching as the original pass)
+Each edits the already-evolved files **in place** — this is additive refinement on top of the verified-clean reconciliation pass, not a redo. Explicitly told not to touch colors/tokens/focus-visible work already there.
+- Batch A — Landing + Farmer (01, 07–12) — screen 01's hero flattening (drop photo+gradient+glow) called out as the single most important fix in this batch, it's the first screen everyone sees.
+- Batch B — Consumer (19, 20, 21, 22, 24, 25) — screen 22 (QR Scan/BIR view) called out to keep trust-signal strength via solid color+weight, not effects, while stripping glass/glow.
+- Batch C — Bulk Buyer + Logistics (28–37) — noted dashboards tend to over-elevate, most cards should end up flat/shadow-sm.
+- Batch D — Admin/Government (38–46) — same over-elevation warning, screen 38's IEI table and screen 45's sandbox badges explicitly protected from changes.
+
+### Next (pick up here)
+1. Wait for all 4 agents, then **grep-verify directly** (same rigor as before — search each batch for `Playfair` and `blur-3xl|blur-2xl|backdrop-blur`, both should be ~zero; spot-check `focus-visible` counts are unchanged from the pre-declutter baseline logged earlier in this file).
+2. Republish the review gallery artifact (same URL: redeploy, don't create a new one — https://claude.ai/code/artifact/9273a120-45cd-4ad2-99a1-f5cb2b040f3a) so the user can re-review the decluttered version.
+3. Get actual user sign-off — still the explicit gate before backend/frontend work starts.
+4. Commit the declutter pass (one commit, same pattern as the original reconciliation commit).
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
