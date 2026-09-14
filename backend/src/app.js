@@ -16,6 +16,7 @@ app.use(pinoHttp({ logger }));
 app.use(helmet());
 app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false })); // Twilio's WhatsApp webhook posts form-encoded, not JSON
 app.use(cookieParser());
 
 // Global rate limiter — 100 requests/min. Route-specific limits (auth, etc.) are added
@@ -46,6 +47,8 @@ app.use('/api/qr', require('./routes/qr.routes'));
 app.use('/api/disputes', require('./routes/dispute.routes'));
 app.use('/api/logistics', require('./routes/logistics.routes'));
 app.use('/api/admin', require('./routes/admin.routes'));
+app.use('/api/dpi', require('./routes/dpi.routes'));
+app.use('/api/webhooks', require('./routes/webhooks'));
 // Further route mounts land here as each domain is built.
 
 app.use((req, res) => {
