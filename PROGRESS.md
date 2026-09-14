@@ -174,6 +174,17 @@ Every task so far has had at least one thing that would have been wrong if imple
 
 ---
 
+## 2026-09-15 (cont.) — Session 3 pt 5: Phase 3 complete (Marketplace + Orders)
+
+### Done
+- **TASK-P3-001 (Order creation, atomic escrow)** — flagged in BHARATPURE-CLAUDE.md itself as the most critical transaction in the whole backend. **Found a serious bug via the acceptance check's own concurrency test, not code review**: `ROUND($4 * $5)` reusing placeholder positions from plain column values earlier in the same INSERT left Postgres unable to infer operator types (`42725` error) — would have broken every single order in a live demo. Fixed with explicit casts. The actual concurrency test (two truly simultaneous requests for the last 100kg via bash `&`+`wait`, not sequential curls) now passes correctly: one 201, one 409, exactly one order exists in the DB. Also verified over-order rejection and cancel-restores-stock.
+- **TASK-P3-002 (QR scan/burn, disputes)** — two-layer QR-burn idempotency (app-level check + DB partial-unique-index backstop for the real race case). Made a documented judgment call to NOT hide rejected-batch data behind a 410, since the seed spec explicitly frames rejections as "publicly logged" — transparency over a narrower error-code list, matching the product's trust-layer premise. Flagged (not silently assumed) that "disputes block escrow release" has no enforcement point yet since the delivered-order endpoint doesn't exist until TASK-P4-001. Verified live: double-burn → 200 then 409; dispute window correctly rejects >48h-old deliveries and accepts recent ones; ADMIN partial-refund resolution correctly updates escrow.
+
+### Next (pick up here)
+**Phase 4 — Logistics + Trust** (TASK-P4-001, the last single-task phase before Admin/Polish). This is where the flagged escrow-release dispute/temp-breach check from TASK-P3-002 actually gets implemented, on `PATCH /api/orders/:orderId/delivered`. Re-read the temperature-breach edge case in BHARATPURE-DB.md before starting: breach → `TemperatureBreachDetected` BIR event, batch flagged via `notes='TEMP_BREACH_REVIEW'` (status stays `dispatched`), auto-`DeliveredToConsumer` blocked until ADMIN clears it.
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
