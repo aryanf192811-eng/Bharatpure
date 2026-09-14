@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const pinoHttp = require('pino-http');
 const rateLimit = require('express-rate-limit');
+const cookieParser = require('cookie-parser');
 
 const logger = require('./utils/logger');
 const { sendError } = require('./utils/response');
@@ -15,6 +16,7 @@ app.use(pinoHttp({ logger }));
 app.use(helmet());
 app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 // Global rate limiter — 100 requests/min. Route-specific limits (auth, etc.) are added
 // per-route in later tasks; this is the catch-all floor.
@@ -31,7 +33,9 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-// Route mounts land here as each domain is built (TASK-009 onward for auth, etc.)
+app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/users', require('./routes/users.routes'));
+// Further route mounts land here as each domain is built.
 
 app.use((req, res) => {
   sendError(res, 404, 'NOT_FOUND', 'Route not found');

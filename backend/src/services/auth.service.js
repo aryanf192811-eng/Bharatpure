@@ -329,4 +329,166 @@ const refresh = async (refreshToken, meta = {}) => {
   }
 };
 
-module.exports = { register, verifyOtp, login, refresh };
+const RESET_TOKEN_EXPIRY = '5m';
+
+/**
+ * Starts a password-reset flow: generates and stores a fresh OTP (purpose='password_reset')
+ * for an existing user. Enforces the "1 OTP request per 60s" cooldown from BHARATPURE-DB.md —
+ * checked as otp_expires_at > NOW() - 9min, since a 10-min-expiry OTP issued within the last
+ * minute has an expires_at still more than 9 minutes out.
+ */
+const forgotPassword = async (phone) => {
+  const userResult = await pool.query(`SELECT id, otp_expires_at, otp_purpose FROM users WHERE phone = $1`, [phone]);
+  if (userResult.rows.length === 0) {
+    throw apiError(404, 'USER_NOT_FOUND', 'No account found with this phone number.');
+  }
+  const user = userResult.rows[0];
+
+  if (
+    user.otp_purpose === 'password_reset' &&
+    user.otp_expires_at &&
+    new Date(user.otp_expires_at) > new Date(Date.now() + 9 * 60 * 1000)
+  ) {
+    throw apiError(429, 'OTP_COOLDOWN', 'A reset code was already sent recently. Please wait before requesting another.');
+  }
+
+  const otp = generateOtp();
+  const otpHash = await bcrypt.hash(otp, BCRYPT_ROUNDS);
+  await pool.query(
+    `UPDATE users SET otp_hash = $1, otp_expires_at = NOW() + INTERVAL '${OTP_EXPIRY_MINUTES} minutes', otp_purpose = 'password_reset'
+     WHERE id = $2`,
+    [otpHash, user.id],
+  );
+
+  logger.info({ action: 'PASSWORD_RESET_REQUESTED', userId: user.id });
+  return { devOtp: otp };
+};
+
+/**
+ * Verifies a password-reset OTP and, on success, issues a short-lived resetToken instead of a
+ * full session. Shares the same lockout/expiry/compare logic as verifyOtp (TASK-008) but
+ * deliberately does NOT touch users.status or mint an access/refresh pair — a reset-in-progress
+ * user isn't "logged in" yet. Reuses JWT_ACCESS_SECRET (no separate reset secret exists in the
+ * project's env spec) but the 'purpose' claim + 5-minute expiry keep it distinct: even if this
+ * token were passed to the normal auth middleware, it carries no 'role' claim, so requireRoles()
+ * fails closed rather than granting access to anything.
+ */
+const verifyResetOtp = async (phone, otp) => {
+  const client = await pool.connect();
+  try {
+    const userResult = await client.query(
+      `SELECT id, otp_hash, otp_expires_at FROM users WHERE phone = $1 AND otp_purpose = 'password_reset'`,
+      [phone],
+    );
+    if (userResult.rows.length === 0) {
+      throw apiError(404, 'USER_NOT_FOUND', 'No pending reset request for this phone number.');
+    }
+    const user = userResult.rows[0];
+
+    const attemptsResult = await client.query(
+      `SELECT COUNT(*) FROM otp_attempts
+       WHERE user_id = $1 AND succeeded = FALSE AND attempted_at > NOW() - INTERVAL '${OTP_LOCKOUT_WINDOW_MINUTES} minutes'`,
+      [user.id],
+    );
+    if (Number(attemptsResult.rows[0].count) >= OTP_LOCKOUT_MAX_ATTEMPTS) {
+      throw apiError(429, 'TOO_MANY_ATTEMPTS', `Too many failed attempts. Try again in ${OTP_LOCKOUT_WINDOW_MINUTES} minutes.`);
+    }
+
+    if (new Date(user.otp_expires_at) <= new Date()) {
+      throw apiError(400, 'OTP_EXPIRED', 'This code has expired. Request a new one.');
+    }
+
+    const matches = await bcrypt.compare(otp, user.otp_hash);
+    await client.query(`INSERT INTO otp_attempts (user_id, succeeded) VALUES ($1, $2)`, [user.id, matches]);
+    if (!matches) {
+      throw apiError(400, 'OTP_INVALID', 'Incorrect code.');
+    }
+
+    await client.query(
+      `UPDATE users SET otp_hash = NULL, otp_expires_at = NULL, otp_purpose = NULL WHERE id = $1`,
+      [user.id],
+    );
+
+    const resetToken = jwt.sign({ sub: user.id, purpose: 'password_reset' }, process.env.JWT_ACCESS_SECRET, {
+      expiresIn: RESET_TOKEN_EXPIRY,
+    });
+
+    logger.info({ action: 'RESET_OTP_VERIFIED', userId: user.id });
+    return { resetToken };
+  } catch (err) {
+    if (err.code && err.statusCode) throw err;
+    logger.error({ action: 'RESET_OTP_VERIFY_FAILED', phone, err: err.message });
+    throw err;
+  } finally {
+    client.release();
+  }
+};
+
+/**
+ * Completes a password reset. On success, revokes every existing refresh token for the user —
+ * a password reset should force re-login everywhere, the same way a real-world "forgot
+ * password" flow does, not leave old sessions silently alive.
+ */
+const resetPassword = async (resetToken, newPassword) => {
+  let decoded;
+  try {
+    decoded = jwt.verify(resetToken, process.env.JWT_ACCESS_SECRET);
+  } catch (err) {
+    throw apiError(401, 'INVALID_RESET_TOKEN', 'This reset link is invalid or has expired.');
+  }
+  if (decoded.purpose !== 'password_reset') {
+    throw apiError(401, 'INVALID_RESET_TOKEN', 'This reset link is invalid or has expired.');
+  }
+
+  const client = await pool.connect();
+  try {
+    const userResult = await client.query(`SELECT password_hash FROM users WHERE id = $1`, [decoded.sub]);
+    if (userResult.rows.length === 0) {
+      throw apiError(401, 'INVALID_RESET_TOKEN', 'This reset link is invalid or has expired.');
+    }
+
+    const sameAsOld = await bcrypt.compare(newPassword, userResult.rows[0].password_hash);
+    if (sameAsOld) {
+      throw apiError(400, 'SAME_AS_OLD_PASSWORD', 'New password must be different from your current password.');
+    }
+
+    const newHash = await bcrypt.hash(newPassword, BCRYPT_ROUNDS);
+
+    await client.query('BEGIN');
+    await client.query(`UPDATE users SET password_hash = $1 WHERE id = $2`, [newHash, decoded.sub]);
+    await client.query(`UPDATE refresh_tokens SET revoked_at = NOW() WHERE user_id = $1 AND revoked_at IS NULL`, [decoded.sub]);
+    await client.query('COMMIT');
+
+    logger.info({ action: 'PASSWORD_RESET_COMPLETED', userId: decoded.sub });
+    return null;
+  } catch (err) {
+    await client.query('ROLLBACK'); // safe no-op if BEGIN was never reached
+    if (err.code && err.statusCode) throw err;
+    logger.error({ action: 'PASSWORD_RESET_FAILED', err: err.message });
+    throw err;
+  } finally {
+    client.release();
+  }
+};
+
+/**
+ * Revokes a single refresh token (the one the client is holding). Idempotent and never throws
+ * on an already-invalid/expired/garbage token — logout's job is "make sure this token is dead",
+ * and a token that's already dead (or was never valid) satisfies that trivially. The current
+ * access token, if any, remains valid until its own natural 15-minute expiry — a known,
+ * accepted trade-off of stateless JWTs rather than an oversight; a full token-blocklist is out
+ * of scope for this project.
+ */
+const logout = async (refreshToken) => {
+  if (!refreshToken) return null;
+  try {
+    await pool.query(`UPDATE refresh_tokens SET revoked_at = NOW() WHERE token_hash = $1 AND revoked_at IS NULL`, [
+      sha256(refreshToken),
+    ]);
+  } catch (err) {
+    logger.error({ action: 'LOGOUT_FAILED', err: err.message });
+  }
+  return null;
+};
+
+module.exports = { register, verifyOtp, login, refresh, forgotPassword, verifyResetOtp, resetPassword, logout };
