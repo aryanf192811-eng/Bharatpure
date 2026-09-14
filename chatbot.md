@@ -303,12 +303,18 @@ _(Tasks after Phase 3 gate)_
 
 ### TASK-P4-001
 - **Title:** Logistics routes — dashboard, route management, temperature logging
-- **Status:** QUEUED
-- **Owner:** subagent
+- **Status:** VERIFIED
+- **Owner:** subagent (done directly by supervisor)
 - **Scope:** `backend/src/routes/logistics.routes.js`, controllers/services
 - **Spec:** All logistics routes per BHARATPURE-API.md. Temperature log: if breach detected → append TemperatureBreachDetected BIR event + create notification + flag batch (add note 'TEMP_BREACH_REVIEW') + block DeliveredToConsumer until admin clears. PATCH /api/orders/:orderId/delivered: check for temp breach flag and open disputes before releasing escrow. Escrow release: atomic per BHARATPURE-DB.md escrow release pattern.
 - **Acceptance Check:** Log temperature above threshold → TemperatureBreachDetected BIR event exists, notification created, attempt to mark delivered → 422 TEMPERATURE_BREACH_REVIEW. Admin clears breach → delivered succeeds, escrow released, EscrowReleased BIR event exists.
-- **Result/Notes:** _(subagent fills)_
+- **Result/Notes:** Done. This task closes out the escrow-release guard chain flagged back in TASK-P3-002 — `markDelivered()` lives in `order.service.js` (its real URL namespace, `PATCH /api/orders/:orderId/delivered`, not under `/logistics`), extending the file from Phase 3 rather than duplicating order logic in a logistics-owned file. Follows BHARATPURE-DB.md's exact documented "Escrow release pattern" (release → update order → append `EscrowReleased`, one transaction), with both guards (temp-breach flag, open disputes) checked read-only *before* the transaction opens.
+
+  **Also implemented `PATCH /api/batches/:batchId/temperature-breach-clear`** (ADMIN-only, mandatory `review_notes`, audit-logged) — technically listed under Phase 5's Admin routes in BHARATPURE-API.md, but built now because this task's own acceptance check requires clearing a breach to prove delivery can proceed afterward. Used the exact documented path so Phase 5 doesn't need to redo it, just extend around it — flagged here so it isn't mistaken for scope creep or duplicated later.
+
+  `completeStop()` on a DELIVERY-type route stop internally delegates to `orderService.markDelivered()`, per this task's spec — passed in as a callback parameter rather than a top-level `require()`, to avoid a require-cycle between `logistics.service.js` and `order.service.js` (each already depends on shared DB/BIR-event helpers, a direct mutual import would have been fragile). Temperature-breach notifications go to every active ADMIN user — there's no distinct "ops" role in this schema, ADMIN is the closest fit for "ops team notified" from the spec.
+
+  Verified live, the full chain in one flow: fresh batch → listing → order (40kg) → logged a `11.5°C` reading against an `8.0°C` threshold → breach correctly detected, `TemperatureBreachDetected` BIR event present with the right payload, a `TEMP_BREACH` notification created. Attempting `PATCH /orders/:orderId/delivered` at that point → 422 `TEMPERATURE_BREACH_REVIEW`, exactly as required. ADMIN clearing the breach → 200; retrying delivery → now succeeds, `escrow_transactions.status='released'`, both `DeliveredToConsumer` and `EscrowReleased` BIR events present on the batch. This completes Phase 4. Committed as `feat: implement logistics routes and the temp-breach-gated delivery/escrow-release flow`.
 
 ---
 
