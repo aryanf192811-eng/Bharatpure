@@ -103,6 +103,31 @@ All 4 relaunched agents finished. Full sweep verification across all 32 files (n
 
 ---
 
+## 2026-09-15 — Session 3: Backend Phase 0 — Express skeleton + full 30-table schema
+
+User said "continue with backend" (design gallery sign-off implied) then "keep pushing also" mid-turn — git push after every commit from here on, not just local commits.
+
+### Done
+- **TASK-001 VERIFIED** — Express app skeleton (`backend/src/app.js`, `server.js`, `utils/{response,logger}.js`). Caught a real issue before it became a problem: `npm install express` pulled Express 5 by default; project stack is frozen to Express 4, re-pinned to `^4.22.3` before writing any route code. `sendSuccess`/`sendError`/`sendPaginated` copied verbatim from the exact code block in BHARATPURE-API.md (not reconstructed from memory), since every future controller depends on this shape being byte-exact. Verified live: server starts clean, `GET /health` → `{"status":"ok"}`, unmatched route → correct error-envelope 404, helmet/CORS/rate-limit headers all present.
+- **Postgres provisioned** — user provided the local postgres superuser password (`latent2026`, used once for setup only, not stored anywhere in the repo). Created dedicated least-privilege role `bharatpure` (not the superuser) + `bharatpure_dev` database. Connection string lives only in `backend/.env` (gitignored).
+- **TASK-002 through TASK-006 VERIFIED — full 30-table schema complete.** Every migration was run **verbatim from the literal SQL in BHARATPURE-DB.md** (not hand-translated to node-pg-migrate's JS builder API, not reconstructed from the earlier research-agent digest) via `pgm.sql()`, specifically because this is schema work where fidelity matters most and BHARATPURE-CLAUDE.md itself says migrations are never a subagent task / never done from memory.
+  - Critical constraints independently verified via `psql \d`, not just assumed from the migration source: `batches.remaining_quantity_kg CHECK (>= 0)`, `bir_events` partial unique index (`idx_bir_qr_burned_unique` — exactly one QRBurned per batch), `escrow_transactions.order_id UNIQUE`, `demand_forecasts` 4-column UNIQUE, `whatsapp_sessions.phone UNIQUE`.
+  - **Caught two doc inconsistencies** in chatbot.md's task-spec text (paraphrases) vs. the literal BHARATPURE-DB.md SQL (source of truth) — resolved in favor of the literal SQL both times, flagged in the task board's Result/Notes rather than silently "fixing" the doc: (1) `users` table actually has 14 columns, task text said 12. (2) `orders.status` CHECK actually has 9 values, task text said 8.
+  - Full migration idempotency confirmed by re-running `migrate:up` after all 30 were applied — "No migrations to run!", no errors.
+  - `bir_events` has no `updated_at`/`deleted_at` by design (append-only event log) — added an explicit in-file comment warning against ever adding UPDATE/DELETE to it, since that table backs the entire trust-layer story.
+- Read (and will reuse without re-reading) the exact atomic escrow hold/release SQL patterns and the public-BIR-view join query from BHARATPURE-DB.md's "KEY SQL PATTERNS" section — needed for TASK-P3-001 (orders) later, already verified against the real schema now in place.
+- Pushed every commit to `origin/master` immediately (11 commits this session: skeleton + 6 migration batches × [feat/chore + docs] pairs).
+
+### Next (pick up here)
+1. **TASK-007** — Auth service: `register(data)` with role-discriminated Zod validation (FARMER/CONSUMER/BULK_BUYER/LOGISTICS/ADMIN each need different fields), bcrypt password hashing (rounds=12), OTP generation+hashing, role-specific profile insert in the same transaction. Spec explicitly calls for a `docs/research/zod-discriminated-union.md` research doc before implementing — do this first per BHARATPURE-CLAUDE.md's research protocol (new library pattern).
+2. **TASK-008** — verifyOtp, login, refresh token rotation (theft detection: reuse of a revoked token revokes ALL that user's tokens).
+3. **TASK-009** — auth middleware (verifyToken, requireRoles) + all 8 auth routes + rate limits per route + Postman collection entries.
+4. **TASK-010** — seed data script (idempotent, `ON CONFLICT DO NOTHING`, known UUIDs, known demo passwords).
+5. Phase 0 acceptance gate after TASK-010: full auth e2e, newman auth suite, seed idempotent, AI service health check (not started yet — separate FastAPI skeleton, not scoped to this session yet).
+6. DB credentials for reference (not secret-sensitive beyond the .env file itself, already gitignored): role `bharatpure`, database `bharatpure_dev`, password stored only in `backend/.env`.
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
