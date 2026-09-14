@@ -69,12 +69,12 @@
 
 ### TASK-003
 - **Title:** Migrations 002–005 (otp_attempts, refresh_tokens, clusters, farmer_profiles)
-- **Status:** QUEUED
+- **Status:** VERIFIED
 - **Owner:** supervisor
 - **Scope:** `backend/src/db/migrations/002_create_otp_attempts.js` through `005_create_farmer_profiles.js`
 - **Spec:** One file per table per BHARATPURE-DB.md. otp_attempts: idx_otp_attempts_user_recent. refresh_tokens: token_hash UNIQUE, idx on user_id WHERE revoked_at IS NULL. clusters: idx on crop_type, idx on state. farmer_profiles: user_id UNIQUE FK, agristack_farmer_id UNIQUE (nullable).
 - **Acceptance Check:** `npx node-pg-migrate up` exits 0. All 5 tables visible in psql.
-- **Result/Notes:** _(supervisor fills)_
+- **Result/Notes:** Done. All 4 migration files run verbatim from the literal SQL in BHARATPURE-DB.md tables 2–5 (same `pgm.sql()` approach as TASK-002, for the same fidelity reason). Ran clean in one `migrate:up`. `\dt` confirms all 5 app tables present (otp_attempts, refresh_tokens, clusters, farmer_profiles, users) plus node-pg-migrate's own `pgmigrations` tracking table. FK dependency order respected: clusters (004) before farmer_profiles (005), since farmer_profiles.cluster_id references clusters(id). Committed as `chore: add migrations 002-005 (otp_attempts, refresh_tokens, clusters, farmer_profiles)`.
 
 ---
 
