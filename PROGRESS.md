@@ -78,8 +78,17 @@ Each edits the already-evolved files **in place** — this is additive refinemen
 - Batch C — Bulk Buyer + Logistics (28–37) — noted dashboards tend to over-elevate, most cards should end up flat/shadow-sm.
 - Batch D — Admin/Government (38–46) — same over-elevation warning, screen 38's IEI table and screen 45's sandbox badges explicitly protected from changes.
 
+### Rate limit hit again — all 4 agents failed mid-batch (resolved)
+All 4 declutter agents failed simultaneously, same as the Session 1 pattern — session rate limit, this time resetting 12am IST. Date has since rolled to 2026-09-15, so the limit is clear. Checked exact per-file progress via `grep -c Playfair` across all 32 screens instead of guessing: **exactly 16 of 32 done, 16 remaining**, split cleanly along the original 4 batches:
+- Batch A: 01,07,08,09,10 done — **11, 12 remaining**
+- Batch B: 19,20,21 done — **22, 24, 25 remaining**
+- Batch C: 28,29,30,31 done — **32, 33, 34, 35, 36, 37 remaining**
+- Batch D: 38,39,40,41 done — **42, 43, 44, 45, 46 remaining**
+
+Relaunched 4 new agents scoped ONLY to the remaining 16 files (explicitly told which files were already done and not to touch them) — cheaper and avoids risk of double-editing already-finished screens.
+
 ### Next (pick up here)
-1. Wait for all 4 agents, then **grep-verify directly** (same rigor as before — search each batch for `Playfair` and `blur-3xl|blur-2xl|backdrop-blur`, both should be ~zero; spot-check `focus-visible` counts are unchanged from the pre-declutter baseline logged earlier in this file).
+1. Wait for the 4 relaunched agents (covering the 16 remaining screens), then **grep-verify directly across all 32** (not just the ones just touched) — search for `Playfair` and `blur-3xl|blur-2xl|backdrop-blur`, both should be ~zero everywhere; spot-check `focus-visible` counts are unchanged from the pre-declutter baseline logged earlier in this file.
 2. Republish the review gallery artifact (same URL: redeploy, don't create a new one — https://claude.ai/code/artifact/9273a120-45cd-4ad2-99a1-f5cb2b040f3a) so the user can re-review the decluttered version.
 3. Get actual user sign-off — still the explicit gate before backend/frontend work starts.
 4. Commit the declutter pass (one commit, same pattern as the original reconciliation commit).
