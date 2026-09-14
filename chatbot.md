@@ -47,12 +47,12 @@
 
 ### TASK-001
 - **Title:** Initialize backend — install dependencies and Express app skeleton
-- **Status:** QUEUED
+- **Status:** VERIFIED
 - **Owner:** subagent
 - **Scope:** `backend/package.json`, `backend/src/app.js`, `backend/src/server.js`, `backend/src/utils/response.js`, `backend/src/utils/logger.js`
 - **Spec:** Init Node project. Install: express, pg, node-pg-migrate, jsonwebtoken, bcrypt, zod, pino, pino-http, cors, helmet, express-rate-limit, multer, qrcode, node-cron, twilio, @anthropic-ai/sdk, dotenv, uuid. Create `app.js` with: pino-http logger, cors (CORS_ORIGIN env), helmet, express.json(), global rate limiter (100/min). Create `server.js` importing app, listening on PORT. Create `utils/response.js` with sendSuccess, sendError, sendPaginated (exact shapes from BHARATPURE-API.md). Create `utils/logger.js` exporting pino instance. Global error handler as last middleware in app.js — never leaks stack trace. Health route: GET /health → 200 `{"status":"ok"}`.
 - **Acceptance Check:** `node src/server.js` starts. `curl http://localhost:5000/health` → `{"status":"ok"}`. No unhandled errors on startup.
-- **Result/Notes:** _(subagent fills this)_
+- **Result/Notes:** Done. All deps installed. **Caught and fixed a real issue**: `npm install express` (no version pin) pulled Express 5.2.1 by default — BHARATPURE-CLAUDE.md freezes the stack to Express 4 (non-negotiable), so re-pinned to `express@4` (now `^4.22.3`) before writing any route code. `sendSuccess`/`sendError`/`sendPaginated` copied verbatim from the exact code block in BHARATPURE-API.md (not reconstructed from memory) to guarantee the frozen response shape is byte-exact from the start, since every future controller depends on it. Error handler checks both `err.statusCode` and `err.status` (body-parser sets `.status`, not `.statusCode`, on a malformed-JSON body via `express.json()` — without this a bad request body would incorrectly surface as 500 instead of 400). Verified: server starts clean (no errors in pino log), `GET /health` → exactly `{"status":"ok"}`, unmatched route → `{"success":false,"error":{"code":"NOT_FOUND","message":"Route not found"}}`, helmet/CORS/rate-limit headers all present and correct in response. Committed as `feat: initialize backend — Express app skeleton with health route`.
 
 ---
 
