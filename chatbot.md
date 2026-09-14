@@ -283,12 +283,18 @@ _(Tasks written after Phase 2 gate passes)_
 
 ### TASK-P3-002
 - **Title:** QR scan, QR burn, dispute routes
-- **Status:** QUEUED
-- **Owner:** subagent
+- **Status:** VERIFIED
+- **Owner:** subagent (done directly by supervisor)
 - **Scope:** `backend/src/routes/qr.routes.js`, `backend/src/routes/dispute.routes.js`, corresponding controllers/services
 - **Spec:** GET /api/qr/scan/:qrHash: public, appends QRScanned BIR event, returns full BIR view. POST /api/qr/burn/:qrHash: requires auth, appends QRBurned BIR event, sets qr_burned_at — MUST handle unique constraint violation with 409 QR_ALREADY_BURNED (not 500). POST /api/disputes: 48h window enforced, sets order status='disputed', blocks escrow release. PATCH /api/disputes/:id/resolve (ADMIN): triggers partial/full escrow refund if refund_amount_paise > 0.
 - **Acceptance Check:** Burn QR twice → second call returns 409 QR_ALREADY_BURNED, not 500. Raise dispute > 48h after delivery → 422 DISPUTE_WINDOW_CLOSED. Resolve dispute with refund → escrow_transactions updated.
-- **Result/Notes:** _(subagent fills)_
+- **Result/Notes:** Done. Public BIR view reuses BHARATPURE-DB.md's exact "Pattern 1" join query (batch → cluster → FPO → latest-passing quality test → certificate → json_agg'd BIR events), same as read earlier this session for TASK-P1 work — not reconstructed from memory. `burnQr` has a **two-layer idempotency guard**: an application-level check (`batches.qr_burned_at IS NOT NULL` → 409 immediately) for the common case, plus the DB's own partial unique index (`idx_bir_qr_burned_unique`) as the real backstop against a race between two near-simultaneous burn requests — the 23505 from that constraint is caught and translated to the same clean 409, never a raw 500. "MUST handle unique constraint violation with 409, not 500" in the spec is specifically about that race case, not just the sequential double-call the acceptance check literally describes — both are handled.
+
+  **Judgment call, documented rather than silently decided**: did not implement scanning a `test_failed` batch as a 410 `BATCH_REJECTED` (mentioned in the wider API route inventory) — the seed-data spec explicitly frames farmer rejections as "public rejection logged," which reads as "show the rejection transparently," directly opposed to blocking the view with a 410. Went with transparency, matching the product's whole trust-layer premise, rather than the narrower error-code list.
+
+  "Blocks escrow release" (on an open dispute) has no enforcement point in this codebase yet — the only place escrow gets released is the not-yet-built `PATCH /api/orders/:orderId/delivered` (TASK-P4-001), which is documented to check `disputes.status NOT IN ('resolved','dismissed')` before releasing. Flagged here so it isn't forgotten when that task is built, not silently assumed already covered.
+
+  Verified live: public (unauthenticated) `GET /qr/scan/:qrHash` returns the full BIR view including cluster/FPO/quality-test/BIR-event data. Burning a QR twice — first call 200, second call 409 `QR_ALREADY_BURNED`, never a 500. Raising a dispute on the seeded order delivered 24 days ago → 422 `DISPUTE_WINDOW_CLOSED`; raising one on an order manually backdated to 2 hours post-delivery → succeeds, order flips to `disputed`. ADMIN resolving with a ₹3,000 partial refund → `escrow_transactions` correctly shows `status='partially_refunded'`, `refund_amount_paise=300000`, `release_triggered_by='DISPUTE_RESOLUTION'`. This completes Phase 3. Committed as `feat: implement QR scan/burn and dispute resolution flows`.
 
 ---
 
