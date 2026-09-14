@@ -91,12 +91,12 @@
 
 ### TASK-005
 - **Title:** Migrations 011–020 (quality through temperature_logs)
-- **Status:** QUEUED
+- **Status:** VERIFIED
 - **Owner:** supervisor
 - **Scope:** `backend/src/db/migrations/011_*.js` through `020_*.js`
 - **Spec:** Tables: quality_tests, quality_certificates, b_sample_requests, listings, orders, order_items, escrow_transactions, delivery_routes, route_stops, temperature_logs. orders.status CHECK must list all 8 statuses. escrow_transactions: order_id UNIQUE (one escrow per order).
 - **Acceptance Check:** All 20 tables present. `SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public'` = 20.
-- **Result/Notes:** _(supervisor fills)_
+- **Result/Notes:** Done. All 10 migrations run verbatim from BHARATPURE-DB.md tables 11–20, in FK order. Two doc discrepancies caught and resolved in favor of the literal SQL (source of truth) rather than the task-text paraphrase: (1) orders.status CHECK actually has **9** values in BHARATPURE-DB.md's literal SQL (placed/confirmed/allocation_pending/allocated/dispatched/delivered/cancelled/refunded/disputed), not 8 as this task's spec text says — verified directly via `\d orders`, all 9 present. (2) The acceptance check's "=20" undercounts by not excluding node-pg-migrate's own `pgmigrations` tracking table — actual `public` schema has 21 tables total, but exactly 20 are app tables (verified with `AND table_name != 'pgmigrations'`), which is the real intent. escrow_transactions.order_id UNIQUE confirmed. Committed as `chore: add migrations 011-020 (quality_tests through temperature_logs)`.
 
 ---
 
