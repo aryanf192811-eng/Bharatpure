@@ -45,6 +45,7 @@ app.use('/api/orders', require('./routes/order.routes'));
 app.use('/api/qr', require('./routes/qr.routes'));
 app.use('/api/disputes', require('./routes/dispute.routes'));
 app.use('/api/logistics', require('./routes/logistics.routes'));
+app.use('/api/admin', require('./routes/admin.routes'));
 // Further route mounts land here as each domain is built.
 
 app.use((req, res) => {
