@@ -130,6 +130,53 @@ Headings → `font-display` (Playfair Display). Body/UI/labels → `font-body` (
 - Do not introduce new npm/CDN dependencies beyond what's already loaded (Tailwind CDN, Google Fonts, Material Symbols).
 - Keep the `pt-safe`/`pb-safe` safe-area classes and the `overscroll-behavior: none` / hidden-scrollbar base styles as-is — already correct.
 
+## 7. Revision 2026-09-14 — Typography swap + declutter pass
+
+User feedback after reviewing the gallery: the design reads as **heavy, not clean** — two concrete causes identified and fixed here. Reference point: the sibling SIH project ("Aaraksha") uses a single clean sans (Inter) for both display and body, weight-driven hierarchy, and restrained/disciplined shadow elevation — that's the bar.
+
+### 7a. Typography — Playfair Display retired
+
+`font-display` in the canonical Tailwind config (§1) now maps to `'Inter', -apple-system, sans-serif'` instead of `'Playfair Display', Georgia, serif`. **This is a one-line config change per file** — do not hand-edit the 200+ individual `font-display` class usages, the class name stays, only its font-family target changes.
+
+Remove the Playfair Display `<link>` from Google Fonts in every screen (keep Inter + JetBrains Mono):
+```html
+<!-- Before -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+<!-- After -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+```
+Note the added `800;900` weights on Inter — needed because weight now carries all the hierarchy that the serif typeface used to carry visually.
+
+**Compensate heading weight** — a serif at `font-semibold` (600) reads as a strong headline; Inter at 600 reads flat next to body text. Bump every heading that uses `font-display` up one notch on this scale (audit each screen's actual heading levels — a hero/page title vs. a card title are different levels):
+| Role | Old (Playfair-era) | New (Inter-era) |
+|---|---|---|
+| Hero / display (page-level, e.g. Landing wordmark) | `font-display text-4xl font-bold` | `font-display text-4xl font-black tracking-tight` |
+| Page heading (h1-equivalent, e.g. "My Batches") | `font-display text-3xl font-semibold` | `font-display text-3xl font-extrabold tracking-tight` |
+| Section heading (h2-equivalent) | `font-display text-2xl font-semibold` | `font-display text-2xl font-bold tracking-tight` |
+| Card/subsection title (h3-equivalent) | `font-display text-xl font-semibold` | `font-display text-xl font-semibold` (unchanged — already reads fine at this size) |
+| Label / eyebrow text | n/a | `font-body text-xs font-semibold uppercase tracking-widest text-earth-500` (new pattern for section labels/eyebrows, matches the reference project) |
+
+Body/label classes from §3 (font-body, font-mono) are unchanged.
+
+### 7b. Visual weight — remove decorative heaviness
+
+All 32 screens currently carry glassmorphism/glow decoration inherited from the raw Stitch template (verified: `blur-3xl`/`blur-2xl`/`blur-lg` glow orbs and `backdrop-blur-*` glass-card treatments present in every file). Strip these, they're the other half of "heavy":
+
+1. **Remove decorative blur/glow orbs entirely** — any `<div>` whose sole purpose is an ambient background glow (classes like `blur-3xl`, `blur-2xl`, `blur-lg` combined with `rounded-full` and positioned `absolute`, no text/content content) gets deleted outright, not just detoned.
+2. **Replace glassmorphism cards with solid cards** — any `backdrop-blur-md`/`backdrop-blur-sm` + semi-transparent background (e.g. `bg-white/10`, `bg-surface-card/95`) becomes a plain solid card: `bg-white` (or `bg-earth-50` for a recessed panel) with `border border-earth-200`. Drop the backdrop-blur utility entirely — it's a decorative effect, not a functional one, in every case found so far.
+3. **Flatten photographic/gradient hero backgrounds used purely decoratively** — Screen 01 (Landing) in particular: replace the full-bleed background photo + multi-stage gradient scrim + ambient glow with a clean flat background (`bg-primary-800` for the hero band, or `bg-earth-50` for the page canvas). If a screen's spec in `BHARATPURE-UI.md` explicitly calls for a photographic/branded moment, a single flat-color band with the wordmark is enough — do not keep large decorative photography as page chrome.
+4. **Shadow elevation discipline** (replaces "use judgment" with concrete levels — apply everywhere, not just where flagged):
+   - `shadow-none` — inline elements, table rows, flat list items
+   - `shadow-sm` — resting cards, list items, menu items (this should be the default for most cards)
+   - `shadow-md` — raised/interactive cards on hover, dropdowns, popovers
+   - `shadow-lg` — modals, bottom sheets, drawers only
+   - `shadow-xl` — reserved for genuinely urgent/floating elements only (e.g. a temperature-breach alert banner, a floating action button) — audit every existing `shadow-xl`/`shadow-2xl` usage and downgrade anything that isn't one of these
+5. **`animate-pulse` discipline** — keep only on genuinely live/status indicators (a "live" dot, an active urgent alert). Remove from purely decorative accents (e.g. a pulsing glow behind a logo).
+6. Do NOT touch layout structure, section order, copy, data-* attributes, or JS logic — same boundary as the original pass, this is a visual-weight reduction, not a redesign.
+
+### 7c. What stays as-is
+The color palette (primary/gold/earth/terracotta), the accessibility upgrades from §4 (focus-visible, touch targets, reduced-motion), and the component-radius table are all correct and untouched by this revision — the complaint was specifically about typography heaviness and decorative glass/glow chrome, not the brand palette or the accessibility work.
+
 ## 6. Output convention
 
 Evolved file goes to `design/evolved/<same-folder-name-as-source>/index.html`. Do not overwrite the original Stitch export files (kept out of git under `stitch_export/`, ignored). Reference screenshots stay in the original `screen.png` per folder for before/after comparison.

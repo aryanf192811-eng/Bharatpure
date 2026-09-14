@@ -59,9 +59,16 @@
 
 ### Typography
 
+> **Revision 2026-09-14:** Playfair Display retired as of this revision. The original decorative-serif
+> treatment (Stitch's first pass) read as heavy/ornamental rather than clean — the standing reference
+> is Inter used for *both* display and body, with hierarchy carried entirely by weight and tracking
+> (display: `font-black`, h1: `font-extrabold`, h2: `font-bold`, h3: `font-semibold`, body: `font-normal`,
+> labels: `font-semibold uppercase tracking-widest`), matching the sibling SIH project's proven system.
+> `--font-mono` is unchanged — code/batch-ID legibility is a different problem than heading style.
+
 ```css
 /* Font Families */
---font-display: 'Playfair Display', Georgia, serif;   /* headings, brand moments */
+--font-display: 'Inter', -apple-system, sans-serif;   /* headings, brand moments — weight carries hierarchy, not typeface */
 --font-body:    'Inter', -apple-system, sans-serif;   /* all UI text */
 --font-mono:    'JetBrains Mono', 'Courier New', monospace; /* batch IDs, codes, numbers */
 
@@ -146,7 +153,7 @@ module.exports = {
         terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
       },
       fontFamily: {
-        display: ['Playfair Display', 'Georgia', 'serif'],
+        display: ['Inter', '-apple-system', 'sans-serif'],
         body:    ['Inter', '-apple-system', 'sans-serif'],
         mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
       },
