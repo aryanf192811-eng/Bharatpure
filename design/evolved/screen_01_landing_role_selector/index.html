@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
   darkMode: "class",
   theme: {
@@ -16,7 +16,7 @@
         info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
       },
       fontFamily: {
-        display: ['Playfair Display', 'Georgia', 'serif'],
+        display: ['Inter', '-apple-system', 'sans-serif'],
         body:    ['Inter', '-apple-system', 'sans-serif'],
         mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
       },
@@ -31,36 +31,29 @@
     },
   },
 };</script></head><body class="bg-earth-50 font-body text-sm text-earth-900 flex flex-col min-h-screen pt-safe pb-safe font-normal"><main class="flex-1 flex flex-col relative w-full bg-earth-50"><div class="flex flex-col w-full relative">
-<!-- Dynamic Atmospheric Background -->
-<div class="relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden">
-<!-- Visual Backdrop Inspired by Terraced Sunrise -->
-<div class="absolute inset-0 bg-cover bg-center" data-alt="Magnificent panoramic sunrise over rolling lush green terraced tea and paddy fields in Wayanad India, morning golden mist winding through misty mountains, a lone agrarian farmer tending fertile soil in early morning sunlight, serene rural agricultural majesty, deep emerald greens and glowing harvest gold atmosphere." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHLp8Ju4q2LapOIMakY-HnX5u5aF6OTuVIbW833MhBn9hmVjQzMgCuzxSGvuqy7qAgOUxdmdrZ2DyZ_NfAjqt9WQp0IpOrxXiXk64Z8RkZEhbEG1gqCgE_-p6d7FczGXO7vVYczDLYV29O9z9YRmW9HL3q5BYpIlTRbWnRInO__6p0aYgPZHLnClPhTZuW-woE3zV5cAAsr0jJ9hSNetD5GO8Pc_oyuol3msLtaRgsVwiXsaShRgSW')"></div>
-<!-- Multi-stage Graded Scrim: Deep Emerald and Warm Earth Overlay -->
-<div class="absolute inset-0 bg-gradient-to-b from-primary-900/85 via-primary-900/90 to-earth-50"></div>
-<!-- Soft Golden Ray / Wheat Ambient Glow -->
-<div class="absolute top-12 left-1/2 -translate-x-1/2 w-80 h-80 bg-gold-400/20 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Hero band: flat solid background (photo/gradient scrim/ambient glow removed per declutter pass) -->
+<div class="relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-earth-50">
 <!-- Content Stack -->
 <div class="relative z-10 flex flex-col px-4 pt-8 pb-10 max-w-lg mx-auto w-full">
 <!-- Section 1 & 2: Emblem Logo & Brand Identity -->
-<header class="flex flex-col items-center text-center mb-6">
+<header class="flex flex-col items-center text-center mb-6 bg-primary-800 -mx-4 px-4 pt-8 pb-6 rounded-b-lg">
 <div class="relative flex items-center justify-center mb-3">
-<div class="absolute inset-0 bg-gold-400/30 rounded-full blur-lg scale-125"></div>
-<div class="relative w-[72px] h-[72px] rounded-full bg-white/10 backdrop-blur-md p-2 flex items-center justify-center shadow-lg">
+<div class="relative w-[72px] h-[72px] rounded-full bg-white p-2 flex items-center justify-center shadow-sm">
 <img alt="BharatPure Emblem" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/>
 </div>
 </div>
-<h1 class="font-display text-3xl text-white tracking-tight font-semibold">BharatPure</h1>
+<h1 class="font-display text-3xl text-white tracking-tight font-black">BharatPure</h1>
 <p class="font-body text-sm text-primary-100 mt-1 font-medium tracking-wide">
           India's Farm-to-Market Trust Network
         </p>
 <!-- Trust Pill -->
-<div class="inline-flex items-center gap-1.5 mt-3 px-3 py-1 rounded-full bg-primary-800/60 backdrop-blur-sm">
+<div class="inline-flex items-center gap-1.5 mt-3 px-3 py-1 rounded-full bg-primary-700 border border-primary-600">
 <span class="material-symbols-outlined text-[15px] text-gold-100" style="font-variation-settings: 'FILL' 1;">verified</span>
 <span class="font-mono text-xs text-gold-100 uppercase tracking-wider font-medium">NABL Lab Certified &amp; DPI Enabled</span>
 </div>
 </header>
 <!-- Section 3: High-Tactility Selection Card -->
-<section class="bg-white/95 backdrop-blur-md rounded-lg p-5 shadow-xl flex flex-col gap-4">
+<section class="bg-white rounded-lg p-5 shadow-md flex flex-col gap-4 -mt-2">
 <div class="flex items-center justify-between">
 <span class="font-mono text-xs text-earth-500 uppercase tracking-wider font-semibold">
             Select your role to enter
@@ -164,7 +157,7 @@
 </div>
 </section>
 <!-- Trust Badges Strip -->
-<footer class="mt-6 flex items-center justify-around py-3 px-4 rounded-md bg-white/60 backdrop-blur-sm shadow-sm text-earth-700">
+<footer class="mt-6 flex items-center justify-around py-3 px-4 rounded-md bg-white border border-earth-200 shadow-sm text-earth-700">
 <div class="flex items-center gap-1.5">
 <span class="material-symbols-outlined text-primary-700 text-sm">security</span>
 <span class="font-mono text-xs font-medium tracking-wider uppercase">256-Bit Escrow</span>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html class="h-full bg-earth-50" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<html class="h-full bg-earth-50" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
   darkMode: "class",
   theme: {
@@ -16,7 +16,7 @@
         info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
       },
       fontFamily: {
-        display: ['Playfair Display', 'Georgia', 'serif'],
+        display: ['Inter', '-apple-system', 'sans-serif'],
         body:    ['Inter', '-apple-system', 'sans-serif'],
         mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
       },
@@ -30,7 +30,7 @@
       },
     },
   },
-};</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style></head><body class="bg-earth-50 text-earth-900 font-body min-h-full flex flex-col antialiased selection:bg-gold-100 selection:text-earth-900"><header class="fixed top-0 inset-x-0 z-50 bg-earth-50/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(28,20,8,0.04)]"><div class="h-14 px-3 flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+};</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style></head><body class="bg-earth-50 text-earth-900 font-body min-h-full flex flex-col antialiased selection:bg-gold-100 selection:text-earth-900"><header class="fixed top-0 inset-x-0 z-50 bg-earth-50 pt-safe shadow-[0_1px_8px_rgba(28,20,8,0.04)]"><div class="h-14 px-3 flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
 - Font: playfairDisplay
 - Mode: light
 - Roundness: rounded-md
@@ -47,7 +47,7 @@
         BIR v4.2 Escrow
       </span>
 </div>
-<h1 class="font-display text-2xl font-semibold text-earth-900 tracking-tight mt-1">
+<h1 class="font-display text-2xl font-extrabold text-earth-900 tracking-tight mt-1">
       Log Reefer Temperature
     </h1>
 <p class="font-body text-xs font-normal text-earth-700 leading-snug">
@@ -91,8 +91,6 @@
 </div>
 <!-- Temperature Gauge & BLE Sync Card -->
 <div class="bg-white rounded-xl p-5 shadow-md flex flex-col items-center relative overflow-hidden">
-<!-- Subtle radial glow background -->
-<div class="absolute -top-16 -right-16 w-36 h-36 bg-primary-100/40 rounded-full blur-2xl pointer-events-none"></div>
 <div class="w-full flex items-center justify-between mb-2">
 <div class="flex items-center gap-1.5">
 <span class="material-symbols-outlined text-[18px] text-primary-700">device_thermostat</span>
@@ -318,4 +316,4 @@
 
     updateDisplay();
   })();
-</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-earth-50/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(28,20,8,0.06)]" data-active-classes="text-primary-800 font-semibold"><div class="h-16 px-2 flex items-center justify-around"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="logistics-dashboard" href="#"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Dashboard</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="routes-telemetry" href="#"><span class="material-symbols-outlined text-[22px]">alt_route</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Routes</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg transition-colors active:scale-95 text-primary-800 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="temperature-monitoring" href="#"><span class="material-symbols-outlined text-[22px]">thermostat</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Temp Log</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="driver-profile" href="#"><span class="material-symbols-outlined text-[22px]">shield_person</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Profile</span></a></div></nav></body></html>
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-earth-50 shadow-[0_-2px_12px_rgba(28,20,8,0.06)]" data-active-classes="text-primary-800 font-semibold"><div class="h-16 px-2 flex items-center justify-around"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="logistics-dashboard" href="#"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Dashboard</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="routes-telemetry" href="#"><span class="material-symbols-outlined text-[22px]">alt_route</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Routes</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg transition-colors active:scale-95 text-primary-800 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="temperature-monitoring" href="#"><span class="material-symbols-outlined text-[22px]">thermostat</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Temp Log</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="driver-profile" href="#"><span class="material-symbols-outlined text-[22px]">shield_person</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Profile</span></a></div></nav></body></html>
