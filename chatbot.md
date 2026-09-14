@@ -135,12 +135,16 @@
 
 ### TASK-009
 - **Title:** Auth routes + middleware (verifyToken, requireRoles)
-- **Status:** QUEUED
-- **Owner:** subagent
+- **Status:** VERIFIED
+- **Owner:** subagent (done directly by supervisor — auth logic, kept in-house)
 - **Scope:** `backend/src/middleware/auth.js`, `backend/src/routes/auth.routes.js`, `backend/src/controllers/auth.controller.js`, `backend/src/app.js`
 - **Spec:** middleware/auth.js: verifyToken (extract Bearer, jwt.verify with JWT_ACCESS_SECRET, attach to req.user, 401 on TokenExpiredError/JsonWebTokenError). requireRoles(...roles) factory. auth.routes.js: all 8 auth routes per BHARATPURE-API.md (register, verify-otp, login, forgot-password, verify-reset-otp, reset-password, refresh, logout). Rate limits: register 3/hr/IP, login 10/15min/IP, forgot-password 3/hr/IP, verify-otp 5/15min/user. All controllers follow template: validate → try/catch → service call → side effects → log → sendSuccess/sendError. Refresh token in HttpOnly cookie (sameSite:'strict', secure: NODE_ENV==='production'). Add all 8 routes to Postman collection with test scripts that set {{farmerToken}}, {{consumerToken}} etc.
 - **Acceptance Check:** `newman run backend/postman/-collection.json -e backend/postman/-environment.json --folder Auth` — all 8 routes pass. GET /api/users/me without token → 401. With FARMER token calling ADMIN route → 403.
-- **Result/Notes:** _(subagent fills)_
+- **Result/Notes:** Done. **Filled a sequencing gap first**: TASK-009 assumes services for all 8 routes already exist, but TASK-007/008 only built register/verifyOtp/login/refresh — forgotPassword/verifyResetOtp/resetPassword/logout weren't written yet. Added them to `auth.service.js` since BHARATPURE-CLAUDE.md's forgot-password flow is already fully specified (not a design gap requiring escalation, unlike the profile-tables issue). `resetPassword` revokes every active refresh token for the user on success (forces re-login everywhere, standard practice a password reset should have). `resetToken` reuses `JWT_ACCESS_SECRET` (no separate reset secret exists in the env spec) but carries a `purpose` claim + 5-min expiry and no `role` claim, so `verifyToken`/`requireRoles` reject it if it's ever passed to a normal protected route.
+
+  **Also added `cookie-parser`** (not in TASK-001's original dependency list) — reading the HttpOnly refresh-token cookie is impossible without it, and the project's own auth spec requires cookie-based refresh tokens. **Added a minimal `GET /api/users/me` stub** (not officially scoped to any task yet) purely because the acceptance check explicitly requires a real protected route to prove `verifyToken` returns 401 without a token — documented in the route file as a deliberate stub, full profile-enriched version belongs to a future Users-domain task.
+
+  Verified live end-to-end, not just read through: manual curl chain (register → verify-otp → protected route with token → refresh via cookie → logout) all correct. `requireRoles` tested directly since no ADMIN-guarded route exists yet to hit over HTTP — FARMER token against an ADMIN-only guard → 403 FORBIDDEN, FARMER against a FARMER-or-ADMIN guard → passes through correctly. **Full newman suite: 9 requests, 20 assertions, 0 failures** (8 Auth routes + the `/api/users/me` 401 smoke test) — logged to `docs/testing/phase-0-newman-2026-09-15.txt`. Order in the collection matters: Reset Password revokes all sessions, so Refresh is tested *before* the forgot-password/reset-password sequence, not after. Committed as `feat: implement auth middleware, routes, controllers, and Postman suite`.
 
 ---
 
