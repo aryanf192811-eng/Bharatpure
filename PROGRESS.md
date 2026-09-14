@@ -163,6 +163,17 @@ Every task so far has had at least one thing that would have been wrong if imple
 
 ---
 
+## 2026-09-15 (cont.) — Session 3 pt 4: Phase 2 complete (Decision Engine Integration)
+
+### Done
+- **TASK-P2-001 (Demand + Price Intelligence)**: AI microservice doesn't exist, so every route was built and tested AI-outage-first. Price recommendation replicates the documented formula locally (quality bands, demand factor, sigmoid buyer-acceptance) since it's simple enough — demand *forecasting* only has cache-or-nothing since it genuinely needs the trained model. Created `mocks/enam-prices.json` (was referenced by env var, never existed). **Real bug caught by testing multi-city specifically, not just single-city**: one city with no cached data was taking down the entire multi-city response with a 503; fixed by isolating each city's lookup. Verified both `stale:false` (genuinely fresh cache) and `stale:true` (manually aged a row past 6h) paths live, never a 500.
+- **TASK-P2-002 (What-if Simulator)**: reuses the demand/price services rather than inventing a separate local model — calls `computeLocalRecommendation` at baseline and spiked demand to derive price impact. Caught and fixed a reference to a function that was never exported, in two call sites (the second one was missed on the first fix — caught by re-grepping, not assuming). Verified live: shortage math exactly matches hand-calculation (320kg), invalid input rejected, ADMIN-only history route correctly role-gated.
+
+### Next (pick up here)
+**Phase 3 — Marketplace + Orders** (TASK-P3-001, TASK-P3-002). TASK-P3-001 (order creation with atomic escrow) is flagged in BHARATPURE-CLAUDE.md itself as "the most critical piece of the entire backend" — re-read the exact atomic transaction pattern in BHARATPURE-DB.md's "KEY SQL PATTERNS" section (already read once this session, patterns captured in this session's context) before writing it: `FOR UPDATE`-equivalent row lock via the conditional `UPDATE ... WHERE remaining_quantity_kg >= $qty` trick, 0-rows-returned → 409 INSUFFICIENT_STOCK, must handle the concurrent-order race explicitly (test with two near-simultaneous requests for the last available quantity). TASK-P3-002 (QR scan/burn, disputes) follows.
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
