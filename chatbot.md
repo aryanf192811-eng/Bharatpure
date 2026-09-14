@@ -80,12 +80,12 @@
 
 ### TASK-004
 - **Title:** Migrations 006–010 (fpo_profiles, cluster_farmers, procurement_contracts, batches, bir_events)
-- **Status:** QUEUED
+- **Status:** VERIFIED
 - **Owner:** supervisor
 - **Scope:** `backend/src/db/migrations/006_*.js` through `010_*.js`
 - **Spec:** Per BHARATPURE-DB.md exactly. Critical: batches must have `CHECK (remaining_quantity_kg >= 0)`. bir_events must have `UNIQUE INDEX idx_bir_qr_burned_unique ON bir_events(batch_id) WHERE event_type = 'QRBurned'`. batches.qr_hash UNIQUE. All event_type CHECK values listed.
 - **Acceptance Check:** `\d batches` shows remaining_quantity_kg CHECK constraint. `\d bir_events` shows the partial unique index.
-- **Result/Notes:** _(supervisor fills)_
+- **Result/Notes:** Done. All 5 migrations run verbatim from the literal SQL in BHARATPURE-DB.md tables 6–10, in FK-dependency order (fpo_profiles → cluster_farmers → procurement_contracts → batches → bir_events, matching the 006–010 sequence). `bir_events` deliberately has no `updated_at`/`deleted_at` columns — append-only by design, not an oversight; added an explicit comment in the migration file warning against ever adding UPDATE/DELETE to this table. Verified both critical constraints directly: `batches_remaining_quantity_kg_check CHECK (remaining_quantity_kg >= 0::numeric)` and `idx_bir_qr_burned_unique UNIQUE, btree (batch_id) WHERE event_type::text = 'QRBurned'::text` both present exactly as specified. `\dt` shows 10 app tables + pgmigrations = 11. Committed as `chore: add migrations 006-010 (fpo_profiles through bir_events)`.
 
 ---
 
