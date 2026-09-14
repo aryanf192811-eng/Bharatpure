@@ -1,0 +1,246 @@
+{
+  "info": {
+    "name": "BharatPure API",
+    "description": "TASK-009: Auth folder covers all 8 auth routes end-to-end. Run against a freshly-migrated dev DB; the pre-request script on 'Register' generates a random 10-digit phone each run so the suite is repeatable without manual cleanup.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "1. Register",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const phone = '9' + Math.floor(100000000 + Math.random() * 899999999);",
+                  "pm.environment.set('testPhone', phone);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 201', () => pm.response.to.have.status(201));",
+                  "const body = pm.response.json();",
+                  "pm.test('success true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('has userId', () => pm.expect(body.data.userId).to.be.a('string'));",
+                  "pm.test('devOtp is 6 digits', () => pm.expect(/^\\d{6}$/.test(body.data.devOtp)).to.be.true);",
+                  "pm.environment.set('devOtp', body.data.devOtp);",
+                  "pm.environment.set('consumerUserId', body.data.userId);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"role\":\"CONSUMER\",\"phone\":\"{{testPhone}}\",\"password\":\"Testpass1\",\"full_name\":\"Newman Test User\",\"delivery_pincode\":\"110001\"}"
+            },
+            "url": "{{baseUrl}}/api/auth/register"
+          }
+        },
+        {
+          "name": "2. Verify OTP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('has accessToken', () => pm.expect(body.data.accessToken).to.be.a('string'));",
+                  "pm.test('user is CONSUMER', () => pm.expect(body.data.user.role).to.eql('CONSUMER'));",
+                  "pm.environment.set('consumerToken', body.data.accessToken);",
+                  "pm.environment.set('authToken', body.data.accessToken);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"phone\":\"{{testPhone}}\",\"otp\":\"{{devOtp}}\",\"purpose\":\"registration\"}"
+            },
+            "url": "{{baseUrl}}/api/auth/verify-otp"
+          }
+        },
+        {
+          "name": "3. Refresh",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('has new accessToken', () => pm.expect(body.data.accessToken).to.be.a('string'));",
+                  "pm.environment.set('consumerToken', body.data.accessToken);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{baseUrl}}/api/auth/refresh"
+          }
+        },
+        {
+          "name": "4. Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('has accessToken', () => pm.expect(body.data.accessToken).to.be.a('string'));",
+                  "pm.environment.set('consumerToken', body.data.accessToken);",
+                  "pm.environment.set('authToken', body.data.accessToken);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"identifier\":\"{{testPhone}}\",\"password\":\"Testpass1\"}"
+            },
+            "url": "{{baseUrl}}/api/auth/login"
+          }
+        },
+        {
+          "name": "5. Forgot Password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('devOtp is 6 digits', () => pm.expect(/^\\d{6}$/.test(body.data.devOtp)).to.be.true);",
+                  "pm.environment.set('devOtp', body.data.devOtp);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"phone\":\"{{testPhone}}\"}" },
+            "url": "{{baseUrl}}/api/auth/forgot-password"
+          }
+        },
+        {
+          "name": "6. Verify Reset OTP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('has resetToken', () => pm.expect(body.data.resetToken).to.be.a('string'));",
+                  "pm.environment.set('resetToken', body.data.resetToken);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"phone\":\"{{testPhone}}\",\"otp\":\"{{devOtp}}\"}"
+            },
+            "url": "{{baseUrl}}/api/auth/verify-reset-otp"
+          }
+        },
+        {
+          "name": "7. Reset Password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test('success message present', () => pm.expect(body.message).to.eql('Password reset successful.'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{resetToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\"newPassword\":\"NewTestpass2\"}" },
+            "url": "{{baseUrl}}/api/auth/reset-password"
+          }
+        },
+        {
+          "name": "8. Logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": ["pm.test('status 204', () => pm.response.to.have.status(204));"]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{baseUrl}}/api/auth/logout"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users (smoke test)",
+      "item": [
+        {
+          "name": "Get Me - No Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status 401', () => pm.response.to.have.status(401));",
+                  "pm.test('error code UNAUTHENTICATED', () => pm.expect(pm.response.json().error.code).to.eql('UNAUTHENTICATED'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/users/me"
+          }
+        }
+      ]
+    }
+  ]
+}

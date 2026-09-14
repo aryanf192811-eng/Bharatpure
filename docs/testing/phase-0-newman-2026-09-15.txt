@@ -1,0 +1,74 @@
+(node:11804) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+BharatPure API
+
+□ Auth
+└ 1. Register
+  POST http://localhost:5000/api/auth/register [201 Created, 1.21kB, 457ms]
+  √  status 201
+  √  success true
+  √  has userId
+  √  devOtp is 6 digits
+
+└ 2. Verify OTP
+  POST http://localhost:5000/api/auth/verify-otp [200 OK, 1.77kB, 211ms]
+  √  status 200
+  √  has accessToken
+  √  user is CONSUMER
+
+└ 3. Refresh
+  POST http://localhost:5000/api/auth/refresh [200 OK, 1.7kB, 10ms]
+  √  status 200
+  √  has new accessToken
+
+└ 4. Login
+  POST http://localhost:5000/api/auth/login [200 OK, 1.77kB, 205ms]
+  √  status 200
+  √  has accessToken
+
+└ 5. Forgot Password
+  POST http://localhost:5000/api/auth/forgot-password [200 OK, 1.15kB, 204ms]
+  √  status 200
+  √  devOtp is 6 digits
+
+└ 6. Verify Reset OTP
+  POST http://localhost:5000/api/auth/verify-reset-otp [200 OK, 1.34kB, 204ms]
+  √  status 200
+  √  has resetToken
+
+└ 7. Reset Password
+  POST http://localhost:5000/api/auth/reset-password [200 OK, 1.14kB, 403ms]
+  √  status 200
+  √  success message present
+
+└ 8. Logout
+  POST http://localhost:5000/api/auth/logout [204 No Content, 1.09kB, 3ms]
+  √  status 204
+
+□ Users (smoke test)
+└ Get Me - No Token
+  GET http://localhost:5000/api/users/me [401 Unauthorized, 1.2kB, 2ms]
+  √  status 401
+  √  error code UNAUTHENTICATED
+
+┌─────────────────────────┬────────────────────┬───────────────────┐
+│                         │           executed │            failed │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              iterations │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│                requests │                  9 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│            test-scripts │                  9 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│      prerequest-scripts │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              assertions │                 20 │                 0 │
+├─────────────────────────┴────────────────────┴───────────────────┤
+│ total run duration: 2.3s                                         │
+├──────────────────────────────────────────────────────────────────┤
+│ total data received: 1.54kB (approx)                             │
+├──────────────────────────────────────────────────────────────────┤
+│ average response time: 188ms [min: 2ms, max: 457ms, s.d.: 156ms] │
+└──────────────────────────────────────────────────────────────────┘

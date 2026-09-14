@@ -1,0 +1,15 @@
+{
+  "id": "bharatpure-dev-env",
+  "name": "BharatPure Dev",
+  "values": [
+    { "key": "baseUrl", "value": "http://localhost:5000", "type": "default", "enabled": true },
+    { "key": "authToken", "value": "", "type": "default", "enabled": true },
+    { "key": "testPhone", "value": "", "type": "default", "enabled": true },
+    { "key": "devOtp", "value": "", "type": "default", "enabled": true },
+    { "key": "resetToken", "value": "", "type": "default", "enabled": true },
+    { "key": "consumerUserId", "value": "", "type": "default", "enabled": true },
+    { "key": "consumerToken", "value": "", "type": "default", "enabled": true },
+    { "key": "farmerToken", "value": "", "type": "default", "enabled": true }
+  ],
+  "_postman_variable_scope": "environment"
+}
