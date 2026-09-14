@@ -323,12 +323,16 @@ _(Tasks after Phase 4 gate)_
 
 ### TASK-P5-001
 - **Title:** Admin routes, IEI computation, escrow management, audit logs
-- **Status:** QUEUED
-- **Owner:** subagent
+- **Status:** VERIFIED
+- **Owner:** subagent (done directly by supervisor)
 - **Scope:** `backend/src/routes/admin.routes.js`, controllers/services
 - **Spec:** All admin routes per BHARATPURE-API.md. IEI dashboard: SQL Pattern 4 from BHARATPURE-DB.md. Admin escrow release: mandatory reason field, writes audit_log, release_triggered_by='MANUAL_ADMIN'. Route optimization: calls AI service /routing/optimize, creates delivery_routes + route_stops records. Admin user status change: writes audit_log mandatory.
 - **Acceptance Check:** GET /api/admin/dashboard returns iei object with all 5 metrics. Admin manual escrow release without reason field → 400. Release with reason → audit_log row created with actor_id.
-- **Result/Notes:** _(subagent fills)_
+- **Result/Notes:** Done. IEI query is BHARATPURE-DB.md's "Pattern 4" copied exactly, read directly from the source file (not from the earlier research digest, which had only paraphrased it) since this is schema-adjacent aggregate SQL. **Documented data-sparsity caveat, not a bug**: `price_intelligence` and completed `delivery_routes` are never populated by anything in this codebase yet — `price.service.js` (Phase 2) computes recommendations on the fly rather than persisting them, and route optimization needs the still-absent AI service — so `avg_distance_saved_km`/`avg_logistics_saving_rupees` read as `null` and `avg_farmer_premium_rupees` is inflated (computed against a `COALESCE(...,0)` commodity baseline) against the current sparse seed data. The query itself is correct and all 5 keys are always present, which is what the dashboard contract actually needs; a future task could retrofit `price.service.js` to persist its computed recommendations into `price_intelligence` for more meaningful numbers, but that's out of this task's scope.
+
+  Route optimization has no local-formula fallback (unlike demand/price) — a real VRP solve genuinely needs OR-Tools, there's no reasonable Node approximation — so on AI-service failure it reports `{optimized: false, reason: "AI routing service unavailable"}` plainly rather than fabricating a fake route or fake savings numbers.
+
+  Verified live: `GET /admin/dashboard` returns an `iei` object with all 5 keys present (`total_orders`, `avg_farmer_premium_rupees`, `avg_distance_saved_km`, `avg_logistics_saving_rupees`, `settled_under_24h`) alongside the rest of the dashboard (FPO/batch/order/escrow/dispute counts, demand alerts). Manual escrow release on a fresh held escrow without `reason` → 400 `VALIDATION_ERROR`; with `reason` → 200, `audit_logs` row confirmed with the correct `action='MANUAL_ESCROW_RELEASE'` and `actor_id`. FARMER attempting any admin route → 403 (the whole router is guarded with `requireRoles('ADMIN')` at the top rather than per-route). Committed as `feat: implement admin routes — IEI dashboard, escrow management, audit logs`.
 
 ---
 
