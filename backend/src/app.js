@@ -40,6 +40,7 @@ app.use('/api/quality', require('./routes/quality.routes'));
 app.use('/api/listings', require('./routes/listing.routes'));
 app.use('/api/demand', require('./routes/demand.routes'));
 app.use('/api/price', require('./routes/price.routes'));
+app.use('/api/simulation', require('./routes/simulation.routes'));
 // Further route mounts land here as each domain is built.
 
 app.use((req, res) => {
