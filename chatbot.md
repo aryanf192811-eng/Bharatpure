@@ -58,12 +58,12 @@
 
 ### TASK-002
 - **Title:** Setup node-pg pool and run migration 001 — users table
-- **Status:** QUEUED
+- **Status:** VERIFIED
 - **Owner:** supervisor
 - **Scope:** `backend/src/db/index.js`, `backend/src/db/migrations/001_create_users.js`
 - **Spec:** Pool in db/index.js from DATABASE_URL env. Export `query(text, params)` with pino logging on every query (info level). Migration 001: users table exactly per BHARATPURE-DB.md — all 12 columns, all constraints, phone UNIQUE, email UNIQUE, role CHECK, status CHECK, otp_purpose CHECK. All three indexes: idx_users_phone, idx_users_email, idx_users_role.
 - **Acceptance Check:** `npx node-pg-migrate up` exits 0. `psql $DATABASE_URL -c "\d users"` shows all 12 columns with correct types and constraints.
-- **Result/Notes:** _(supervisor fills after running migration)_
+- **Result/Notes:** Done. Read the literal `CREATE TABLE users` SQL directly from BHARATPURE-DB.md (not from memory/summary) and used `pgm.sql()` to run it verbatim in the migration, to guarantee byte-exact fidelity on a schema task — no hand-translation to the node-pg-migrate JS builder API that could introduce a subtle type/constraint mismatch. Note: BHARATPURE-DB.md's own table actually has 14 columns (this task's spec text undercounts at "12" — a doc inconsistency, not something I introduced; followed the literal SQL as source of truth). Provisioned `bharatpure_dev` DB + a dedicated least-privilege `bharatpure` role (not the postgres superuser) for the app connection, with user-provided postgres credentials used only for that one-time setup. `psql \d users` confirms all 14 columns with correct types/defaults, all 3 required indexes, all 3 CHECK constraints (role/status/otp_purpose), both UNIQUE constraints (phone/email). Re-ran `migrate:up` a second time to confirm idempotency — correctly reported "No migrations to run!" rather than erroring. Committed as `chore: add 001_create_users migration`.
 
 ---
 
