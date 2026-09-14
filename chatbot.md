@@ -248,12 +248,18 @@ _(Tasks written after Phase 1 gate passes)_
 
 ### TASK-P2-002
 - **Title:** What-if simulator route and simulation history
-- **Status:** QUEUED
-- **Owner:** subagent
+- **Status:** VERIFIED
+- **Owner:** subagent (done directly by supervisor)
 - **Scope:** `backend/src/routes/simulation.routes.js`, `backend/src/controllers/simulation.controller.js`
 - **Spec:** POST /api/simulation/run: validate input, call AI service /simulation/run, store result in simulation_runs table, return to client. GET /api/simulation/history (ADMIN only): paginated list.
 - **Acceptance Check:** POST simulation → simulation_runs table has new row. Call with invalid demand_spike_pct (-5) → 400 VALIDATION_ERROR.
-- **Result/Notes:** _(subagent fills)_
+- **Result/Notes:** Done. Also added `backend/src/services/simulation.service.js` (not listed in this task's scope line, but the controller needs a service layer and every other task in this codebase follows that pattern — a natural, necessary completion, not scope creep). Like TASK-P2-001's price recommendation, the What-If Simulator's formula (BHARATPURE-AI.md Module 4) is fully documented and simple enough to replicate locally: local fallback reuses `demandService.getForecast` for the base demand number and `priceService.computeLocalRecommendation` (exported from price.service.js specifically for this reuse) called twice — once at baseline, once at the spiked demand level — to derive `price_change_pct` from the difference, rather than inventing a separate pricing model for the simulator.
+
+  **Caught a bug immediately after writing it, before ever running the code**: referenced `priceService.computeLocalRecommendationForSimulation`, a function that doesn't exist — `price.service.js` only exports `computeLocalRecommendation` (and hadn't even exported that until this task needed it). Fixed both the missing export and the wrong call site (there were two call sites; an initial pass on the first fixed only that one, the second still had the wrong name — caught by re-grepping for the mistake rather than assuming one fix covered it).
+
+  `recommended_actions` (SOURCE_ALTERNATE_FPO/ADJUST_PRICE_CEILING/REROUTE_VEHICLE) only populate when the simulation actually produces a shortage, matching the documented Python behavior, using the same hardcoded example values from BHARATPURE-AI.md (120km alternate-FPO distance, 1.5% price-ceiling adjustment) rather than inventing different placeholder numbers.
+
+  Verified live: `demand_spike_pct: -5` → 400 `VALIDATION_ERROR` with the Zod `too_small` detail. A valid run (25% demand spike, 15% supply disruption on Delhi turmeric, base demand 800kg from the seeded cache) → `shortage_kg: 320` (800×1.25 − 800×0.85 = 1000 − 680 = 320, correct), all 3 recommended actions present with real computed numbers, row confirmed in `simulation_runs` (count went 0→1). `GET /simulation/history` → 403 for FARMER, 200 with the run visible for ADMIN. Committed as `feat: implement what-if simulator with local fallback formula`.
 
 ---
 
