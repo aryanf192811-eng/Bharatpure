@@ -3,6 +3,41 @@
 
 ---
 
+## 2026-09-14 — Session 2: Design evolution recovery, backend/frontend task boards added
+
+### What happened between sessions
+The 4 background agents from Session 1 all **failed** ~23 min after dispatch — Claude session rate limit hit (reset 1:10pm IST that day, long since passed by the time this session resumed on 2026-09-14). They died mid-work, not mid-plan, so partial output was already on disk.
+
+### Verified state on resume (grep-checked, not just trusting file presence)
+- **Batch A (Landing + Farmer, screens 01, 07–12)** — clean. Zero leftover Material-3 tokens, `focus-visible` present throughout. Confirmed via spot-check on screens 01 and 07.
+- **Batch B (Consumer, screens 19, 20, 21, 22, 24, 25)** — clean. Same spot-check on screens 22 and 25.
+- **Batch C (Bulk Buyer + Logistics, screens 28–37)** — token/typography reconciliation was complete (zero leftover M3 classes) but the agent died **right as it started the UX-upgrade pass** — zero `focus-visible` occurrences found anywhere in this batch. Confirmed via grep across screens 28, 33, 36, 37.
+- **Batch D (Admin/Government, screens 38–46)** — only screen 38 (Admin Dashboard/IEI panel) was finished. Screens 39–46 (8 screens) were never started.
+
+### New context added to the repo (not by this session)
+- `CLAUDE-CODE-BACKEND.md` — a ready-to-paste supervisor-engineer prompt for backend work, referencing `chatbot.md` as the live task board.
+- `CLAUDE-CODE-FRONTEND.md` — same, for frontend work. **Important:** it directs the frontend build to reference `stitch_export/` (the raw Stitch output) + `BHARATPURE-UI.md` tokens directly, not `design/evolved/` — so the design-evolution pass is a design-QA/reference artifact, not a hard blocker for frontend implementation.
+- `chatbot.md` — fully fleshed-out Phase 0–5 backend task board (TASK-001 through TASK-P5-003), each with exact scope/spec/acceptance check, ready to execute.
+
+### Decision this session
+User explicitly requested: **finish the design work first, then start backend + frontend.** I had started checking Node/npm availability to begin `TASK-001` (backend Express skeleton) before this correction landed — no backend files were created, so nothing to undo.
+
+### Done this session
+- Re-verified Batch A/B/C claims via direct grep (didn't just trust the failed agents' last messages) — found the real gap (Batch C's missing UX pass) rather than assuming "files exist = done."
+- Dispatched 2 new background agents to close the remaining gaps:
+  - Finish the UX-upgrade pass on Batch C (screens 28–37) — token work already correct, only needs focus-visible/hover/touch-target/radius/icon/reduced-motion upgrades applied, told explicitly not to redo the token pass.
+  - Complete Batch D's remaining 8 screens (39–46) — screen 38 already done and left untouched.
+- Updated this progress log (this entry).
+
+### Next (pick up here)
+1. Wait for / check the 2 new agents' completion reports.
+2. Once both report back: grep-verify their claims directly (as done above) rather than trusting self-reports — check for `focus-visible` presence and zero leftover M3 tokens across all 32 files.
+3. Assemble all 32 evolved screens into one reviewable gallery (before/after against `stitch_export/*/screen.png`) for visual sign-off. Nothing in `design/evolved/` is committed to git yet — intentional, pending this review.
+4. **After design sign-off** (explicit user gate — do not skip ahead): start backend Phase 0 per `CLAUDE-CODE-BACKEND.md` + `chatbot.md` TASK-001 (Express skeleton: package.json, app.js, server.js, response/logger utils, health route). Node v24.14.0 / npm 11.12.1 confirmed available.
+5. Frontend work (`CLAUDE-CODE-FRONTEND.md`) starts after backend Phase 0 gate passes, per the standing sequencing — confirm with user whether backend and frontend should run as two separate sessions/agents in parallel (the docs are written as if for two separate Claude Code instances) or sequentially in this one.
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
