@@ -185,6 +185,20 @@ Every task so far has had at least one thing that would have been wrong if imple
 
 ---
 
+## 2026-09-15 (cont.) — Session 3 pt 6: Phase 4 complete — only Phase 5 (Admin/DPI/WhatsApp/cron) left
+
+### Done
+- **TASK-P4-001 (Logistics + temp-breach-gated delivery)**: closes the escrow-release guard chain flagged back in Phase 3. `markDelivered()` correctly lives in `order.service.js` (its real URL namespace) rather than under logistics. Also built `PATCH /api/batches/:batchId/temperature-breach-clear` (technically a Phase 5 Admin route) early since this task's own acceptance check needs it — used the exact documented path so Phase 5 won't redo it. Verified the full live chain: breach logged → BIR event + notification → delivery blocked (422) → admin clears → delivery succeeds → escrow released → both `DeliveredToConsumer` and `EscrowReleased` BIR events present.
+
+### Remaining: Phase 5 — Admin + DPI + Polish (final phase)
+- TASK-P5-001: Admin routes, IEI computation (BHARATPURE-DB.md Pattern 4), escrow management, FPO/batch management, audit logs.
+- TASK-P5-002: DPI mock routes (AgriStack/eNAM/ONDC, all labeled sandbox/mock) + WhatsApp webhook (Twilio signature validation, Claude API intent extraction — this needs `ANTHROPIC_API_KEY`, not yet in `.env`, will need to ask the user or use a safe stub/mock if a real key isn't available for testing here).
+- TASK-P5-003: FPO Trust Score + Buyer Reliability Score nightly cron jobs (node-cron), with manual-trigger admin endpoints.
+
+After Phase 5: the full `chatbot.md` Phase 0-5 backend task board is done. Still outstanding beyond that board: the separate FastAPI AI microservice (not in this task board's scope at all — flagged repeatedly throughout, every AI-proxying route already built and tested for the AI-down path), and the consolidated Postman collection pass across every domain (deferred since TASK-P1-001, tracked so it isn't forgotten).
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
