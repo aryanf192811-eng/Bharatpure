@@ -148,6 +148,21 @@ Phase 1 — Farmer Core (chatbot.md TASK-P1-001 through TASK-P1-003): Batch CRUD
 
 ---
 
+## 2026-09-15 (cont.) — Session 3 pt 3: Phase 1 complete (Farmer Core)
+
+### Done
+- **TASK-P1-001 (Batch CRUD)**: role-scoped create/list/get/delete. Verified live: batch_code sequencing continues correctly from seeded data (017, then 018...), qr_hash exactly 64 hex chars, delete guard blocks `listed` (422) but allows `draft` (204), CONSUMER gets 404 (not 403) on a still-`pending_test` batch — deliberately not revealing it exists. Also fixed an incidental `express-rate-limit` v8 IPv6 validation warning in the auth routes' custom rate-limit key.
+- **TASK-P1-002 (Quality tests, certs, B-samples)**: resolved a real self-contradiction in this task's own spec text (said TIER2 FAIL triggers b-samples; the acceptance check and BHARATPURE-DB.md both say TIER1 — went with the two agreeing sources). TIER2 PASS deliberately fires no BIR event at test-submission time since `NABLTestPassed` isn't a valid `event_type` — `NABLCertificateLinked` at cert-upload time is the documented marker. Verified live: TIER1 FAIL auto-creates a b_sample_requests row with a real ~7-day window; non-PDF rejected before touching disk, real PDF produces a correct cert record + BIR event + actual file on disk.
+- **TASK-P1-003 (Listings)**: AI microservice doesn't exist yet (TASK-P2-001 is next) — price recommendation is best-effort/post-commit/3s-timeout, returns null on failure rather than blocking, per the project's own "AI failures never surface as an error" rule. **Caught two real bugs by re-reading before running, not after**: an array-truncation trick that would have silently deleted a query's ownership filter, and a parameter-index mismatch that would have thrown a Postgres bind-count error whenever `city` was omitted from a request. Verified live: wrong-status batch → 422, valid listing fires `BatchListed`, demand-forecast join correctly returns 800kg for Delhi turmeric and `null` for crops without a Delhi-specific forecast.
+
+### Pattern holding up across the whole session
+Every task so far has had at least one thing that would have been wrong if implemented purely from the spec text without cross-checking against the actual schema/other docs, or without live-testing before calling it done. Keep doing both — read the literal source before implementing (not memory/summaries) for schema-adjacent work, and always run the real acceptance check against the live server/DB, never just read code back and assume it's correct.
+
+### Next (pick up here)
+**Phase 2 — Decision Engine Integration** (chatbot.md TASK-P2-001, TASK-P2-002): demand/price intelligence routes (these proxy to the AI FastAPI service, which still doesn't exist — same graceful-degradation pattern as TASK-P1-003 applies, reading from the `demand_forecasts`/`price_intelligence` cache tables), then the what-if simulator route. Neither task requires the AI service to actually exist to be testable — both explicitly need to handle AI-service-down as their primary tested scenario per BHARATPURE-CLAUDE.md.
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
