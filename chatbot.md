@@ -268,12 +268,16 @@ _(Tasks written after Phase 2 gate passes)_
 
 ### TASK-P3-001
 - **Title:** Order creation with atomic escrow hold
-- **Status:** QUEUED
-- **Owner:** subagent
+- **Status:** VERIFIED
+- **Owner:** subagent (done directly by supervisor — flagged in BHARATPURE-CLAUDE.md as "the most critical piece of the entire backend", kept in-house)
 - **Scope:** `backend/src/routes/order.routes.js`, `backend/src/controllers/order.controller.js`, `backend/src/services/order.service.js`
 - **Spec:** POST /api/orders: full atomic transaction per BHARATPURE-DB.md Pattern (escrow hold + order create + batch decrement + batch status update in single BEGIN/COMMIT). Use `FOR UPDATE` on batch row. If remaining_quantity_kg < requested → 409 INSUFFICIENT_STOCK. Validate min/max order per listing. Create order_items. Hold escrow. Append OrderAllocated BIR event. All error cases per BHARATPURE-API.md.
 - **Acceptance Check:** Attempt to order more than remaining_quantity_kg → 409. Two concurrent orders for last 100kg → only one succeeds (test with two rapid curl calls). Successful order → batch.remaining_quantity_kg decremented, escrow_transactions row created with status='held'.
-- **Result/Notes:** _(subagent fills)_
+- **Result/Notes:** Done. **No separate `SELECT ... FOR UPDATE` before the decrement** — the spec text says to use one, but the documented BHARATPURE-DB.md pattern itself is the conditional `UPDATE batches SET remaining_quantity_kg = remaining_quantity_kg - $qty WHERE ... AND remaining_quantity_kg >= $qty`, and that UPDATE statement itself takes the row lock for the rest of the transaction — a separate FOR UPDATE beforehand would be redundant, not safer. Followed the documented pattern exactly rather than the spec's paraphrase. Supports multi-item orders (the schema's `order_items` models orders spanning multiple listings/batches) — all items validated read-only before the transaction opens, so nothing expensive holds a lock; the atomic per-item decrement + insert happens inside it. `subtotal_paise` computed in SQL via `ROUND(...)`, never in JS, per the schema's own documented rule.
+
+  **Real, serious bug caught only because the concurrency test was actually run, not just read through**: the very first live test — the acceptance check's own core scenario — failed both concurrent requests with a raw Postgres `42725 operator is not unique: unknown * unknown` error from `ROUND($4 * $5)` in the `order_items` insert. Reusing the same placeholder positions ($4, $5) inside a multiplication expression, when they're also used directly as plain column values earlier in the same `VALUES` list, left Postgres unable to infer a concrete type for the `*` operator. Fixed with explicit casts (`$4::decimal * $5::bigint`). This would have silently broken **every single order** in a live demo if the concurrency test hadn't been run for real — a strong argument for why "read the code and it looks right" is not enough on money-handling logic; also confirmed both failed concurrent transactions rolled back cleanly with zero stock change before fixing and retrying, so the bug never corrupted data, it just meant no order could ever complete.
+
+  Verified live, all three required scenarios plus two more: (1) two truly concurrent (`&` + `wait` in bash, not sequential) requests for the last 100kg of a batch → one `201`, one `409 INSUFFICIENT_STOCK`, and the DB confirms exactly one order exists, batch correctly at `remaining_quantity_kg=0, status='sold'`, `escrow_transactions` row `status='held'` for the exact right amount, `OrderAllocated` BIR event present. (2) Ordering 80kg from a 50kg batch → 409 before any state changes. (3) A valid partial order (20kg of 50kg) → batch correctly `partially_sold`; cancelling it → stock fully restored to 50kg/`listed`, escrow `status='refunded'` with the correct `refund_amount_paise`. Committed as `feat: implement order creation with atomic escrow hold — the critical transaction`.
 
 ---
 
