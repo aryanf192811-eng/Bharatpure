@@ -213,12 +213,18 @@ _(Tasks written after Phase 0 gate passes)_
 
 ### TASK-P1-003
 - **Title:** Listings — create, browse, update, pause
-- **Status:** QUEUED
-- **Owner:** subagent
+- **Status:** VERIFIED
+- **Owner:** subagent (done directly by supervisor)
 - **Scope:** `backend/src/routes/listing.routes.js`, `backend/src/controllers/listing.controller.js`, `backend/src/services/listing.service.js`
 - **Spec:** POST /api/listings: batch must be test_passed, no existing active listing for batch (409 if exists), set batch status='listed', append BatchListed BIR event, fetch price recommendation from AI service and return alongside created listing. GET /api/listings: role-filtered query per BHARATPURE-API.md, demand forecast joined. GET /api/listings/:id: full detail. PATCH /api/listings/:id: price change blocked if pending orders. PATCH /api/listings/:id/status. GET /api/listings/recommended.
 - **Acceptance Check:** List batch in wrong status → 422. Create valid listing → BatchListed BIR event exists. Fetch /listings/recommended for city=Delhi → returns demand_forecast_kg alongside each listing.
-- **Result/Notes:** _(subagent fills)_
+- **Result/Notes:** Done. **The AI FastAPI microservice doesn't exist yet** (that's TASK-P2-001, still ahead in this task board) — price recommendation is fetched best-effort, post-commit, with a 3s timeout, and returns `null` on any failure rather than blocking or failing listing creation, per BHARATPURE-CLAUDE.md's own rule that AI service failures must never surface as an error to the end user. Added `axios` (not in TASK-001's original dependency list, needed for this and every future AI-service call in Phase 2/5). The demand-forecast join reads the `demand_forecasts` cache table directly rather than calling AI live — that table is documented as a periodically-refreshed cache, not a live-per-request source, so this is the correct read path, not a shortcut.
+
+  **Two real bugs caught and fixed before ever running this** (by re-reading my own draft rather than testing first, since the second one especially would have been an ugly one to debug via trial-and-error): (1) the FARMER-role branch of `listListings` set `conditions.length = 2` intending to "not restrict FARMER to `l.status='active'`", but that array-truncation trick silently deleted the `b.deleted_at` condition AND the `fpo_id` ownership filter I'd just pushed — rewrote as a clean conditional build instead of a push-then-truncate. (2) The `city` parameter in the demand-forecast LATERAL join was only included in `queryParams` when `city` was truthy, but the SQL referenced its index unconditionally — calling the endpoint without a `city` query param would have thrown a Postgres bind-parameter-count error. Fixed by always passing `city ?? null` so the parameter count is constant regardless of whether the caller supplied one.
+
+  **Trust-score weighting is a documented simplification**: "top 5 ranked by demand+trust+quality" per BHARATPURE-API.md, but FPO trust scores aren't computed until TASK-P5-003's nightly cron exists — `getRecommended()` ranks by demand match + quality_score only for now.
+
+  Verified live: creating a listing on a `test_failed` batch → 422 `BATCH_NOT_READY`; on the earlier `test_passed` batch created in TASK-P1-002's testing → 201, `price_recommendation: null` (AI service absent, degraded gracefully as designed), `BatchListed` BIR event confirmed present in the DB. `GET /listings/recommended?city=Delhi` as a CONSUMER correctly returns `demand_forecast_kg: 800` for the two TURMERIC listings (matching the seeded Delhi/turmeric forecast) and `null` for HONEY/MUSTARD listings, which have no Delhi-specific forecast seeded — exactly the expected behavior of a real LEFT JOIN, not a placeholder. Price-change-blocked-by-pending-orders logic is written and queries the real `orders`/`order_items` tables correctly, but can't be fully integration-tested until TASK-P3-001 (order creation) exists — flagged, not silently skipped. Committed as `feat: implement listings with demand-forecast join and graceful AI degradation`.
 
 ---
 
