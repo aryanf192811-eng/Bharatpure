@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};
+</script></head><body class="bg-earth-50 font-body text-earth-900 antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-primary-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-4 flex items-center gap-2 bg-primary-800"><div class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></div><div class="flex flex-col"><span class="font-body text-lg font-semibold text-white font-bold tracking-wide">BharatPure</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase tracking-wider">DPI Mission Core</span></div></div><div class="px-4 pt-4 pb-2"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase tracking-wider opacity-70">Intelligence &amp; Governance</span></div><nav class="flex flex-col px-2 gap-1" data-active-classes="bg-primary-800 text-white font-body"><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="overview-iei" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body text-sm font-normal">Overview &amp; IEI</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="demand-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body text-sm font-normal">Demand Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="price-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">currency_rupee</span><span class="font-body text-sm font-normal">Price Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="route-optimizer" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span class="font-body text-sm font-normal">Route Optimizer</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="what-if-simulator" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body text-sm font-normal">What-if Simulator</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="fpo-batches" href="#"><span class="material-symbols-outlined text-[20px]">agriculture</span><span class="font-body text-sm font-normal">FPO &amp; Batches</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="escrow-settlements" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span class="font-body text-sm font-normal">Escrow &amp; Settlements</span></a><a aria-current="page" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded transition-colors bg-primary-800 text-white font-body" data-path="dpi-integration-status" href="#"><span class="material-symbols-outlined text-[20px]">sensors</span><span class="font-body text-sm font-normal">DPI Status</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="audit-ledger" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body text-sm font-normal">Audit Ledger</span></a></nav></div><div class="p-4 bg-primary-800 flex flex-col gap-2"><div class="flex items-center justify-between"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase">DPI Sovereign Node</span><span class="px-1 py-1 rounded bg-primary-800 text-primary-100 font-mono text-xs font-medium tracking-wider uppercase">v4.2</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary-500">shield</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">AgriStack • eNAM • ONDC</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-earth-50/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-6"><div class="flex items-center gap-4"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332 - Font: playfairDisplay - Mode: light - Roundness: rounded-md . The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-xl font-semibold text-earth-900 leading-tight">Admin &amp; DPI Operations Portal</span><span class="font-body text-xs font-normal text-earth-700">National Farm-to-Market Trust Network</span></div></div><div class="flex items-center gap-4"><div class="hidden xl:flex items-center gap-1 px-3 py-1 rounded bg-primary-50"><div class="w-2 h-2 rounded-full bg-primary-500"></div><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">DPI Node: ONLINE • Sandbox Active</span></div><div class="flex items-center gap-1 px-3 py-1 rounded bg-gold-50"><span class="material-symbols-outlined text-[16px] text-gold-800">cloud_done</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800">PROD-MIRROR</span></div><button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 relative p-1 rounded hover:bg-earth-100 transition-colors" type="button"><span class="material-symbols-outlined text-[20px] text-earth-700">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-warning"></span></button><div class="flex items-center gap-3 pl-2"><div class="flex flex-col text-right"><span class="font-body text-sm font-normal text-earth-900 font-medium">MoA&amp;FW / NITI Aayog</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">officer@agri.gov.in</span></div><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-earth-50"><div class="flex flex-col w-full">
+<div class="px-8 py-8 max-w-7xl mx-auto w-full flex flex-col gap-12">
+<!-- Hero / Gateway Architectural Status Banner -->
+<div class="relative overflow-hidden rounded bg-primary-800 text-white p-8 shadow-md">
+<div class="absolute -right-16 -top-16 w-96 h-96 rounded-full bg-primary-700/20 blur-3xl pointer-events-none"></div>
+<div class="absolute right-1/3 -bottom-20 w-72 h-72 rounded-full bg-gold-400/10 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+<div class="flex flex-col gap-2 max-w-2xl">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-800 text-primary-100 text-xs font-medium tracking-wider uppercase font-mono uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-primary-500 animate-ping"></span>
+              Sovereign Stack Active
+            </span>
+<span class="text-xs font-medium tracking-wider uppercase font-mono text-primary-400">
+              Node ID: <span class="text-white font-semibold">BP-DPI-IND-NORTH-01</span>
+</span>
+<span class="text-primary-400 opacity-40">•</span>
+<span class="text-xs font-medium tracking-wider uppercase font-mono text-primary-400">Zone: Delhi NCR / Pre-Prod Mirror</span>
+</div>
+<h1 class="font-display text-3xl font-semibold text-white tracking-tight">
+            National Digital Public Infrastructure (DPI) Node Integrations
+          </h1>
+<p class="font-body text-sm font-normal text-primary-400">
+            Unified sovereign orchestration bridging AgriStack Registry, eNAM APMC mandis, ONDC Beckn decentralized protocol, and NPCI instant escrow payment clearing rails.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row lg:flex-col gap-3 items-start lg:items-end bg-primary-900/60 p-4 rounded backdrop-blur-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-500 text-[22px]">verified</span>
+<span class="font-mono text-sm font-medium tracking-wide text-white font-medium">4 of 4 Operational</span>
+</div>
+<span class="font-body text-xs font-normal text-primary-400">Sandbox &amp; Pre-Production Mirror Mode</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="inline-block w-2.5 h-2.5 rounded-full bg-gold-100"></span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100">Network Uptime: 99.982%</span>
+</div>
+</div>
+</div>
+<!-- Quick Metrics Ribbon -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-4 bg-primary-900/30 rounded p-3">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase">Active Cadastral Sync</span>
+<span class="font-body text-lg font-semibold text-white font-bold">10.31 Cr</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase">Connected Mandis</span>
+<span class="font-body text-lg font-semibold text-white font-bold">1,361 Hubs</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase">ONDC Active Lots</span>
+<span class="font-body text-lg font-semibold text-white font-bold">1,842 Batches</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase">NPCI Settlement SLA</span>
+<span class="font-body text-lg font-semibold text-gold-100 font-bold">&lt; 3.20s</span>
+</div>
+</div>
+</div>
+<!-- Section Title with Editorial Accent -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-2">
+<div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 uppercase tracking-widest font-semibold">Decentralized Interop Layer</span>
+<h2 class="font-display text-2xl font-semibold text-earth-900">Core Sovereign Connectors</h2>
+</div>
+<div class="flex items-center gap-2 text-earth-700 font-body text-xs font-normal">
+<span class="material-symbols-outlined text-[18px] text-primary-500">tune</span>
+<span>Sub-second diagnostic health polling enabled</span>
+</div>
+</div>
+<!-- 2x2 Connector Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Card 1: AgriStack -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between gap-4 transition-transform duration-200 hover:-translate-y-0.5">
+<div class="flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded bg-gold-50 flex items-center justify-center text-gold-800">
+<span class="material-symbols-outlined text-[28px]">agriculture</span>
+</div>
+<div>
+<h3 class="font-body text-lg font-semibold text-earth-900 font-bold">AgriStack Farmer Registry</h3>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700">Cadastral GIS &amp; Sowing Records API</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-warning-bg text-warning font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-2 h-2 rounded-full bg-warning animate-pulse"></span>
+              Pre-Prod Sandbox
+            </span>
+</div>
+<p class="font-body text-sm font-normal text-earth-700">
+            Integrates government identity anchors (Farmer ID &amp; Aadhaar vault) with polygon-level cadastral maps. BharatPure validates lot harvest origin coordinates down to survey khesra numbers.
+          </p>
+<!-- Metric highlights -->
+<div class="bg-earth-100 rounded p-3 grid grid-cols-2 gap-2">
+<div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">Identity Anchor Scope</span>
+<span class="font-body text-sm font-normal text-earth-900 font-semibold">10.31 Cr Farmer IDs</span>
+</div>
+<div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">Registry Sync Rate</span>
+<span class="font-body text-sm font-normal text-earth-900 font-semibold">99.8% Coordinated</span>
+</div>
+</div>
+<!-- Micro Visual / Cadastral Vector Sparkline -->
+<div class="flex items-center justify-between text-xs font-medium tracking-wider uppercase font-mono text-earth-500 pt-1">
+<span>GIS Boundary Matches: 24,190 ha</span>
+<div class="flex items-center gap-1">
+<svg class="w-20 h-4 text-primary-500" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 20">
+<path d="M0 10 L15 12 L30 6 L45 15 L60 8 L75 14 L90 5 L100 8"></path>
+</svg>
+<span class="text-primary-800 font-semibold">+1.4%</span>
+</div>
+</div>
+</div>
+<div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div class="flex items-center gap-2 text-earth-500 font-mono text-xs font-medium tracking-wider uppercase">
+<span class="material-symbols-outlined text-[16px] text-warning">speed</span>
+<span id="agristack-latency">Latency 184ms</span>
+<span>•</span>
+<span id="agristack-time">Last Ping: 2m ago</span>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-earth-100 hover:bg-earth-200 text-earth-900 font-body text-sm font-normal font-medium transition-colors" id="btn-ping-agristack" type="button">
+<span class="material-symbols-outlined text-[18px]">satellite_alt</span>
+<span>Ping AgriStack Registry</span>
+</button>
+</div>
+</div>
+<!-- Card 2: eNAM APMC Feed -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between gap-4 transition-transform duration-200 hover:-translate-y-0.5">
+<div class="flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded bg-primary-50 flex items-center justify-center text-primary-700">
+<span class="material-symbols-outlined text-[28px]">storefront</span>
+</div>
+<div>
+<h3 class="font-body text-lg font-semibold text-earth-900 font-bold">eNAM APMC Mandi Feed</h3>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700">National Mandi Real-time Price Discovery</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-warning-bg text-warning font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-2 h-2 rounded-full bg-warning animate-pulse"></span>
+              Live WebSocket
+            </span>
+</div>
+<p class="font-body text-sm font-normal text-earth-700">
+            Continuous streaming ingest of model arrival volumes and cleared auction floor prices across physical APMC yards, feeding BharatPure's Fair Value Benchmark index.
+          </p>
+<!-- Metric highlights -->
+<div class="bg-earth-100 rounded p-3 grid grid-cols-2 gap-2">
+<div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">Mandis Streaming</span>
+<span class="font-body text-sm font-normal text-earth-900 font-semibold">1,361 Mandis (23 States)</span>
+</div>
+<div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">Ingestion Frequency</span>
+<span class="font-body text-sm font-normal text-earth-900 font-semibold">840 Updates / Min</span>
+</div>
+</div>
+<!-- Micro Visual / Price trend sparkline -->
+<div class="flex items-center justify-between text-xs font-medium tracking-wider uppercase font-mono text-earth-500 pt-1">
+<span>Turmeric Model Index: ₹6,940/q</span>
+<div class="flex items-center gap-1">
+<svg class="w-20 h-4 text-primary-700" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 20">
+<path d="M0 16 L20 14 L40 10 L60 12 L80 4 L100 2"></path>
+</svg>
+<span class="text-primary-500 font-semibold">Streaming</span>
+</div>
+</div>
+</div>
+<div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div class="flex items-center gap-2 text-earth-500 font-mono text-xs font-medium tracking-wider uppercase">
+<span class="material-symbols-outlined text-[16px] text-primary-500">bolt</span>
+<span id="enam-latency">Latency 42ms</span>
+<span>•</span>
+<span>Channel: wss://feed.enam.gov.in/bp</span>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-earth-100 hover:bg-earth-200 text-earth-900 font-body text-sm font-normal font-medium transition-colors" id="btn-test-enam" type="button">
+<span class="material-symbols-outlined text-[18px]">query_stats</span>
+<span>Test Price Feed Query</span>
+</button>
+</div>
+</div>
+<!-- Card 3: ONDC Adapter -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between gap-4 transition-transform duration-200 hover:-translate-y-0.5">
+<div class="flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded bg-primary-50 flex items-center justify-center text-primary-900">
+<span class="material-symbols-outlined text-[28px]">hub</span>
+</div>
+<div>
+<h3 class="font-body text-lg font-semibold text-earth-900 font-bold">ONDC SNP Adapter</h3>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700">Seller Network Participant (Beckn v1.2)</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-warning-bg text-warning font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-2 h-2 rounded-full bg-warning animate-pulse"></span>
+              Protocol v1.2 Live
+            </span>
+</div>
+<p class="font-body text-sm font-normal text-earth-700">
+            Broadcasting certified organic FPO batches across the Open Network for Digital Commerce. Buyers on B2B apps discover verified curcuma and wheat lots with automated contract execution.
+          </p>
+<!-- Metric highlights -->
+<div class="bg-earth-100 rounded p-3 grid grid-cols-2 gap-2">
+<div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">Catalog Broadcast</span>
+<span class="font-body text-sm font-normal text-earth-900 font-semibold">1,842 Active Batches</span>
+</div>
+<div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">BAP Requisition Match</span>
+<span class="font-body text-sm font-normal text-earth-900 font-semibold">100% Dispatch Rate</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-xs font-medium tracking-wider uppercase font-mono text-earth-500 pt-1">
+<span>Signatures: Ed25519 Cryptographic</span>
+<span class="text-primary-800 font-semibold">BAP-Gateway-04 Verified</span>
+</div>
+</div>
+<div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div class="flex items-center gap-2 text-earth-500 font-mono text-xs font-medium tracking-wider uppercase">
+<span class="material-symbols-outlined text-[16px] text-primary-500">sync_alt</span>
+<span>BAP Endpoints: 12 Active</span>
+<span>•</span>
+<span>Schema: Beckn-Agri-v1.2</span>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-primary-800 text-white hover:bg-primary-700 font-body text-sm font-normal font-medium transition-colors" id="btn-inspect-beckn" type="button">
+<span class="material-symbols-outlined text-[18px]">data_object</span>
+<span>Inspect Beckn Payload</span>
+</button>
+</div>
+</div>
+<!-- Card 4: NPCI Escrow Rail -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between gap-4 transition-transform duration-200 hover:-translate-y-0.5">
+<div class="flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded bg-gold-50 flex items-center justify-center text-gold-800">
+<span class="material-symbols-outlined text-[28px]">account_balance</span>
+</div>
+<div>
+<h3 class="font-body text-lg font-semibold text-earth-900 font-bold">NPCI UPI &amp; AEPS Escrow Rail</h3>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700">Instant Direct Farmer Settlement Engine</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-info-bg text-info font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-2 h-2 rounded-full bg-info"></span>
+              Bank Grade Live
+            </span>
+</div>
+<p class="font-body text-sm font-normal text-earth-700">
+            Tri-partite conditional smart escrow releasing funds upon NABL lab verification and buyer geofence receipt. Zero settlement lag into Kisan Credit Card (KCC) and FPO current accounts.
+          </p>
+<!-- Metric highlights -->
+<div class="bg-earth-100 rounded p-3 grid grid-cols-2 gap-2">
+<div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">Settlement SLA</span>
+<span class="font-body text-sm font-normal text-earth-900 font-semibold">&lt; 3.2s Direct Clearing</span>
+</div>
+<div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">Transaction Success</span>
+<span class="font-body text-sm font-normal text-earth-900 font-semibold">99.94% Core Switch</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-xs font-medium tracking-wider uppercase font-mono text-earth-500 pt-1">
+<span>Aadhaar AEPS Auth: Enabled</span>
+<span class="text-primary-800 font-semibold">CIMS / RBI RTGS Mirror</span>
+</div>
+</div>
+<div class="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div class="flex items-center gap-2 text-earth-500 font-mono text-xs font-medium tracking-wider uppercase">
+<span class="material-symbols-outlined text-[16px] text-primary-500">format_image_left</span>
+<span>NPCI Switch: P2M-Escrow-7</span>
+<span>•</span>
+<span>256-bit HSM</span>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-earth-100 hover:bg-earth-200 text-earth-900 font-body text-sm font-normal font-medium transition-colors" id="btn-verify-escrow" type="button">
+<span class="material-symbols-outlined text-[18px]">rule</span>
+<span>Verify Escrow Webhook</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Visual Storytelling: NABL Lab & Certified Origin Flow -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+<div class="lg:col-span-4 bg-white rounded p-6 shadow-sm flex flex-col justify-between">
+<div class="flex flex-col gap-3">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 uppercase font-semibold">Provenance Standard</span>
+<h3 class="font-display text-xl font-semibold text-earth-900">End-to-End Cryptographic Audit Chain</h3>
+<p class="font-body text-sm font-normal text-earth-700">
+            BharatPure combines physical field telemetry with lab chromatography to produce self-verifying batches ingested directly by government DPI gateways.
+          </p>
+</div>
+<div class="my-4 rounded overflow-hidden relative shadow-sm">
+<img class="w-full h-48 object-cover" data-alt="A macro laboratory inspection scene of organic golden turmeric root testing with modern optical spectrometry and lab glassware in a bright, institutional testing facility with crisp daylight, earthy tones, forest green accents, and golden warm lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM0vAXPZkETR9BmbVvjZJfTPr5gcqvE4pJUtI5_WpBwyH7AVfLEjdnkatI9it2szFHsv9z2JaY6UBS5zrJGBKjyq21MqGvK-friBZ_IOWujuK7G3PGpNmn2qTHK8h0yEjFjzmZNcoIKQb6pZk-50j3izKlMF10pRWWlRxXEzI5dZTex_4eZCJUdIt0uMxD7RjpMs8VBYnrtxiHPiXeb2nJX_3mAy-ThtrYDE9DTc4fpHpp27qqlwlt"/>
+<div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-primary-900/80 text-white font-mono text-xs font-medium tracking-wider uppercase backdrop-blur-md">
+            NABL Lab Reg: TC-84920-IND
+          </div>
+</div>
+<div class="flex flex-col gap-1 text-xs font-normal text-xs font-normal text-earth-700">
+<div class="flex items-center justify-between">
+<span>Curcumin Potency Average</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-semibold">5.24% w/w</span>
+</div>
+<div class="flex items-center justify-between">
+<span>Pesticide Residue Zero-Tolerance</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-semibold">100% Passed</span>
+</div>
+<div class="flex items-center justify-between">
+<span>Aadhaar E-Sign Ledger Hash</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">0x7f..9a2e</span>
+</div>
+</div>
+</div>
+<!-- Protocol Payload Inspector Section -->
+<div class="lg:col-span-8 bg-white rounded p-6 shadow-sm flex flex-col justify-between" id="beckn-inspector">
+<div class="flex flex-col gap-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[22px] text-primary-700">terminal</span>
+<h3 class="font-body text-lg font-semibold text-earth-900 font-bold">ONDC Beckn Protocol Interactive Payload Preview</h3>
+</div>
+<!-- Tab switches -->
+<div class="inline-flex rounded bg-earth-100 p-1 text-xs font-medium tracking-wider uppercase font-mono">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded font-medium bg-white text-earth-900 shadow-sm transition-all" id="tab-btn-json" type="button">
+                JSON Wireframe
+              </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded font-medium text-earth-700 hover:text-earth-900 transition-all" id="tab-btn-tree" type="button">
+                Decoded Schema Tree
+              </button>
+</div>
+</div>
+<p class="font-body text-xs font-normal text-earth-700">
+            Live sample representation of how a certified batch (<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-semibold">LOT-TRM-2024-WB-092</span>) is broadcasted over the Beckn decentralized discovery network to verified buyers.
+          </p>
+<!-- JSON Content Pane -->
+<div class="mt-2 rounded bg-primary-900 p-4 text-white overflow-x-auto max-h-80 select-all" id="pane-json">
+<pre class="font-mono text-xs font-medium tracking-wider uppercase leading-relaxed text-primary-400"><code>{
+  <span class="text-gold-100">"context"</span>: {
+    <span class="text-gold-100">"domain"</span>: <span class="text-primary-500">"nic2004:01111"</span>,
+    <span class="text-gold-100">"action"</span>: <span class="text-primary-500">"on_search"</span>,
+    <span class="text-gold-100">"core_version"</span>: <span class="text-primary-500">"1.2.0"</span>,
+    <span class="text-gold-100">"bap_id"</span>: <span class="text-primary-500">"buyer-app.agri-market.ondc.in"</span>,
+    <span class="text-gold-100">"bpp_id"</span>: <span class="text-primary-500">"adapter.bharatpure.org"</span>,
+    <span class="text-gold-100">"transaction_id"</span>: <span class="text-primary-500">"tx-dpi-ind-98214-77a"</span>
+  },
+  <span class="text-gold-100">"message"</span>: {
+    <span class="text-gold-100">"catalog"</span>: {
+      <span class="text-gold-100">"bpp/fulfillments"</span>: [{
+        <span class="text-gold-100">"id"</span>: <span class="text-primary-500">"F-COLD-01"</span>,
+        <span class="text-gold-100">"type"</span>: <span class="text-primary-500">"Cold-Chain-Refrigerated"</span>,
+        <span class="text-gold-100">"tracking"</span>: <span class="text-gold-100">true</span>
+      }],
+      <span class="text-gold-100">"bpp/providers"</span>: [{
+        <span class="text-gold-100">"id"</span>: <span class="text-primary-500">"FPO-MH-KOLHAPUR-04"</span>,
+        <span class="text-gold-100">"descriptor"</span>: { <span class="text-gold-100">"name"</span>: <span class="text-primary-500">"Sahyadri Kisan Bio Collective"</span> },
+        <span class="text-gold-100">"items"</span>: [{
+          <span class="text-gold-100">"id"</span>: <span class="text-primary-500">"BP-LOT-TRM-092"</span>,
+          <span class="text-gold-100">"descriptor"</span>: { <span class="text-gold-100">"name"</span>: <span class="text-primary-500">"Salem Grade Pure Raw Turmeric"</span> },
+          <span class="text-gold-100">"price"</span>: { <span class="text-gold-100">"currency"</span>: <span class="text-primary-500">"INR"</span>, <span class="text-gold-100">"value"</span>: <span class="text-primary-500">"7450.00"</span> },
+          <span class="text-gold-100">"tags"</span>: {
+            <span class="text-gold-100">"agristack:farmer_id"</span>: <span class="text-primary-500">"AGRI-IND-882109"</span>,
+            <span class="text-gold-100">"nabl:certificate"</span>: <span class="text-primary-500">"NABL-TC-84920"</span>,
+            <span class="text-gold-100">"curcumin_content"</span>: <span class="text-primary-500">"5.24%"</span>,
+            <span class="text-gold-100">"escrow:clearing_rail"</span>: <span class="text-primary-500">"NPCI_UPI_ESCROW_V2"</span>
+          }
+        }]
+      }]
+    }
+  }
+}</code></pre>
+</div>
+<!-- Tree View Pane (Hidden initially) -->
+<div class="hidden mt-2 rounded bg-earth-100 p-4 max-h-80 overflow-y-auto font-body text-xs font-normal text-earth-900" id="pane-tree">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 p-1 rounded bg-white">
+<span class="material-symbols-outlined text-[16px] text-primary-700">folder_open</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-bold">Context</span>
+<span class="text-earth-500 font-mono text-xs font-medium tracking-wider uppercase">v1.2.0 • Domain: nic2004:01111</span>
+</div>
+<div class="ml-4 pl-2 border-l-2 border-earth-200 flex flex-col gap-1">
+<div class="flex items-center justify-between p-1">
+<span>bpp_id</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-800 font-semibold">adapter.bharatpure.org</span>
+</div>
+<div class="flex items-center justify-between p-1">
+<span>action</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">on_search (Catalog Broadcast)</span>
+</div>
+</div>
+<div class="flex items-center gap-2 p-1 rounded bg-white mt-1">
+<span class="material-symbols-outlined text-[16px] text-gold-800">verified_user</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-bold">Provenance &amp; Quality Tags</span>
+</div>
+<div class="ml-4 pl-2 border-l-2 border-earth-200 flex flex-col gap-1">
+<div class="flex items-center justify-between p-1">
+<span>AgriStack Sovereign ID</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-semibold">AGRI-IND-882109 (Authenticated)</span>
+</div>
+<div class="flex items-center justify-between p-1">
+<span>Lab Chromatography</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-semibold">NABL-TC-84920 (Curcumin 5.24%)</span>
+</div>
+<div class="flex items-center justify-between p-1">
+<span>Settlement Security</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-semibold">NPCI UPI Direct Escrow Locked</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-3 flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Digital Signature: SHA-256 + Ed25519 Verified</span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 inline-flex items-center gap-1 font-mono text-xs font-medium tracking-wider uppercase text-primary-800 hover:text-primary-700 font-semibold" id="btn-copy-payload" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span id="copy-status-text">Copy Full Wireframe</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Diagnostic Realtime Toast Banner (Hidden by default, triggered by buttons) -->
+<div class="hidden fixed bottom-6 right-6 z-50 bg-primary-900 text-white p-4 rounded shadow-xl max-w-md border border-earth-200/30 flex items-start gap-3 transition-all duration-300" id="diagnostic-toast">
+<span class="material-symbols-outlined text-primary-500 text-[24px]">satellite_alt</span>
+<div class="flex flex-col gap-1">
+<span class="font-body text-lg font-semibold font-semibold text-white" id="toast-title">DPI Echo Received</span>
+<span class="font-body text-xs font-normal text-primary-400" id="toast-desc">Endpoint responded with 200 OK across 22 cadastral nodes in 118ms.</span>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 text-primary-400 hover:text-white ml-2" id="toast-close" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Disclaimer & Legal Notice -->
+<div class="rounded bg-earth-100 p-4 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-50 flex items-center justify-center text-primary-700 shrink-0">
+<span class="material-symbols-outlined text-[20px]">policy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body text-lg font-semibold text-earth-900 font-bold">Statutory DPI Network Compliance</span>
+<p class="font-body text-xs font-normal text-earth-700">
+            All sovereign connectors adhere strictly to Ministry of Agriculture &amp; Farmers' Welfare (MoA&amp;FW) data protection guidelines and DPI open network specifications.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0 font-mono text-xs font-medium tracking-wider uppercase text-earth-500">
+<span class="material-symbols-outlined text-[16px] text-primary-500">verified_user</span>
+<span>DPDP Act 2023 Compliant</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    // Tab switching for Beckn Payload viewer
+    const btnJson = document.getElementById('tab-btn-json');
+    const btnTree = document.getElementById('tab-btn-tree');
+    const paneJson = document.getElementById('pane-json');
+    const paneTree = document.getElementById('pane-tree');
+
+    if (btnJson && btnTree && paneJson && paneTree) {
+      btnJson.addEventListener('click', function() {
+        btnJson.classList.add('bg-white', 'text-earth-900', 'shadow-sm');
+        btnJson.classList.remove('text-earth-700');
+        btnTree.classList.remove('bg-white', 'text-earth-900', 'shadow-sm');
+        btnTree.classList.add('text-earth-700');
+        paneJson.classList.remove('hidden');
+        paneTree.classList.add('hidden');
+      });
+
+      btnTree.addEventListener('click', function() {
+        btnTree.classList.add('bg-white', 'text-earth-900', 'shadow-sm');
+        btnTree.classList.remove('text-earth-700');
+        btnJson.classList.remove('bg-white', 'text-earth-900', 'shadow-sm');
+        btnJson.classList.add('text-earth-700');
+        paneTree.classList.remove('hidden');
+        paneJson.classList.add('hidden');
+      });
+    }
+
+    // Diagnostic Toast Trigger
+    const toast = document.getElementById('diagnostic-toast');
+    const toastTitle = document.getElementById('toast-title');
+    const toastDesc = document.getElementById('toast-desc');
+    const toastClose = document.getElementById('toast-close');
+
+    function triggerToast(title, desc) {
+      if (!toast) return;
+      toastTitle.textContent = title;
+      toastDesc.textContent = desc;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+
+    if (toastClose) {
+      toastClose.addEventListener('click', () => toast.classList.add('hidden'));
+    }
+
+    // Ping AgriStack
+    const btnPingAgri = document.getElementById('btn-ping-agristack');
+    if (btnPingAgri) {
+      btnPingAgri.addEventListener('click', function() {
+        btnPingAgri.disabled = true;
+        btnPingAgri.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">autorenew</span><span>Pinging...</span>';
+        setTimeout(() => {
+          btnPingAgri.disabled = false;
+          btnPingAgri.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span><span>Registry Verified</span>';
+          document.getElementById('agristack-latency').textContent = 'Latency 142ms';
+          document.getElementById('agristack-time').textContent = 'Last Ping: Just now';
+          triggerToast('AgriStack GIS Echoed', 'Geo-cadastral node sync confirmed with 10.31 Cr farmer accounts. Latency: 142ms.');
+        }, 900);
+      });
+    }
+
+    // Test eNAM feed
+    const btnTestEnam = document.getElementById('btn-test-enam');
+    if (btnTestEnam) {
+      btnTestEnam.addEventListener('click', function() {
+        btnTestEnam.disabled = true;
+        btnTestEnam.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Querying...</span>';
+        setTimeout(() => {
+          btnTestEnam.disabled = false;
+          btnTestEnam.innerHTML = '<span class="material-symbols-outlined text-[18px]">done_all</span><span>Feed Verified</span>';
+          document.getElementById('enam-latency').textContent = 'Latency 38ms';
+          triggerToast('eNAM Socket Quorum', 'Ingested latest mandi bids across 1,361 APMC centers in 23 states.');
+        }, 800);
+      });
+    }
+
+    // Inspect Beckn Payload Scroll
+    const btnInspectBeckn = document.getElementById('btn-inspect-beckn');
+    if (btnInspectBeckn) {
+      btnInspectBeckn.addEventListener('click', function() {
+        const target = document.getElementById('beckn-inspector');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.classList.add('outline-2', 'outline-primary-800');
+          setTimeout(() => target.classList.remove('outline-2', 'outline-primary-800'), 1500);
+        }
+      });
+    }
+
+    // Verify Escrow Webhook
+    const btnVerifyEscrow = document.getElementById('btn-verify-escrow');
+    if (btnVerifyEscrow) {
+      btnVerifyEscrow.addEventListener('click', function() {
+        btnVerifyEscrow.disabled = true;
+        btnVerifyEscrow.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">hourglass_empty</span><span>Validating...</span>';
+        setTimeout(() => {
+          btnVerifyEscrow.disabled = false;
+          btnVerifyEscrow.innerHTML = '<span class="material-symbols-outlined text-[18px]">verified</span><span>Escrow Active</span>';
+          triggerToast('NPCI UPI Webhook Verified', 'Smart escrow release test signed via HSM key pair. Instant SLA &lt; 2.8s.');
+        }, 1000);
+      });
+    }
+
+    // Copy Payload Button
+    const btnCopy = document.getElementById('btn-copy-payload');
+    const copyText = document.getElementById('copy-status-text');
+    if (btnCopy && copyText) {
+      btnCopy.addEventListener('click', function() {
+        copyText.textContent = 'Copied to Clipboard!';
+        setTimeout(() => {
+          copyText.textContent = 'Copy Full Wireframe';
+        }, 2000);
+      });
+    }
+  })();
+</script></main></div></body></html>

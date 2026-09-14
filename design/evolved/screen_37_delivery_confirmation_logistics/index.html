@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-earth-50" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style></head><body class="bg-earth-50 text-earth-900 font-body min-h-full flex flex-col antialiased selection:bg-gold-100 selection:text-earth-900"><header class="fixed top-0 inset-x-0 z-50 bg-earth-50/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(28,20,8,0.04)]"><div class="h-14 px-3 flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-1.5 leading-none"><span class="font-body text-sm text-primary-800 font-bold tracking-tight truncate">BharatPure</span><span class="font-mono text-xs tracking-wider uppercase font-medium bg-primary-800 text-white px-1.5 py-0.5 rounded">FLEET</span></div><div class="flex items-center gap-1.5 mt-0.5"><span class="relative flex h-2 w-2 flex-shrink-0"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary-700"></span></span><span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700 truncate">GPS SYNC</span></div></div></div><div class="flex items-center gap-2 flex-shrink-0"><div class="hidden xs:flex items-center gap-1 px-2 py-1 rounded bg-gold-50 text-gold-800 font-mono text-xs tracking-wider uppercase font-medium"><span class="material-symbols-outlined text-[14px] text-gold-800">local_shipping</span><span class="font-semibold">LIVE #402</span></div><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded text-earth-700 hover:text-primary-800 active:bg-earth-100 transition-colors relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-gold-800 ring-2 ring-earth-50"></span></button><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-14 pb-20 bg-earth-50 min-h-screen"><div class="flex flex-col w-full px-4 space-y-4 pt-2">
+<!-- Celebration Sparkle Ambient Banner -->
+<div class="relative overflow-hidden rounded-xl bg-primary-800 text-white p-4 shadow-md">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-primary-700/20 pointer-events-none blur-xl"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="space-y-1">
+<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary-100 text-primary-900 font-mono text-xs tracking-wider uppercase font-medium">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span>HANDOFF PROTOCOL SEALED</span>
+</div>
+<h1 class="font-display text-xl font-semibold text-white tracking-tight">Order #ORD-DEL-2026-9941</h1>
+<p class="font-body text-xs font-normal text-primary-400">Proof of Delivery &amp; Multi-Sig Escrow Clearance</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-700/30 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-gold-100 text-[24px]">verified_user</span>
+</div>
+</div>
+<!-- Live Timestamp & Recipient Micro-Bar -->
+<div class="mt-3 pt-3 flex flex-wrap items-center justify-between gap-2 text-primary-100 font-mono text-xs tracking-wider uppercase font-medium bg-primary-800/40 rounded-lg p-2.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-gold-100">schedule</span>
+<span>21 Oct 2026, 10:48 AM IST</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-500">pin_drop</span>
+<span class="truncate max-w-[170px]">Gate 2, Defence Colony C</span>
+</div>
+</div>
+</div>
+<!-- Consignment & Recipient Overview -->
+<div class="rounded-xl bg-white p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-earth-100 flex items-center justify-center text-primary-800">
+<span class="material-symbols-outlined text-[18px]">person_check</span>
+</div>
+<div>
+<h2 class="font-body text-sm text-earth-900 font-semibold">Radhika Sen</h2>
+<p class="font-body text-xs font-normal text-earth-700">Verified Buyer ID • #CUST-4109</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs tracking-wider uppercase font-semibold">
+<span class="material-symbols-outlined text-[14px]">done_all</span> Direct Custody
+      </span>
+</div>
+<!-- Items Delivered List -->
+<div class="rounded-lg bg-earth-100 p-3 space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">DELIVERED LOTS (2 ITEMS)</span>
+<span class="font-mono text-xs tracking-wider uppercase text-gold-800 font-medium">TOTAL 4.5 KG / L</span>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center justify-between text-xs font-body">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gold-800 text-[16px]">eco</span>
+<span class="text-earth-900 font-medium">Salem Golden Turmeric</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700">2.5 kg • Curcumin 5.2%</span>
+</div>
+<div class="flex items-center justify-between text-xs font-body">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-700 text-[16px]">water_drop</span>
+<span class="text-earth-900 font-medium">Cold-Pressed Mustard Oil</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700">2.0 L • Kachi Ghani</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cold-Chain Verification Summary Card (Success Highlight) -->
+<div class="rounded-xl bg-primary-50 p-4 shadow-sm relative overflow-hidden">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">ac_unit</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h3 class="font-body text-sm text-primary-800 font-bold">Cold-Chain Compliant</h3>
+<span class="font-mono text-xs tracking-wider uppercase px-2 py-0.5 rounded bg-gold-100 text-gold-800 font-semibold">
+            #TC-9281-PASS
+          </span>
+</div>
+<p class="font-body text-xs font-normal text-primary-700 mt-0.5">Zero thermal breaches during 4h 18m van transit</p>
+</div>
+</div>
+<!-- Thermal Readings Matrix -->
+<div class="grid grid-cols-3 gap-2 mt-3 pt-3 bg-white/80 rounded-lg p-2.5">
+<div class="text-center">
+<span class="block font-mono text-xs tracking-wider uppercase font-medium text-earth-500">MIN TEMP</span>
+<span class="font-mono text-sm tracking-wide font-bold text-primary-800">5.9°C</span>
+</div>
+<div class="text-center">
+<span class="block font-mono text-xs tracking-wider uppercase font-medium text-earth-500">AVG CHAMBER</span>
+<span class="font-mono text-sm tracking-wide font-bold text-primary-700">6.6°C</span>
+</div>
+<div class="text-center">
+<span class="block font-mono text-xs tracking-wider uppercase font-medium text-earth-500">MAX TEMP</span>
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">7.4°C</span>
+</div>
+</div>
+<!-- Inline Sparkline Curve (Transit Temp Vector) -->
+<div class="mt-3 flex items-center gap-2">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 shrink-0">Chamber Log:</span>
+<div class="flex-1 h-6 flex items-center">
+<svg class="w-full h-5 text-primary-700" fill="none" preserveaspectratio="none" viewbox="0 0 200 30">
+<path d="M0,18 Q30,12 60,16 T120,13 T160,19 T200,14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+<circle cx="200" cy="14" fill="#2D6A4F" r="3"></circle>
+</svg>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase text-primary-700 font-semibold">SAFE RANGE [4-8°C]</span>
+</div>
+</div>
+<!-- Delivery Proof Checklist (Interactive Confirmation State) -->
+<div class="rounded-xl bg-white p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<h3 class="font-body text-sm text-earth-900 font-bold">Mandatory Verification Proof</h3>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-primary-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">lock</span> 3/3 Cleared
+      </span>
+</div>
+<div class="space-y-2.5">
+<!-- Item 1 -->
+<label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-earth-100 cursor-pointer">
+<div class="w-5 h-5 rounded bg-primary-800 flex items-center justify-center flex-shrink-0 mt-0.5 text-white">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="text-left">
+<p class="font-body text-xs text-earth-900 font-medium">All 2 hermetic packages intact</p>
+<p class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Unbroken tamper-proof NFC hologram seals verified</p>
+</div>
+</label>
+<!-- Item 2 -->
+<label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-earth-100 cursor-pointer">
+<div class="w-5 h-5 rounded bg-primary-800 flex items-center justify-center flex-shrink-0 mt-0.5 text-white">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="text-left">
+<p class="font-body text-xs text-earth-900 font-medium">Recipient authenticated via OTP</p>
+<p class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Digital pass handshake: <span class="text-primary-800 font-bold font-mono">#OTP-8419</span> matched</p>
+</div>
+</label>
+<!-- Item 3 -->
+<label class="flex items-start gap-2.5 p-2.5 rounded-lg bg-earth-100 cursor-pointer">
+<div class="w-5 h-5 rounded bg-primary-800 flex items-center justify-center flex-shrink-0 mt-0.5 text-white">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="text-left">
+<p class="font-body text-xs text-earth-900 font-medium">Customer instant assay QR scan</p>
+<p class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Purity certificate &amp; lab chromatography reviewed live</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Digital Signature & Custody Transfer Section -->
+<div class="rounded-xl bg-white p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<h3 class="font-body text-sm text-earth-900 font-bold">Custody Sign-Off &amp; Handoff</h3>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">LEGAL TIMESTAMPED</span>
+</div>
+<!-- Signature Pad Simulation -->
+<div class="rounded-lg bg-white p-3 shadow-inner relative">
+<div class="flex items-center justify-between text-earth-500 mb-1">
+<span class="font-mono text-xs tracking-wider uppercase font-medium">RECIPIENT SIGNATURE</span>
+<span class="material-symbols-outlined text-[16px] text-primary-500">draw</span>
+</div>
+<!-- SVG Realistic Stylized Signature Radhika Sen -->
+<div class="w-full h-16 flex items-center justify-center py-1">
+<svg class="w-48 h-12 text-primary-800" fill="none" viewbox="0 0 240 60">
+<path d="M15,42 C28,15 45,8 55,24 C62,35 68,54 80,32 C92,10 110,48 135,28 C155,12 170,38 190,26 C205,18 220,24 235,18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<path d="M50,45 C80,48 120,44 175,41" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"></path>
+</svg>
+</div>
+<div class="flex justify-between items-center text-earth-700 font-mono text-xs tracking-wider uppercase font-medium pt-1 bg-earth-100/50 px-2 rounded">
+<span>Signer: Radhika Sen</span>
+<span class="text-primary-700 font-semibold">ECDSA Sealed</span>
+</div>
+</div>
+<!-- Driver Information Badge -->
+<div class="rounded-lg bg-earth-100 p-3 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-gold-100 text-gold-800 flex items-center justify-center font-bold text-xs">
+          AV
+        </div>
+<div>
+<p class="font-body text-xs text-earth-900 font-medium">Delivered by Amit Verma</p>
+<p class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700">Fleet ID #BP-DRV-104 • Electric Van 402</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-primary-700">badge</span>
+</div>
+<!-- Notes field -->
+<div class="p-3 rounded-lg bg-earth-100/60 space-y-1">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">DELIVERY OBSERVATION NOTES</span>
+<p class="font-body text-xs font-normal text-earth-700 italic">
+        "Handed directly to resident. Pouch seals inspected and approved at doorstep."
+      </p>
+</div>
+</div>
+<!-- Escrow Release Handshake Status Alert Card -->
+<div class="rounded-xl bg-gold-50 p-4 shadow-sm space-y-2">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-gold-100 text-gold-800 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+</div>
+<div class="space-y-1 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="text-lg leading-none">🎉</span>
+<h4 class="font-body text-sm text-earth-900 font-bold">Escrow Release Triggered!</h4>
+</div>
+<p class="font-body text-xs font-normal text-earth-700 leading-relaxed">
+<strong class="text-earth-900 font-bold">₹866.00</strong> released from buyer escrow custody into <span class="text-primary-700 font-semibold">Sangli Turmeric FPO</span> and <span class="text-primary-700 font-semibold">Alwar Mustard FPO</span> direct settlement accounts.
+        </p>
+</div>
+</div>
+<div class="flex items-center justify-between text-earth-500 font-mono text-xs tracking-wider uppercase font-medium pt-2 bg-white/70 p-2 rounded-lg">
+<span>TX Hash: 0x89e2...b4f1</span>
+<span class="text-gold-800 font-semibold">Auto-Settled • Instant</span>
+</div>
+</div>
+<!-- Primary Handshake Completion Actions -->
+<div class="space-y-3 pt-2 pb-6">
+<!-- Primary 50px Action Button -->
+<button class="w-full h-[50px] rounded-lg bg-primary-800 text-white font-body text-sm font-semibold shadow-md flex items-center justify-center gap-2 active:scale-[0.98] transition-all hover:bg-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="resumeRouteBtn" type="button">
+<span>Complete Stop &amp; Resume Route</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<!-- Secondary Receipt Delivery Link -->
+<button class="w-full py-2.5 rounded-lg bg-white text-earth-900 font-body text-xs font-medium shadow-sm flex items-center justify-center gap-2 active:bg-earth-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="receiptModalTrigger" type="button">
+<span class="material-symbols-outlined text-[18px] text-gold-800">receipt_long</span>
+<span>Print / SMS Cryptographic Delivery Receipt</span>
+</button>
+</div>
+<!-- Toast Notification Feedback Component -->
+<div class="fixed bottom-20 left-4 right-4 z-40 transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none" id="toastSuccess">
+<div class="bg-primary-800 text-white rounded-xl p-3.5 shadow-xl flex items-center justify-between gap-3">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-500 text-[22px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<p class="font-body text-xs font-semibold text-white">Route Resumed</p>
+<p class="font-mono text-xs tracking-wider uppercase font-medium text-primary-400">Next stop: Hauz Khas Enclave (3.2 km)</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-primary-400">navigation</span>
+</div>
+</div>
+<!-- Interactive Receipt Modal (Initially Hidden) -->
+<div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-4" id="receiptModal">
+<div class="w-full max-w-md bg-white rounded-md p-5 shadow-2xl space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-700 text-[24px]">verified</span>
+<h3 class="font-display text-xl font-semibold text-earth-900">NABL Audit Slip</h3>
+</div>
+<button class="w-11 h-11 rounded-full bg-earth-100 flex items-center justify-center text-earth-700 active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="closeReceiptBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="rounded-lg bg-earth-100 p-3.5 space-y-2 font-mono text-xs tracking-wider uppercase font-medium text-earth-700">
+<div class="flex justify-between"><span>Batch Passcode:</span><strong class="text-earth-900 font-bold">#BP-LOT-9941-SLM</strong></div>
+<div class="flex justify-between"><span>Recipient OTP:</span><strong class="text-earth-900 font-bold">8419</strong></div>
+<div class="flex justify-between"><span>Cryptographic Sig:</span><span class="truncate max-w-[140px] text-primary-800">0x7c98124b89efc</span></div>
+<div class="flex justify-between"><span>Escrow Payout:</span><strong class="text-gold-800 font-bold">₹866.00 SETTLED</strong></div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2.5 rounded-lg bg-primary-800 text-white font-body text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="smsReceiptBtn" type="button">
+<span class="material-symbols-outlined text-[16px]">sms</span> SMS to Buyer
+        </button>
+<button class="flex-1 py-2.5 rounded-lg bg-earth-100 text-earth-900 font-body text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="printReceiptBtn" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span> Print Thermal
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const resumeBtn = document.getElementById('resumeRouteBtn');
+    const toast = document.getElementById('toastSuccess');
+    const receiptTrigger = document.getElementById('receiptModalTrigger');
+    const receiptModal = document.getElementById('receiptModal');
+    const closeReceipt = document.getElementById('closeReceiptBtn');
+    const smsReceiptBtn = document.getElementById('smsReceiptBtn');
+
+    if (resumeBtn && toast) {
+      resumeBtn.addEventListener('click', () => {
+        resumeBtn.disabled = true;
+        resumeBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">sync</span><span>Syncing Telemetry...</span>';
+        
+        setTimeout(() => {
+          toast.classList.remove('translate-y-32', 'opacity-0');
+          toast.classList.add('translate-y-0', 'opacity-100');
+          resumeBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span><span>Stop Concluded ✓</span>';
+          resumeBtn.classList.remove('bg-primary-800');
+          resumeBtn.classList.add('bg-primary-700');
+
+          setTimeout(() => {
+            toast.classList.add('translate-y-32', 'opacity-0');
+            toast.classList.remove('translate-y-0', 'opacity-100');
+          }, 3500);
+        }, 600);
+      });
+    }
+
+    if (receiptTrigger && receiptModal && closeReceipt) {
+      receiptTrigger.addEventListener('click', () => {
+        receiptModal.classList.remove('hidden');
+      });
+
+      closeReceipt.addEventListener('click', () => {
+        receiptModal.classList.add('hidden');
+      });
+
+      if (smsReceiptBtn) {
+        smsReceiptBtn.addEventListener('click', () => {
+          smsReceiptBtn.textContent = 'SMS Dispatched ✓';
+          setTimeout(() => {
+            receiptModal.classList.add('hidden');
+            smsReceiptBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">sms</span> SMS to Buyer';
+          }, 1000);
+        });
+      }
+    }
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-earth-50/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(28,20,8,0.06)]" data-active-classes="text-primary-800 font-semibold"><div class="h-16 px-2 flex items-center justify-around"><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg transition-colors active:scale-95 text-primary-800 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="logistics-dashboard" href="#"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Dashboard</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="routes-telemetry" href="#"><span class="material-symbols-outlined text-[22px]">alt_route</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Routes</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="temperature-monitoring" href="#"><span class="material-symbols-outlined text-[22px]">thermostat</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Temp Log</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="driver-profile" href="#"><span class="material-symbols-outlined text-[22px]">shield_person</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Profile</span></a></div></nav></body></html>

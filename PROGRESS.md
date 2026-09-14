@@ -36,14 +36,21 @@ Agent reported completion; re-verified directly via grep rather than trusting th
 - `prefers-reduced-motion` guard present in all 10.
 Notable fixes made: 3 controls with no press feedback at all (toast-dismiss on screen_33, stops-accordion on screen_34, modal close on screen_37); 2 sub-44px icon buttons padded up to 44px (toast close, modal close); 2 non-canonical radii fixed (screen_34 bottom sheet, screen_37 modal — both were the generic `rounded-2xl` stack-default mistake the spec explicitly warns against). Deviation: desktop-oriented buttons in screens 28/29/32 intentionally did not get `active:scale` press-shrink, matching the established desktop convention (hover + focus-ring only) already used in screen_38.
 
-**Batches A, B, C now fully verified clean — 30 of 32 screens done.** Only Batch D's remaining 8 screens (39–46) are still in progress (background agent running).
+### Batch D (screens 39–46) — completed and independently verified
+Agent reported completion; re-verified directly via grep: `focus-visible` present all 8 (counts 9–45 per file), zero leftover M3 tokens, zero leftover typography custom keys, `prefers-reduced-motion` guard present all 8. Screen 38 (done in the original Session 1 run) was correctly left untouched.
+
+Three real bugs the agent caught in its own find/replace approach (worth knowing about if this pattern is reused): (1) the canonical config block's own `primary:` key was getting mangled by the same replace rule meant for prose — fixed by protecting the config until last; (2) bare M3 role words (`primary`, `secondary`, `error`, etc.) were colliding with ordinary English prose containing those words — fixed by requiring a utility-prefix glue (`bg-`, `text-`, etc.); (3) the doubled custom keys (`text-text-secondary`) were being mis-matched by the single-prefix rule, dropping the prefix. Also recolored screen 45's three DPI status pills from success-green (read as real production status) to `warning`/`info` per the sandbox/mock requirement — copy untouched, only semantic color changed.
+
+**All 32 of 32 screens now verified clean.** The full design-evolution/reconciliation pass is done.
+
+### Done this session (cont.)
+- Verified Batch D via direct grep (same rigor as A/B/C — not trusting the self-report).
+- Committed the complete `design/evolved/` output (all 32 screens) — see commit list below.
 
 ### Next (pick up here)
-1. Wait for / check the Batch D completion report (screens 39–46 — Demand Intelligence, Price Intelligence, Route Optimization, What-if Simulator, FPO/Batch Management, Escrow Management, DPI Integration Status, Audit Log Viewer).
-2. Once it reports back: grep-verify directly (as done for A/B/C above) — don't trust the self-report alone.
-3. Assemble all 32 evolved screens into one reviewable gallery (before/after against `stitch_export/*/screen.png`) for visual sign-off. Nothing in `design/evolved/` is committed to git yet — intentional, pending this review.
-4. **After design sign-off** (explicit user gate — do not skip ahead): start backend Phase 0 per `CLAUDE-CODE-BACKEND.md` + `chatbot.md` TASK-001 (Express skeleton: package.json, app.js, server.js, response/logger utils, health route). Node v24.14.0 / npm 11.12.1 confirmed available.
-5. Frontend work (`CLAUDE-CODE-FRONTEND.md`) starts after backend Phase 0 gate passes, per the standing sequencing — confirm with user whether backend and frontend should run as two separate sessions/agents in parallel (the docs are written as if for two separate Claude Code instances) or sequentially in this one.
+1. Assemble all 32 evolved screens into one reviewable gallery (before/after against `stitch_export/*/screen.png`) so the user can visually sign off. This is the last step before the design work is actually "done" — the reconciliation being technically clean doesn't mean the user has seen/approved it yet.
+2. **After design sign-off** (explicit user gate — do not skip ahead): start backend Phase 0 per `CLAUDE-CODE-BACKEND.md` + `chatbot.md` TASK-001 (Express skeleton: package.json, app.js, server.js, response/logger utils, health route). Node v24.14.0 / npm 11.12.1 confirmed available.
+3. Frontend work (`CLAUDE-CODE-FRONTEND.md`) starts after backend Phase 0 gate passes, per the standing sequencing — confirm with user whether backend and frontend should run as two separate sessions/agents in parallel (the docs are written as if for two separate Claude Code instances) or sequentially in this one.
 
 ---
 

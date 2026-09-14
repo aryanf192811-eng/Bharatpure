@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-earth-50" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style></head><body class="bg-earth-50 text-earth-900 font-body min-h-full flex flex-col antialiased selection:bg-gold-100 selection:text-earth-900"><header class="fixed top-0 inset-x-0 z-50 bg-earth-50/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(28,20,8,0.04)]"><div class="h-14 px-3 flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-1.5 leading-none"><span class="font-body text-sm text-primary-800 font-bold tracking-tight truncate">BharatPure</span><span class="font-mono text-xs tracking-wider uppercase font-medium bg-primary-800 text-white px-1.5 py-0.5 rounded">FLEET</span></div><div class="flex items-center gap-1.5 mt-0.5"><span class="relative flex h-2 w-2 flex-shrink-0"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-primary-700"></span></span><span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700 truncate">GPS SYNC</span></div></div></div><div class="flex items-center gap-2 flex-shrink-0"><div class="hidden xs:flex items-center gap-1 px-2 py-1 rounded bg-gold-50 text-gold-800 font-mono text-xs tracking-wider uppercase font-medium"><span class="material-symbols-outlined text-[14px] text-gold-800">local_shipping</span><span class="font-semibold">LIVE #402</span></div><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded text-earth-700 hover:text-primary-800 active:bg-earth-100 transition-colors relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-gold-800 ring-2 ring-earth-50"></span></button><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-14 pb-20 bg-earth-50 min-h-screen"><div class="flex flex-col w-full relative">
+<!-- Interactive Map Simulation Canvas -->
+<div class="relative w-full h-[380px] bg-earth-100 overflow-hidden">
+<!-- Map Background / Google Maps static backdrop trigger -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center opacity-85" data-location="Defence Colony, New Delhi, Delhi, India" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAPg8IGaLOh-42gEfHJ3Ap0pUIOL7RLtZ7L2kJbhraPwshDWfPHw8KMymLbTeARhrMh4nu33XBxCjDJg5w4RwgT-CQbaiU_ZDaVATqJi5C1e1HABXmhPE1cwA8FaCoOa0dVejt0ss_BE0TpbL0F7SSpYRTQfNAVzOdstcDGi6hJ07v1mB2yM3tMvQITu3NX9QaVtCmptl37CUNBLE2rGLEAhHfVUMqdhoCCBRb7jqn5VM6OJUYReaGt')"></div>
+<!-- Organic Daylight Map Overlay Tint -->
+<div class="absolute inset-0 bg-gradient-to-b from-primary-900/20 via-transparent to-earth-200/60 pointer-events-none"></div>
+<!-- Vector Polyline & Geographic Grid Overlay -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" fill="none" viewbox="0 0 390 380">
+<!-- Completed Route Section (Muted Forest Green dashed) -->
+<path d="M 45 40 L 95 95 L 155 145" opacity="0.85" stroke="#2D6A4F" stroke-dasharray="4 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
+<!-- Current Active Leg (Vibrant Primary Light with Glow) -->
+<path d="M 155 145 L 200 185 L 225 210" stroke="#52B788" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"></path>
+<!-- Remaining Planned Route (Harvest Gold translucent) -->
+<path d="M 225 210 L 265 245 L 305 285 L 345 340" opacity="0.75" stroke="#E9B949" stroke-dasharray="6 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
+</svg>
+<!-- Waypoint 1: Faridabad Warehouse (Completed) -->
+<div class="absolute top-[28px] left-[33px] flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-primary-700 text-white flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium bg-white text-earth-700 px-1.5 py-0.5 rounded shadow-sm mt-1">1: FBD</span>
+</div>
+<!-- Waypoint 2: Ashram Chowk Transit (Completed) -->
+<div class="absolute top-[82px] left-[83px] flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-primary-700 text-white flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium bg-white text-earth-700 px-1.5 py-0.5 rounded shadow-sm mt-1">2: ASH</span>
+</div>
+<!-- Driver Location (Live EV Reefer on Lala Lajpat Rai Marg) -->
+<div class="absolute top-[165px] left-[180px] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+<div class="relative flex items-center justify-center">
+<span class="animate-ping absolute inline-flex h-11 w-11 rounded-full bg-primary-500 opacity-60"></span>
+<div class="w-9 h-9 rounded-full bg-primary-800 flex items-center justify-center shadow-xl ring-2 ring-gold-400 text-white">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">electric_bolt</span>
+</div>
+</div>
+<!-- Driver Telemetry Tooltip -->
+<div class="mt-1.5 bg-primary-900/95 text-white px-2 py-1 rounded-md shadow-lg backdrop-blur-md flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">Lajpat Rai Marg • 34 km/h</span>
+</div>
+</div>
+<!-- Waypoint 3: Active Beacon (Defence Colony Hub) -->
+<div class="absolute top-[195px] left-[215px] z-10 flex flex-col items-center">
+<div class="relative flex items-center justify-center">
+<span class="animate-ping absolute inline-flex h-9 w-9 rounded-full bg-gold-400 opacity-70"></span>
+<div class="w-7 h-7 rounded-full bg-gold-800 text-white flex items-center justify-center shadow-lg ring-2 ring-earth-50">
+<span class="font-mono text-xs tracking-wider uppercase font-bold">3</span>
+</div>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase bg-gold-50 text-gold-800 px-1.5 py-0.5 rounded shadow-sm mt-1 font-semibold">Hub Active</span>
+</div>
+<!-- Waypoint 4: Okhla Institutional (Upcoming) -->
+<div class="absolute top-[250px] left-[275px] flex flex-col items-center opacity-85">
+<div class="w-5 h-5 rounded-full bg-white text-earth-500 flex items-center justify-center shadow-sm">
+<span class="font-mono text-xs tracking-wider uppercase font-medium">4</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 mt-0.5">Okhla</span>
+</div>
+<!-- Waypoint 5: Palam Terminal (Upcoming) -->
+<div class="absolute top-[315px] left-[325px] flex flex-col items-center opacity-75">
+<div class="w-5 h-5 rounded-full bg-white text-earth-500 flex items-center justify-center shadow-sm">
+<span class="font-mono text-xs tracking-wider uppercase font-medium">5</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 mt-0.5">Palam</span>
+</div>
+<!-- Floating Top Overlay Telemetry Badges -->
+<div class="absolute top-2 inset-x-2 z-30 flex flex-col gap-1.5 pointer-events-none">
+<!-- Route Identity & Live Cold-Chain Sensors -->
+<div class="flex items-center justify-between gap-1 pointer-events-auto">
+<div class="flex items-center gap-1.5 bg-white/95 text-earth-900 px-2.5 py-1.5 rounded-lg shadow-sm backdrop-blur-md">
+<span class="material-symbols-outlined text-[16px] text-primary-700">local_shipping</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">#DEL-RT-408</span>
+<span class="bg-gold-100 text-gold-800 px-1.5 py-0.2 rounded font-mono text-xs tracking-wider uppercase font-medium">Cold Express</span>
+</div>
+<div class="flex items-center gap-1.5 bg-primary-50/95 text-primary-700 px-2.5 py-1.5 rounded-lg shadow-sm backdrop-blur-md">
+<span class="material-symbols-outlined text-[16px] text-primary-700 animate-pulse">ac_unit</span>
+<span class="font-mono text-xs tracking-wider uppercase font-bold">6.6°C</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700 hidden xs:inline">(4°–10°C)</span>
+</div>
+</div>
+<!-- Turn-by-Turn Navigation Bubble -->
+<div class="flex items-center gap-2 bg-primary-900/95 text-white px-3 py-2 rounded-lg shadow-md backdrop-blur-md pointer-events-auto">
+<div class="w-7 h-7 rounded-md bg-primary-700 text-white flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">turn_right</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-mono text-xs tracking-wider uppercase text-primary-500 font-semibold">Next Turn In 400m</span>
+<span class="font-body text-xs text-white font-medium truncate">Right onto Mahatma Gandhi Marg / Ring Road</span>
+</div>
+</div>
+</div>
+<!-- Map Floating Control Actions -->
+<div class="absolute bottom-3 right-3 z-30 flex flex-col gap-2">
+<button aria-label="Re-center GPS" class="w-10 h-10 rounded-lg bg-white text-earth-900 flex items-center justify-center shadow-md active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px] text-primary-800">my_location</span>
+</button>
+<button aria-label="Traffic Layer" class="w-10 h-10 rounded-lg bg-white text-earth-900 flex items-center justify-center shadow-md active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px] text-gold-800">traffic</span>
+</button>
+</div>
+</div>
+<!-- Draggable Bottom Sheet Interface -->
+<section class="w-full bg-earth-100 rounded-t-lg shadow-xl flex flex-col -mt-4 relative z-30 pt-2 pb-6 px-3">
+<!-- Drag Handle & Visual Cue -->
+<div class="w-12 h-1 bg-earth-200/60 rounded-full mx-auto my-1.5 cursor-grab"></div>
+<!-- Route Summary Metric Rail -->
+<div class="bg-white rounded-xl p-3 shadow-sm mb-3">
+<div class="grid grid-cols-3 gap-2 divide-x-0">
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Remaining</span>
+<span class="font-display text-xl font-semibold text-earth-900 mt-0.5">18.4 <span class="font-body text-xs text-earth-700 font-normal">km</span></span>
+</div>
+<div class="flex flex-col pl-2">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Est. Time</span>
+<span class="font-display text-xl font-semibold text-primary-700 mt-0.5">42 <span class="font-body text-xs text-earth-700 font-normal">mins</span></span>
+</div>
+<div class="flex flex-col pl-2">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Vehicle</span>
+<span class="font-mono text-sm tracking-wide text-earth-900 mt-1 font-semibold truncate">DL01EA4920</span>
+</div>
+</div>
+<!-- Traffic Condition Micro-Banner -->
+<div class="mt-2.5 pt-2 flex items-center gap-1.5 bg-earth-100 px-2 py-1.5 rounded-lg">
+<span class="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0"></span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700">Moderate flow • Green corridor optimal via Ring Rd</span>
+</div>
+</div>
+<!-- Active Stop Detail: Stop #3 -->
+<div class="bg-white rounded-xl p-3.5 shadow-sm mb-3">
+<!-- Stop Status Pill & Sequence Header -->
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="w-6 h-6 rounded-full bg-gold-100 text-gold-800 font-mono text-xs tracking-wider uppercase font-bold flex items-center justify-center">3</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold text-earth-700">STOP 3 OF 5</span>
+</div>
+<div class="flex items-center gap-1 bg-gold-50 px-2 py-0.5 rounded text-gold-800 font-mono text-xs tracking-wider uppercase font-bold">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span>ETA 10:45 AM (8m)</span>
+</div>
+</div>
+<!-- Facility Name & Verified Geo-Tag -->
+<h2 class="font-display text-xl text-earth-900 font-bold leading-tight">
+        Defence Colony Distribution Hub
+      </h2>
+<p class="font-body text-xs font-normal text-earth-700 mt-1 flex items-start gap-1">
+<span class="material-symbols-outlined text-[15px] text-earth-500 flex-shrink-0 mt-0.5">location_on</span>
+<span>A-42, Block C, Gate 2, Defence Colony, New Delhi 110024</span>
+</p>
+<!-- Consignment Cargo Briefing -->
+<div class="bg-earth-100 rounded-lg p-2.5 mt-3">
+<div class="flex items-center justify-between text-earth-500 font-mono text-xs tracking-wider uppercase font-medium mb-1">
+<span class="uppercase">Consignment Manifest</span>
+<span class="text-primary-700 font-semibold font-mono">#ORD-DEL-2026-9941</span>
+</div>
+<div class="flex items-center gap-2">
+<img class="w-12 h-12 rounded object-cover flex-shrink-0 bg-earth-100" data-alt="Close up photograph of sealed organic golden turmeric powder jars and cold-pressed mustard oil bottles secured in insulated eco-friendly shipping crates with tamper-proof laboratory verification seals, warm studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaCKq267aKdvATahvkkNoSRuRQ6pQtIHLdT3bkQjFsMIrKg_vj6HtDi6pW8DJWWZC_pRbgzEXYVdKzdpmSQDh3p8xF9aE_I2he0TjocGbXLVwgbqofoA8ixxV4SaOTd6cdaJc5hnMIToBGl9MZG25h779k-TX4Znh2X_mMwo4ymQvXIMrEeXulvvnES3ohR_4iCHfRPgzOJXMKNd_gmiq9z_-JvwBmUTPpmpFXb95bl2wZRCH-CDdU"/>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm text-earth-900 font-semibold truncate">Salem Turmeric + Kachi Ghani Oil</span>
+<span class="font-body text-xs font-normal text-earth-700">2 Packages (4.50 kg) • Bio-Grade A+</span>
+</div>
+</div>
+</div>
+<!-- Primary Arrival Commitment Action -->
+<div class="mt-4 flex flex-col gap-2">
+<button class="w-full h-12 rounded-lg bg-primary-800 text-white font-body text-lg font-semibold flex items-center justify-center gap-2 shadow-md hover:bg-primary-700 active:scale-[0.99] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+<span>Arrived at Stop &amp; Open Manifest</span>
+</button>
+<!-- Secondary Communication & Navigation Deep Links -->
+<div class="grid grid-cols-2 gap-2 mt-1">
+<a class="h-10 rounded-lg bg-earth-100 text-earth-900 font-body text-xs font-medium flex items-center justify-center gap-1.5 hover:bg-earth-200 active:scale-95 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" href="tel:+919811029384">
+<span class="material-symbols-outlined text-[16px] text-primary-700">call</span>
+<span>Call Receiving</span>
+</a>
+<button class="h-10 rounded-lg bg-earth-100 text-earth-900 font-body text-xs font-medium flex items-center justify-center gap-1.5 hover:bg-earth-200 active:scale-95 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="openExternalNavigation()" type="button">
+<span class="material-symbols-outlined text-[16px] text-gold-800">near_me</span>
+<span>External Maps</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Next Stops Accordion Preview -->
+<div class="bg-white rounded-xl p-3 shadow-sm">
+<button class="w-full flex items-center justify-between text-left active:scale-[0.99] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="stopsToggleBtn" onclick="toggleUpcomingStops()" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-earth-500">alt_route</span>
+<span class="font-body text-sm text-earth-900 font-semibold">Upcoming Stops (2 Remaining)</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-earth-500 transition-transform" id="toggleChevron">expand_more</span>
+</button>
+<div class="mt-3 flex flex-col gap-2.5" id="upcomingStopsList">
+<!-- Stop 4 Item -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-earth-100">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-6 h-6 rounded-full bg-earth-200 text-earth-700 flex items-center justify-center font-mono text-xs tracking-wider uppercase font-bold flex-shrink-0">
+              4
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm text-earth-900 font-medium truncate">Okhla Phase III Hub</span>
+<span class="font-body text-xs font-normal text-earth-500 truncate">3 Crates Raw Honey • Dock 4B</span>
+</div>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase bg-white text-earth-700 px-2 py-1 rounded shadow-sm font-medium">ETA 11:30 AM</span>
+</div>
+<!-- Stop 5 Item -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-earth-100">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-6 h-6 rounded-full bg-earth-200 text-earth-700 flex items-center justify-center font-mono text-xs tracking-wider uppercase font-bold flex-shrink-0">
+              5
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm text-earth-900 font-medium truncate">Palam Cold Hub Terminal</span>
+<span class="font-body text-xs font-normal text-earth-500 truncate">Final Offload • Cluster Verification</span>
+</div>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase bg-white text-earth-700 px-2 py-1 rounded shadow-sm font-medium">ETA 01:15 PM</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Inline Script for Expandable Section and External Map intent -->
+<script>
+    function toggleUpcomingStops() {
+      var list = document.getElementById('upcomingStopsList');
+      var chevron = document.getElementById('toggleChevron');
+      if (list.classList.contains('hidden')) {
+        list.classList.remove('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      } else {
+        list.classList.add('hidden');
+        chevron.style.transform = 'rotate(-90deg)';
+      }
+    }
+
+    function openExternalNavigation() {
+      // In mobile PWA, opens Google Maps native intent for the coordinates of Defence Colony
+      var destination = encodeURIComponent("A-42, Block C, Gate 2, Defence Colony, New Delhi");
+      window.open("https://www.google.com/maps/dir/?api=1&destination=" + destination, "_blank");
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-earth-50/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(28,20,8,0.06)]" data-active-classes="text-primary-800 font-semibold"><div class="h-16 px-2 flex items-center justify-around"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="logistics-dashboard" href="#"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Dashboard</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg transition-colors active:scale-95 text-primary-800 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="routes-telemetry" href="#"><span class="material-symbols-outlined text-[22px]">alt_route</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Routes</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="temperature-monitoring" href="#"><span class="material-symbols-outlined text-[22px]">thermostat</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Temp Log</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[64px] h-11 px-2 rounded-lg text-earth-700 hover:text-primary-800 transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="driver-profile" href="#"><span class="material-symbols-outlined text-[22px]">shield_person</span><span class="font-mono text-xs tracking-wider uppercase font-medium leading-tight">Profile</span></a></div></nav></body></html>

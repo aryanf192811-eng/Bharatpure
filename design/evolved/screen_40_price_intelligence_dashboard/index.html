@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};
+</script></head><body class="bg-earth-50 font-body text-earth-900 antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-primary-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-4 flex items-center gap-2 bg-primary-800"><div class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></div><div class="flex flex-col"><span class="font-body text-lg font-semibold text-white font-bold tracking-wide">BharatPure</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase tracking-wider">DPI Mission Core</span></div></div><div class="px-4 pt-4 pb-2"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase tracking-wider opacity-70">Intelligence &amp; Governance</span></div><nav class="flex flex-col px-2 gap-1" data-active-classes="bg-primary-800 text-white font-body"><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="overview-iei" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body text-sm font-normal">Overview &amp; IEI</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="demand-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body text-sm font-normal">Demand Intel</span></a><a aria-current="page" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded transition-colors bg-primary-800 text-white font-body" data-path="price-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">currency_rupee</span><span class="font-body text-sm font-normal">Price Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="route-optimizer" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span class="font-body text-sm font-normal">Route Optimizer</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="what-if-simulator" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body text-sm font-normal">What-if Simulator</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="fpo-batches" href="#"><span class="material-symbols-outlined text-[20px]">agriculture</span><span class="font-body text-sm font-normal">FPO &amp; Batches</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="escrow-settlements" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span class="font-body text-sm font-normal">Escrow &amp; Settlements</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="dpi-integration-status" href="#"><span class="material-symbols-outlined text-[20px]">sensors</span><span class="font-body text-sm font-normal">DPI Status</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="audit-ledger" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body text-sm font-normal">Audit Ledger</span></a></nav></div><div class="p-4 bg-primary-800 flex flex-col gap-2"><div class="flex items-center justify-between"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase">DPI Sovereign Node</span><span class="px-1 py-1 rounded bg-primary-800 text-primary-100 font-mono text-xs font-medium tracking-wider uppercase">v4.2</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary-500">shield</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">AgriStack • eNAM • ONDC</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-earth-50/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-6"><div class="flex items-center gap-4"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332 - Font: playfairDisplay - Mode: light - Roundness: rounded-md . The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-xl font-semibold text-earth-900 leading-tight">Admin &amp; DPI Operations Portal</span><span class="font-body text-xs font-normal text-earth-700">National Farm-to-Market Trust Network</span></div></div><div class="flex items-center gap-4"><div class="hidden xl:flex items-center gap-1 px-3 py-1 rounded bg-primary-50"><div class="w-2 h-2 rounded-full bg-primary-500"></div><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">DPI Node: ONLINE • Sandbox Active</span></div><div class="flex items-center gap-1 px-3 py-1 rounded bg-gold-50"><span class="material-symbols-outlined text-[16px] text-gold-800">cloud_done</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800">PROD-MIRROR</span></div><button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 relative p-1 rounded hover:bg-earth-100 transition-colors" type="button"><span class="material-symbols-outlined text-[20px] text-earth-700">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-warning"></span></button><div class="flex items-center gap-3 pl-2"><div class="flex flex-col text-right"><span class="font-body text-sm font-normal text-earth-900 font-medium">MoA&amp;FW / NITI Aayog</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">officer@agri.gov.in</span></div><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-earth-50"><div class="flex flex-col w-full">
+<div class="px-6 py-8 max-w-7xl mx-auto w-full flex flex-col gap-12">
+<!-- Section 1: Header & Economic Overview -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-widest text-primary-700">DPI Sovereign Price Oracle</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">MoA&amp;FW AgriStack Protocol 0.82</span>
+</div>
+<h1 class="font-display text-3xl font-semibold text-earth-900 tracking-tight">National Price Discovery &amp; Parity Analytics</h1>
+<p class="font-body text-sm font-normal text-earth-700">Cryptographically anchored farm-gate realization benchmarks contrasting regulated APMC clearing rates against NABL-tested direct fulfillment.</p>
+</div>
+<div class="flex items-center gap-3 self-start md:self-auto bg-earth-200 px-4 py-2 rounded shadow-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-500 animate-pulse"></span>
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-medium">eNAM Real-Time Feed: Connected</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">AgriStack Sovereign Node #901 • Latency: 142ms</span>
+</div>
+<span class="material-symbols-outlined text-primary-700 text-[20px] ml-2">verified_user</span>
+</div>
+</div>
+<!-- Quick Metric Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Metric Card 1 -->
+<div class="bg-white p-6 rounded shadow-sm flex flex-col justify-between gap-4 relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 bg-primary-100/30 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider text-earth-500">Realized Premium</span>
+<span class="px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +38.4%
+            </span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-4xl font-bold text-primary-800 tracking-tight font-bold">+38.4%</span>
+<span class="font-body text-xs font-normal text-earth-500">above APMC modal</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Weighted aggregation across 42 active NABL-certified FPO producer clusters</span>
+</div>
+<div class="w-full bg-earth-100 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-700 h-full rounded-full" style="width: 78.4%"></div>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="bg-white p-6 rounded shadow-sm flex flex-col justify-between gap-4 relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 bg-gold-100/40 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider text-earth-500">Farmer Share of Retail Rupee</span>
+<span class="px-2 py-1 rounded-full bg-gold-50 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-semibold">3.4x Baseline</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-4xl font-bold text-earth-900 tracking-tight font-bold">84.2%</span>
+<span class="font-body text-xs font-normal text-danger font-medium line-through">vs 24.6% APMC</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Direct UPI escrow release triggers on IoT weighbridge proof-of-delivery</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex-1 bg-earth-100 rounded-full h-1.5 overflow-hidden">
+<div class="bg-gold-800 h-full rounded-full" style="width: 84.2%"></div>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">₹0.84/₹1.00</span>
+</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="bg-white p-6 rounded shadow-sm flex flex-col justify-between gap-4 relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 bg-primary-100/20 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider text-earth-500">Arbitrage Recaptured</span>
+<span class="px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">Zero Commission</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-4xl font-bold text-primary-700 tracking-tight font-bold">₹52.00</span>
+<span class="font-body text-xs font-normal text-earth-500">/kg avg savings</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Intermediary broker margins, uncalibrated deductions &amp; transit leakage eradicated</span>
+</div>
+<div class="flex items-center justify-between font-mono text-xs font-medium tracking-wider uppercase text-earth-500">
+<span>Cumulative FPO Yield</span>
+<span class="font-bold text-earth-900">₹3.42 Cr this month</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Market Rate & Premium Gap Visual Chart -->
+<div class="bg-white p-8 rounded shadow-sm flex flex-col gap-6">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 rounded bg-earth-200 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">Lot #SLM-TUR-2024-098</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-semibold">NABL Accredited • Curcumin 5.42%</span>
+</div>
+<h2 class="font-display text-2xl font-semibold text-earth-900">30-Day Rate Trajectory: Salem Turmeric</h2>
+<p class="font-body text-xs font-normal text-earth-700">Comparing Sangli APMC Physical Auction Clearing Prices against BharatPure NABL Tier-1 Direct Listing Contracts.</p>
+</div>
+<!-- Legend and Statistical Params -->
+<div class="flex flex-wrap items-center gap-4 bg-earth-100 px-4 py-3 rounded">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary-800"></div>
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-semibold text-earth-900">BharatPure NABL Tier-1</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">₹188 – ₹195/kg (σ: ±1.8)</span>
+</div>
+</div>
+<div class="w-px h-6 bg-earth-200"></div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-earth-500"></div>
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-semibold text-earth-900">eNAM Sangli APMC Modal</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">₹135 – ₹142/kg (σ: ±5.4)</span>
+</div>
+</div>
+<div class="w-px h-6 bg-earth-200"></div>
+<div class="flex items-center gap-2">
+<div class="w-3.5 h-3.5 rounded bg-primary-100"></div>
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-semibold text-primary-700">+₹52.00/kg Fair Premium</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Brokers Averted: 100%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SVG Chart Canvas Area -->
+<div class="w-full h-80 bg-white relative rounded pt-4 select-none overflow-hidden">
+<!-- SVG Dual Trajectory Plot -->
+<svg class="w-full h-full" fill="none" preserveaspectratio="none" viewbox="0 0 960 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<!-- Gradient for the spread area -->
+<lineargradient id="spreadGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#D8F3DC" stop-opacity="0.85"></stop>
+<stop offset="100%" stop-color="#D8F3DC" stop-opacity="0.15"></stop>
+</lineargradient>
+<!-- Glow effect for primary line -->
+<filter height="120%" id="glow" width="120%" x="-10%" y="-10%">
+<fedropshadow dx="0" dy="2" flood-color="#1b4332" flood-opacity="0.25" stddeviation="3"></fedropshadow>
+</filter>
+</defs>
+<!-- Horizontal Grid Lines & Value Labels -->
+<g class="text-earth-500 font-mono text-xs font-medium tracking-wider uppercase opacity-50">
+<line stroke="#E2D9CC" stroke-dasharray="4 4" stroke-width="1" x1="60" x2="940" y1="30" y2="30"></line>
+<text class="text-xs font-medium tracking-wider uppercase font-mono" fill="#9B8B72" x="15" y="34">₹210</text>
+<line stroke="#E2D9CC" stroke-dasharray="4 4" stroke-width="1" x1="60" x2="940" y1="85" y2="85"></line>
+<text class="text-xs font-medium tracking-wider uppercase font-mono" fill="#9B8B72" x="15" y="89">₹185</text>
+<line stroke="#E2D9CC" stroke-dasharray="4 4" stroke-width="1" x1="60" x2="940" y1="140" y2="140"></line>
+<text class="text-xs font-medium tracking-wider uppercase font-mono" fill="#9B8B72" x="15" y="144">₹160</text>
+<line stroke="#E2D9CC" stroke-dasharray="4 4" stroke-width="1" x1="60" x2="940" y1="195" y2="195"></line>
+<text class="text-xs font-medium tracking-wider uppercase font-mono" fill="#9B8B72" x="15" y="199">₹135</text>
+<line stroke="#E2D9CC" stroke-width="1" x1="60" x2="940" y1="240" y2="240"></line>
+<text class="text-xs font-medium tracking-wider uppercase font-mono" fill="#9B8B72" x="15" y="244">₹110</text>
+</g>
+<!-- Spread Shaded Polygon (Filled between BharatPure line and Mandi line) -->
+<polygon fill="url(#spreadGradient)" points="
+            70,72 140,70 210,74 280,68 350,69 420,65 490,66 560,63 630,64 700,60 770,62 840,58 910,59 930,58
+            930,192 910,188 840,196 770,185 700,198 630,190 560,194 490,188 420,202 350,190 280,194 210,200 140,192 70,198
+          "></polygon>
+<!-- eNAM Baseline Fluctuating Line (Amber/Grey) -->
+<path d="
+            M70,198 Q105,190 140,192 T210,200 T280,194 T350,190 T420,202 T490,188 T560,194 T630,190 T700,198 T770,185 T840,196 T910,188 L930,192
+          " fill="none" stroke="#717973" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<!-- BharatPure Guaranteed Stable Premium Line (Deep Forest Green) -->
+<path d="
+            M70,72 Q105,70 140,70 T210,74 T280,68 T350,69 T420,65 T490,66 T560,63 T630,64 T700,60 T770,62 T840,58 T910,59 L930,58
+          " fill="none" filter="url(#glow)" stroke="#1b4332" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Key Highlighting Nodes for BharatPure Line -->
+<circle cx="280" cy="68" fill="#1b4332" r="4"></circle>
+<circle cx="560" cy="63" fill="#1b4332" r="4"></circle>
+<circle cx="840" cy="58" fill="#52B788" r="5" stroke="#1B4332" stroke-width="2"></circle>
+<!-- Interactive Marker / Inspection Pin at Day 28 (x=840) -->
+<line opacity="0.6" stroke="#1b4332" stroke-dasharray="3 3" stroke-width="1.5" x1="840" x2="840" y1="30" y2="240"></line>
+<circle cx="840" cy="196" fill="#717973" r="4"></circle>
+<!-- SVG Embedded Callout Card near x=840 -->
+<g transform="translate(680, 85)">
+<rect fill="#0D2818" height="74" opacity="0.95" rx="8" width="180"></rect>
+<text class="font-mono text-xs font-medium tracking-wider uppercase font-semibold" fill="#a5d0b9" x="12" y="22">DAY 28 SPOT PARITY</text>
+<text class="font-body text-lg font-semibold font-bold" fill="#ffffff" x="12" y="42">BP: ₹194 / APMC: ₹138</text>
+<text class="font-mono text-xs font-medium tracking-wider uppercase" fill="#E9B949" x="12" y="60">Net FPO Premium: +₹56.00/kg</text>
+</g>
+<!-- Timeline X-Axis Dates -->
+<g class="text-earth-500 font-mono text-xs font-medium tracking-wider uppercase" fill="#9B8B72">
+<text x="65" y="262">Oct 01</text>
+<text x="200" y="262">Oct 06</text>
+<text x="340" y="262">Oct 12</text>
+<text x="480" y="262">Oct 18</text>
+<text x="620" y="262">Oct 24</text>
+<text x="760" y="262">Oct 30</text>
+<text x="895" y="262">Nov 02 (Today)</text>
+</g>
+</svg>
+<!-- Live Status Pill in Chart overlay -->
+<div class="absolute top-4 right-6 flex items-center gap-2 bg-earth-200/90 backdrop-blur px-3 py-1 rounded text-earth-900">
+<span class="material-symbols-outlined text-primary-700 text-[16px]">lock_clock</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase">Algorithmic Band Guard Active</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between pt-2 text-earth-700 text-xs font-normal font-body gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary-700">info</span>
+<span>eNAM rate derived from 6 APMC mandis in Western Maharashtra; BharatPure index incorporates humidity-adjusted dry weight.</span>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-2 text-primary-700 hover:text-primary-800 font-medium transition-colors" type="button">
+<span class="font-mono text-xs font-medium tracking-wider uppercase">Download Verified CSV Ledger</span>
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+</button>
+</div>
+</div>
+<!-- Section 3: Multi-Crop Price Recommendation Matrix -->
+<div class="flex flex-col gap-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div>
+<h2 class="font-display text-2xl font-semibold text-earth-900">Multi-Crop Price Recommendation Matrix</h2>
+<p class="font-body text-xs font-normal text-earth-700">Machine-recommended fair band boundaries balancing farmer cost of production with bulk buyer acceptance curves.</p>
+</div>
+<div class="flex items-center gap-2 self-start md:self-auto">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Filtering 4 of 4 Verified Commodity Tiers</span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 bg-earth-100 rounded hover:bg-earth-200 transition-colors" type="button">
+<span class="material-symbols-outlined text-earth-700 text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<div class="bg-white rounded shadow-sm overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-earth-100 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">
+<th class="py-4 px-4 font-medium">Crop &amp; Lot Type</th>
+<th class="py-4 px-4 font-medium">Quality Grade Band</th>
+<th class="py-4 px-4 font-medium">Benchmark eNAM Rate</th>
+<th class="py-4 px-4 font-medium">BharatPure Fair Band</th>
+<th class="py-4 px-4 font-medium">Computed Premium</th>
+<th class="py-4 px-4 font-medium">Buyer Acceptance</th>
+<th class="py-4 px-4 font-medium text-right">Strategic Action</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 font-body text-xs font-normal text-earth-900">
+<!-- Row 1: Salem Golden Turmeric -->
+<tr class="hover:bg-white/80 transition-colors">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded overflow-hidden bg-earth-100 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up photograph of organic dry raw turmeric fingers of vivid deep golden orange color harvested from Salem Tamil Nadu, high resolution agricultural product photograph." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_8WhPJcrzAbOiTlGn_kX7nYVbsEl3UIaeqQcinn0vHzcY2vkMxKiGXppEVHegJAS84nls8U_VXTiBiZ4Kl1srioIw8fvpBHZRpQ2FQNFcIbj5p2bFJeouLXJ29VnLwrnyvNA6orFYWwWMlVCvEVuGuGrO28_hLEUE2K56k7-oBxoaBNtnOAPSWjqqJN4RxiZ9Ju90kngN6JsJ5vPXxZo4CFW8LjvA0RKmHpx-iyyH30BVrzHlqn1E"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-lg font-semibold font-semibold text-earth-900 truncate">Salem Golden Turmeric</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Lot: TRM-SLM-9022</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-gold-50 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-medium">
+<span class="material-symbols-outlined text-[14px]">science</span>
+                  NABL Tier-1 (Curcumin &gt; 5%)
+                </div>
+</td>
+<td class="py-4 px-4 font-mono text-sm font-medium tracking-wide text-earth-500">
+                ₹140.00 <span class="text-xs font-normal font-normal">/kg</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-mono text-sm font-medium tracking-wide font-bold text-primary-800">₹182 – ₹197</span> <span class="font-body text-xs font-normal text-earth-700">/kg</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1 text-primary-700 font-semibold font-mono text-xs font-medium tracking-wider uppercase">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+                  +33.5%
+                </div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 bg-earth-100 rounded-full h-2 overflow-hidden">
+<div class="bg-primary-700 h-full rounded-full" style="width: 94%"></div>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-medium text-earth-900">94% (High)</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 text-earth-900 font-body text-xs font-normal font-medium hover:bg-earth-200 transition-colors shadow-sm" type="button">
+                  Maintain Floor
+                </button>
+</td>
+</tr>
+<!-- Row 2: Kachi Ghani Mustard Oil -->
+<tr class="hover:bg-white/80 transition-colors bg-earth-100/40">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded overflow-hidden bg-earth-100 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Traditional Indian wooden cold pressed oil expeller kolhu extracting thick amber mustard oil in an artisanal village mill, authentic warm sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBno7OzT1dn7PFaIYGJoWCNeNaVXclH459UwTjMi-jzDE1GNdtOrKdxzs1_aLjoGnOrV_39LaO6yu9XC54fOHofcesObe2oNqXydztPpJXY5XWu7MMJX_2JC5OEcOGjiXhtI4DIaYtTFb2MoB-NXlDwRZGIog9QOZRV7zmJRsgKSusziV42hPddHful83oeNiXk_CAt8O_kpin6G9tRktAQlIr6dQeOwDBNnaZOoRz3zDDcar1BoeUU"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-lg font-semibold font-semibold text-earth-900 truncate">Kachi Ghani Mustard Oil</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Lot: MST-KCH-1148</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-gold-50 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-medium">
+<span class="material-symbols-outlined text-[14px]">eco</span>
+                  Cold-Pressed Wood Kolhu
+                </div>
+</td>
+<td class="py-4 px-4 font-mono text-sm font-medium tracking-wide text-earth-500">
+                ₹178.00 <span class="text-xs font-normal font-normal">/L</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-mono text-sm font-medium tracking-wide font-bold text-primary-800">₹235 – ₹250</span> <span class="font-body text-xs font-normal text-earth-700">/L</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1 text-primary-700 font-semibold font-mono text-xs font-medium tracking-wider uppercase">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+                  +37.6%
+                </div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 bg-earth-100 rounded-full h-2 overflow-hidden">
+<div class="bg-primary-700 h-full rounded-full" style="width: 91%"></div>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-medium text-earth-900">91% (High)</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-gold-400 text-gold-800 font-body text-xs font-normal font-medium hover:bg-gold-400 transition-colors shadow-sm whitespace-nowrap" type="button">
+                  Supply Tight: +₹5
+                </button>
+</td>
+</tr>
+<!-- Row 3: Bhalia Durum Wheat -->
+<tr class="hover:bg-white/80 transition-colors">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded overflow-hidden bg-earth-100 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Rich golden amber grains of certified Bhalia Durum Wheat poured into a jute bowl, bright daylight highlighting natural sheen and high protein grain purity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMrChj6UUxXDVHHGu4q1DMzF1_Y8aaw079Mup_03-ydaa2QUWuU5JqbnUXSWfnWXgFBR4zC0u9uIaxZVw2hQH-nsQH6-KO_G6-wWoSwETNlgqOOttnah5xAy_4-GGwTM8Ql4fEEi0dQS3HUafamFgGLTKYPDcjZey64gko-5r9SX7gkgTBOcphXcUf_KQJizfflA3PKdNZ7Wjl65PXaSG-1zYVbDBgLrGMNqru9lmVV0xKa3xRzgvT"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-lg font-semibold font-semibold text-earth-900 truncate">Bhalia Durum Wheat</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Lot: WHT-BHL-3041</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-medium">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                  GI-Tagged Rainfed (Protein 14.8%)
+                </div>
+</td>
+<td class="py-4 px-4 font-mono text-sm font-medium tracking-wide text-earth-500">
+                ₹54.00 <span class="text-xs font-normal font-normal">/kg</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-mono text-sm font-medium tracking-wide font-bold text-primary-800">₹70 – ₹76</span> <span class="font-body text-xs font-normal text-earth-700">/kg</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1 text-primary-700 font-semibold font-mono text-xs font-medium tracking-wider uppercase">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+                  +33.3%
+                </div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 bg-earth-100 rounded-full h-2 overflow-hidden">
+<div class="bg-primary-500 h-full rounded-full" style="width: 96%"></div>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-medium text-earth-900">96% (V.High)</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-primary-800 text-white font-body text-xs font-normal font-medium hover:bg-primary-700 transition-colors shadow-sm" type="button">
+                  Authorize Buffer
+                </button>
+</td>
+</tr>
+<!-- Row 4: Malabar Tellicherry Pepper -->
+<tr class="hover:bg-white/80 transition-colors bg-earth-100/40">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded overflow-hidden bg-earth-100 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Premium oversized extra bold black Tellicherry peppercorns TGSEB grade piled high in an earthenware dish on a rustic dark wooden farm table." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApoBqhWV7tcmtmm8WwdfpxYoqTnTCv3S2uI1XFWe-LF_1nAoH1W8h7QqZJLnTzYY6gMCB_2n9nTCXDxm2U4wubobv4sPeCxWHg-GR_2319XwHylUzJZTbLsnVenQnBxZxnxV_w-HNRNXls5Tq8KHvML-Z8LSVQYabCX-AbOjjB5MSvmbIpJF3ktk7TrIcaYwMu-dXEIYf1OZj84asIA5T4h4MIS5bhKUlpcva-x9UKsH9sXrn19H3g"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-lg font-semibold font-semibold text-earth-900 truncate">Malabar Tellicherry Pepper</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Lot: PEP-MLB-5582</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-gold-50 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-medium">
+<span class="material-symbols-outlined text-[14px]">award_star</span>
+                  Grade TGSEB (Piperine &gt; 6%)
+                </div>
+</td>
+<td class="py-4 px-4 font-mono text-sm font-medium tracking-wide text-earth-500">
+                ₹620.00 <span class="text-xs font-normal font-normal">/kg</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-mono text-sm font-medium tracking-wide font-bold text-primary-800">₹810 – ₹850</span> <span class="font-body text-xs font-normal text-earth-700">/kg</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1 text-primary-700 font-semibold font-mono text-xs font-medium tracking-wider uppercase">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+                  +33.0%
+                </div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 bg-earth-100 rounded-full h-2 overflow-hidden">
+<div class="bg-gold-800 h-full rounded-full" style="width: 89%"></div>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-medium text-earth-900">89% (Mod)</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 text-earth-900 font-body text-xs font-normal font-medium hover:bg-earth-200 transition-colors shadow-sm whitespace-nowrap" type="button">
+                  Promote Inst.
+                </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Section 4: Interactive Premium Calculator Sandbox -->
+<div class="bg-white p-8 rounded shadow-sm flex flex-col gap-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gold-800 text-[20px]">tune</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider text-earth-500">Autonomous Pricing Simulator</span>
+</div>
+<h2 class="font-display text-2xl font-semibold text-earth-900">Interactive Fair-Value Sandbox</h2>
+<p class="font-body text-xs font-normal text-earth-700">Adjust batch parameters to calculate instant net escrow realization for FPOs and comparative supermarket savings.</p>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-1 text-earth-700 hover:text-earth-900 font-mono text-xs font-medium tracking-wider uppercase" id="resetSandboxBtn" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span> Reset to Baseline
+        </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Input Controls Area (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Crop Selector -->
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase font-medium text-earth-700 uppercase">Commodity / Crop</label>
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 bg-earth-100 px-4 py-3 rounded text-sm font-normal font-body text-earth-900 focus:outline-none focus:ring-2 focus:ring-primary-800" id="calcCrop">
+<option data-mandi="140" data-mult="1.38" value="turmeric">Salem Golden Turmeric (Curcumin 5%+)</option>
+<option data-mandi="178" data-mult="1.37" value="oil">Kachi Ghani Mustard Oil (Wood Kolhu)</option>
+<option data-mandi="54" data-mult="1.33" value="wheat">Bhalia Durum Wheat (GI tagged)</option>
+<option data-mandi="620" data-mult="1.32" value="pepper">Malabar Tellicherry Black Pepper</option>
+</select>
+</div>
+<!-- Destination Corridor -->
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase font-medium text-earth-700 uppercase">Delivery Destination Node</label>
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 bg-earth-100 px-4 py-3 rounded text-sm font-normal font-body text-earth-900 focus:outline-none focus:ring-2 focus:ring-primary-800" id="calcDest">
+<option value="delhi">NCR Fulfillment Hub (Kundli)</option>
+<option selected="" value="mumbai">Mumbai Western Gateway (Bhiwandi)</option>
+<option value="bengaluru">Bengaluru ONDC Node (Hosur)</option>
+<option value="hyderabad">Hyderabad Agri-Logistics Park</option>
+</select>
+</div>
+</div>
+<!-- Lab Assay Slider -->
+<div class="flex flex-col gap-2 bg-earth-100 p-4 rounded">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-700 text-[18px]">verified</span>
+<span class="font-body text-sm font-normal font-medium text-earth-900">NABL Lab Assay Quality Score</span>
+</div>
+<span class="font-mono text-sm font-medium tracking-wide font-bold text-primary-800" id="assayScoreVal">92 / 100</span>
+</div>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full accent-primary-800 cursor-pointer h-2 bg-earth-100 rounded" id="calcAssay" max="100" min="70" type="range" value="92"/>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase text-earth-500">
+<span>70 (Standard Fair Average)</span>
+<span>85 (Grade A+)</span>
+<span>100 (Exceptional Sovereign Lot)</span>
+</div>
+</div>
+<!-- Consignment Weight Slider -->
+<div class="flex flex-col gap-2 bg-earth-100 p-4 rounded">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gold-800 text-[18px]">weight</span>
+<span class="font-body text-sm font-normal font-medium text-earth-900">Consignment Lot Weight</span>
+</div>
+<span class="font-mono text-sm font-medium tracking-wide font-bold text-earth-900" id="weightVal">2,500 kg</span>
+</div>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full accent-primary-800 cursor-pointer h-2 bg-earth-100 rounded" id="calcWeight" max="10000" min="500" step="250" type="range" value="2500"/>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase text-earth-500">
+<span>500 kg (Micro-batch)</span>
+<span>5,000 kg (Truckload)</span>
+<span>10,000 kg (Multi-Axle)</span>
+</div>
+</div>
+</div>
+<!-- Live Output Card (5 Cols) -->
+<div class="lg:col-span-5 bg-primary-900 text-white p-6 rounded shadow-md flex flex-col justify-between gap-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-36 h-36 bg-primary-700/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider text-primary-100">Calculated Net Settlement</span>
+<span class="px-2 py-1 rounded bg-primary-800 text-primary-500 font-mono text-xs font-medium tracking-wider uppercase">Escrow Locked</span>
+</div>
+<div class="flex items-baseline gap-1 pt-2">
+<span class="font-display text-4xl font-bold text-white tracking-tight font-bold" id="outTotalRealization">₹4,75,000</span>
+<span class="font-body text-xs font-normal text-primary-400">gross payable to FPO</span>
+</div>
+<div class="flex items-center gap-2 text-primary-100 font-mono text-xs font-medium tracking-wider uppercase">
+<span class="material-symbols-outlined text-[16px] text-primary-500">verified_user</span>
+<span>Realization Rate: <strong id="outPerKg">₹190.00</strong>/kg</span>
+</div>
+</div>
+<!-- Breakdown Ledger Micro-Card -->
+<div class="bg-primary-800/70 p-4 rounded flex flex-col gap-3 font-body text-xs font-normal">
+<div class="flex items-center justify-between">
+<span class="text-primary-400">Traditional Mandi Value (APMC)</span>
+<span class="text-white font-mono" id="outMandiVal">₹3,50,000</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary-500 font-medium">BharatPure Net Premium Recaptured</span>
+<span class="text-primary-500 font-mono font-bold" id="outPremiumVal">+₹1,25,000</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary-400">Intermediary Broker Savings</span>
+<span class="text-gold-100 font-mono" id="outBrokerSavings">₹31,250</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary-400">Buyer Advantage vs Supermarket MRP</span>
+<span class="text-primary-100 font-mono" id="outBuyerDiscount">-22.4%</span>
+</div>
+<div class="pt-1 flex items-center justify-between text-primary-400 font-mono text-xs font-medium tracking-wider uppercase">
+<span>Sovereign DPI Protocol Fee (0.4%)</span>
+<span id="outDpiFee">₹1,900</span>
+</div>
+</div>
+<!-- CTA / Simulation Lock -->
+<div class="flex flex-col gap-1">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full py-3 px-4 bg-gold-800 text-white font-body text-lg font-semibold rounded hover:bg-gold-800 transition-colors flex items-center justify-center gap-2 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">contract_edit</span>
+<span>Publish Minimum Floor Quote</span>
+</button>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 text-center">Auto-notifies 18 certified bulk buyers across ONDC network</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Sandbox Calculation Logic -->
+<script>
+    (function() {
+      const cropSelect = document.getElementById('calcCrop');
+      const assayInput = document.getElementById('calcAssay');
+      const weightInput = document.getElementById('calcWeight');
+      const assayScoreVal = document.getElementById('assayScoreVal');
+      const weightVal = document.getElementById('weightVal');
+      const resetBtn = document.getElementById('resetSandboxBtn');
+
+      const outTotal = document.getElementById('outTotalRealization');
+      const outPerKg = document.getElementById('outPerKg');
+      const outMandi = document.getElementById('outMandiVal');
+      const outPremium = document.getElementById('outPremiumVal');
+      const outBroker = document.getElementById('outBrokerSavings');
+      const outDpi = document.getElementById('outDpiFee');
+
+      function formatRupees(num) {
+        return '₹' + Math.round(num).toLocaleString('en-IN');
+      }
+
+      function updateCalculation() {
+        const selectedOpt = cropSelect.options[cropSelect.selectedIndex];
+        const baseMandi = parseFloat(selectedOpt.getAttribute('data-mandi'));
+        const multiplier = parseFloat(selectedOpt.getAttribute('data-mult'));
+        const assay = parseInt(assayInput.value, 10);
+        const weight = parseInt(weightInput.value, 10);
+
+        // Quality grade adjustment factor based on assay (85 is neutral)
+        const qualityFactor = 1 + ((assay - 85) * 0.006);
+
+        const ratePerKg = baseMandi * multiplier * qualityFactor;
+        const grossRealization = ratePerKg * weight;
+        const mandiTotal = baseMandi * weight;
+        const premiumRecaptured = grossRealization - mandiTotal;
+        const brokerAverted = mandiTotal * 0.085; // ~8.5% traditional APMC broker & arthiya cuts
+        const dpiFee = grossRealization * 0.004; // 0.4% protocol maintenance fee
+
+        assayScoreVal.textContent = assay + ' / 100';
+        weightVal.textContent = weight.toLocaleString('en-IN') + ' kg';
+
+        outTotal.textContent = formatRupees(grossRealization);
+        outPerKg.textContent = '₹' + ratePerKg.toFixed(2);
+        outMandi.textContent = formatRupees(mandiTotal);
+        outPremium.textContent = '+' + formatRupees(premiumRecaptured);
+        outBroker.textContent = formatRupees(brokerAverted);
+        outDpi.textContent = formatRupees(dpiFee);
+      }
+
+      cropSelect.addEventListener('change', updateCalculation);
+      assayInput.addEventListener('input', updateCalculation);
+      weightInput.addEventListener('input', updateCalculation);
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+          cropSelect.selectedIndex = 0;
+          assayInput.value = 92;
+          weightInput.value = 2500;
+          updateCalculation();
+        });
+      }
+
+      // Initial execution
+      updateCalculation();
+    })();
+  </script>
+</div></main></div></body></html>

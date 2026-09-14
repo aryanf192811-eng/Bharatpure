@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};
+</script></head><body class="bg-earth-50 font-body text-earth-900 antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-primary-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-4 flex items-center gap-2 bg-primary-800"><div class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></div><div class="flex flex-col"><span class="font-body text-lg font-semibold text-white font-bold tracking-wide">BharatPure</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase tracking-wider">DPI Mission Core</span></div></div><div class="px-4 pt-4 pb-2"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase tracking-wider opacity-70">Intelligence &amp; Governance</span></div><nav class="flex flex-col px-2 gap-1" data-active-classes="bg-primary-800 text-white font-body"><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="overview-iei" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body text-sm font-normal">Overview &amp; IEI</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="demand-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body text-sm font-normal">Demand Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="price-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">currency_rupee</span><span class="font-body text-sm font-normal">Price Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="route-optimizer" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span class="font-body text-sm font-normal">Route Optimizer</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="what-if-simulator" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body text-sm font-normal">What-if Simulator</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="fpo-batches" href="#"><span class="material-symbols-outlined text-[20px]">agriculture</span><span class="font-body text-sm font-normal">FPO &amp; Batches</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="escrow-settlements" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span class="font-body text-sm font-normal">Escrow &amp; Settlements</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="dpi-integration-status" href="#"><span class="material-symbols-outlined text-[20px]">sensors</span><span class="font-body text-sm font-normal">DPI Status</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="audit-ledger" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body text-sm font-normal">Audit Ledger</span></a></nav></div><div class="p-4 bg-primary-800 flex flex-col gap-2"><div class="flex items-center justify-between"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase">DPI Sovereign Node</span><span class="px-1 py-1 rounded bg-primary-800 text-primary-100 font-mono text-xs font-medium tracking-wider uppercase">v4.2</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary-500">shield</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">AgriStack • eNAM • ONDC</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-earth-50/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-6"><div class="flex items-center gap-4"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332 - Font: playfairDisplay - Mode: light - Roundness: rounded-md . The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-xl font-semibold text-earth-900 leading-tight">Admin &amp; DPI Operations Portal</span><span class="font-body text-xs font-normal text-earth-700">National Farm-to-Market Trust Network</span></div></div><div class="flex items-center gap-4"><div class="hidden xl:flex items-center gap-1 px-3 py-1 rounded bg-primary-50"><div class="w-2 h-2 rounded-full bg-primary-500"></div><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">DPI Node: ONLINE • Sandbox Active</span></div><div class="flex items-center gap-1 px-3 py-1 rounded bg-gold-50"><span class="material-symbols-outlined text-[16px] text-gold-800">cloud_done</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800">PROD-MIRROR</span></div><button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 relative p-1 rounded hover:bg-earth-100 transition-colors" type="button"><span class="material-symbols-outlined text-[20px] text-earth-700">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-warning"></span></button><div class="flex items-center gap-3 pl-2"><div class="flex flex-col text-right"><span class="font-body text-sm font-normal text-earth-900 font-medium">MoA&amp;FW / NITI Aayog</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">officer@agri.gov.in</span></div><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-earth-50"><div class="flex flex-col w-full">
+<div class="max-w-[80rem] mx-auto w-full px-6 py-8 flex flex-col gap-8">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-500 animate-ping"></span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-800 uppercase tracking-widest font-semibold">RBI-Regulated DPI Settlement Protocol</span>
+<span class="px-1 py-1 rounded bg-gold-100 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-bold">Node 0x9B-DEL-ESC</span>
+</div>
+<h1 class="font-display text-3xl font-semibold text-earth-900 tracking-tight">Multi-Party Smart Escrow Vault &amp; Disbursal Oversight</h1>
+<p class="font-body text-sm font-normal text-earth-700 max-w-3xl">Cryptographic multi-sig automated disbursement network bridging bulk institutional procurement, cold-chain sensor gates, and direct beneficiary farmer bank accounts.</p>
+</div>
+<div class="flex items-center gap-3 self-start lg:self-auto">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-2 px-4 py-2 bg-earth-100 rounded text-earth-900 hover:bg-earth-200 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary-700">receipt_long</span>
+<span class="font-body text-sm font-normal font-medium">Export RBI Audit Tape</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-2 px-4 py-2 bg-primary-800 text-white rounded hover:bg-primary-700 transition-colors shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-body text-sm font-normal font-medium">Officer Key Re-Auth</span>
+</button>
+</div>
+</div>
+<!-- 4 High-Impact Financial Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+<!-- Card 1 -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Total Vault Balance</span>
+<span class="font-display text-3xl font-semibold text-primary-800 font-bold mt-1">₹84,20,000</span>
+</div>
+<div class="w-10 h-10 rounded bg-primary-100 flex items-center justify-center text-primary-800">
+<span class="material-symbols-outlined text-[24px]">account_balance</span>
+</div>
+</div>
+<div class="mt-4 pt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary-500">shield_lock</span>
+<span class="font-body text-xs font-normal text-earth-700">Protected in Sovereign RBI Escrow Trust</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Auto-Disbursed Today</span>
+<span class="font-display text-3xl font-semibold text-primary-700 font-bold mt-1">₹12,40,000</span>
+</div>
+<div class="w-10 h-10 rounded bg-primary-50 flex items-center justify-center text-primary-700">
+<span class="material-symbols-outlined text-[24px]">bolt</span>
+</div>
+</div>
+<div class="mt-4 pt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary-700">speed</span>
+<span class="font-body text-xs font-normal text-earth-700">Average speed &lt; 4 hours from QR scan</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Pending Gate Verification</span>
+<span class="font-display text-3xl font-semibold text-warning font-bold mt-1">₹6,80,000</span>
+</div>
+<div class="w-10 h-10 rounded bg-gold-100 flex items-center justify-center text-gold-800">
+<span class="material-symbols-outlined text-[24px]">hourglass_top</span>
+</div>
+</div>
+<div class="mt-4 pt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-warning">warehouse</span>
+<span class="font-body text-xs font-normal text-earth-700">Awaiting physical receiver handshake</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Thermal Excursion Freeze</span>
+<span class="font-display text-3xl font-semibold text-danger font-bold mt-1">₹1,45,000</span>
+</div>
+<div class="w-10 h-10 rounded bg-danger-bg flex items-center justify-center text-danger">
+<span class="material-symbols-outlined text-[24px]">ac_unit</span>
+</div>
+</div>
+<div class="mt-4 pt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-danger">lock_clock</span>
+<span class="font-body text-xs font-normal text-earth-700">2 Orders auto-paused (Cold-chain breach)</span>
+</div>
+</div>
+</div>
+<!-- Visual Rule: Escrow Release Protocol Blueprint Panel -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col gap-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-800 text-[22px]">account_tree</span>
+<span class="font-display text-xl font-semibold text-earth-900">Automated Escrow Release Protocol</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">Zero Intermediary Delays</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Protocol Spec: RFC-DPI-709</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
+<!-- Step 1 -->
+<div class="bg-earth-100 p-4 rounded flex flex-col justify-between relative">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">STAGE 01</span>
+<span class="w-2 h-2 rounded-full bg-primary-500"></span>
+</div>
+<div class="flex flex-col my-2">
+<span class="font-body text-lg font-semibold text-earth-900">Buyer Payment Lock</span>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Funds tokenized via RBI-Regulated Gateway into segregated trust.</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-800 font-medium">Multi-Sig Ingestion</span>
+</div>
+<!-- Step 2 -->
+<div class="bg-earth-100 p-4 rounded flex flex-col justify-between relative">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">STAGE 02</span>
+<span class="w-2 h-2 rounded-full bg-gold-400"></span>
+</div>
+<div class="flex flex-col my-2">
+<span class="font-body text-lg font-semibold text-earth-900">Sovereign Custody</span>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Immutable smart contract custody holding lot collateral against dispatch.</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">Cryptographic Locking</span>
+</div>
+<!-- Step 3 -->
+<div class="bg-earth-100 p-4 rounded flex flex-col justify-between relative">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">STAGE 03</span>
+<span class="w-2 h-2 rounded-full bg-primary-500"></span>
+</div>
+<div class="flex flex-col my-2">
+<span class="font-body text-lg font-semibold text-earth-900">IoT &amp; QR Handshake</span>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Reefer sensors certify continuous &lt;4°C + physical dock counter-scan.</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-800 font-medium">Zero Excursions Validated</span>
+</div>
+<!-- Step 4 -->
+<div class="bg-earth-100 p-4 rounded flex flex-col justify-between relative">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">STAGE 04</span>
+<span class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
+</div>
+<div class="flex flex-col my-2">
+<span class="font-body text-lg font-semibold text-earth-900">Instant UPI Disbursal</span>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Automated split-settlement straight into FPO and individual farmer VPA.</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-medium">NPCI Instant Clearance</span>
+</div>
+</div>
+</div>
+<!-- Filter Bar & Search -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+<!-- Filter Tabs -->
+<div class="flex items-center overflow-x-auto gap-1 bg-earth-200 p-1 rounded" id="escrowTabs">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 escrow-tab px-3 py-2 rounded font-body text-sm font-normal font-medium bg-white text-earth-900 shadow-sm whitespace-nowrap" data-filter="all" type="button">
+          All Escrow <span class="ml-1 px-1 py-1 rounded-full bg-earth-100 text-earth-500 text-xs font-medium tracking-wider uppercase font-mono">48</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 escrow-tab px-3 py-2 rounded font-body text-sm font-normal text-earth-700 hover:text-earth-900 transition-colors whitespace-nowrap" data-filter="vault" type="button">
+          Held in Vault <span class="ml-1 px-1 py-1 rounded-full bg-earth-100 text-earth-500 text-xs font-medium tracking-wider uppercase font-mono">18</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 escrow-tab px-3 py-2 rounded font-body text-sm font-normal text-earth-700 hover:text-earth-900 transition-colors whitespace-nowrap" data-filter="disbursed" type="button">
+          Disbursed <span class="ml-1 px-1 py-1 rounded-full bg-earth-100 text-earth-500 text-xs font-medium tracking-wider uppercase font-mono">26</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 escrow-tab px-3 py-2 rounded font-body text-sm font-normal text-earth-700 hover:text-earth-900 transition-colors whitespace-nowrap" data-filter="frozen" type="button">
+          Frozen / Disputed <span class="ml-1 px-1 py-1 rounded-full bg-danger-bg text-danger text-xs font-medium tracking-wider uppercase font-mono font-bold">2</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 escrow-tab px-3 py-2 rounded font-body text-sm font-normal text-earth-700 hover:text-earth-900 transition-colors whitespace-nowrap" data-filter="refunded" type="button">
+          Refunded <span class="ml-1 px-1 py-1 rounded-full bg-earth-100 text-earth-500 text-xs font-medium tracking-wider uppercase font-mono">2</span>
+</button>
+</div>
+<!-- Search Field -->
+<div class="flex-1 lg:max-w-md relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-earth-500">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full pl-10 pr-4 py-2 rounded bg-white text-earth-900 placeholder:text-earth-500 font-body text-sm font-normal focus:outline-none shadow-sm" id="escrowSearch" placeholder="Search Order ID, Buyer, FPO UPI, or Contract Hash..." type="text"/>
+</div>
+</div>
+<!-- Master Escrow Ledger Table Container -->
+<div class="bg-white rounded shadow-sm overflow-hidden">
+<div class="px-6 py-4 bg-earth-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary-800">view_headline</span>
+<span class="font-body text-lg font-semibold text-earth-900 font-semibold">Cryptographic Master Ledger</span>
+</div>
+<div class="flex items-center gap-4 font-mono text-xs font-medium tracking-wider uppercase text-earth-500">
+<span>REALTIME SYNCHRONIZED</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span>
+<span>LATENCY: 42ms</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left" id="ledgerTable">
+<thead>
+<tr class="bg-earth-100 text-earth-500 font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">
+<th class="py-3 px-4">Escrow ID &amp; Date</th>
+<th class="py-3 px-4">Linked Order ID</th>
+<th class="py-3 px-4">Buyer Entity</th>
+<th class="py-3 px-4">Beneficiary FPO &amp; Farmer</th>
+<th class="py-3 px-4 text-right">Locked Amount</th>
+<th class="py-3 px-4">Escrow Trigger Condition</th>
+<th class="py-3 px-4">Vault Status</th>
+<th class="py-3 px-4 text-right">Officer Action</th>
+</tr>
+</thead>
+<tbody class="divide-y-0" id="ledgerBody">
+<!-- Row 1 -->
+<tr class="hover:bg-earth-100 transition-colors group cursor-default" data-category="disbursed">
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-800 font-bold">#ESC-9941-DEL</span>
+<span class="font-body text-xs font-normal text-earth-500">26 May 2026, 09:14 IST</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">#ORD-DEL-2026-9941</span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 text-earth-500 hover:text-primary-800 transition-colors" title="Copy Hash" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Radhika Sen</span>
+<span class="font-body text-xs font-normal text-earth-500">Direct Retail Consumer</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Sangli Turmeric Growers</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">UPI: sangli.fpo@sbi</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-mono text-sm font-medium tracking-wide text-earth-900 font-bold">₹866.00</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary-700">qr_code_scanner</span>
+<span class="font-body text-xs font-normal text-earth-900">Recipient QR Handshake</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Block #488,912 Verified</span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-700"></span>
+                  Disbursed (Instant UPI)
+                </span>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-earth-100 hover:bg-earth-200 font-body text-xs font-normal text-earth-900 font-medium transition-colors" onclick="openReceiptModal('#ESC-9941-DEL', '₹866.00', 'Radhika Sen', 'Sangli Turmeric Growers', '0x7e889a...cf41')" type="button">
+                  View Receipt
+                </button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-earth-100 transition-colors group cursor-default" data-category="vault">
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-800 font-bold">#ESC-1082-BLK</span>
+<span class="font-body text-xs font-normal text-earth-500">25 May 2026, 17:40 IST</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">#ORD-BL-2026-1082</span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 text-earth-500 hover:text-primary-800 transition-colors" title="Copy Hash" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Fresh Provisions Pvt Ltd</span>
+<span class="font-body text-xs font-normal text-earth-500">Institutional B2B Buyer</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Sangli FPO &amp; Alwar Krishi</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">Multi-Beneficiary Split VPA</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-mono text-sm font-medium tracking-wide text-earth-900 font-bold">₹5,49,000.00</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-gold-800">verified</span>
+<span class="font-body text-xs font-normal text-earth-900">Reefer Gate Check + 48h Inspection</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">Gate Pass ID: GP-8810A</span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-gold-50 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-gold-800"></span>
+                  Held (42h Remaining)
+                </span>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-gold-100 text-gold-800 hover:bg-gold-400 font-body text-xs font-normal font-semibold transition-colors" onclick="authorizeEarlyPrompt('#ESC-1082-BLK', '₹5,49,000.00')" type="button">
+                  Authorize Early
+                </button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-earth-100 transition-colors group cursor-default" data-category="frozen">
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-danger font-bold">#ESC-9012-RET</span>
+<span class="font-body text-xs font-normal text-earth-500">26 May 2026, 04:18 IST</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">#ORD-DEL-2026-9012</span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 text-earth-500 hover:text-danger transition-colors" title="Copy Hash" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Oberoi Hotels Delhi</span>
+<span class="font-body text-xs font-normal text-earth-500">Hospitality Bulk Key Account</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Western UP Dairy Coop</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">UPI: wup.dairy@hdfc</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-mono text-sm font-medium tracking-wide text-danger font-bold">₹1,45,000.00</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1 text-danger">
+<span class="material-symbols-outlined text-[16px]">device_thermostat</span>
+<span class="font-body text-xs font-normal font-semibold">Excursion: &gt;8.5°C for 22m</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-danger">Sensor #THM-401 Logged Breach</span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-danger-bg text-danger font-mono text-xs font-medium tracking-wider uppercase font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-danger animate-ping"></span>
+                  Frozen (Cold Breach)
+                </span>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-terracotta-700 text-white hover:bg-terracotta-600 font-body text-xs font-normal font-semibold transition-colors" onclick="openDisputeModal('#ESC-9012-RET', 'Oberoi Hotels Delhi', 'Western UP Dairy Coop', '₹1,45,000.00')" type="button">
+                  Adjudicate
+                </button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-earth-100 transition-colors group cursor-default" data-category="disbursed">
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-800 font-bold">#ESC-8720-MUM</span>
+<span class="font-body text-xs font-normal text-earth-500">25 May 2026, 22:11 IST</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">#ORD-MUM-2026-8720</span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 text-earth-500 hover:text-primary-800 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Bhartiya Retail Stores</span>
+<span class="font-body text-xs font-normal text-earth-500">Hypermarket Chain</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Nashik Farmer Collective</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">UPI: nashik.grapes@icici</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-mono text-sm font-medium tracking-wide text-earth-900 font-bold">₹11,53,134.00</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary-700">verified</span>
+<span class="font-body text-xs font-normal text-earth-900">Hub Weight &amp; Lab Assay Match</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Brix 19.2% • Moisture 78%</span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-700"></span>
+                  Disbursed (Instant UPI)
+                </span>
+</td>
+<td class="py-4 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-earth-100 hover:bg-earth-200 font-body text-xs font-normal text-earth-900 font-medium transition-colors" onclick="openReceiptModal('#ESC-8720-MUM', '₹11,53,134.00', 'Bhartiya Retail Stores', 'Nashik Farmer Collective', '0x33ac41...bb89')" type="button">
+                  View Receipt
+                </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="px-6 py-3 bg-earth-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+<span class="font-body text-xs font-normal text-earth-700">Showing 4 of 48 total active cryptographic contracts</span>
+<div class="flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-white text-earth-500 hover:text-earth-900 font-body text-xs font-normal shadow-sm transition-colors" type="button">Previous</button>
+<span class="px-3 py-1 rounded bg-primary-800 text-white font-body text-xs font-normal font-medium">1</span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-white text-earth-700 hover:text-earth-900 font-body text-xs font-normal shadow-sm transition-colors" type="button">2</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-white text-earth-700 hover:text-earth-900 font-body text-xs font-normal shadow-sm transition-colors" type="button">3</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-white text-earth-700 hover:text-earth-900 font-body text-xs font-normal shadow-sm transition-colors" type="button">Next</button>
+</div>
+</div>
+</div>
+<!-- Live Cold Chain Breach Investigation Drawer / Diagnostic Split -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Cold Chain Telemetry Alert Card -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="px-2 py-1 rounded bg-danger-bg text-danger font-mono text-xs font-medium tracking-wider uppercase font-bold uppercase tracking-wider">Active Incident #THM-9012</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Updated 3m ago</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 mt-3">Reefer Temp Excursion Log</h3>
+<p class="font-body text-xs font-normal text-earth-700 mt-1">Reefer Truck #UP-14-BT-9021 transit between Meerut Cold Vault and Oberoi Central Kitchen. Target: &lt;4°C.</p>
+<div class="mt-4 p-3 bg-earth-100 rounded flex flex-col gap-1">
+<div class="flex items-center justify-between font-mono text-xs font-medium tracking-wider uppercase">
+<span class="text-earth-700">Logged Peak Temp:</span>
+<span class="text-danger font-bold">11.4°C (Limit: 4.0°C)</span>
+</div>
+<div class="flex items-center justify-between font-mono text-xs font-medium tracking-wider uppercase">
+<span class="text-earth-700">Breach Window:</span>
+<span class="text-earth-900 font-medium">04:12 - 04:34 IST (22 mins)</span>
+</div>
+<div class="flex items-center justify-between font-mono text-xs font-medium tracking-wider uppercase">
+<span class="text-earth-700">Payload:</span>
+<span class="text-earth-900 font-medium">A2 Organic Pasteurized Butter (800 kg)</span>
+</div>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-3">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex-1 py-2 px-3 rounded bg-danger text-white font-body text-xs font-normal font-medium hover:bg-terracotta-600 transition-colors text-center" onclick="alert('NABL Lab dispatched to Oberoi Dock. Re-test booked within 90 minutes.')" type="button">
+            Dispatch Rapid NABL Audit
+          </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-2 rounded bg-earth-100 text-earth-900 hover:bg-earth-200 transition-colors" onclick="alert('Driver telemetry contacted via MoA&amp;FW automated gateway.')" type="button">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</button>
+</div>
+</div>
+<!-- Smart Escrow Reserve Ratios -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase">Statutory Compliance</span>
+<span class="material-symbols-outlined text-primary-800 text-[20px]">account_balance_wallet</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 mt-3">Sovereign Vault Solvency</h3>
+<p class="font-body text-xs font-normal text-earth-700 mt-1">Escrow backing meets 100% full-reserve banking norms under Section 18 of Payment &amp; Settlement Systems Act.</p>
+<div class="mt-4 flex flex-col gap-3">
+<div>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase mb-1">
+<span class="text-earth-700">RBI Tri-Party Repo Backing</span>
+<span class="text-primary-700 font-bold">100.00%</span>
+</div>
+<div class="w-full h-2 rounded-full bg-earth-100 overflow-hidden">
+<div class="h-full bg-primary-700 rounded-full w-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase mb-1">
+<span class="text-earth-700">Yield Accrual Credited to FPO Welfare</span>
+<span class="text-gold-800 font-bold">₹28,490 this cycle</span>
+</div>
+<div class="w-full h-2 rounded-full bg-earth-100 overflow-hidden">
+<div class="h-full bg-gold-400 rounded-full w-3/4"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-2 flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Custodian: State Bank of India</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-800 font-semibold">Audited Daily</span>
+</div>
+</div>
+<!-- Officer Manual Override Terminal -->
+<div class="bg-white rounded p-6 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="px-2 py-1 rounded bg-earth-200 text-earth-900 font-mono text-xs font-medium tracking-wider uppercase font-semibold uppercase">Dual-Key Governance</span>
+<span class="material-symbols-outlined text-earth-500 text-[20px]">key</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 mt-3">Officer Multi-Sig Override</h3>
+<p class="font-body text-xs font-normal text-earth-700 mt-1">Direct manual intervention requires MoA&amp;FW biometric hardware token and NITI Aayog counter-sign.</p>
+<div class="mt-4 p-3 bg-earth-100 rounded flex flex-col gap-2">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary-500">check_circle</span>
+<span class="font-body text-xs font-normal text-earth-900">Officer Signature 1: ACTIVE (officer@agri.gov.in)</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-warning">pending</span>
+<span class="font-body text-xs font-normal text-earth-700">Officer Signature 2: Awaiting Standby Node</span>
+</div>
+</div>
+</div>
+<div class="mt-4 flex gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full py-2 px-3 rounded bg-primary-800 text-white font-body text-xs font-normal font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-1" onclick="alert('Hardware Key Challenge Initiated. Insert USB Token.')" type="button">
+<span class="material-symbols-outlined text-[16px]">token</span>
+            Sign Dispute Action
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Hidden Interactive Modal for Escrow Settlement Receipt -->
+<div class="fixed inset-0 bg-primary-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" id="receiptModal">
+<div class="bg-white rounded-md max-w-lg w-full p-8 shadow-xl flex flex-col gap-4 relative">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-50 flex items-center justify-center text-primary-700">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div>
+<h4 class="font-body text-lg font-semibold text-earth-900 font-bold">RBI Escrow Disbursal Voucher</h4>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500" id="modalEscrowId">#ESC-9941-DEL</span>
+</div>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 text-earth-500 hover:text-earth-900" onclick="closeReceiptModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="bg-earth-100 rounded p-4 flex flex-col gap-3">
+<div class="flex justify-between items-baseline">
+<span class="font-body text-xs font-normal text-earth-700">Amount Disbursed</span>
+<span class="font-display text-2xl font-semibold text-primary-800 font-bold" id="modalAmount">₹866.00</span>
+</div>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase">
+<span class="text-earth-500">Disbursal Type</span>
+<span class="text-earth-900 font-semibold">Instant NPCI UPI 2.0 Auto-Credit</span>
+</div>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase">
+<span class="text-earth-500">Buyer Counterparty</span>
+<span class="text-earth-900" id="modalBuyer">Radhika Sen</span>
+</div>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase">
+<span class="text-earth-500">Beneficiary FPO</span>
+<span class="text-earth-900" id="modalFpo">Sangli Turmeric Growers</span>
+</div>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase">
+<span class="text-earth-500">Settlement Hash</span>
+<span class="text-primary-700 font-mono truncate max-w-[200px]" id="modalTxHash">0x7e889a...cf41</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex-1 py-2 px-3 rounded bg-earth-100 text-earth-900 hover:bg-earth-200 font-body text-sm font-normal font-medium transition-colors flex items-center justify-center gap-1" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+          Print Cryptographic Slip
+        </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex-1 py-2 px-3 rounded bg-primary-800 text-white hover:bg-primary-700 font-body text-sm font-normal font-medium transition-colors" onclick="closeReceiptModal()" type="button">
+          Done
+        </button>
+</div>
+</div>
+</div>
+<script>
+    // Tab filtering behavior
+    const tabs = document.querySelectorAll('.escrow-tab');
+    const tableRows = document.querySelectorAll('#ledgerBody tr');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('bg-white', 'text-earth-900', 'shadow-sm');
+          t.classList.add('text-earth-700');
+        });
+        tab.classList.add('bg-white', 'text-earth-900', 'shadow-sm');
+        tab.classList.remove('text-earth-700');
+
+        const filter = tab.getAttribute('data-filter');
+        tableRows.forEach(row => {
+          if (filter === 'all' || row.getAttribute('data-category') === filter) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Real-time table search
+    const searchInput = document.getElementById('escrowSearch');
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      tableRows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+      });
+    });
+
+    // Modal triggers
+    function openReceiptModal(escrowId, amount, buyer, fpo, hash) {
+      document.getElementById('modalEscrowId').innerText = escrowId;
+      document.getElementById('modalAmount').innerText = amount;
+      document.getElementById('modalBuyer').innerText = buyer;
+      document.getElementById('modalFpo').innerText = fpo;
+      document.getElementById('modalTxHash').innerText = hash;
+      document.getElementById('receiptModal').classList.remove('hidden');
+    }
+
+    function closeReceiptModal() {
+      document.getElementById('receiptModal').classList.add('hidden');
+    }
+
+    function authorizeEarlyPrompt(escrowId, amount) {
+      const confirmAuth = confirm('Officer Override: Authorize early settlement of ' + amount + ' for ' + escrowId + '? This will bypass remaining inspection window.');
+      if (confirmAuth) {
+        alert('Disbursal queued! Multi-sig notification dispatched to co-signer.');
+      }
+    }
+
+    function openDisputeModal(escrowId, buyer, fpo, amount) {
+      alert('Entering Adjudication Workbench for ' + escrowId + ' (' + amount + ').\nBuyer: ' + buyer + '\nProducer: ' + fpo + '\nOpening Cold-Chain Sensor Telemetry Log...');
+    }
+  </script>
+</div></main></div></body></html>

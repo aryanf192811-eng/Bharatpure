@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};
+</script></head><body class="bg-earth-50 font-body text-earth-900 antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-primary-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-4 flex items-center gap-2 bg-primary-800"><div class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></div><div class="flex flex-col"><span class="font-body text-lg font-semibold text-white font-bold tracking-wide">BharatPure</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase tracking-wider">DPI Mission Core</span></div></div><div class="px-4 pt-4 pb-2"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase tracking-wider opacity-70">Intelligence &amp; Governance</span></div><nav class="flex flex-col px-2 gap-1" data-active-classes="bg-primary-800 text-white font-body"><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="overview-iei" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body text-sm font-normal">Overview &amp; IEI</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="demand-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body text-sm font-normal">Demand Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="price-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">currency_rupee</span><span class="font-body text-sm font-normal">Price Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="route-optimizer" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span class="font-body text-sm font-normal">Route Optimizer</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="what-if-simulator" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body text-sm font-normal">What-if Simulator</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="fpo-batches" href="#"><span class="material-symbols-outlined text-[20px]">agriculture</span><span class="font-body text-sm font-normal">FPO &amp; Batches</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="escrow-settlements" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span class="font-body text-sm font-normal">Escrow &amp; Settlements</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="dpi-integration-status" href="#"><span class="material-symbols-outlined text-[20px]">sensors</span><span class="font-body text-sm font-normal">DPI Status</span></a><a aria-current="page" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded transition-colors bg-primary-800 text-white font-body" data-path="audit-ledger" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body text-sm font-normal">Audit Ledger</span></a></nav></div><div class="p-4 bg-primary-800 flex flex-col gap-2"><div class="flex items-center justify-between"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase">DPI Sovereign Node</span><span class="px-1 py-1 rounded bg-primary-800 text-primary-100 font-mono text-xs font-medium tracking-wider uppercase">v4.2</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary-500">shield</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">AgriStack • eNAM • ONDC</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-earth-50/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-6"><div class="flex items-center gap-4"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332 - Font: playfairDisplay - Mode: light - Roundness: rounded-md . The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-xl font-semibold text-earth-900 leading-tight">Admin &amp; DPI Operations Portal</span><span class="font-body text-xs font-normal text-earth-700">National Farm-to-Market Trust Network</span></div></div><div class="flex items-center gap-4"><div class="hidden xl:flex items-center gap-1 px-3 py-1 rounded bg-primary-50"><div class="w-2 h-2 rounded-full bg-primary-500"></div><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">DPI Node: ONLINE • Sandbox Active</span></div><div class="flex items-center gap-1 px-3 py-1 rounded bg-gold-50"><span class="material-symbols-outlined text-[16px] text-gold-800">cloud_done</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800">PROD-MIRROR</span></div><button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 relative p-1 rounded hover:bg-earth-100 transition-colors" type="button"><span class="material-symbols-outlined text-[20px] text-earth-700">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-warning"></span></button><div class="flex items-center gap-3 pl-2"><div class="flex flex-col text-right"><span class="font-body text-sm font-normal text-earth-900 font-medium">MoA&amp;FW / NITI Aayog</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">officer@agri.gov.in</span></div><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-earth-50"><div class="flex flex-col w-full">
+<!-- Top Dossier Command Banner -->
+<section class="relative bg-earth-200 px-6 py-8 overflow-hidden shadow-sm">
+<div class="absolute -right-16 -top-20 w-96 h-96 rounded-full bg-primary-100/30 blur-3xl pointer-events-none"></div>
+<div class="absolute right-1/3 -bottom-24 w-80 h-80 rounded-full bg-gold-100/40 blur-2xl pointer-events-none"></div>
+<div class="max-w-[80rem] mx-auto w-full flex flex-col gap-6 relative z-10">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 rounded-full bg-primary-800 text-white font-mono text-xs font-medium tracking-wider uppercase tracking-wider uppercase flex items-center gap-1.5 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary-500 animate-ping"></span>
+            Live Sovereign Ledger
+          </span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">ISO 27001 • AgriStack Pinned v4.2</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 bg-white px-3 py-1 rounded shadow-sm">
+            Sync Cycle: <strong class="text-primary-700 font-mono">1.8s Block Latency</strong>
+</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 bg-white px-3 py-1 rounded shadow-sm">
+            Zero-Knowledge Proofs: <strong class="text-gold-800 font-mono">Active (SNARK)</strong>
+</span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div class="space-y-1 max-w-3xl">
+<p class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 uppercase tracking-widest font-semibold">MoA&amp;FW / NITI Aayog Security Protocol</p>
+<h1 class="font-display text-3xl font-semibold text-earth-900 tracking-tight">Cryptographic Immutable Audit Log &amp; State Ag-Registry Stream</h1>
+<p class="font-body text-sm font-normal text-earth-700">
+            Continuous sequential hash-chained ledger safeguarding custody transfers, automated smart escrow triggers, cold-chain IoT telemetry, and accredited lab certificates across India's agricultural corridors.
+          </p>
+</div>
+<!-- Dossier Control Actions -->
+<div class="flex flex-wrap items-center gap-2 shrink-0">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-2 px-4 py-2 rounded bg-white hover:bg-earth-100 text-earth-900 shadow-sm hover:shadow transition-all group" id="verifyTreeBtn">
+<span class="material-symbols-outlined text-[18px] text-primary-500 group-hover:rotate-45 transition-transform">lock_reset</span>
+<span class="font-body text-sm font-normal font-medium">Verify Block Hashes (Merkle Tree)</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-2 px-4 py-2 rounded bg-primary-800 hover:bg-primary-700 text-white shadow-md hover:shadow-lg transition-all">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+<span class="font-body text-sm font-normal font-medium">Export Compliance CSV Dossier</span>
+</button>
+</div>
+</div>
+<!-- Live Stream Quick Telemetry Bar -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
+<div class="bg-white p-4 rounded shadow-sm flex flex-col justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase">Total System Events</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-mono text-[28px] font-bold text-primary-900">184,920</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-500 font-medium">+14/min</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Cryptographically chained blocks</span>
+</div>
+<div class="bg-white p-4 rounded shadow-sm flex flex-col justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase">Escrow Settlement Vol</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-mono text-[28px] font-bold text-earth-900">₹9.84 Cr</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-500 font-medium">100% Locked</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Zero unilateral release overrides</span>
+</div>
+<div class="bg-white p-4 rounded shadow-sm flex flex-col justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase">NABL Validations</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-mono text-[28px] font-bold text-earth-900">1,482</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">Assay 99.4%</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Zero-pesticide bio certificates</span>
+</div>
+<div class="bg-white p-4 rounded shadow-sm flex flex-col justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase">Active Reefer Trackers</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-mono text-[28px] font-bold text-earth-900">312 Pings</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-500 font-medium">Normal 6.4°C</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700 mt-1">Cold chain variance &lt; 0.1%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Ledger Verification Overlay Notice (Collapsible / Dynamic) -->
+<div class="hidden max-w-[80rem] mx-auto w-full px-6 mt-4" id="merkleVerificationNotice">
+<div class="bg-primary-800 text-white p-4 rounded shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4 animate-fade-in">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gold-100 text-[32px] animate-spin">verified</span>
+<div class="flex flex-col">
+<span class="font-body text-lg font-semibold text-white">Merkle Tree Structural Consistency Audit Complete</span>
+<span class="font-body text-xs font-normal text-primary-400">All 184,920 leaf hashes reconciled against Ag-Registry Genesis node #0x000...001. State roots mathematically identical.</span>
+</div>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-primary-800 text-white hover:bg-primary-700 text-xs font-medium tracking-wider uppercase font-mono transition-colors self-end md:self-auto" onclick="document.getElementById('merkleVerificationNotice').classList.add('hidden')">
+        Dismiss Notice
+      </button>
+</div>
+</div>
+<!-- Filter & Query Control Center -->
+<section class="max-w-[80rem] mx-auto w-full px-6 mt-6">
+<div class="bg-white rounded p-4 shadow-sm flex flex-col gap-4">
+<div class="flex flex-wrap items-center justify-between gap-3 pb-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary-700">filter_alt</span>
+<span class="font-body text-lg font-semibold text-earth-900">Audit Pipeline Query Controls</span>
+<span class="px-1 py-1 rounded-full bg-earth-200 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase">Realtime Filter</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 font-mono text-xs font-medium tracking-wider uppercase text-earth-500 hover:text-earth-900 transition-colors flex items-center gap-1" id="resetFilters">
+<span class="material-symbols-outlined text-[14px]">refresh</span> Reset Constraints
+          </button>
+</div>
+</div>
+<!-- Filters Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- 1. Entity Filter -->
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 font-medium">Entity Scope</label>
+<div class="relative">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full bg-earth-100 text-earth-900 rounded py-2 pl-3 pr-6 font-body text-sm font-normal focus:outline-none focus:bg-white focus:shadow-inner transition-all appearance-none cursor-pointer" id="filterEntity">
+<option value="all">All Entities (Global)</option>
+<option value="batches">Farm Batches &amp; Lots</option>
+<option value="orders">Purchase Orders (ONDC)</option>
+<option value="escrow">Escrow Vault Contracts</option>
+<option value="lab">NABL Lab Reports</option>
+<option value="logistics">Logistics Reefer Fleet</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-earth-500 text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- 2. Actor Role -->
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 font-medium">Originator / Actor Role</label>
+<div class="relative">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full bg-earth-100 text-earth-900 rounded py-2 pl-3 pr-6 font-body text-sm font-normal focus:outline-none focus:bg-white focus:shadow-inner transition-all appearance-none cursor-pointer" id="filterRole">
+<option value="all">All Roles</option>
+<option value="fpo">Farmer / FPO Lead</option>
+<option value="buyer">Bulk Institutional Buyer</option>
+<option value="driver">Fleet Reefer Driver</option>
+<option value="auditor">Government Auditor (MoA&amp;FW)</option>
+<option value="engine">Autonomous Decision Engine</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-earth-500 text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- 3. Action Severity & Class -->
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 font-medium">Event Class &amp; Severity</label>
+<div class="relative">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full bg-earth-100 text-earth-900 rounded py-2 pl-3 pr-6 font-body text-sm font-normal focus:outline-none focus:bg-white focus:shadow-inner transition-all appearance-none cursor-pointer" id="filterAction">
+<option value="all">All Actions &amp; Signals</option>
+<option value="state">State Mutations</option>
+<option value="escrow">Escrow Releases</option>
+<option value="coldchain">Cold-Chain Breaches &amp; Telemetry</option>
+<option value="overrides">Manual Status Overrides</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-earth-500 text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- 4. Temporal Range -->
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 font-medium">Time Window</label>
+<div class="relative">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full bg-earth-100 text-earth-900 rounded py-2 pl-3 pr-6 font-body text-sm font-normal focus:outline-none focus:bg-white focus:shadow-inner transition-all appearance-none cursor-pointer" id="filterTime">
+<option value="24h">Last 24 Hours</option>
+<option value="7d">Last 7 Days</option>
+<option value="q3">Q3 FY2026 (Oct - Dec)</option>
+<option value="custom">Custom Hash Window</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-earth-500 text-[18px]">calendar_today</span>
+</div>
+</div>
+</div>
+<!-- In-field Live Search & Fast Filter Tag Row -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+<div class="flex-1 min-w-[280px] relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-earth-500 text-[18px]">search</span>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full bg-earth-100 focus:bg-white rounded py-2 pl-9 pr-3 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 placeholder:text-earth-500 focus:outline-none transition-all shadow-inner" id="logSearchInput" placeholder="Filter by Block #, SHA-256 Merkle root, Entity ID, or Driver..." type="text"/>
+</div>
+<div class="flex items-center gap-1 text-xs font-medium tracking-wider uppercase font-mono text-earth-700">
+<span class="text-earth-500">Quick Tags:</span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-2 py-1 rounded-full bg-earth-200 hover:bg-gold-100 hover:text-gold-800 transition-colors">#ESC-9941</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-2 py-1 rounded-full bg-earth-200 hover:bg-primary-100 hover:text-primary-900 transition-colors">#BP-TUR-2026</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-2 py-1 rounded-full bg-earth-200 hover:bg-earth-100 hover:text-earth-900 transition-colors">Sangli FPO</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Master Audit Trail Stream Section -->
+<section class="max-w-[80rem] mx-auto w-full px-6 mt-6 mb-16">
+<div class="bg-white rounded shadow-md overflow-hidden flex flex-col">
+<!-- Table Header Title Row -->
+<div class="px-6 py-4 bg-white flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-800 animate-pulse"></div>
+<div>
+<h2 class="font-body text-lg font-semibold text-earth-900">Master Audit Trail Stream</h2>
+<p class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Sub-ledger sequence 88408 to 88412 • Sorted Reverse-Chronological</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Auto-scroll lock:</span>
+<span class="px-2 py-1 rounded bg-earth-100 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase">ACTIVE</span>
+</div>
+</div>
+<!-- Responsive Table Container -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse" id="auditTable">
+<thead>
+<tr class="bg-earth-100 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">
+<th class="py-3 px-4 whitespace-nowrap">Block / Timestamp</th>
+<th class="py-3 px-4 whitespace-nowrap">Actor &amp; Role</th>
+<th class="py-3 px-4 whitespace-nowrap">Action Performed</th>
+<th class="py-3 px-4 whitespace-nowrap">Entity Affected</th>
+<th class="py-3 px-4 whitespace-nowrap">Before State → After State</th>
+<th class="py-3 px-4 whitespace-nowrap">Cryptographic Merkle Hash</th>
+<th class="py-3 px-4 whitespace-nowrap text-right">Verification</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-earth-900 font-body text-sm font-normal">
+<!-- ROW 1 -->
+<tr class="hover:bg-earth-100/60 transition-colors group">
+<!-- Block / Timestamp -->
+<td class="py-4 px-4 whitespace-nowrap align-top">
+<div class="flex flex-col">
+<span class="font-mono text-sm font-medium tracking-wide text-primary-700 font-semibold group-hover:underline cursor-pointer">#BLK-88412</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">21 Oct 10:48 AM</span>
+<span class="font-mono text-[10px] text-earth-500">IST (+05:30)</span>
+</div>
+</td>
+<!-- Actor & Role -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-body text-[15px] font-semibold text-earth-900">System Escrow Engine</span>
+<span class="inline-flex items-center gap-1 font-mono text-xs font-medium tracking-wider uppercase text-gold-400 bg-primary-900 px-1 py-1 rounded-full w-max mt-1">
+<span class="material-symbols-outlined text-[12px] text-gold-100">smart_toy</span>
+                    Autonomous Contract
+                  </span>
+</div>
+</td>
+<!-- Action Performed -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase px-2 py-1 rounded bg-primary-50 text-primary-700 font-semibold tracking-wide w-max">
+                    ESCROW_RELEASE_TRIGGERED
+                  </span>
+<span class="font-body text-xs font-normal text-earth-500 mt-1">Multi-sig biometric threshold reached</span>
+</div>
+</td>
+<!-- Entity Affected -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-semibold text-earth-900 hover:text-primary-500 cursor-pointer">#ESC-9941-DEL</span>
+<span class="font-body text-xs font-normal text-earth-700">Buyer: Radhika Sen</span>
+<span class="font-body text-xs font-normal text-earth-500">Consignment #DEL-8802</span>
+</div>
+</td>
+<!-- State Transition -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="px-1 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-700">HELD</span>
+<span class="material-symbols-outlined text-[14px] text-primary-500">arrow_right_alt</span>
+<span class="px-1 py-1 rounded bg-primary-100 text-primary-800 font-mono text-xs font-medium tracking-wider uppercase font-bold">RELEASED</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-medium">₹866.00 to Sangli FPO</span>
+<span class="font-body text-xs font-normal text-earth-500">Settlement via eNAM Gateway</span>
+</div>
+</td>
+<!-- Merkle Hash -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-center gap-1 bg-earth-100 px-2 py-1 rounded w-max">
+<span class="material-symbols-outlined text-[14px] text-earth-500">tag</span>
+<code class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">0x89e2f...b4f1</code>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 hover:text-primary-500 text-earth-500" onclick="navigator.clipboard.writeText('0x89e2f49c01827419aaef01048b4f1'); alert('Copied Merkle Hash');" title="Copy Hash">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<!-- Verification Badge -->
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-medium shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-primary-500">verified</span>
+                  Valid Hash
+                </span>
+</td>
+</tr>
+<!-- ROW 2 -->
+<tr class="bg-earth-100/30 hover:bg-earth-100/60 transition-colors group">
+<!-- Block / Timestamp -->
+<td class="py-4 px-4 whitespace-nowrap align-top">
+<div class="flex flex-col">
+<span class="font-mono text-sm font-medium tracking-wide text-primary-700 font-semibold group-hover:underline cursor-pointer">#BLK-88411</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">21 Oct 10:47 AM</span>
+<span class="font-mono text-[10px] text-earth-500">IST (+05:30)</span>
+</div>
+</td>
+<!-- Actor & Role -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-body text-[15px] font-semibold text-earth-900">Driver Amit Verma</span>
+<span class="inline-flex items-center gap-1 font-mono text-xs font-medium tracking-wider uppercase text-earth-700 bg-earth-100 px-1 py-1 rounded-full w-max mt-1">
+<span class="material-symbols-outlined text-[12px] text-primary-700">local_shipping</span>
+                    Fleet Logistics
+                  </span>
+</div>
+</td>
+<!-- Action Performed -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase px-2 py-1 rounded bg-earth-100 text-earth-900 font-semibold tracking-wide w-max">
+                    REEFER_WAYPOINT_CONFIRMED
+                  </span>
+<span class="font-body text-xs font-normal text-earth-500 mt-1">Geo-fence unlock radius 15m</span>
+</div>
+</td>
+<!-- Entity Affected -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal font-medium text-earth-900">Stop #3 (Defence Colony)</span>
+<span class="font-body text-xs font-normal text-earth-700">Block C, New Delhi</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Waypoint #WP-09</span>
+</div>
+</td>
+<!-- State Transition -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="px-1 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-700">IN_TRANSIT</span>
+<span class="material-symbols-outlined text-[14px] text-primary-500">arrow_right_alt</span>
+<span class="px-1 py-1 rounded bg-primary-100 text-primary-800 font-mono text-xs font-medium tracking-wider uppercase font-bold">DELIVERED</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700">Signature PIN verified</span>
+</div>
+</td>
+<!-- Merkle Hash -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-center gap-1 bg-earth-100 px-2 py-1 rounded w-max">
+<span class="material-symbols-outlined text-[14px] text-earth-500">tag</span>
+<code class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">0x4a12c...99e0</code>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 hover:text-primary-500 text-earth-500" onclick="navigator.clipboard.writeText('0x4a12c019948ba8199201e99e0'); alert('Copied Merkle Hash');" title="Copy Hash">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<!-- Verification Badge -->
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-medium shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-primary-500">verified</span>
+                  Valid Hash
+                </span>
+</td>
+</tr>
+<!-- ROW 3 -->
+<tr class="hover:bg-earth-100/60 transition-colors group">
+<!-- Block / Timestamp -->
+<td class="py-4 px-4 whitespace-nowrap align-top">
+<div class="flex flex-col">
+<span class="font-mono text-sm font-medium tracking-wide text-primary-700 font-semibold group-hover:underline cursor-pointer">#BLK-88410</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">21 Oct 10:32 AM</span>
+<span class="font-mono text-[10px] text-earth-500">IST (+05:30)</span>
+</div>
+</td>
+<!-- Actor & Role -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-semibold text-earth-900">Sensor #IOT-TEMP-S921</span>
+<span class="inline-flex items-center gap-1 font-mono text-xs font-medium tracking-wider uppercase text-earth-700 bg-earth-100 px-1 py-1 rounded-full w-max mt-1">
+<span class="material-symbols-outlined text-[12px] text-primary-500">sensors</span>
+                    IoT Node (BLE mesh)
+                  </span>
+</div>
+</td>
+<!-- Action Performed -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase px-2 py-1 rounded bg-earth-100 text-earth-900 font-semibold tracking-wide w-max">
+                    TELEMETRY_PING_RECORDED
+                  </span>
+<span class="font-body text-xs font-normal text-earth-500 mt-1">Periodic tamper-check 15m</span>
+</div>
+</td>
+<!-- Entity Affected -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal font-medium text-earth-900">EV Reefer #DL-01-EA-4920</span>
+<span class="font-body text-xs font-normal text-earth-700">Sangli to New Delhi Corridor</span>
+</div>
+</td>
+<!-- State Transition -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="px-1 py-1 rounded bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+                      Temp 6.8°C
+                    </span>
+<span class="font-body text-xs font-normal text-earth-500">(Safe 4.0 - 10.0°C)</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700">Battery: 89% • Humidity 64%</span>
+</div>
+</td>
+<!-- Merkle Hash -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-center gap-1 bg-earth-100 px-2 py-1 rounded w-max">
+<span class="material-symbols-outlined text-[14px] text-earth-500">tag</span>
+<code class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">0x19f4a...83d2</code>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 hover:text-primary-500 text-earth-500" onclick="navigator.clipboard.writeText('0x19f4a1883901bcefa9083d2'); alert('Copied Merkle Hash');" title="Copy Hash">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<!-- Verification Badge -->
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-medium shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-primary-500">verified</span>
+                  Valid Hash
+                </span>
+</td>
+</tr>
+<!-- ROW 4 -->
+<tr class="bg-earth-100/30 hover:bg-earth-100/60 transition-colors group">
+<!-- Block / Timestamp -->
+<td class="py-4 px-4 whitespace-nowrap align-top">
+<div class="flex flex-col">
+<span class="font-mono text-sm font-medium tracking-wide text-primary-700 font-semibold group-hover:underline cursor-pointer">#BLK-88409</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">21 Oct 09:45 AM</span>
+<span class="font-mono text-[10px] text-earth-500">IST (+05:30)</span>
+</div>
+</td>
+<!-- Actor & Role -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-body text-[15px] font-semibold text-earth-900">VSI NABL Lab Pune</span>
+<span class="inline-flex items-center gap-1 font-mono text-xs font-medium tracking-wider uppercase text-gold-800 bg-gold-50 px-1 py-1 rounded-full w-max mt-1">
+<span class="material-symbols-outlined text-[12px] text-gold-800">science</span>
+                    Accredited Certifier
+                  </span>
+</div>
+</td>
+<!-- Action Performed -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase px-2 py-1 rounded bg-gold-100 text-gold-800 font-semibold tracking-wide w-max">
+                    ACCREDITED_ASSAY_PINNED
+                  </span>
+<span class="font-body text-xs font-normal text-earth-500 mt-1">Curcumin content verified 5.2%</span>
+</div>
+</td>
+<!-- Entity Affected -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-semibold text-earth-900 hover:text-primary-500 cursor-pointer">#BP-TUR-2026-089</span>
+<span class="font-body text-xs font-normal text-earth-700">Salem Turmeric Specimen</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Certificate #TC-88910</span>
+</div>
+</td>
+<!-- State Transition -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="px-1 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-700">PENDING_TEST</span>
+<span class="material-symbols-outlined text-[14px] text-primary-500">arrow_right_alt</span>
+<span class="px-1 py-1 rounded bg-primary-100 text-primary-800 font-mono text-xs font-medium tracking-wider uppercase font-bold">PASSED</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-medium">Purity Score: 94 / 100</span>
+<span class="font-body text-xs font-normal text-earth-500">Moisture 8.1% (Allowed &lt;10%)</span>
+</div>
+</td>
+<!-- Merkle Hash -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-center gap-1 bg-earth-100 px-2 py-1 rounded w-max">
+<span class="material-symbols-outlined text-[14px] text-earth-500">tag</span>
+<code class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">0x3c89b...e210</code>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 hover:text-primary-500 text-earth-500" onclick="navigator.clipboard.writeText('0x3c89be1099a4198ec210'); alert('Copied Merkle Hash');" title="Copy Hash">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<!-- Verification Badge -->
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-medium shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-primary-500">verified</span>
+                  Valid Hash
+                </span>
+</td>
+</tr>
+<!-- ROW 5 -->
+<tr class="hover:bg-earth-100/60 transition-colors group">
+<!-- Block / Timestamp -->
+<td class="py-4 px-4 whitespace-nowrap align-top">
+<div class="flex flex-col">
+<span class="font-mono text-sm font-medium tracking-wide text-primary-700 font-semibold group-hover:underline cursor-pointer">#BLK-88408</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">21 Oct 08:30 AM</span>
+<span class="font-mono text-[10px] text-earth-500">IST (+05:30)</span>
+</div>
+</td>
+<!-- Actor & Role -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-body text-[15px] font-semibold text-earth-900">Farmer Ravi Patil</span>
+<span class="inline-flex items-center gap-1 font-mono text-xs font-medium tracking-wider uppercase text-primary-700 bg-primary-50 px-1 py-1 rounded-full w-max mt-1">
+<span class="material-symbols-outlined text-[12px] text-primary-500">psychiatry</span>
+                    Sangli District FPO
+                  </span>
+</div>
+</td>
+<!-- Action Performed -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase px-2 py-1 rounded bg-earth-100 text-earth-900 font-semibold tracking-wide w-max">
+                    BATCH_LISTED_MARKETPLACE
+                  </span>
+<span class="font-body text-xs font-normal text-earth-500 mt-1">Geo-tagged farm polygon verified</span>
+</div>
+</td>
+<!-- Entity Affected -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-semibold text-earth-900 hover:text-primary-500 cursor-pointer">#SLM-26-88</span>
+<span class="font-body text-xs font-normal text-earth-700">Salem Turmeric • Grade A1</span>
+<span class="font-body text-xs font-normal text-earth-500">Total Volume: 4.8 Metric Tons</span>
+</div>
+</td>
+<!-- State Transition -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1">
+<span class="px-1 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-700">DRAFT</span>
+<span class="material-symbols-outlined text-[14px] text-primary-500">arrow_right_alt</span>
+<span class="px-1 py-1 rounded bg-primary-100 text-primary-800 font-mono text-xs font-medium tracking-wider uppercase font-bold">LISTED</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-semibold">₹188 / kg (Floor Price)</span>
+<span class="font-body text-xs font-normal text-earth-500">AgriStack Land Record Match ✓</span>
+</div>
+</td>
+<!-- Merkle Hash -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-center gap-1 bg-earth-100 px-2 py-1 rounded w-max">
+<span class="material-symbols-outlined text-[14px] text-earth-500">tag</span>
+<code class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900">0x9b4a1...c712</code>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 hover:text-primary-500 text-earth-500" onclick="navigator.clipboard.writeText('0x9b4a10049281aacc712'); alert('Copied Merkle Hash');" title="Copy Hash">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+</td>
+<!-- Verification Badge -->
+<td class="py-4 px-4 align-top text-right whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-medium shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-primary-500">verified</span>
+                  Valid Hash
+                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination & Stream Controls -->
+<div class="px-6 py-4 bg-white flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-earth-700 font-body text-xs font-normal">
+<span>Showing <strong class="font-mono text-earth-900">1–5</strong> of <strong class="font-mono text-earth-900">184,920</strong> chained entries</span>
+<span class="text-earth-500">•</span>
+<span class="text-earth-500">Ledger Sync: 100% Intact</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 hover:bg-earth-200 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span> Older Blocks
+          </button>
+<div class="flex items-center gap-1">
+<span class="w-8 h-8 rounded bg-primary-800 text-white flex items-center justify-center font-mono text-xs font-medium tracking-wider uppercase font-semibold">1</span>
+<span class="w-8 h-8 rounded hover:bg-earth-100 flex items-center justify-center font-mono text-xs font-medium tracking-wider uppercase text-earth-700 cursor-pointer">2</span>
+<span class="w-8 h-8 rounded hover:bg-earth-100 flex items-center justify-center font-mono text-xs font-medium tracking-wider uppercase text-earth-700 cursor-pointer">3</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 px-1">...</span>
+<span class="w-8 h-8 rounded hover:bg-earth-100 flex items-center justify-center font-mono text-xs font-medium tracking-wider uppercase text-earth-700 cursor-pointer">36,984</span>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 hover:bg-earth-200 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase transition-colors flex items-center gap-1">
+            Newer Blocks <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Persistent Cryptographic Verification Terminal (Bottom Bar) -->
+<footer class="sticky bottom-0 z-30 bg-primary-900 text-white py-4 px-6 shadow-2xl backdrop-blur-md">
+<div class="max-w-[80rem] mx-auto w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<!-- Left: Merkle Root Hash Indicator -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary-800 flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-primary-500 text-[22px]">account_tree</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase tracking-wider">Current State Root</span>
+<span class="px-1 py-1 rounded bg-primary-800 text-primary-500 font-mono text-xs font-medium tracking-wider uppercase">
+              Pinned 14:02:18 IST
+            </span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<code class="font-mono text-sm font-medium tracking-wide text-gold-100 select-all">0x7e8b99c4210a4f33e839c0aa1091d2b45f0e88b8</code>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 text-earth-500 hover:text-white transition-colors" onclick="navigator.clipboard.writeText('0x7e8b99c4210a4f33e839c0aa1091d2b45f0e88b8'); alert('Copied Root Merkle Hash');" title="Copy Root State Hash">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right: Mathematical Guarantee Seal -->
+<div class="flex items-center gap-4 self-end md:self-auto">
+<div class="hidden lg:flex flex-col text-right">
+<span class="font-body text-xs font-normal text-primary-400">Sovereign Ag-Chain Node: <strong class="text-white font-medium">DELHI-CENTRAL-01</strong></span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">All 184,920 event blocks mathematically verified &amp; tamper-proof</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded bg-primary-800 text-primary-500 shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-primary-500">verified_user</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-semibold tracking-wide">TAMPER-PROOF AUDIT SEAL</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+    // Live Merkle Tree Verification Action Simulator
+    const verifyBtn = document.getElementById('verifyTreeBtn');
+    const notice = document.getElementById('merkleVerificationNotice');
+    
+    if (verifyBtn && notice) {
+      verifyBtn.addEventListener('click', () => {
+        verifyBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span> Validating Tree...';
+        verifyBtn.disabled = true;
+        
+        setTimeout(() => {
+          notice.classList.remove('hidden');
+          verifyBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] text-primary-500">check_circle</span> Hashes Validated';
+          setTimeout(() => {
+            verifyBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] text-primary-500">lock_reset</span> Verify Block Hashes (Merkle Tree)';
+            verifyBtn.disabled = false;
+          }, 3000);
+        }, 800);
+      });
+    }
+
+    // Client-side quick filter simulation
+    const searchInput = document.getElementById('logSearchInput');
+    const tableRows = document.querySelectorAll('#auditTable tbody tr');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        tableRows.forEach(row => {
+          const text = row.innerText.toLowerCase();
+          if (text.includes(query)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // Reset controls button
+    const resetBtn = document.getElementById('resetFilters');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        document.getElementById('filterEntity').value = 'all';
+        document.getElementById('filterRole').value = 'all';
+        document.getElementById('filterAction').value = 'all';
+        document.getElementById('filterTime').value = '24h';
+        if (searchInput) {
+          searchInput.value = '';
+          tableRows.forEach(row => row.style.display = '');
+        }
+      });
+    }
+  </script>
+</div></main></div></body></html>

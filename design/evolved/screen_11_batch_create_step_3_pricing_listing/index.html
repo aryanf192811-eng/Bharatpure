@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};</script></head><body class="bg-earth-50 font-body text-sm text-earth-900 flex flex-col min-h-screen font-normal"><header class="fixed top-0 inset-x-0 z-50 bg-earth-50/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(28,20,8,0.04)] pt-safe"><div class="h-14 px-4 flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0"><button aria-label="Go Back" class="w-11 h-11 flex items-center justify-center text-earth-900 hover:text-primary-800 transition-colors flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-7 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><h1 class="font-body text-lg text-earth-900 font-semibold truncate">Farmer Batches New Step 1</h1></div><div class="flex items-center gap-2 flex-shrink-0"><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-14 pb-safe bg-earth-50"><div class="flex flex-col w-full pb-8">
+<!-- Interactive Form Container -->
+<div class="px-4 flex flex-col gap-y-4 pt-2">
+<!-- Progress Indicator -->
+<div class="w-full bg-earth-100 rounded-md p-3 shadow-sm">
+<div class="flex items-center justify-between relative">
+<!-- Connecting Lines -->
+<div class="absolute left-6 right-6 top-3 h-0.5 bg-primary-500/40 -z-0"></div>
+<div class="absolute left-6 w-1/2 top-3 h-0.5 bg-primary-700 -z-0"></div>
+<!-- Step 1 Complete -->
+<div class="flex flex-col items-center gap-1 z-10">
+<div class="w-6 h-6 rounded-full bg-primary-700 text-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-body text-xs text-earth-700 font-medium">1. Crop</span>
+</div>
+<!-- Step 2 Complete -->
+<div class="flex flex-col items-center gap-1 z-10">
+<div class="w-6 h-6 rounded-full bg-primary-700 text-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-body text-xs text-earth-700 font-medium">2. Quality</span>
+</div>
+<!-- Step 3 Active -->
+<div class="flex flex-col items-center gap-1 z-10">
+<div class="w-6 h-6 rounded-full bg-primary-800 text-white flex items-center justify-center shadow-md animate-pulse">
+<span class="w-2 h-2 rounded-full bg-gold-400"></span>
+</div>
+<span class="font-body text-xs text-primary-800 font-semibold">3. Pricing</span>
+</div>
+</div>
+</div>
+<!-- Step Heading & Context Badge -->
+<div class="flex items-end justify-between">
+<div>
+<span class="font-mono text-xs text-gold-800 uppercase tracking-wider font-semibold">Step 3 of 3</span>
+<h2 class="font-display text-xl text-earth-900 mt-0.5 font-semibold">Set Your Price</h2>
+</div>
+<div class="flex items-center gap-1 bg-primary-50 px-2.5 py-1 rounded-full text-primary-700">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="font-mono text-xs font-semibold tracking-wider uppercase">Grade-A Certified</span>
+</div>
+</div>
+<!-- Verified Lot Mini Visual Pill -->
+<div class="relative w-full h-24 rounded-md overflow-hidden shadow-sm flex items-end p-3">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="Golden ripe organic wheat grain harvest being scooped by a farmer's sun-browned hands, close-up, warm rustic morning sunlight, rich amber and natural green agricultural tones, authentic macro photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxRSKHfw7yeub3qDnvLu3Rzej0814wi7S2ncBhkUR2VAy05nkpYMnmIO5Y0WXRun-Y7JhLGcA3te1Rrqkdoo4JRLYrE572tPEy7Yx2DKBrijHWf4YlbNtyckJJ4NW-dGgKTosKeSX7EWPcdHzRh19naIB9UWjbbuVpZu6uq9F_EvpYDKZpdrtQybvwQrO6b4aj3YWZTSe3RiMchIQ7pQoM8oMtNnjQ9XMPpcOodfKIM32BicFOI_5K"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-900/85 via-primary-900/40 to-transparent"></div>
+<div class="relative z-10 flex items-center justify-between w-full text-white">
+<div>
+<p class="font-body text-xs text-gold-400 font-medium">Batch #BP-2024-W892</p>
+<p class="font-body text-lg text-white font-semibold leading-tight">Sharbati Gold Wheat (2,500 kg)</p>
+</div>
+<div class="text-right">
+<span class="font-mono text-xs bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-sm text-earth-50 font-medium tracking-wider uppercase">Lot Moisture: 10.4%</span>
+</div>
+</div>
+</div>
+<!-- Price Intelligence Card -->
+<div class="w-full bg-gold-50 rounded-md p-4 shadow-sm relative overflow-hidden">
+<!-- Decorative watermark ring -->
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-gold-100/50 pointer-events-none"></div>
+<div class="flex items-start gap-2.5 relative z-10">
+<span class="text-xl">🎯</span>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h3 class="font-body text-sm font-semibold text-gold-800">BharatPure Smart Valuation</h3>
+<span class="font-mono text-xs bg-gold-100 text-gold-800 px-2 py-0.5 rounded-full font-medium tracking-wider uppercase">NABL Indexed</span>
+</div>
+<p class="font-display text-xl text-earth-900 mt-1 font-bold">
+            ₹182 – ₹197 <span class="font-body text-xs font-normal text-earth-700">/ kg</span>
+</p>
+</div>
+</div>
+<!-- Comparison Breakdown Grid -->
+<div class="mt-3 pt-2 grid grid-cols-1 gap-2 relative z-10">
+<div class="flex items-center justify-between bg-white/80 backdrop-blur-sm rounded p-2.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-earth-500">storefront</span>
+<span class="font-body text-xs text-earth-700 font-normal">Local Mandi / eNAM Mandate</span>
+</div>
+<span class="font-mono text-sm font-semibold text-earth-900 tracking-wide">₹140.00 / kg</span>
+</div>
+<div class="flex items-center justify-between bg-white/80 backdrop-blur-sm rounded p-2.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary-500">verified_user</span>
+<span class="font-body text-xs text-earth-700 font-normal">Your Bio-Lab Premium</span>
+</div>
+<span class="font-mono text-sm font-bold text-primary-700 tracking-wide">+33.5% (+₹48/kg)</span>
+</div>
+<div class="flex items-center gap-2 px-1 text-earth-700">
+<span class="material-symbols-outlined text-[16px] text-warning">local_fire_department</span>
+<span class="font-body text-xs font-normal">High direct buyer demand currently active in <strong class="text-earth-900">Delhi NCR &amp; Lucknow</strong></span>
+</div>
+</div>
+</div>
+<!-- Asking Price Input Section -->
+<div class="w-full bg-white rounded-md p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<label class="font-body text-sm font-semibold text-earth-900 flex items-center gap-1.5" for="priceInput">
+<span>Set Your Asking Price</span>
+<span class="text-danger font-bold">*</span>
+</label>
+<span class="font-mono text-xs text-primary-500 font-medium bg-primary-50 px-2 py-0.5 rounded-sm tracking-wider uppercase">In Recommended Range</span>
+</div>
+<!-- Currency Highlighted Input Box -->
+<div class="relative flex items-center bg-earth-100 rounded-md p-2 focus-within:bg-gold-50 transition-all">
+<div class="w-12 h-12 rounded bg-primary-800 flex items-center justify-center text-white font-display text-xl flex-shrink-0 shadow-sm font-semibold">
+          ₹
+        </div>
+<div class="flex-1 ml-3">
+<input class="w-full bg-transparent font-display text-2xl text-earth-900 font-bold focus:outline-none tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="priceInput" max="350" min="100" oninput="updateCalculator(this.value)" step="0.50" type="number" value="188.00"/>
+</div>
+<span class="font-body text-sm font-medium text-earth-500 pr-2">per kg</span>
+</div>
+<!-- Quick Preset Increment Buttons -->
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-3 rounded bg-earth-100 text-earth-700 font-mono text-xs hover:bg-earth-200 transition-colors active:scale-95 font-medium tracking-wider uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustPrice(-5)" type="button">-₹5</button>
+<button class="flex-1 py-3 rounded bg-earth-100 text-earth-700 font-mono text-xs hover:bg-earth-200 transition-colors active:scale-95 font-medium tracking-wider uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustPrice(-1)" type="button">-₹1</button>
+<button class="flex-2 px-3 py-3 rounded bg-gold-400/20 text-gold-800 font-body text-xs font-semibold hover:bg-gold-400/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="setRecommended()" type="button">Optimal (₹188)</button>
+<button class="flex-1 py-3 rounded bg-earth-100 text-earth-700 font-mono text-xs hover:bg-earth-200 transition-colors active:scale-95 font-medium tracking-wider uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustPrice(1)" type="button">+₹1</button>
+<button class="flex-1 py-3 rounded bg-earth-100 text-earth-700 font-mono text-xs hover:bg-earth-200 transition-colors active:scale-95 font-medium tracking-wider uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustPrice(5)" type="button">+₹5</button>
+</div>
+<!-- Live Earning Realization Card -->
+<div class="bg-primary-50 rounded p-3 flex flex-col gap-1.5 mt-1">
+<div class="flex items-center justify-between">
+<span class="font-body text-xs font-medium text-primary-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">account_balance_wallet</span>
+            Estimated Gross Realization
+          </span>
+<span class="font-mono text-xs text-primary-700 font-semibold tracking-wider uppercase">2,500 kg Lot</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-display text-xl font-bold text-primary-900" id="totalRealization">₹4,70,000</span>
+<span class="font-mono text-xs font-semibold text-primary-700 bg-primary-100 px-2 py-0.5 rounded-sm tracking-wider uppercase" id="extraEarnings">+₹1,20,000 vs Mandi</span>
+</div>
+<p class="font-body text-xs text-earth-500 font-normal">Direct settlement within 24 hours of digital delivery gate pass verification.</p>
+</div>
+</div>
+<!-- Listing Settings Module -->
+<div class="w-full bg-white rounded-md p-4 shadow-sm flex flex-col gap-3">
+<h3 class="font-body text-lg text-earth-900 font-semibold">Listing Channel &amp; Allocation</h3>
+<!-- Radio Pill Selector -->
+<div class="flex flex-col gap-2">
+<label class="font-body text-xs font-medium text-earth-700">Select Discovery Network</label>
+<div class="grid grid-cols-1 gap-2" id="listingTypes">
+<!-- Option 1: Open Marketplace (Default selected) -->
+<div class="channel-card flex items-center justify-between p-3 rounded bg-earth-100 cursor-pointer transition-all hover:shadow-md active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-type="open" onclick="selectChannel(this)" role="button" tabindex="0">
+<div class="flex items-center gap-3">
+<div class="radio-indicator w-5 h-5 rounded-full bg-primary-800 text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px]">check</span>
+</div>
+<div>
+<p class="font-body text-sm font-semibold text-earth-900">Open Marketplace</p>
+<p class="font-body text-xs text-earth-700 font-normal">Visible to both verified bulk millers &amp; consumers</p>
+</div>
+</div>
+<span class="font-mono text-xs bg-primary-50 text-primary-700 px-2 py-0.5 rounded-sm font-medium tracking-wider uppercase">Fastest</span>
+</div>
+<!-- Option 2: Bulk Buyer Only -->
+<div class="channel-card flex items-center justify-between p-3 rounded bg-white cursor-pointer transition-all hover:shadow-md active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-type="bulk" onclick="selectChannel(this)" role="button" tabindex="0">
+<div class="flex items-center gap-3">
+<div class="radio-indicator w-5 h-5 rounded-full bg-earth-200 flex items-center justify-center"></div>
+<div>
+<p class="font-body text-sm font-semibold text-earth-900">Bulk Buyers Only</p>
+<p class="font-body text-xs text-earth-700 font-normal">Commercial food processors, exporters &amp; FPOs</p>
+</div>
+</div>
+<span class="font-mono text-xs text-earth-500 font-medium tracking-wider uppercase">Min. 500 kg</span>
+</div>
+<!-- Option 3: Consumer PWA Only -->
+<div class="channel-card flex items-center justify-between p-3 rounded bg-white cursor-pointer transition-all hover:shadow-md active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-type="consumer" onclick="selectChannel(this)" role="button" tabindex="0">
+<div class="flex items-center gap-3">
+<div class="radio-indicator w-5 h-5 rounded-full bg-earth-200 flex items-center justify-center"></div>
+<div>
+<p class="font-body text-sm font-semibold text-earth-900">Consumer PWA Only</p>
+<p class="font-body text-xs text-earth-700 font-normal">Direct household retail bags (Higher margins)</p>
+</div>
+</div>
+<span class="font-mono text-xs text-earth-500 font-medium tracking-wider uppercase">Retail pack</span>
+</div>
+</div>
+</div>
+<!-- Min Order & Validity Sub-Grid -->
+<div class="grid grid-cols-2 gap-3 pt-2">
+<!-- Min Order Quantity -->
+<div class="flex flex-col gap-1.5">
+<label class="font-body text-xs font-medium text-earth-700">Min. Order Qty</label>
+<div class="flex items-center bg-earth-100 rounded px-3 py-2.5">
+<span class="material-symbols-outlined text-[18px] text-earth-500 mr-1.5">scale</span>
+<input class="w-full bg-transparent font-body text-sm text-earth-900 font-medium focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="text" value="50 kg"/>
+</div>
+</div>
+<!-- Duration Validity -->
+<div class="flex flex-col gap-1.5">
+<label class="font-body text-xs font-medium text-earth-700">Listing Validity</label>
+<div class="flex items-center bg-earth-100 rounded px-3 py-2.5">
+<span class="material-symbols-outlined text-[18px] text-earth-500 mr-1.5">calendar_month</span>
+<select class="w-full bg-transparent font-body text-sm text-earth-900 font-medium focus:outline-none pr-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<option value="30">30 Days</option>
+<option value="15">15 Days</option>
+<option value="45">45 Days</option>
+<option value="60">60 Days</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Trust Note -->
+<div class="flex items-center gap-2 text-earth-500 mt-1">
+<span class="material-symbols-outlined text-[16px] text-gold-800">security</span>
+<span class="font-body text-xs font-normal">Zero commission on BharatPure directly verified farmer lots.</span>
+</div>
+</div>
+<!-- Dual Action CTA Section -->
+<div class="flex flex-col gap-2.5 pt-2">
+<button class="w-full h-12 bg-primary-800 hover:bg-primary-700 text-white font-body text-base font-semibold rounded shadow-md flex items-center justify-center gap-2 active:scale-[0.99] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="handlePublish(this)" type="button">
+<span>Create Batch &amp; Publish Listing</span>
+<span class="text-lg">🚀</span>
+</button>
+<button class="w-full h-12 bg-white hover:bg-earth-100 text-earth-900 font-body text-base font-medium rounded shadow-sm flex items-center justify-center gap-2 transition-colors active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px] text-earth-700">draft</span>
+<span>Save as Draft</span>
+</button>
+</div>
+<!-- Farmer Community Reassurance -->
+<div class="flex items-center justify-center gap-2 text-earth-500 py-2">
+<span class="material-symbols-outlined text-[16px]">support_agent</span>
+<span class="font-body text-xs font-normal">Need pricing help? Speak to your local FPO desk at <span class="font-semibold text-earth-700">1800-242-728</span></span>
+</div>
+</div>
+</div>
+<script>
+  // Price and realization dynamic calculator
+  const BATCH_KG = 2500;
+  const MANDI_RATE = 140;
+
+  function updateCalculator(val) {
+    const price = parseFloat(val) || 0;
+    const total = price * BATCH_KG;
+    const mandiTotal = MANDI_RATE * BATCH_KG;
+    const diff = total - mandiTotal;
+
+    const totalEl = document.getElementById('totalRealization');
+    const diffEl = document.getElementById('extraEarnings');
+
+    totalEl.textContent = '₹' + total.toLocaleString('en-IN');
+    
+    if (diff >= 0) {
+      diffEl.textContent = '+₹' + diff.toLocaleString('en-IN') + ' vs Mandi';
+      diffEl.className = 'font-mono text-xs font-semibold text-primary-700 bg-primary-100 px-2 py-0.5 rounded-sm tracking-wider uppercase';
+    } else {
+      diffEl.textContent = '-₹' + Math.abs(diff).toLocaleString('en-IN') + ' vs Mandi';
+      diffEl.className = 'font-mono text-xs font-semibold text-danger bg-danger-bg px-2 py-0.5 rounded-sm tracking-wider uppercase';
+    }
+  }
+
+  function adjustPrice(delta) {
+    const input = document.getElementById('priceInput');
+    let current = parseFloat(input.value) || 188;
+    current = Math.max(100, Math.min(350, current + delta));
+    input.value = current.toFixed(2);
+    updateCalculator(current);
+  }
+
+  function setRecommended() {
+    const input = document.getElementById('priceInput');
+    input.value = "188.00";
+    updateCalculator(188);
+  }
+
+  function selectChannel(card) {
+    const cards = document.querySelectorAll('.channel-card');
+    cards.forEach(c => {
+      c.classList.remove('bg-earth-100');
+      c.classList.add('bg-white');
+      const ind = c.querySelector('.radio-indicator');
+      ind.className = 'radio-indicator w-5 h-5 rounded-full bg-earth-200 flex items-center justify-center';
+      ind.innerHTML = '';
+    });
+
+    card.classList.remove('bg-white');
+    card.classList.add('bg-earth-100');
+    const activeInd = card.querySelector('.radio-indicator');
+    activeInd.className = 'radio-indicator w-5 h-5 rounded-full bg-primary-800 text-white flex items-center justify-center';
+    activeInd.innerHTML = '<span class="material-symbols-outlined text-[12px]">check</span>';
+  }
+
+  function handlePublish(btn) {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span><span>Publishing to BharatPure...</span>';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Batch Published Successfully!</span>';
+      btn.classList.remove('bg-primary-800');
+      btn.classList.add('bg-primary-700');
+    }, 1200);
+  }
+</script></main></body></html>

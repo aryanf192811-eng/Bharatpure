@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};</script></head><body class="bg-earth-50 font-body text-sm font-normal text-earth-900"><aside class="fixed left-0 top-0 h-full w-60 bg-primary-800 text-white z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 flex items-center gap-2 px-4 bg-primary-900"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-sm font-bold text-white tracking-tight leading-tight">BharatPure</span><span class="font-mono text-xs tracking-wider uppercase font-medium text-gold-400">Enterprise</span></div></div><div class="px-4 py-3"><span class="font-mono text-xs tracking-wider uppercase font-medium text-primary-400">Procurement Suite</span></div><nav class="flex flex-col gap-0.5 px-2" data-active-classes="bg-primary-800 text-white font-semibold shadow-sm"><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="buyer-dashboard" href="#"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span class="font-body text-sm font-normal">Dashboard</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="verified-batch-catalog" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body text-sm font-normal">Batch Catalog</span></a><a aria-current="page" class="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors bg-primary-800 text-white font-semibold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="bulk-orders-and-escrow" href="#"><span class="material-symbols-outlined text-[20px]">account_balance_wallet</span><span class="font-body text-sm font-normal">Orders &amp; Escrow</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="new-procurement-order" href="#"><span class="material-symbols-outlined text-[20px]">add_circle</span><span class="font-body text-sm font-normal">New Procurement</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="reliability-and-iei-score" href="#"><span class="material-symbols-outlined text-[20px]">query_stats</span><span class="font-body text-sm font-normal">Reliability &amp; IEI</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="nabl-quality-vault" href="#"><span class="material-symbols-outlined text-[20px]">lab_profile</span><span class="font-body text-sm font-normal">Quality Vault</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="contracts-and-mandates" href="#"><span class="material-symbols-outlined text-[20px]">gavel</span><span class="font-body text-sm font-normal">Contracts</span></a></nav></div><div class="p-3 bg-primary-900 m-2 rounded-xl flex flex-col gap-2"><div class="flex items-center justify-between"><div class="flex items-center gap-0.5 text-gold-400"><span class="material-symbols-outlined text-[16px]">shield</span><span class="font-mono text-xs tracking-wider uppercase font-semibold">100% Escrow</span></div><span class="material-symbols-outlined text-primary-400 text-[16px]">lock</span></div><p class="font-body text-xs font-normal text-primary-400 leading-snug">Sovereign smart contracts backed by BharatPure Guarantee.</p><div class="pt-1 flex items-center justify-between text-white"><span class="font-body text-xs font-medium">FPO Concierge</span><span class="material-symbols-outlined text-[18px] text-gold-400 cursor-pointer hover:text-gold-100">support_agent</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-earth-50/90 backdrop-blur-xl z-40 flex items-center justify-between px-6 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-4 flex-1 max-w-xl"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-earth-500 text-[18px]">search</span><input class="w-full pl-9 pr-3 py-2 rounded-lg bg-earth-100 text-sm font-body text-earth-900 placeholder:text-earth-500 focus:outline-none focus:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" placeholder="Search crops, NABL lots, or verified FPO clusters..." type="text"/></div><div class="hidden xl:flex items-center gap-0.5 px-3 py-1 rounded-full bg-gold-50 text-gold-800"><span class="material-symbols-outlined text-[14px] text-primary-700">verified</span><span class="font-mono text-xs tracking-wider uppercase font-medium whitespace-nowrap">AgriStack &amp; NABL Connected</span></div></div><div class="flex items-center gap-3"><div class="relative p-1 rounded-lg text-earth-700 hover:bg-earth-200 transition-colors cursor-pointer"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-warning"></span></div><div class="flex items-center gap-3 px-3 py-1 rounded-xl bg-earth-100"><div class="flex flex-col text-right"><span class="font-body text-xs font-semibold text-earth-900 leading-tight">Fresh Provisions Pvt Ltd</span><div class="flex items-center gap-2 justify-end"><span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">GSTIN: 07AABCF1234F1Z8</span><span class="inline-block w-1 h-1 rounded-full bg-earth-200"></span><span class="font-mono text-xs tracking-wider uppercase font-semibold text-primary-700">IEI: 89/100</span></div></div><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-6 py-6 bg-earth-50 min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Command & Action Bar -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 mb-6">
+<div>
+<div class="flex items-center gap-2 mb-0.5">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-gold-800 bg-gold-50 px-2 py-0.5 rounded">Enterprise Ledger</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">GST Registered • Sovereign Escrow</span>
+</div>
+<h1 class="font-display text-2xl font-semibold text-earth-900 tracking-tight">Procurement Orders &amp; Sourcing Ledger</h1>
+<p class="font-body text-sm font-normal text-earth-700 mt-0.5">Real-time custody tracking, cryptographic escrow settlements, and batch-level NABL lab assays.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-earth-200 text-earth-900 rounded-lg shadow-sm transition-all text-sm font-body focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[18px] text-earth-700">file_download</span>
+        Export CSV
+      </button>
+<button class="inline-flex items-center gap-2 px-4 py-2 bg-primary-800 hover:bg-primary-700 text-white rounded-lg shadow-sm transition-all text-sm font-body font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[18px] text-gold-400">receipt_long</span>
+        Download Monthly Tax Invoice
+      </button>
+</div>
+</div>
+<!-- Highlights & Quick Visual Provenance Strip -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<!-- Active In-Transit Telemetry Card -->
+<div class="relative overflow-hidden bg-white rounded-xl p-4 shadow-sm flex items-center justify-between">
+<div class="flex flex-col gap-0.5 z-10">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Active In-Transit Pipeline</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-xl text-earth-900 font-bold">₹5,49,000</span>
+<span class="font-body text-xs text-primary-700 font-medium">2 Lots En Route</span>
+</div>
+<div class="flex items-center gap-2 text-xs text-earth-700">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
+<span>Cold-chain integrity nominal (6.4°C)</span>
+</div>
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="Close up shot of golden dried turmeric rhizomes harvested from Salem farm soil resting on rustic burlap with natural sunlight accentuating earthy textures and deep organic ochre tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2iXaPvFibMdiGKbtdS5xQXiCLaLBolb-jgXPk5M9-Y18gRLS1rR_w0770klJyBhBAPgBMbj-0QbFvyWmoZUiOV27iTfgC-lgwmOYOL-0MHajx6nf4cs2kxchyqk_WrCgwu3QW9PBlO5iemmwJyb7aFBvPE0JvdFHkTzzF1yb2mwpbEHcxD3TPY68w58FTUPnkZOYkizLNWBUG1NceSTOU7D7xpBqvEAZmz4Zp3EYwGyM_7TvTuyHX"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-900/50 to-transparent"></div>
+</div>
+</div>
+<!-- Escrow Protected Vault -->
+<div class="relative overflow-hidden bg-white rounded-xl p-4 shadow-sm flex items-center justify-between">
+<div class="flex flex-col gap-0.5 z-10">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Escrow Reserve Balance</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-xl text-earth-900 font-bold">₹11,25,000</span>
+<span class="font-body text-xs text-gold-800 font-medium">ICICI Vault</span>
+</div>
+<div class="flex items-center gap-2 text-xs text-earth-700">
+<span class="material-symbols-outlined text-[16px] text-gold-800">lock_clock</span>
+<span>Auto-releases post 48-hr BIR audit</span>
+</div>
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden shrink-0 shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="Traditional pure cold pressed mustard oil in rustic glass bottle amidst flowering mustard brassica field in rural India during golden hour warm glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_eFPfLtw1IlKHwaxxuXelGEuy3tzn2BfWhTJZb2-Q7g7CQhinvZYRpuvZidZjdvtKKOJCbxjI7HOELQjx1yYSN5vkeagOJCTYVE12v8PcP9oyxbdmLsQEhbbgg9h_5ijn7FNUhgLooESGG0WlOtQjLFBaRu1D4vz9RkxY4kRXAoRuS4XIivVlBwV3-2LDfzTzdoLIxEbcmtwhxxU5xLmEEzghdcXHeUTmSZ2Y-gfR_8AmHm1MVePZ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-gold-800/40 to-transparent"></div>
+</div>
+</div>
+<!-- Quality Re-Assay Benchmark -->
+<div class="relative overflow-hidden bg-white rounded-xl p-4 shadow-sm flex items-center justify-between">
+<div class="flex flex-col gap-0.5 z-10">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Verified Lab Pass Rate</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-xl text-earth-900 font-bold">99.4%</span>
+<span class="font-body text-xs text-primary-700 font-medium">18 of 18 Orders</span>
+</div>
+<div class="flex items-center gap-2 text-xs text-earth-700">
+<span class="material-symbols-outlined text-[16px] text-primary-700">verified_user</span>
+<span>NABL ISO 17025 accredited</span>
+</div>
+</div>
+<div class="h-16 w-24 flex items-center justify-center bg-earth-100 rounded-lg p-2">
+<svg class="w-full h-full" viewbox="0 0 100 40">
+<path d="M0 32 Q25 28 40 18 T75 12 T100 8" fill="none" stroke="#2D6A4F" stroke-linecap="round" stroke-width="3"></path>
+<path d="M0 32 Q25 28 40 18 T75 12 T100 8 L100 40 L0 40 Z" fill="#D8F3DC" opacity="0.6"></path>
+<circle cx="100" cy="8" fill="#012d1d" r="3.5"></circle>
+</svg>
+</div>
+</div>
+</div>
+<!-- Filter Pills / Status Tabs -->
+<div class="flex flex-wrap items-center gap-2 mb-4">
+<button class="px-4 py-2 rounded-full bg-primary-800 text-white font-body text-xs font-medium shadow-sm transition-colors flex items-center gap-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>All Orders</span>
+<span class="bg-primary-700/60 text-white px-1 py-0.5 rounded-full text-[10px] font-mono leading-none">18</span>
+</button>
+<button class="px-4 py-2 rounded-full bg-white hover:bg-earth-200 text-earth-700 font-body text-xs font-medium transition-colors flex items-center gap-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>Active &amp; In-Transit</span>
+<span class="bg-gold-400 text-gold-800 px-1 py-0.5 rounded-full text-[10px] font-mono leading-none font-semibold">5</span>
+</button>
+<button class="px-4 py-2 rounded-full bg-white hover:bg-earth-200 text-earth-700 font-body text-xs font-medium transition-colors flex items-center gap-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>Quality Inspection</span>
+<span class="bg-earth-100 text-earth-500 px-1 py-0.5 rounded-full text-[10px] font-mono leading-none">2</span>
+</button>
+<button class="px-4 py-2 rounded-full bg-white hover:bg-earth-200 text-earth-700 font-body text-xs font-medium transition-colors flex items-center gap-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>Fulfilled &amp; Settled</span>
+<span class="bg-primary-100 text-primary-700 px-1 py-0.5 rounded-full text-[10px] font-mono leading-none">11</span>
+</button>
+<button class="px-4 py-2 rounded-full bg-white hover:bg-earth-200 text-earth-700 font-body text-xs font-medium transition-colors flex items-center gap-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>Disputes</span>
+<span class="bg-earth-100 text-earth-500 px-1 py-0.5 rounded-full text-[10px] font-mono leading-none">0</span>
+</button>
+</div>
+<!-- Search & Detailed Query Controls -->
+<div class="bg-white rounded-xl p-3 shadow-sm mb-4 flex flex-col lg:flex-row gap-3 items-center justify-between">
+<div class="relative w-full lg:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-earth-500 text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-2 bg-earth-100 text-sm font-body text-earth-900 rounded-lg placeholder:text-earth-500 focus:outline-none focus:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" placeholder="Filter by Order ID, Crop, or FPO cluster..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-end">
+<!-- Date Range Selector -->
+<div class="flex items-center gap-2 bg-earth-100 px-3 py-2 rounded-lg text-xs font-body text-earth-900 cursor-pointer hover:bg-earth-100 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-earth-500">calendar_today</span>
+<span>Last 90 Days</span>
+<span class="material-symbols-outlined text-[16px] text-earth-500">arrow_drop_down</span>
+</div>
+<!-- Sort Filter -->
+<div class="flex items-center gap-2 bg-earth-100 px-3 py-2 rounded-lg text-xs font-body text-earth-900 cursor-pointer hover:bg-earth-100 transition-colors">
+<span class="material-symbols-outlined text-[16px] text-earth-500">swap_vert</span>
+<span>Sort: <strong class="font-medium text-earth-900">Order Date (Newest)</strong></span>
+<span class="material-symbols-outlined text-[16px] text-earth-500">arrow_drop_down</span>
+</div>
+<button class="p-2 rounded-lg bg-earth-100 hover:bg-earth-100 text-earth-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" title="Table Layout Configuration">
+<span class="material-symbols-outlined text-[20px]">view_column</span>
+</button>
+</div>
+</div>
+<!-- Enterprise Orders Data Table Container -->
+<div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[1080px]">
+<thead>
+<tr class="bg-earth-100 text-earth-500 font-mono text-xs tracking-wider uppercase font-medium">
+<th class="py-3 px-4 font-medium">Order ID &amp; Date</th>
+<th class="py-3 px-4 font-medium">Sourced Lots &amp; FPOs</th>
+<th class="py-3 px-4 font-medium">Total Volume</th>
+<th class="py-3 px-4 font-medium">Order Value</th>
+<th class="py-3 px-4 font-medium">Escrow Status</th>
+<th class="py-3 px-4 font-medium">Fulfillment &amp; ETA</th>
+<th class="py-3 px-4 font-medium">Cold-Chain</th>
+<th class="py-3 px-4 font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-earth-900 font-body text-xs font-normal">
+<!-- ROW 1: Active In-Transit Batch -->
+<tr class="hover:bg-earth-100/60 transition-colors bg-white">
+<!-- Order ID -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">#ORD-BL-2026-1082</span>
+<span class="text-earth-500 text-xs">Today, 21 Oct 2026</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-primary-700 mt-0.5 flex items-center gap-0.5">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-700"></span>
+                  Smart Contract #7819
+                </span>
+</div>
+</td>
+<!-- Batches & FPOs -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-2">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-gold-800 shrink-0 mt-0.5">compost</span>
+<div>
+<span class="font-semibold text-earth-900 block">Salem Curcumin Turmeric</span>
+<span class="text-earth-500 text-xs">Sangli Agri Cluster FPC • 1,500 kg</span>
+</div>
+</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-gold-800 shrink-0 mt-0.5">opacity</span>
+<div>
+<span class="font-semibold text-earth-900 block">Cold-Pressed Mustard Oil</span>
+<span class="text-earth-500 text-xs">Alwar Mustard Krishi Sangh • 1,000 L</span>
+</div>
+</div>
+</div>
+</td>
+<!-- Volume -->
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-900">2,500 kg equiv.</span>
+<span class="text-earth-500 block text-xs">2 consignments</span>
+</td>
+<!-- Order Value -->
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">₹5,49,000</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">₹219.6/kg avg</span>
+</div>
+</td>
+<!-- Escrow Status -->
+<td class="py-4 px-4 align-top">
+<div class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-primary-100 text-primary-900">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">Funds Locked</span>
+</div>
+<p class="text-[11px] text-earth-500 mt-0.5 leading-tight">Protected in BharatPure Trust</p>
+</td>
+<!-- Progress / Status -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-0.5">
+<div class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-gold-50 text-gold-800 w-fit">
+<span class="material-symbols-outlined text-[14px] animate-spin">sync</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">Dispatched (Hub 04)</span>
+</div>
+<div class="w-32 bg-earth-100 rounded-full h-1.5 overflow-hidden mt-1">
+<div class="bg-gold-400 h-full rounded-full" style="width: 68%;"></div>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700">ETA: &lt; 24 hrs (NH-48 Corridor)</span>
+</div>
+</td>
+<!-- Cold Chain -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-center gap-0.5">
+<span class="w-2 h-2 rounded-full bg-primary-700"></span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold text-primary-700">6.4°C Optimal</span>
+</div>
+<span class="text-earth-500 text-[11px] block">IoT GPS: Live ping 4m ago</span>
+</td>
+<!-- Actions -->
+<td class="py-4 px-4 align-top text-right">
+<div class="flex flex-col items-end gap-0.5">
+<button class="px-2 py-0.5 bg-primary-800 hover:bg-primary-700 text-white rounded text-xs font-medium transition-colors flex items-center gap-0.5 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[14px] text-gold-400">location_on</span>
+                  Fleet Telemetry
+                </button>
+<div class="flex items-center gap-2 mt-1">
+<button class="text-earth-700 hover:text-primary-800 transition-colors text-xs underline font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">Inspect BIR</button>
+<span class="text-earth-200">•</span>
+<button class="text-earth-700 hover:text-primary-800 transition-colors text-xs underline font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">View PO</button>
+</div>
+</div>
+</td>
+</tr>
+<!-- ROW 2: Delivered & Accepted / Escrow Settled -->
+<tr class="hover:bg-earth-100/60 transition-colors bg-earth-100/20">
+<!-- Order ID -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">#ORD-BL-2026-1049</span>
+<span class="text-earth-500 text-xs">16 Oct 2026</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 mt-0.5">GRN-DEL-8831</span>
+</div>
+</td>
+<!-- Batches & FPOs -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-700 shrink-0 mt-0.5">grain</span>
+<div>
+<span class="font-semibold text-earth-900 block">Bhalia Organic Durum Wheat</span>
+<span class="text-earth-500 text-xs">Bhal Region FPC Ltd • GI Tagged</span>
+</div>
+</div>
+</td>
+<!-- Volume -->
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-900">8,000 kg</span>
+<span class="text-earth-500 block text-xs">Bulk Sacks (50kg)</span>
+</td>
+<!-- Order Value -->
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">₹5,76,000</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">₹72.0/kg</span>
+</div>
+</td>
+<!-- Escrow Status -->
+<td class="py-4 px-4 align-top">
+<div class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-primary-50 text-primary-700">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">Released to Farmer</span>
+</div>
+<p class="text-[11px] text-earth-500 mt-0.5">Settled 18 Oct via UPI-eMandate</p>
+</td>
+<!-- Progress / Status -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-0.5">
+<div class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-earth-100 text-earth-900 w-fit">
+<span class="material-symbols-outlined text-[14px] text-primary-700">task_alt</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium">Delivered &amp; Accepted</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Dock 2B, Manesar Yard</span>
+</div>
+</td>
+<!-- Cold Chain -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-center gap-0.5">
+<span class="w-2 h-2 rounded-full bg-earth-500"></span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700">Dry Ambient Logged</span>
+</div>
+<span class="text-earth-500 text-[11px] block">Moisture verified 10.2%</span>
+</td>
+<!-- Actions -->
+<td class="py-4 px-4 align-top text-right">
+<div class="flex flex-col items-end gap-0.5">
+<button class="px-2 py-0.5 bg-white hover:bg-earth-100 text-earth-900 rounded text-xs font-medium transition-colors flex items-center gap-0.5 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[14px] text-primary-700">download</span>
+                  BIR Audit Trail
+                </button>
+<button class="text-earth-700 hover:text-primary-800 transition-colors text-xs underline font-medium mt-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">Invoice PDF</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: Completed High-Value Order -->
+<tr class="hover:bg-earth-100/60 transition-colors bg-white">
+<!-- Order ID -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">#ORD-BL-2026-0994</span>
+<span class="text-earth-500 text-xs">10 Oct 2026</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 mt-0.5">GRN-BLR-4011</span>
+</div>
+</td>
+<!-- Batches & FPOs -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-700 shrink-0 mt-0.5">spa</span>
+<div>
+<span class="font-semibold text-earth-900 block">Malabar Black Pepper TGSEB</span>
+<span class="text-earth-500 text-xs">Wayanad Spices Organic Union • High Piperine</span>
+</div>
+</div>
+</td>
+<!-- Volume -->
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-900">1,200 kg</span>
+<span class="text-earth-500 block text-xs">Hermetic SuperGrain bags</span>
+</td>
+<!-- Order Value -->
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">₹9,90,000</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">₹825.0/kg</span>
+</div>
+</td>
+<!-- Escrow Status -->
+<td class="py-4 px-4 align-top">
+<div class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-primary-50 text-primary-700">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">Settled to FPO</span>
+</div>
+<p class="text-[11px] text-earth-500 mt-0.5">Txn ID: BP-ESC-99201</p>
+</td>
+<!-- Progress / Status -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-0.5">
+<div class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-earth-100 text-earth-900 w-fit">
+<span class="material-symbols-outlined text-[14px] text-primary-700">verified</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium">Completed</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Received 14 Oct</span>
+</div>
+</td>
+<!-- Cold Chain -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-center gap-0.5">
+<span class="w-2 h-2 rounded-full bg-primary-700"></span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-primary-700">RH &lt; 58% Stable</span>
+</div>
+<span class="text-earth-500 text-[11px] block">Moisture sealed</span>
+</td>
+<!-- Actions -->
+<td class="py-4 px-4 align-top text-right">
+<div class="flex flex-col items-end gap-0.5">
+<button class="px-2 py-0.5 bg-gold-50 hover:bg-gold-100 text-gold-800 rounded text-xs font-semibold transition-colors flex items-center gap-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[14px]">repeat</span>
+                  Re-Order Lot
+                </button>
+<button class="text-earth-700 hover:text-primary-800 transition-colors text-xs underline font-medium mt-1 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[14px]">science</span> Quality Lab Report
+                </button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: Repeat Sourced Lot -->
+<tr class="hover:bg-earth-100/60 transition-colors bg-earth-100/20">
+<!-- Order ID -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col">
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">#ORD-BL-2026-0920</span>
+<span class="text-earth-500 text-xs">28 Sep 2026</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 mt-0.5">GRN-PUN-0912</span>
+</div>
+</td>
+<!-- Batches & FPOs -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-700 shrink-0 mt-0.5">compost</span>
+<div>
+<span class="font-semibold text-earth-900 block">Salem Golden Turmeric Finger</span>
+<span class="text-earth-500 text-xs">Sangli FPO Cluster • Curcumin 4.8%</span>
+</div>
+</div>
+</td>
+<!-- Volume -->
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-900">2,000 kg</span>
+<span class="text-earth-500 block text-xs">40 Gunny Bags</span>
+</td>
+<!-- Order Value -->
+<td class="py-4 px-4 align-top whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">₹3,76,000</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">₹188.0/kg</span>
+</div>
+</td>
+<!-- Escrow Status -->
+<td class="py-4 px-4 align-top">
+<div class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-earth-100 text-earth-700">
+<span class="material-symbols-outlined text-[14px]">check</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">Settled</span>
+</div>
+<p class="text-[11px] text-earth-500 mt-0.5">Reconciliation Cleared</p>
+</td>
+<!-- Progress / Status -->
+<td class="py-4 px-4 align-top">
+<div class="flex flex-col gap-0.5">
+<div class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-earth-100 text-earth-900 w-fit">
+<span class="material-symbols-outlined text-[14px] text-primary-700">check_box</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium">Completed</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Audited &amp; Consumed</span>
+</div>
+</td>
+<!-- Cold Chain -->
+<td class="py-4 px-4 align-top">
+<div class="flex items-center gap-0.5">
+<span class="w-2 h-2 rounded-full bg-earth-500"></span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700">Dry Sorage OK</span>
+</div>
+<span class="text-earth-500 text-[11px] block">No seal tampering</span>
+</td>
+<!-- Actions -->
+<td class="py-4 px-4 align-top text-right">
+<div class="flex flex-col items-end gap-0.5">
+<button class="px-2 py-0.5 bg-gold-50 hover:bg-gold-100 text-gold-800 rounded text-xs font-semibold transition-colors flex items-center gap-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[14px]">repeat</span>
+                  Re-Order Lot
+                </button>
+<button class="text-earth-700 hover:text-primary-800 transition-colors text-xs underline font-medium mt-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">Tax Certificate</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination Footer -->
+<div class="px-4 py-3 bg-earth-100 flex flex-col sm:flex-row items-center justify-between gap-3 font-body text-xs font-normal text-earth-700">
+<div class="flex items-center gap-2">
+<span>Showing <strong class="text-earth-900 font-medium">1 - 4</strong> of 18 Enterprise Orders</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-0.5 rounded bg-white text-earth-500 cursor-not-allowed shadow-sm font-mono text-xs tracking-wider uppercase font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">Prev</button>
+<button class="px-3 py-0.5 rounded bg-primary-800 text-white font-mono text-xs tracking-wider uppercase font-bold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">1</button>
+<button class="px-3 py-0.5 rounded bg-white hover:bg-earth-100 text-earth-900 font-mono text-xs tracking-wider uppercase font-medium shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">2</button>
+<button class="px-3 py-0.5 rounded bg-white hover:bg-earth-100 text-earth-900 font-mono text-xs tracking-wider uppercase font-medium shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">3</button>
+<button class="px-3 py-0.5 rounded bg-white hover:bg-earth-100 text-earth-900 font-mono text-xs tracking-wider uppercase font-medium shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">Next</button>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Dispute Protocol & Escrow Guarantee Banner -->
+<div class="bg-white rounded-xl p-6 shadow-sm relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<!-- Left Decorative Emblem & Policy Text -->
+<div class="flex items-start gap-4 max-w-3xl">
+<div class="w-12 h-12 rounded-xl bg-gold-50 text-gold-800 flex items-center justify-center shrink-0 shadow-sm mt-1">
+<span class="material-symbols-outlined text-[28px]">verified_user</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-0.5">
+<h2 class="font-display text-xl text-earth-900 font-bold">BharatPure 48-Hour Escrow Protection Protocol</h2>
+<span class="px-2 py-0.5 rounded bg-primary-100 text-primary-900 font-mono text-xs tracking-wider uppercase font-semibold">Mandate active</span>
+</div>
+<p class="font-body text-sm font-normal text-earth-700 leading-relaxed">
+          All enterprise consignments are safeguarded by our automated 48-hour inspection grace period upon gate check-in. In the event of moisture discrepancies, aflatoxin variation, or seal integrity compromises, an instant smart escrow freeze can be triggered from your console. A certified NABL second-assay officer will be deployed within 12 hours.
+        </p>
+</div>
+</div>
+<!-- Right Quick Actions -->
+<div class="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">
+<button class="w-full sm:w-auto px-4 py-3 bg-earth-100 hover:bg-earth-200 text-earth-900 rounded-lg font-body text-sm font-medium transition-colors text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+        Read Sourcing SLA
+      </button>
+<button class="w-full sm:w-auto px-4 py-3 bg-primary-800 hover:bg-primary-700 text-white rounded-lg font-body text-sm font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[18px] text-gold-400">support_agent</span>
+        Dispute Concierge
+      </button>
+</div>
+</div>
+</div></main></div></body></html>

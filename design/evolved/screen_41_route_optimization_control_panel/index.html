@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};
+</script></head><body class="bg-earth-50 font-body text-earth-900 antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-primary-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-4 flex items-center gap-2 bg-primary-800"><div class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></div><div class="flex flex-col"><span class="font-body text-lg font-semibold text-white font-bold tracking-wide">BharatPure</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase tracking-wider">DPI Mission Core</span></div></div><div class="px-4 pt-4 pb-2"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase tracking-wider opacity-70">Intelligence &amp; Governance</span></div><nav class="flex flex-col px-2 gap-1" data-active-classes="bg-primary-800 text-white font-body"><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="overview-iei" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body text-sm font-normal">Overview &amp; IEI</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="demand-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body text-sm font-normal">Demand Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="price-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">currency_rupee</span><span class="font-body text-sm font-normal">Price Intel</span></a><a aria-current="page" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded transition-colors bg-primary-800 text-white font-body" data-path="route-optimizer" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span class="font-body text-sm font-normal">Route Optimizer</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="what-if-simulator" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body text-sm font-normal">What-if Simulator</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="fpo-batches" href="#"><span class="material-symbols-outlined text-[20px]">agriculture</span><span class="font-body text-sm font-normal">FPO &amp; Batches</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="escrow-settlements" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span class="font-body text-sm font-normal">Escrow &amp; Settlements</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="dpi-integration-status" href="#"><span class="material-symbols-outlined text-[20px]">sensors</span><span class="font-body text-sm font-normal">DPI Status</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="audit-ledger" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body text-sm font-normal">Audit Ledger</span></a></nav></div><div class="p-4 bg-primary-800 flex flex-col gap-2"><div class="flex items-center justify-between"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase">DPI Sovereign Node</span><span class="px-1 py-1 rounded bg-primary-800 text-primary-100 font-mono text-xs font-medium tracking-wider uppercase">v4.2</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary-500">shield</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">AgriStack • eNAM • ONDC</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-earth-50/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-6"><div class="flex items-center gap-4"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332 - Font: playfairDisplay - Mode: light - Roundness: rounded-md . The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-xl font-semibold text-earth-900 leading-tight">Admin &amp; DPI Operations Portal</span><span class="font-body text-xs font-normal text-earth-700">National Farm-to-Market Trust Network</span></div></div><div class="flex items-center gap-4"><div class="hidden xl:flex items-center gap-1 px-3 py-1 rounded bg-primary-50"><div class="w-2 h-2 rounded-full bg-primary-500"></div><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">DPI Node: ONLINE • Sandbox Active</span></div><div class="flex items-center gap-1 px-3 py-1 rounded bg-gold-50"><span class="material-symbols-outlined text-[16px] text-gold-800">cloud_done</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800">PROD-MIRROR</span></div><button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 relative p-1 rounded hover:bg-earth-100 transition-colors" type="button"><span class="material-symbols-outlined text-[20px] text-earth-700">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-warning"></span></button><div class="flex items-center gap-3 pl-2"><div class="flex flex-col text-right"><span class="font-body text-sm font-normal text-earth-900 font-medium">MoA&amp;FW / NITI Aayog</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">officer@agri.gov.in</span></div><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-earth-50"><div class="flex flex-col w-full">
+<!-- Dynamic Notification / Solver Toast (Hidden by default) -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 rounded bg-primary-800 text-white shadow-xl" id="solver-toast">
+<span class="material-symbols-outlined text-primary-500 animate-spin">sync</span>
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal font-semibold">OR-Tools Solver Executed</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">Optimized 18 Waypoints • Convergence in 412ms</span>
+</div>
+</div>
+<!-- Page Content Container -->
+<div class="max-w-7xl mx-auto w-full px-6 py-6 flex flex-col gap-8">
+<!-- 1. Header & Engine Status -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-6 rounded shadow-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-500 animate-ping"></span>
+            OR-Tools v9.8 VRP-TW Active
+          </span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">|</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">MIP Presolve Gap: &lt;0.04%</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">|</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">Sub-Optimal Corridors Pruned</span>
+</div>
+<h1 class="font-display text-3xl font-semibold text-earth-900 tracking-tight">
+          Multi-Depot Cold-Chain Routing Engine
+        </h1>
+<p class="font-body text-sm font-normal text-earth-700 max-w-4xl">
+          Active Solver Constraints: <span class="font-medium text-earth-900">Temperature Reefer Preservation (2°C-6°C)</span>, <span class="font-medium text-earth-900">48-Hour FPO Hub SLA</span>, and <span class="font-medium text-earth-900">Electric Reefer Battery Depletion Window (&gt;22% Reserve)</span>.
+        </p>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-4 py-3 rounded bg-earth-100 hover:bg-earth-200 text-earth-900 font-body text-sm font-normal font-medium transition-colors flex items-center gap-2" id="recalibrate-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+          Tune Heuristics
+        </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 relative group px-6 py-3 rounded bg-primary-800 hover:bg-primary-700 text-white font-body text-sm font-normal font-semibold transition-all shadow-md flex items-center gap-3 overflow-hidden" id="run-optimizer-btn" type="button">
+<span class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
+<span id="btn-text">Run Optimization</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">bolt</span>
+</button>
+</div>
+</div>
+<!-- 2. Before vs. After Optimization Impact Summary (4 Stat Tiles) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+<!-- Metric 1 -->
+<div class="bg-white p-6 rounded shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-50 rounded-full opacity-40 pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Fleet Requirement</span>
+<span class="material-symbols-outlined text-primary-800 text-[22px]">electric_bolt</span>
+</div>
+<div class="my-3 flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-display text-3xl font-semibold font-bold text-earth-900">2 EV</span>
+<span class="font-body text-xs font-normal text-earth-500 line-through">3 Reefer Vans</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-semibold mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span> 33% Fleet Footprint Reduced
+          </span>
+</div>
+<div class="w-full bg-earth-100 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-500 h-1.5 rounded-full" style="width: 67%"></div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-white p-6 rounded shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-50 rounded-full opacity-40 pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Transit Mileage</span>
+<span class="material-symbols-outlined text-primary-800 text-[22px]">route</span>
+</div>
+<div class="my-3 flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-display text-3xl font-semibold font-bold text-earth-900">211 km</span>
+<span class="font-body text-xs font-normal text-earth-500 line-through">286 km</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-semibold mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> -26% Carbon &amp; Odometer Load
+          </span>
+</div>
+<div class="w-full bg-earth-100 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-700 h-1.5 rounded-full" style="width: 74%"></div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-white p-6 rounded shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-gold-50 rounded-full opacity-60 pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Total Transit Cost</span>
+<span class="material-symbols-outlined text-gold-800 text-[22px]">currency_rupee</span>
+</div>
+<div class="my-3 flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-display text-3xl font-semibold font-bold text-earth-900">₹6,420</span>
+<span class="font-body text-xs font-normal text-earth-500 line-through">₹8,940</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-semibold mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">savings</span> -₹2,520 Net Escrow Savings (28%)
+          </span>
+</div>
+<div class="w-full bg-earth-100 rounded-full h-1.5 overflow-hidden">
+<div class="bg-gold-800 h-1.5 rounded-full" style="width: 72%"></div>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-white p-6 rounded shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-50 rounded-full opacity-40 pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Cold-Chain Thermal Risk</span>
+<span class="material-symbols-outlined text-primary-700 text-[22px]">ac_unit</span>
+</div>
+<div class="my-3 flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="font-display text-3xl font-semibold font-bold text-primary-700">0.00%</span>
+<span class="font-body text-xs font-normal text-earth-500">Zero Breaches</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-semibold mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Preserved 4.0°C–8.0°C Range
+          </span>
+</div>
+<div class="w-full bg-earth-100 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-800 h-1.5 rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+<!-- 3. Simulated Interactive Route Map & Depot Topography + Active Corridors Panel -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Interactive SVG Topography & Corridor Geo Visualizer -->
+<div class="lg:col-span-8 bg-white rounded p-6 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-700 text-[20px]">map</span>
+<h2 class="font-display text-xl font-semibold text-earth-900">Delhi-NCR &amp; Western UP Transit Corridors</h2>
+</div>
+<span class="font-body text-xs font-normal text-earth-700">Simulated multi-depot dynamic dispatch grid via Western Peripheral &amp; Eastern Peripheral Expressways</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 px-2 py-1 rounded bg-earth-100 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-700"></span> DEL-RT-408
+            </span>
+<span class="flex items-center gap-1 px-2 py-1 rounded bg-earth-100 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase">
+<span class="w-2.5 h-2.5 rounded-full bg-warning"></span> DEL-RT-409
+            </span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 rounded bg-earth-100 hover:bg-earth-200 text-earth-700 transition-colors" title="Toggle Sensor Overlay">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+</button>
+</div>
+</div>
+<!-- Simulated Map Canvas Container -->
+<div class="relative w-full h-[460px] bg-earth-100 rounded overflow-hidden flex items-center justify-center">
+<!-- Abstract Background Geo Grid (NCR Corridors) -->
+<svg class="absolute inset-0 w-full h-full text-earth-200/30" preserveaspectratio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid-pattern" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="0.75"></path>
+</pattern>
+<!-- Gradient for Route 408 (Forest Green) -->
+<lineargradient id="grad-408" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#1b4332"></stop>
+<stop offset="100%" stop-color="#52B788"></stop>
+</lineargradient>
+<!-- Gradient for Route 409 (Amber Harvest) -->
+<lineargradient id="grad-409" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#E8841A"></stop>
+<stop offset="100%" stop-color="#fdc74b"></stop>
+</lineargradient>
+<!-- Pulse Marker Filter -->
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<rect fill="url(#grid-pattern)" height="100%" width="100%"></rect>
+<!-- Expressways / Arterials (Yamuna Expwy, KMP, Ring Road) -->
+<path d="M 50 120 C 180 180, 240 260, 420 320" fill="none" stroke="#e7e2da" stroke-linecap="round" stroke-width="6"></path>
+<path d="M 120 40 C 220 160, 480 120, 680 240" fill="none" stroke="#e7e2da" stroke-linecap="round" stroke-width="5"></path>
+<path d="M 280 440 C 350 310, 520 280, 720 180" fill="none" stroke="#e7e2da" stroke-dasharray="6,4" stroke-width="4"></path>
+<!-- OPTIMIZED ROUTE #DEL-RT-408 (Green Corridor) -->
+<!-- Palam Central -> Sangli Transfer -> Defence Colony -> Okhla -->
+<path class="drop-shadow-md" d="M 140 240 Q 240 180 340 140 T 480 220 T 620 310" fill="none" id="route408" stroke="url(#grad-408)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
+<path class="animate-pulse" d="M 140 240 Q 240 180 340 140 T 480 220 T 620 310" fill="none" stroke="#c1ecd4" stroke-dasharray="8 8" stroke-linecap="round" stroke-width="2"></path>
+<!-- OPTIMIZED ROUTE #DEL-RT-409 (Amber Loop) -->
+<!-- Palam Central -> Faridabad Bypass -> Greater Noida Agro Hub -->
+<path d="M 140 240 C 260 360, 460 410, 580 360" fill="none" id="route409" stroke="url(#grad-409)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
+<path d="M 140 240 C 260 360, 460 410, 580 360" fill="none" stroke="#fff" stroke-dasharray="6 6" stroke-linecap="round" stroke-width="1.5"></path>
+<!-- Hub 1: Palam Central Agri-Hub Depot (Origin Node) -->
+<g transform="translate(140, 240)">
+<circle class="animate-ping" fill="#1b4332" opacity="0.2" r="16"></circle>
+<circle fill="#1b4332" r="9"></circle>
+<circle fill="#ffffff" r="4"></circle>
+</g>
+<!-- Hub 2: Sangli Intake Terminal -->
+<g transform="translate(340, 140)">
+<circle fill="#2D6A4F" r="7"></circle>
+<circle fill="#c1ecd4" r="3"></circle>
+</g>
+<!-- Hub 3: Defence Colony Retail Drop -->
+<g transform="translate(480, 220)">
+<circle fill="#2D6A4F" r="8"></circle>
+<circle fill="#ffffff" r="3"></circle>
+</g>
+<!-- Hub 4: Okhla Phase III Institutional Fulfillment -->
+<g transform="translate(620, 310)">
+<circle fill="#1b4332" r="8"></circle>
+<rect fill="#gold-400" height="6" width="6" x="-3" y="-3"></rect>
+</g>
+<!-- Hub 5: Faridabad Bypass Transfer -->
+<g transform="translate(580, 360)">
+<circle fill="#E8841A" r="8"></circle>
+<circle fill="#ffffff" r="3"></circle>
+</g>
+<!-- Simulated Transit Vehicle Icon Marker on RT-408 -->
+<g transform="translate(290, 155)">
+<circle fill="#1B4332" filter="url(#glow)" r="12"></circle>
+<text fill="#c1ecd4" font-family="monospace" font-size="10" font-weight="bold" x="-6" y="4">EV</text>
+</g>
+</svg>
+<!-- Interactive Node Callouts Placed Over Map -->
+<!-- Node 1: Palam Central -->
+<div class="absolute top-52 left-10 p-2 rounded bg-white/95 backdrop-blur shadow-md flex items-center gap-2 cursor-pointer hover:bg-white transition-all">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-800"></span>
+<div class="flex flex-col">
+<span class="font-body text-xs font-normal font-semibold text-earth-900">Palam Central Depot (HQ)</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Master Cold Hub • 4 EV Chargers</span>
+</div>
+</div>
+<!-- Node 2: Sangli Intake -->
+<div class="absolute top-16 left-60 p-2 rounded bg-white/95 backdrop-blur shadow-md flex items-center gap-2 cursor-pointer hover:bg-white transition-all">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-700"></span>
+<div class="flex flex-col">
+<span class="font-body text-xs font-normal font-semibold text-earth-900">Sangli Intake Terminal</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">Inflow: 2,400 kg Grapes (4.2°C)</span>
+</div>
+</div>
+<!-- Node 3: Defence Colony Retail Drop -->
+<div class="absolute top-36 right-48 p-2 rounded bg-white/95 backdrop-blur shadow-md flex items-center gap-2 cursor-pointer hover:bg-white transition-all">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-700"></span>
+<div class="flex flex-col">
+<span class="font-body text-xs font-normal font-semibold text-earth-900">Defence Colony Drop</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Window: 14:00 - 15:30 (SLA Safe)</span>
+</div>
+</div>
+<!-- Node 4: Okhla Institutional Fulfillment -->
+<div class="absolute bottom-20 right-28 p-2 rounded bg-white/95 backdrop-blur shadow-md flex items-center gap-2 cursor-pointer hover:bg-white transition-all">
+<span class="w-2.5 h-2.5 rounded-full bg-gold-800"></span>
+<div class="flex flex-col">
+<span class="font-body text-xs font-normal font-semibold text-earth-900">Okhla Ph-III Institutional</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Target: Mother Dairy Central</span>
+</div>
+</div>
+<!-- Node 5: Faridabad Transfer -->
+<div class="absolute bottom-6 right-56 p-2 rounded bg-white/95 backdrop-blur shadow-md flex items-center gap-2 cursor-pointer hover:bg-white transition-all">
+<span class="w-2.5 h-2.5 rounded-full bg-warning"></span>
+<div class="flex flex-col">
+<span class="font-body text-xs font-normal font-semibold text-earth-900">Faridabad Bypass Transfer</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Buffer Hold: 20 min</span>
+</div>
+</div>
+<!-- Bottom Floating Telemetry Bar -->
+<div class="absolute bottom-3 left-4 right-4 bg-primary-900/90 backdrop-blur-md px-4 py-2 rounded text-white flex items-center justify-between flex-wrap gap-2">
+<div class="flex items-center gap-4 text-xs font-medium tracking-wider uppercase">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-500 text-[16px]">thermostat</span>
+<span>Active Core Temp: <strong class="text-primary-100">4.8°C</strong></span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold-400 text-[16px]">battery_charging_full</span>
+<span>EV Fleet Mean SoH: <strong class="text-gold-100">88%</strong></span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-500 text-[16px]">speed</span>
+<span>Traffic Flow Index: <strong class="text-white">Optimized (Clear)</strong></span>
+</div>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">Telemetry Refreshed 12s ago</span>
+</div>
+</div>
+</div>
+<!-- Active Corridors & Dynamic Solver Manifest Side Panel -->
+<div class="lg:col-span-4 flex flex-col gap-4">
+<!-- Route DEL-RT-408 Details -->
+<div class="bg-white rounded p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 rounded bg-primary-800 text-white font-mono text-xs font-medium tracking-wider uppercase font-semibold">DEL-RT-408</span>
+<span class="font-body text-xs font-normal text-earth-700 font-medium">Reefer EV #402</span>
+</div>
+<span class="px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">ON SCHEDULE</span>
+</div>
+<div class="flex items-center justify-between py-2 bg-earth-100 px-3 rounded">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Vehicle Tag</span>
+<span class="font-mono text-xs font-normal font-bold text-earth-900">DL-01-EA-4920</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Load Saturation</span>
+<span class="font-mono text-xs font-normal font-bold text-primary-700">1,840 kg / 2,000 kg (92%)</span>
+</div>
+</div>
+<!-- Step Progression Indicator -->
+<div class="flex flex-col gap-2 mt-1">
+<div class="flex items-start gap-3">
+<div class="flex flex-col items-center">
+<span class="w-3 h-3 rounded-full bg-primary-800"></span>
+<span class="w-0.5 h-6 bg-primary-100"></span>
+</div>
+<div class="flex flex-col -mt-1">
+<span class="font-body text-xs font-normal font-semibold text-earth-900">Palam Central Depot</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Departed 08:30 • Manifest #MF-9021</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="flex flex-col items-center">
+<span class="w-3 h-3 rounded-full bg-primary-500 animate-pulse"></span>
+<span class="w-0.5 h-6 bg-earth-100"></span>
+</div>
+<div class="flex flex-col -mt-1">
+<span class="font-body text-xs font-normal font-semibold text-earth-900">Sangli Intake Terminal</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">Current Waypoint • Unloading 800 kg</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="flex flex-col items-center">
+<span class="w-3 h-3 rounded-full bg-earth-200"></span>
+</div>
+<div class="flex flex-col -mt-1">
+<span class="font-body text-xs font-normal font-semibold text-earth-700">Okhla Ph-III Institutional</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">ETA 11:45 • Cold Chamber Bay 3</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Route DEL-RT-409 Details -->
+<div class="bg-white rounded p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 rounded bg-earth-100 text-earth-900 font-mono text-xs font-medium tracking-wider uppercase font-semibold">DEL-RT-409</span>
+<span class="font-body text-xs font-normal text-earth-700 font-medium">Reefer Truck #108</span>
+</div>
+<span class="px-2 py-1 rounded-full bg-gold-50 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-semibold">STAGED</span>
+</div>
+<div class="flex items-center justify-between py-2 bg-earth-100 px-3 rounded">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Vehicle Tag</span>
+<span class="font-mono text-xs font-normal font-bold text-earth-900">HR-26-DK-8831</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Load Saturation</span>
+<span class="font-mono text-xs font-normal font-bold text-earth-900">1,420 kg / 1,800 kg (78%)</span>
+</div>
+</div>
+<p class="font-body text-xs font-normal text-earth-700">
+            Assigned to South NCR Peripheral Corridor. Pre-cooling chamber verified at 3.6°C. Ready for driver departure auth.
+          </p>
+</div>
+</div>
+</div>
+<!-- 4. Pending Consignments & Waypoint Allocation Table -->
+<div class="bg-white rounded shadow-sm overflow-hidden flex flex-col">
+<div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-earth-100">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h3 class="font-display text-xl font-semibold text-earth-900">Consignments &amp; Waypoint Allocation</h3>
+<span class="px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold" id="selected-counter">8 Active Consignments</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700">Dynamically constrained by thermal tolerance, moisture grade, and harvest freshness index</span>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-white hover:bg-earth-100 text-earth-700 text-xs font-normal font-medium transition-colors" id="select-all-btn">
+            Select All
+          </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-primary-700 hover:bg-primary-800 text-white text-xs font-normal font-medium transition-colors flex items-center gap-1" id="reallocate-btn">
+<span class="material-symbols-outlined text-[16px]">alt_route</span>
+            Reallocate Selected
+          </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-earth-100 text-earth-500 font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">
+<th class="py-3 px-4 w-12 text-center">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 rounded text-primary-800 focus:ring-0 cursor-pointer w-4 h-4" id="master-checkbox" type="checkbox"/>
+</th>
+<th class="py-3 px-4">Consignment Lot ID</th>
+<th class="py-3 px-4">Produce Type</th>
+<th class="py-3 px-4">Volume</th>
+<th class="py-3 px-4">Origin Cluster</th>
+<th class="py-3 px-4">Destination Node</th>
+<th class="py-3 px-4">Delivery Window</th>
+<th class="py-3 px-4">Assigned Vehicle</th>
+<th class="py-3 px-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-body text-xs font-normal divide-y-0" id="consignments-body">
+<!-- Row 1 -->
+<tr class="hover:bg-earth-100 transition-colors bg-white">
+<td class="py-3 px-4 text-center">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 consignment-check rounded text-primary-800 focus:ring-0 cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">
+                BP-LOT-7821-NAS
+              </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-500 text-[18px]">eco</span>
+<span class="font-medium text-earth-900">Nashik Grapes (Export Grade)</span>
+</div>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase">800 kg</td>
+<td class="py-3 px-4 text-earth-700">Sangli Cluster FPO</td>
+<td class="py-3 px-4 font-medium text-earth-900">Palam Central Depot</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900">10:00 - 11:30</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">EV Reefer #402</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-primary-800 transition-colors" title="Inspect Lot Manifest">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-earth-100 transition-colors bg-white">
+<td class="py-3 px-4 text-center">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 consignment-check rounded text-primary-800 focus:ring-0 cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">
+                BP-LOT-9012-SOL
+              </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold-800 text-[18px]">grain</span>
+<span class="font-medium text-earth-900">A2 Certified Cow Milk</span>
+</div>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase">650 L</td>
+<td class="py-3 px-4 text-earth-700">Western UP Dairy Coop</td>
+<td class="py-3 px-4 font-medium text-earth-900">Defence Colony Drop</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-gold-50 font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">12:00 - 13:00 (Expiring)</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">EV Reefer #402</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-primary-800 transition-colors" title="Inspect Lot Manifest">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-earth-100 transition-colors bg-white">
+<td class="py-3 px-4 text-center">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 consignment-check rounded text-primary-800 focus:ring-0 cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">
+                BP-LOT-3310-HMR
+              </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-500 text-[18px]">nutrition</span>
+<span class="font-medium text-earth-900">Hydroponic Salad Greens</span>
+</div>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase">390 kg</td>
+<td class="py-3 px-4 text-earth-700">NCR Precision Agro Hub</td>
+<td class="py-3 px-4 font-medium text-earth-900">Okhla Ph-III Institutional</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900">13:30 - 15:00</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">EV Reefer #402</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-primary-800 transition-colors" title="Inspect Lot Manifest">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-earth-100 transition-colors bg-white">
+<td class="py-3 px-4 text-center">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 consignment-check rounded text-primary-800 focus:ring-0 cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">
+                BP-LOT-4491-ALW
+              </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold-800 text-[18px]">spa</span>
+<span class="font-medium text-earth-900">Organic Kashmiri Apples</span>
+</div>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase">1,200 kg</td>
+<td class="py-3 px-4 text-earth-700">Alwar Cold Storage Hub</td>
+<td class="py-3 px-4 font-medium text-earth-900">Faridabad Bypass Transfer</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900">14:00 - 16:30</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-semibold">Cold Van #108</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-primary-800 transition-colors" title="Inspect Lot Manifest">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-earth-100 transition-colors bg-white">
+<td class="py-3 px-4 text-center">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 consignment-check rounded text-primary-800 focus:ring-0 cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">
+                BP-LOT-5102-KNL
+              </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-800 text-[18px]">grass</span>
+<span class="font-medium text-earth-900">Karnal Organic Button Mushroom</span>
+</div>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase">220 kg</td>
+<td class="py-3 px-4 text-earth-700">GT Road Farm Producers</td>
+<td class="py-3 px-4 font-medium text-earth-900">Faridabad Bypass Transfer</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900">15:00 - 17:00</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-semibold">Cold Van #108</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-primary-800 transition-colors" title="Inspect Lot Manifest">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-earth-100 transition-colors bg-white">
+<td class="py-3 px-4 text-center">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 consignment-check rounded text-primary-800 focus:ring-0 cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">
+                BP-LOT-6634-MEE
+              </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-500 text-[18px]">eco</span>
+<span class="font-medium text-earth-900">Meerut Fresh Sweet Corn</span>
+</div>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase">450 kg</td>
+<td class="py-3 px-4 text-earth-700">Doab Valley Agri Producers</td>
+<td class="py-3 px-4 font-medium text-earth-900">Okhla Ph-III Institutional</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900">16:00 - 18:00</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">EV Reefer #402</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-primary-800 transition-colors" title="Inspect Lot Manifest">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 7 -->
+<tr class="hover:bg-earth-100 transition-colors bg-white">
+<td class="py-3 px-4 text-center">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 consignment-check rounded text-primary-800 focus:ring-0 cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">
+                BP-LOT-1198-JPR
+              </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold-800 text-[18px]">spa</span>
+<span class="font-medium text-earth-900">A2 Probiotic Artisanal Curd</span>
+</div>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase">300 kg</td>
+<td class="py-3 px-4 text-earth-700">Jaipur Bio Dairy Trust</td>
+<td class="py-3 px-4 font-medium text-earth-900">Defence Colony Drop</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900">11:00 - 12:30</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">EV Reefer #402</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-primary-800 transition-colors" title="Inspect Lot Manifest">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 8 -->
+<tr class="hover:bg-earth-100 transition-colors bg-white">
+<td class="py-3 px-4 text-center">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 consignment-check rounded text-primary-800 focus:ring-0 cursor-pointer w-4 h-4" type="checkbox"/>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">
+                BP-LOT-8824-ROH
+              </td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-700 text-[18px]">eco</span>
+<span class="font-medium text-earth-900">Hydroponic Cherry Tomatoes</span>
+</div>
+</td>
+<td class="py-3 px-4 font-mono text-xs font-medium tracking-wider uppercase">180 kg</td>
+<td class="py-3 px-4 text-earth-700">Rohtak Greenhouse FPO</td>
+<td class="py-3 px-4 font-medium text-earth-900">Palam Central Depot</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900">09:30 - 10:45</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-semibold">Cold Van #108</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-primary-800 transition-colors" title="Inspect Lot Manifest">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 5. Driver Dispatch & Schedule Controller -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+<!-- Driver Unit 1 -->
+<div class="lg:col-span-4 bg-white rounded p-6 shadow-sm flex flex-col justify-between gap-4">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary-50 flex items-center justify-center text-primary-700 font-display font-bold">
+                AV
+              </div>
+<div class="flex flex-col">
+<span class="font-body text-lg font-semibold font-bold text-earth-900">Amit Verma</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Aadhaar Verified • DL-9810234</span>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+              ACTIVE
+            </span>
+</div>
+<div class="p-3 rounded bg-earth-100 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-body text-xs font-normal text-earth-700">Assigned Unit</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-bold text-earth-900">EV Reefer #402 (DL01EA4920)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body text-xs font-normal text-earth-700">PWA Manifest Link</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-medium">Synced (Token: #88F1-A)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body text-xs font-normal text-earth-700">Reefer Ambient</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">4.2°C (Optimal)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex-1 py-2 px-3 rounded bg-earth-100 hover:bg-earth-200 text-earth-900 font-body text-xs font-normal font-medium transition-colors flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">call</span>
+            Contact Driver
+          </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 py-2 px-3 rounded bg-earth-100 hover:bg-earth-200 text-earth-700 transition-colors" title="Lock Route Shift" type="button">
+<span class="material-symbols-outlined text-[16px]">lock_clock</span>
+</button>
+</div>
+</div>
+<!-- Driver Unit 2 -->
+<div class="lg:col-span-4 bg-white rounded p-6 shadow-sm flex flex-col justify-between gap-4">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-gold-50 flex items-center justify-center text-gold-800 font-display font-bold">
+                HS
+              </div>
+<div class="flex flex-col">
+<span class="font-body text-lg font-semibold font-bold text-earth-900">Harpreet Singh</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Aadhaar Verified • HR-4591028</span>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-gold-50 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+              STAGED
+            </span>
+</div>
+<div class="p-3 rounded bg-earth-100 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-body text-xs font-normal text-earth-700">Assigned Unit</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-bold text-earth-900">Cold Van #108 (HR26DK8831)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body text-xs font-normal text-earth-700">PWA Manifest Link</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">Pending Driver Ack</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body text-xs font-normal text-earth-700">Reefer Ambient</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold">3.8°C (Optimal)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex-1 py-2 px-3 rounded bg-earth-100 hover:bg-earth-200 text-earth-900 font-body text-xs font-normal font-medium transition-colors flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">call</span>
+            Contact Driver
+          </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 py-2 px-3 rounded bg-earth-100 hover:bg-earth-200 text-earth-700 transition-colors" title="Lock Route Shift" type="button">
+<span class="material-symbols-outlined text-[16px]">lock_clock</span>
+</button>
+</div>
+</div>
+<!-- Dispatch Controller Action Card -->
+<div class="lg:col-span-4 bg-primary-800 text-white rounded p-6 shadow-md flex flex-col justify-between relative overflow-hidden">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-500 text-[20px]">send_and_archive</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase tracking-wider">Cryptographic Dispatch</span>
+</div>
+<h4 class="font-display text-xl font-semibold text-white">
+            Broadcast Route Manifests
+          </h4>
+<p class="font-body text-xs font-normal text-primary-400">
+            Generates immutable QR e-Way Bills, pushes turn-by-turn green corridor geo-fences, and authorizes battery reserves across all active driver PWAs.
+          </p>
+</div>
+<div class="pt-4 flex flex-col gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full py-3 px-4 rounded bg-gold-400 hover:bg-gold-400 text-gold-800 font-body text-sm font-normal font-bold transition-all shadow-md flex items-center justify-center gap-2" id="dispatch-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">phonelink_ring</span>
+<span>Dispatch Digital Manifest to Driver PWAs</span>
+</button>
+<span class="text-center font-mono text-xs font-medium tracking-wider uppercase text-primary-100 opacity-70">eNAM Gateway &amp; ONDC Node Coordinated</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Inline Script for Realistic Control Panel Micro-Interactions -->
+<script>
+    (function initRouteOptimizer() {
+      const runBtn = document.getElementById('run-optimizer-btn');
+      const btnText = document.getElementById('btn-text');
+      const toast = document.getElementById('solver-toast');
+      const dispatchBtn = document.getElementById('dispatch-btn');
+      const masterCheckbox = document.getElementById('master-checkbox');
+      const rowCheckboxes = document.querySelectorAll('.consignment-check');
+      const counterSpan = document.getElementById('selected-counter');
+      const selectAllBtn = document.getElementById('select-all-btn');
+
+      // 1. Solver Run Animation & Toast
+      if (runBtn && btnText && toast) {
+        runBtn.addEventListener('click', () => {
+          btnText.textContent = 'Solving VRP-TW...';
+          runBtn.classList.add('opacity-80', 'cursor-wait');
+
+          setTimeout(() => {
+            btnText.textContent = 'Optimization Converged!';
+            runBtn.classList.remove('cursor-wait');
+            
+            // Show toast
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+              btnText.textContent = 'Run Optimization';
+              runBtn.classList.remove('opacity-80');
+              toast.classList.remove('translate-y-0', 'opacity-100');
+              toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+          }, 1100);
+        });
+      }
+
+      // 2. Dispatch Digital Manifest Action
+      if (dispatchBtn) {
+        dispatchBtn.addEventListener('click', () => {
+          const originalHTML = dispatchBtn.innerHTML;
+          dispatchBtn.innerHTML = `
+            <span class="material-symbols-outlined animate-spin text-[20px]">hourglass_top</span>
+            <span>Broadcasting Cryptographic Manifest...</span>
+          `;
+          dispatchBtn.disabled = true;
+
+          setTimeout(() => {
+            dispatchBtn.innerHTML = `
+              <span class="material-symbols-outlined text-[20px]">check_circle</span>
+              <span>Manifests Dispatched to 2 PWAs!</span>
+            `;
+            setTimeout(() => {
+              dispatchBtn.innerHTML = originalHTML;
+              dispatchBtn.disabled = false;
+            }, 3500);
+          }, 1200);
+        });
+      }
+
+      // 3. Selection Synchronization
+      function updateSelectionCounter() {
+        const checkedCount = document.querySelectorAll('.consignment-check:checked').length;
+        if (counterSpan) {
+          counterSpan.textContent = `${checkedCount} Active Consignment${checkedCount === 1 ? '' : 's'} Selected`;
+        }
+        if (masterCheckbox) {
+          masterCheckbox.checked = (checkedCount === rowCheckboxes.length);
+          masterCheckbox.indeterminate = (checkedCount > 0 && checkedCount < rowCheckboxes.length);
+        }
+      }
+
+      if (masterCheckbox) {
+        masterCheckbox.addEventListener('change', () => {
+          rowCheckboxes.forEach(cb => cb.checked = masterCheckbox.checked);
+          updateSelectionCounter();
+        });
+      }
+
+      rowCheckboxes.forEach(cb => {
+        cb.addEventListener('change', updateSelectionCounter);
+      });
+
+      if (selectAllBtn) {
+        selectAllBtn.addEventListener('click', () => {
+          const allChecked = Array.from(rowCheckboxes).every(cb => cb.checked);
+          rowCheckboxes.forEach(cb => cb.checked = !allChecked);
+          if (masterCheckbox) masterCheckbox.checked = !allChecked;
+          selectAllBtn.textContent = allChecked ? 'Select All' : 'Deselect All';
+          updateSelectionCounter();
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>

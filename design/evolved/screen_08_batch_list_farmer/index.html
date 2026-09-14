@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};</script></head><body class="bg-earth-50 font-body text-sm text-earth-900 flex flex-col min-h-screen font-normal"><header class="fixed top-0 inset-x-0 z-50 bg-earth-50/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(28,20,8,0.04)] pt-safe"><div class="h-14 px-4 flex items-center justify-between gap-3"><div class="flex items-center gap-2 min-w-0"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col min-w-0"><span class="font-display text-xl text-primary-800 leading-none truncate font-semibold">BharatPure</span><span class="font-mono text-xs text-earth-500 truncate font-medium tracking-wider uppercase">Farmer Batches</span></div></div><div class="flex items-center gap-2 flex-shrink-0"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center text-earth-700 hover:text-primary-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-14 pb-16 bg-earth-50"><div class="flex flex-col w-full pb-20">
+<!-- Top Section: Header & Action -->
+<div class="px-4 pt-4 pb-3 flex items-center justify-between gap-3">
+<div class="flex flex-col min-w-0">
+<span class="font-mono text-xs text-earth-500 uppercase font-medium tracking-wider">Inventory Ledger</span>
+<h1 class="font-display text-2xl text-earth-900 tracking-tight truncate font-semibold">My Harvest Batches</h1>
+</div>
+<button class="flex items-center gap-0.5 bg-primary-800 hover:bg-primary-700 text-white px-4 py-2 rounded-md shadow-sm active:scale-95 transition-all flex-shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="font-body text-sm font-medium text-white">New Batch</span>
+</button>
+</div>
+<!-- Key Metrics Bar (Delight Banner) -->
+<div class="px-4 mb-3">
+<div class="bg-earth-100 rounded-md p-3 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-primary-100 flex items-center justify-center text-primary-700">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body text-xs text-earth-700 font-normal">Testing Compliance</span>
+<span class="font-mono text-sm text-primary-800 font-semibold tracking-wide">96.8% NABL Pass</span>
+</div>
+</div>
+<div class="flex items-center gap-0.5 bg-gold-100 px-2 py-0.5 rounded text-gold-800">
+<span class="material-symbols-outlined text-[16px]">stars</span>
+<span class="font-mono text-xs font-semibold tracking-wider uppercase">Tier-1 FPO</span>
+</div>
+</div>
+</div>
+<!-- Filter Tabs (Horizontal Scrollable) -->
+<div class="sticky top-14 z-20 bg-earth-50/95 backdrop-blur-md py-2 shadow-sm">
+<div class="flex items-center gap-2 overflow-x-auto px-4 no-scrollbar" id="filter-container">
+<button class="filter-pill flex-shrink-0 px-4 py-2.5 rounded-full bg-primary-800 text-white font-body text-xs font-medium shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-filter="all">
+        All (14)
+      </button>
+<button class="filter-pill flex-shrink-0 px-4 py-2.5 rounded-full bg-earth-100 text-earth-700 font-body text-xs font-medium hover:bg-earth-200 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-filter="listed">
+        Listed (5)
+      </button>
+<button class="filter-pill flex-shrink-0 px-4 py-2.5 rounded-full bg-earth-100 text-earth-700 font-body text-xs font-medium hover:bg-earth-200 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-filter="pending">
+        Pending Test (2)
+      </button>
+<button class="filter-pill flex-shrink-0 px-4 py-2.5 rounded-full bg-earth-100 text-earth-700 font-body text-xs font-medium hover:bg-earth-200 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-filter="draft">
+        Draft (1)
+      </button>
+<button class="filter-pill flex-shrink-0 px-4 py-2.5 rounded-full bg-earth-100 text-earth-700 font-body text-xs font-medium hover:bg-earth-200 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-filter="transit">
+        Sold &amp; In Transit (4)
+      </button>
+<button class="filter-pill flex-shrink-0 px-4 py-2.5 rounded-full bg-earth-100 text-earth-700 font-body text-xs font-medium hover:bg-earth-200 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-filter="delivered">
+        Delivered (2)
+      </button>
+</div>
+</div>
+<!-- Batch Cards Stack -->
+<div class="flex flex-col gap-3 px-4 mt-3">
+<!-- Batch 1: Salem Turmeric -->
+<div class="bg-white rounded-md p-4 shadow-sm flex flex-col gap-2 hover:shadow-md transition-shadow active:scale-[0.99] duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" role="button" tabindex="0">
+<div class="flex items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs px-2 py-0.5 rounded-md bg-earth-100 text-earth-700 font-medium tracking-wider uppercase">BP-TUR-2026-089</span>
+<span class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
+</div>
+<span class="font-mono text-xs font-semibold px-2 py-0.5 rounded-md bg-primary-50 text-primary-700 tracking-wider uppercase">
+          LISTED
+        </span>
+</div>
+<div class="flex gap-3 mt-0.5">
+<div class="w-16 h-16 rounded overflow-hidden flex-shrink-0 bg-earth-100">
+<img class="w-full h-full object-cover" data-alt="A sunlit, close-up photograph of polished, deep golden-orange Salem turmeric rhizomes resting on clean natural woven burlap in a high-tech agricultural testing lab, clean lighting, warm harvest tones, organic detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiWFksq3xVl1Myv9bvfhInbu_2d1KDAEGLPePthWEOESa03UBKkqfPHCWQFcrxwMcksBMA_LqiOEPf5iFrWGaGzvwwycKsPzF01gYYAsxMuYB8HSNZSBqhhusnaFvyrAJ-CXA9pkssdG2A9dB0QsCxw-QPMh3Nwq3CCJQvPQ0suJ3d-1YJ5YgMTWp1mM_NCIviXdGKE1ShvbqhlVCP-RQKuzSZ0BiU2wQkrE0Y-Rb6tkrj0XwbStKd"/>
+</div>
+<div class="flex flex-col min-w-0 flex-1 justify-center">
+<div class="flex items-baseline justify-between">
+<h2 class="font-display text-xl text-earth-900 truncate font-semibold">Salem Turmeric</h2>
+<span class="font-mono text-sm font-bold text-primary-800 tracking-wide">₹188<span class="font-body text-xs text-earth-500 font-normal">/kg</span></span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-earth-700">
+<span class="material-symbols-outlined text-[16px] text-earth-500">scale</span>
+<span class="font-body text-xs font-medium">2,500 kg total</span>
+<span class="text-earth-500">•</span>
+<span class="font-body text-xs text-earth-500 font-normal">05 Oct 2026</span>
+</div>
+</div>
+</div>
+<div class="pt-2 mt-1 flex items-center justify-between bg-earth-100 px-3 py-2 rounded">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary-500">verified_user</span>
+<span class="font-mono text-xs font-medium text-primary-900 tracking-wider uppercase">94/100 NABL</span>
+<span class="font-body text-xs text-earth-500 font-normal">Curcumin 5.2%</span>
+</div>
+<div class="flex items-center gap-0.5 text-primary-800 font-medium">
+<span class="font-body text-xs font-normal">View Bids</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Batch 2: Non-GMO Soybean -->
+<div class="bg-white rounded-md p-4 shadow-sm flex flex-col gap-2 hover:shadow-md transition-shadow active:scale-[0.99] duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" role="button" tabindex="0">
+<div class="flex items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs px-2 py-0.5 rounded-md bg-earth-100 text-earth-700 font-medium tracking-wider uppercase">BP-SOY-2026-042</span>
+<span class="w-2 h-2 rounded-full bg-gold-400"></span>
+</div>
+<span class="font-mono text-xs font-semibold px-2 py-0.5 rounded-md bg-gold-50 text-gold-800 tracking-wider uppercase">
+          PENDING TEST
+        </span>
+</div>
+<div class="flex gap-3 mt-0.5">
+<div class="w-16 h-16 rounded overflow-hidden flex-shrink-0 bg-earth-100">
+<img class="w-full h-full object-cover" data-alt="High-resolution macro shot of pristine, round cream-yellow organic non-GMO soybeans held in an open wooden scoop, soft rural morning light, clean earthy agriculture aesthetic, natural tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2pD3JgOq8ldHhRG7oDvhbO22hZE1DZCEz8Cpq5Uuax8Mkymp7W_GwK-Fdg4LgyvUrlONHgAyNSgYk2FI75GFG_T0pxsV0lFX9osRu7JogHLTqOH8sjYTF-_RT-n3BXA6WfHWoTqQDayt7tC-2lJolKOg6Eb1YExKVX0GLAgemkdJBZlZ3F377xbZtUQgItTkkxOQiWNm_BXvf58rs1mDVyJoR_qnu1OQV3lRAQAVQeZj2wQ8R7-0z"/>
+</div>
+<div class="flex flex-col min-w-0 flex-1 justify-center">
+<div class="flex items-baseline justify-between">
+<h2 class="font-display text-xl text-earth-900 truncate font-semibold">Non-GMO Soybean</h2>
+<span class="font-body text-xs font-medium text-earth-500">Est. ₹54/kg</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-earth-700">
+<span class="material-symbols-outlined text-[16px] text-earth-500">scale</span>
+<span class="font-body text-xs font-medium">4,000 kg total</span>
+<span class="text-earth-500">•</span>
+<span class="font-body text-xs text-earth-500 font-normal">12 Oct 2026</span>
+</div>
+</div>
+</div>
+<!-- Verification In Progress Subcard -->
+<div class="pt-2 mt-1 flex items-center justify-between bg-gold-50 px-3 py-2 rounded text-gold-800">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-gold-800 animate-spin">sync</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase">Awaiting Lab Results</span>
+</div>
+<span class="font-body text-xs text-gold-800 font-medium">ETA Today 6 PM</span>
+</div>
+</div>
+<!-- Batch 3: Green Coriander -->
+<div class="bg-white rounded-md p-4 shadow-sm flex flex-col gap-2 hover:shadow-md transition-shadow active:scale-[0.99] duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" role="button" tabindex="0">
+<div class="flex items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs px-2 py-0.5 rounded-md bg-earth-100 text-earth-700 font-medium tracking-wider uppercase">BP-COR-2026-015</span>
+<span class="w-2 h-2 rounded-full bg-primary-700"></span>
+</div>
+<span class="font-mono text-xs font-semibold px-2 py-0.5 rounded-md bg-primary-100 text-primary-900 tracking-wider uppercase">
+          SOLD &amp; DISPATCHED
+        </span>
+</div>
+<div class="flex gap-3 mt-0.5">
+<div class="w-16 h-16 rounded overflow-hidden flex-shrink-0 bg-earth-100">
+<img class="w-full h-full object-cover" data-alt="Vibrant, fresh green coriander seeds and aromatic leaves stacked inside clean ventilated crate ready for transit, crisp daylight photography, natural agricultural texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQoPsFYT0DsBLR_hdA08wdDCqB9EhbdqXXKXFfIn7lRPK5Ckk7jxgcWSB9zaq11r6crA_jDDkVS6cBsuWLfxn2HkTjcftsu7aIoYWU1_arB6Jz2CFwZJf94iZZb4GXMOMJS-EzmzheOjbBycnNvcaQ3gMw7Khl3qAGfTXRAL0ARc-Mz_uCM4dNP61QW0kA2YC-YAquYcnNnRBJHYDgMhert4t-H_xcjEp38v8-yuIDopQC6nTIf5C5"/>
+</div>
+<div class="flex flex-col min-w-0 flex-1 justify-center">
+<div class="flex items-baseline justify-between">
+<h2 class="font-display text-xl text-earth-900 truncate font-semibold">Green Coriander</h2>
+<span class="font-mono text-sm font-bold text-earth-900 tracking-wide">₹142<span class="font-body text-xs text-earth-500 font-normal">/kg</span></span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-earth-700">
+<span class="material-symbols-outlined text-[16px] text-earth-500">scale</span>
+<span class="font-body text-xs font-medium">1,200 kg total</span>
+<span class="text-earth-500">•</span>
+<span class="font-body text-xs text-earth-500 font-normal">Sangli Hub</span>
+</div>
+</div>
+</div>
+<!-- Trust Badge / Escrow -->
+<div class="pt-2 mt-1 flex items-center justify-between bg-primary-50 px-3 py-2 rounded">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary-800">lock</span>
+<span class="font-mono text-xs font-medium text-primary-800 tracking-wider uppercase">Escrow Secured (₹1,70,400)</span>
+</div>
+<div class="flex items-center gap-0.5 text-primary-700 font-medium">
+<span class="font-body text-xs font-normal">Track GPS</span>
+<span class="material-symbols-outlined text-[16px]">navigation</span>
+</div>
+</div>
+</div>
+<!-- Batch 4: Yellow Mustard -->
+<div class="bg-white rounded-md p-4 shadow-sm flex flex-col gap-2 hover:shadow-md transition-shadow active:scale-[0.99] duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" role="button" tabindex="0">
+<div class="flex items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs px-2 py-0.5 rounded-md bg-earth-100 text-earth-700 font-medium tracking-wider uppercase">BP-MUS-2026-003</span>
+<span class="w-2 h-2 rounded-full bg-earth-500"></span>
+</div>
+<span class="font-mono text-xs font-semibold px-2 py-0.5 rounded-md bg-earth-200 text-earth-700 tracking-wider uppercase">
+          DRAFT
+        </span>
+</div>
+<div class="flex gap-3 mt-0.5">
+<div class="w-16 h-16 rounded overflow-hidden flex-shrink-0 bg-earth-100 flex items-center justify-center text-earth-500">
+<span class="material-symbols-outlined text-[32px]">edit_note</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1 justify-center">
+<div class="flex items-baseline justify-between">
+<h2 class="font-display text-xl text-earth-900 truncate font-semibold">Yellow Mustard</h2>
+<span class="font-mono text-xs text-warning font-semibold tracking-wider uppercase">Step 2 of 4</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 text-earth-700">
+<span class="material-symbols-outlined text-[16px] text-earth-500">scale</span>
+<span class="font-body text-xs font-medium">3,000 kg estimated</span>
+<span class="text-earth-500">•</span>
+<span class="font-body text-xs text-earth-500 font-normal">Field C</span>
+</div>
+</div>
+</div>
+<div class="pt-2 mt-1 flex items-center justify-between bg-earth-100 px-3 py-2 rounded">
+<span class="font-body text-xs text-earth-700 font-normal">Missing moisture reading</span>
+<div class="flex items-center gap-0.5 text-primary-800 font-medium">
+<span class="font-body text-xs font-normal">Continue Details</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom Quick Info Floating Bar -->
+<div class="fixed bottom-16 inset-x-0 z-30 px-4 py-1 pointer-events-none">
+<div class="bg-primary-900/95 backdrop-blur-md text-white px-4 py-2 rounded-full shadow-xl flex items-center justify-between pointer-events-auto mx-auto max-w-md">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-gold-400 flex-shrink-0">compost</span>
+<span class="font-body text-xs font-medium truncate text-earth-50">Total Produce: <strong class="font-mono text-xs text-gold-400 font-medium tracking-wider uppercase">10,700 kg</strong> (Sangli Cluster)</span>
+</div>
+<button aria-label="More Info" class="w-7 h-7 rounded-full bg-earth-50/20 flex items-center justify-center text-white flex-shrink-0 active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[16px]">analytics</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const pills = document.querySelectorAll('.filter-pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => {
+          p.classList.remove('bg-primary-800', 'text-white');
+          p.classList.add('bg-earth-100', 'text-earth-700');
+        });
+        pill.classList.remove('bg-earth-100', 'text-earth-700');
+        pill.classList.add('bg-primary-800', 'text-white');
+      });
+    });
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-earth-50/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(28,20,8,0.05)]" data-active-classes="text-primary-800 font-semibold border-t-2 border-gold-800"><div class="flex justify-around items-center h-16 px-1"><a class="flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-earth-500 hover:text-primary-800 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="farmer-dashboard" href="#"><span class="material-symbols-outlined text-[20px]">agriculture</span><span class="font-mono text-xs font-medium tracking-wider uppercase">Home</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 transition-all duration-150 text-primary-800 font-semibold border-t-2 border-gold-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="farmer-batches" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-mono text-xs font-medium tracking-wider uppercase">Batches</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-earth-500 hover:text-primary-800 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="farmer-contracts" href="#"><span class="material-symbols-outlined text-[20px]">description</span><span class="font-mono text-xs font-medium tracking-wider uppercase">Contracts</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-earth-500 hover:text-primary-800 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="farmer-earnings" href="#"><span class="material-symbols-outlined text-[20px]">payments</span><span class="font-mono text-xs font-medium tracking-wider uppercase">Earnings</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-12 gap-0.5 text-earth-500 hover:text-primary-800 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="farmer-profile" href="#"><span class="material-symbols-outlined text-[20px]">account_circle</span><span class="font-mono text-xs font-medium tracking-wider uppercase">Profile</span></a></div></nav></body></html>

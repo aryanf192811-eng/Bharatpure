@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};</script></head><body class="bg-earth-50 font-body text-sm font-normal text-earth-900"><aside class="fixed left-0 top-0 h-full w-60 bg-primary-800 text-white z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 flex items-center gap-2 px-4 bg-primary-900"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-sm font-bold text-white tracking-tight leading-tight">BharatPure</span><span class="font-mono text-xs tracking-wider uppercase font-medium text-gold-400">Enterprise</span></div></div><div class="px-4 py-3"><span class="font-mono text-xs tracking-wider uppercase font-medium text-primary-400">Procurement Suite</span></div><nav class="flex flex-col gap-0.5 px-2" data-active-classes="bg-primary-800 text-white font-semibold shadow-sm"><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="buyer-dashboard" href="#"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span class="font-body text-sm font-normal">Dashboard</span></a><a aria-current="page" class="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors bg-primary-800 text-white font-semibold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="verified-batch-catalog" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body text-sm font-normal">Batch Catalog</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="bulk-orders-and-escrow" href="#"><span class="material-symbols-outlined text-[20px]">account_balance_wallet</span><span class="font-body text-sm font-normal">Orders &amp; Escrow</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="new-procurement-order" href="#"><span class="material-symbols-outlined text-[20px]">add_circle</span><span class="font-body text-sm font-normal">New Procurement</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="reliability-and-iei-score" href="#"><span class="material-symbols-outlined text-[20px]">query_stats</span><span class="font-body text-sm font-normal">Reliability &amp; IEI</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="nabl-quality-vault" href="#"><span class="material-symbols-outlined text-[20px]">lab_profile</span><span class="font-body text-sm font-normal">Quality Vault</span></a><a class="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-100 hover:bg-primary-700 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="contracts-and-mandates" href="#"><span class="material-symbols-outlined text-[20px]">gavel</span><span class="font-body text-sm font-normal">Contracts</span></a></nav></div><div class="p-3 bg-primary-900 m-2 rounded-xl flex flex-col gap-2"><div class="flex items-center justify-between"><div class="flex items-center gap-0.5 text-gold-400"><span class="material-symbols-outlined text-[16px]">shield</span><span class="font-mono text-xs tracking-wider uppercase font-semibold">100% Escrow</span></div><span class="material-symbols-outlined text-primary-400 text-[16px]">lock</span></div><p class="font-body text-xs font-normal text-primary-400 leading-snug">Sovereign smart contracts backed by BharatPure Guarantee.</p><div class="pt-1 flex items-center justify-between text-white"><span class="font-body text-xs font-medium">FPO Concierge</span><span class="material-symbols-outlined text-[18px] text-gold-400 cursor-pointer hover:text-gold-100">support_agent</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-earth-50/90 backdrop-blur-xl z-40 flex items-center justify-between px-6 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-4 flex-1 max-w-xl"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-earth-500 text-[18px]">search</span><input class="w-full pl-9 pr-3 py-2 rounded-lg bg-earth-100 text-sm font-body text-earth-900 placeholder:text-earth-500 focus:outline-none focus:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" placeholder="Search crops, NABL lots, or verified FPO clusters..." type="text"/></div><div class="hidden xl:flex items-center gap-0.5 px-3 py-1 rounded-full bg-gold-50 text-gold-800"><span class="material-symbols-outlined text-[14px] text-primary-700">verified</span><span class="font-mono text-xs tracking-wider uppercase font-medium whitespace-nowrap">AgriStack &amp; NABL Connected</span></div></div><div class="flex items-center gap-3"><div class="relative p-1 rounded-lg text-earth-700 hover:bg-earth-200 transition-colors cursor-pointer"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-warning"></span></div><div class="flex items-center gap-3 px-3 py-1 rounded-xl bg-earth-100"><div class="flex flex-col text-right"><span class="font-body text-xs font-semibold text-earth-900 leading-tight">Fresh Provisions Pvt Ltd</span><div class="flex items-center gap-2 justify-end"><span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">GSTIN: 07AABCF1234F1Z8</span><span class="inline-block w-1 h-1 rounded-full bg-earth-200"></span><span class="font-mono text-xs tracking-wider uppercase font-semibold text-primary-700">IEI: 89/100</span></div></div><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 px-6 py-6 bg-earth-50 min-h-screen"><div class="flex flex-col w-full gap-6">
+<!-- 1. DEMAND CONTEXT STRIP -->
+<aside aria-label="Market Intelligence Bar" class="relative overflow-hidden rounded-xl bg-gradient-to-r from-gold-50 via-earth-100 to-primary-50 p-4 shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 relative z-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-gold-800/10 flex items-center justify-center text-gold-800 shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">insights</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="font-mono text-xs tracking-wider uppercase text-gold-800 font-semibold">Regional Supply Intelligence</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-700"></span>
+<span class="font-mono text-xs tracking-wider uppercase text-primary-700 font-medium">Live Agmarknet Fed</span>
+</div>
+<p class="font-body text-sm font-normal text-earth-900">
+            Turmeric demand in <strong class="font-semibold text-earth-900">Delhi NCR is +18%</strong> this month. Sangli &amp; Salem clusters have <span class="font-semibold text-primary-900">14 verified lots</span> ready for immediate cold dispatch.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<a class="px-4 py-1 rounded-lg bg-primary-800 text-white font-body text-xs font-medium hover:bg-primary-700 transition-all shadow-sm flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" href="#active-lots">
+<span>Filter Matching Lots</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="absolute right-0 top-0 translate-x-8 -translate-y-4 opacity-5 pointer-events-none text-primary-900">
+<span class="material-symbols-outlined text-[180px]">trending_up</span>
+</div>
+</aside>
+<!-- 2. TWO-COLUMN LAYOUT -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- LEFT FILTER PANEL (Sticky on desktop) -->
+<aside class="lg:col-span-3 lg:sticky lg:top-20 flex flex-col gap-4 bg-white p-6 rounded-xl shadow-sm">
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-earth-700 text-[20px]">tune</span>
+<h2 class="font-display text-xl font-semibold text-earth-900">Filter Batches</h2>
+</div>
+<button class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 hover:text-primary-800 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="reset-filters-btn">Reset</button>
+</div>
+<!-- Categories -->
+<section class="flex flex-col gap-2 pt-2">
+<h3 class="font-mono text-xs tracking-wider uppercase text-earth-700 font-semibold">Crop Categories</h3>
+<div class="flex flex-col gap-1">
+<label class="flex items-center justify-between p-1 rounded-lg hover:bg-earth-100 transition-colors cursor-pointer group">
+<span class="flex items-center gap-2 text-earth-900 font-body text-sm font-normal">
+<input checked="" class="w-4 h-4 rounded bg-earth-100 text-primary-800 accent-primary-800 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="checkbox"/>
+<span>Spices</span>
+</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium px-1 py-0.5 rounded bg-earth-200 text-earth-700">18</span>
+</label>
+<label class="flex items-center justify-between p-1 rounded-lg hover:bg-earth-100 transition-colors cursor-pointer group">
+<span class="flex items-center gap-2 text-earth-900 font-body text-sm font-normal">
+<input checked="" class="w-4 h-4 rounded bg-earth-100 text-primary-800 accent-primary-800 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="checkbox"/>
+<span>Edible Oils (Cold-Pressed)</span>
+</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium px-1 py-0.5 rounded bg-earth-200 text-earth-700">12</span>
+</label>
+<label class="flex items-center justify-between p-1 rounded-lg hover:bg-earth-100 transition-colors cursor-pointer group">
+<span class="flex items-center gap-2 text-earth-900 font-body text-sm font-normal">
+<input class="w-4 h-4 rounded bg-earth-100 text-primary-800 accent-primary-800 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="checkbox"/>
+<span>Heritage Grains</span>
+</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium px-1 py-0.5 rounded bg-earth-200 text-earth-700">24</span>
+</label>
+<label class="flex items-center justify-between p-1 rounded-lg hover:bg-earth-100 transition-colors cursor-pointer group">
+<span class="flex items-center gap-2 text-earth-900 font-body text-sm font-normal">
+<input class="w-4 h-4 rounded bg-earth-100 text-primary-800 accent-primary-800 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="checkbox"/>
+<span>Honey &amp; Sweeteners</span>
+</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium px-1 py-0.5 rounded bg-earth-200 text-earth-700">7</span>
+</label>
+<label class="flex items-center justify-between p-1 rounded-lg hover:bg-earth-100 transition-colors cursor-pointer group">
+<span class="flex items-center gap-2 text-earth-900 font-body text-sm font-normal">
+<input class="w-4 h-4 rounded bg-earth-100 text-primary-800 accent-primary-800 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="checkbox"/>
+<span>Pulses &amp; Legumes</span>
+</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium px-1 py-0.5 rounded bg-earth-200 text-earth-700">15</span>
+</label>
+</div>
+</section>
+<!-- Quality Tier -->
+<section class="flex flex-col gap-2 pt-2">
+<h3 class="font-mono text-xs tracking-wider uppercase text-earth-700 font-semibold">Laboratory Accreditation</h3>
+<div class="flex flex-col gap-1">
+<label class="flex items-start gap-2 p-2 rounded-lg bg-gold-50 cursor-pointer">
+<input checked="" class="mt-0.5 w-4 h-4 rounded accent-primary-800 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body text-xs font-semibold text-gold-800">NABL Tier-1 Accredited</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700">Assay Score ≥ 90 / 100</span>
+</div>
+</label>
+<label class="flex items-start gap-2 p-2 rounded-lg hover:bg-earth-100 transition-colors cursor-pointer">
+<input class="mt-0.5 w-4 h-4 rounded accent-primary-800 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body text-xs font-medium text-earth-900">Standard Certified</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Assay Score 75 – 89</span>
+</div>
+</label>
+<label class="flex items-start gap-2 p-2 rounded-lg hover:bg-earth-100 transition-colors cursor-pointer">
+<input class="mt-0.5 w-4 h-4 rounded accent-primary-800 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body text-xs font-medium text-earth-900">FPO Self-Assayed</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Farm Gate Baseline</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Minimum Lot Quantity Slider -->
+<section class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between">
+<h3 class="font-mono text-xs tracking-wider uppercase text-earth-700 font-semibold">Min Order Volume</h3>
+<span class="font-mono text-xs tracking-wider uppercase font-bold text-primary-900" id="quantity-val">1,000 kg</span>
+</div>
+<input class="w-full accent-primary-800 bg-earth-100 rounded h-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="quantity-slider" max="20000" min="500" step="500" type="range" value="1000"/>
+<div class="flex justify-between font-mono text-xs tracking-wider uppercase font-medium text-earth-500">
+<span>500 kg</span>
+<span>10,000 kg</span>
+<span>20,000 kg</span>
+</div>
+</section>
+<!-- FPO Trust Score Threshold -->
+<section class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between">
+<h3 class="font-mono text-xs tracking-wider uppercase text-earth-700 font-semibold">FPO Trust Score</h3>
+<span class="font-mono text-xs tracking-wider uppercase font-bold text-primary-700 bg-primary-50 px-1 py-0.5 rounded">≥ 85 / 100</span>
+</div>
+<div class="w-full bg-earth-100 rounded-full h-2 overflow-hidden">
+<div class="bg-primary-700 h-full rounded-full" style="width: 85%"></div>
+</div>
+</section>
+<!-- Sourcing State / Cluster -->
+<section class="flex flex-col gap-2 pt-2">
+<h3 class="font-mono text-xs tracking-wider uppercase text-earth-700 font-semibold">Cluster Geography</h3>
+<div class="flex flex-wrap gap-1">
+<button class="px-2 py-0.5 rounded-full bg-primary-800 text-white font-mono text-xs tracking-wider uppercase font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">Maharashtra (14)</button>
+<button class="px-2 py-0.5 rounded-full bg-earth-100 text-earth-700 font-mono text-xs tracking-wider uppercase font-medium hover:bg-earth-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">Rajasthan (9)</button>
+<button class="px-2 py-0.5 rounded-full bg-earth-100 text-earth-700 font-mono text-xs tracking-wider uppercase font-medium hover:bg-earth-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">Kerala (11)</button>
+<button class="px-2 py-0.5 rounded-full bg-earth-100 text-earth-700 font-mono text-xs tracking-wider uppercase font-medium hover:bg-earth-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">Gujarat (8)</button>
+<button class="px-2 py-0.5 rounded-full bg-earth-100 text-earth-700 font-mono text-xs tracking-wider uppercase font-medium hover:bg-earth-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">Kashmir (6)</button>
+</div>
+</section>
+<!-- Toggle: Cold-Chain Telemetry -->
+<section class="pt-2">
+<div class="flex items-center justify-between p-2 rounded-xl bg-earth-100">
+<div class="flex flex-col pr-2">
+<span class="font-body text-xs font-semibold text-earth-900">Cold-Chain Telemetry</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Live IoT temperature tracking</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="telemetry-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-earth-200 peer-focus:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-primary-800 peer-focus-visible:ring-offset-2 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-700"></div>
+</label>
+</div>
+</section>
+</aside>
+<!-- RIGHT CONTENT & RESULTS GRID -->
+<section class="lg:col-span-9 flex flex-col gap-4" id="active-lots">
+<!-- Header & Sorting Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white p-4 rounded-xl shadow-sm">
+<div class="flex items-baseline gap-2">
+<h1 class="font-display text-2xl font-semibold text-earth-900 tracking-tight">Verified Institutional Batches</h1>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">48 lots ready</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700">Sort by:</span>
+<div class="relative">
+<select class="appearance-none bg-earth-100 text-earth-900 font-body text-xs font-medium py-1 pl-3 pr-6 rounded-lg focus:outline-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<option selected="">Demand Match Index</option>
+<option>Purity Score (High to Low)</option>
+<option>Price (Paise/kg)</option>
+<option>Cluster Distance</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-earth-500 text-[16px] pointer-events-none">unfold_more</span>
+</div>
+</div>
+</div>
+<!-- BATCH CARDS GRID (3-Columns Desktop) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+<!-- CARD 1: Salem Golden Turmeric -->
+<article class="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[16/10] overflow-hidden bg-earth-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A rustic ceramic bowl heaped with freshly dried organic Salem turmeric fingers on a weathered wooden workbench, alongside snapped rhizomes revealing deep golden orange curcumin core with soft morning daylight and a stone mortar in background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfn5z6I3in8V_-pJha6-tS012P6mPZsSzbEWi0ms0LHno3KqSlU34emXMmeEpXxMLG1wOOvnJSu8b5_Rpda68TujSPY6WloH8YV1-52ZCeOZvGT_o8Eg1eM4Bh--cpOHZUFhPV0JIjY47Oj1gaAv3EI-CgBMkJRFNNE7JSYKbGPFNbOLBYJ-DpvBNdOHSV3dnSJJvWcbsGnI83q8DJjn2HRt7RKhdfsRjzBerEL5E0M7MMc7w8LwcJ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<!-- Badges overlay -->
+<div class="absolute top-2 left-2 flex flex-wrap gap-1">
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-gold-50 text-gold-800 font-mono text-xs tracking-wider uppercase font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-gold-800">verified</span>
+                NABL 94/100
+              </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-primary-900/80 text-white font-mono text-xs tracking-wider uppercase font-medium backdrop-blur-md">
+<span class="material-symbols-outlined text-[13px] text-primary-500">sensors</span>
+                Live IoT
+              </span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">#BP-TUR-2026-089</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium bg-black/40 px-1 py-0.5 rounded backdrop-blur-sm">FPO Trust: 96%</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-earth-500 font-mono text-xs tracking-wider uppercase font-medium">
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">location_on</span>Sangli Cluster East</span>
+<span class="text-primary-700 font-semibold">Curcumin: 5.42%</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 line-clamp-1">Salem Golden Turmeric</h3>
+<p class="font-body text-xs font-normal text-earth-700 line-clamp-2">Direct farm-gate single-origin lot, double solar-cured with low moisture content &lt;8.5%.</p>
+</div>
+<!-- Lab Metrics Tabular Micro-strip -->
+<div class="grid grid-cols-3 gap-1 bg-earth-100 p-2 rounded-lg text-center">
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Total Available</span>
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">2,500 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Min Mandate</span>
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-700">500 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Unit Rate</span>
+<span class="font-mono text-sm tracking-wide font-bold text-primary-800">₹188<span class="text-xs tracking-wider uppercase font-normal text-earth-500">/kg</span></span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-800 text-white font-body text-xs font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-1 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span>View Provenance &amp; Order</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+<button aria-label="Sample Request" class="p-2 rounded-lg bg-earth-100 hover:bg-earth-200 text-earth-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px]">science</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 2: Cold-Pressed Mustard Oil -->
+<article class="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[16/10] overflow-hidden bg-earth-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clear glass apothecary bottle filled with glowing amber cold-pressed mustard oil with cork stopper and handwritten parchment label, placed on burlap alongside an authentic clay kachhi ghani pot and radiant yellow mustard blossom flowers in golden late-afternoon field lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDISUBjTilKGiv2XNwNdhxDYcfHMIQDp99Owp0NjJ_zfASW9j4ZKcOSel56KRCRnGK4Mg5W8Smcnh90KJJ_xg-5Wr4kBxCndjEheGPthCqSCgNq9nbyfUwNHn7oJSd-IJsyMrWPR0YcZiMQg--8cZHXppNr_PccY18HYBtb_NxtydxrfNERzl3tBeZKP2UD_KdbXaH14VuypYHzZjVAApen0u7iHwdR6ASUanFDNXUK_ZzTVTZCqGF0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-2 left-2 flex flex-wrap gap-1">
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-gold-50 text-gold-800 font-mono text-xs tracking-wider uppercase font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-gold-800">verified</span>
+                NABL 96/100
+              </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-primary-50 text-primary-900 font-mono text-xs tracking-wider uppercase font-medium">
+                Wood-Pressed
+              </span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">#BP-MUS-2026-041</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium bg-black/40 px-1 py-0.5 rounded backdrop-blur-sm">FPO Trust: 98%</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-earth-500 font-mono text-xs tracking-wider uppercase font-medium">
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">location_on</span>Alwar Mustard FPO</span>
+<span class="text-primary-700 font-semibold">Pungency: High</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 line-clamp-1">Pure Cold-Pressed Mustard Oil</h3>
+<p class="font-body text-xs font-normal text-earth-700 line-clamp-2">Extracted via traditional kachhi ghani slow wood churna. Zero chemical adulteration or micro-sediment.</p>
+</div>
+<div class="grid grid-cols-3 gap-1 bg-earth-100 p-2 rounded-lg text-center">
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Total Available</span>
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">4,000 L</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Min Mandate</span>
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-700">500 L</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Unit Rate</span>
+<span class="font-mono text-sm tracking-wide font-bold text-primary-800">₹245<span class="text-xs tracking-wider uppercase font-normal text-earth-500">/L</span></span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-800 text-white font-body text-xs font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-1 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span>View Provenance &amp; Order</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+<button aria-label="Sample Request" class="p-2 rounded-lg bg-earth-100 hover:bg-earth-200 text-earth-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px]">science</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 3: Wild Forest Honey -->
+<article class="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[16/10] overflow-hidden bg-earth-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A transparent glass jar filled with raw amber wild forest honey drizzled from a wooden honey dipper, surrounded by pristine honeycomb wooden tray, vibrant forest flora, and rustic bark table in lush Nilgiri mountain mist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC36TEZQS2W7vPmpa_D__SGgAQ7vSy8WoxEtDkEPRxndy2atxohYKMBJq5EyCkJ6peMsL_mAr5yV6XXvLAEopJrwh0sYQel2H2QUEymTwHokODx1qzsdbhqHs2WqNrU7gSdBw58C6fJUBKxyiPr0zrvqey7j1_10gQwGIF3jo-VPfGuV2QYROfFYNnPMJQbc383xZQRK4anzTikfImNC7zqC1DXSlvE5rd73_7UstDjxCDEiHaOyzXn"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-2 left-2 flex flex-wrap gap-1">
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-gold-50 text-gold-800 font-mono text-xs tracking-wider uppercase font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-gold-800">verified</span>
+                NABL 98/100
+              </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-primary-900/80 text-white font-mono text-xs tracking-wider uppercase font-medium backdrop-blur-md">
+                Raw Unfiltered
+              </span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">#BP-HNY-2026-018</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium bg-black/40 px-1 py-0.5 rounded backdrop-blur-sm">FPO Trust: 99%</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-earth-500 font-mono text-xs tracking-wider uppercase font-medium">
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">location_on</span>Nilgiris Tribal Coop</span>
+<span class="text-primary-700 font-semibold">Pollen: Multi-Flora</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 line-clamp-1">Raw Wild Forest Honey</h3>
+<p class="font-body text-xs font-normal text-earth-700 line-clamp-2">Sustainably harvested from high canopy apis dorsata nests. Unpasteurized and enzymatically intact.</p>
+</div>
+<div class="grid grid-cols-3 gap-1 bg-earth-100 p-2 rounded-lg text-center">
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Total Available</span>
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">1,200 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Min Mandate</span>
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-700">200 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Unit Rate</span>
+<span class="font-mono text-sm tracking-wide font-bold text-primary-800">₹490<span class="text-xs tracking-wider uppercase font-normal text-earth-500">/kg</span></span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-800 text-white font-body text-xs font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-1 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span>View Provenance &amp; Order</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+<button aria-label="Sample Request" class="p-2 rounded-lg bg-earth-100 hover:bg-earth-200 text-earth-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px]">science</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 4: Tellicherry Black Pepper -->
+<article class="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[16/10] overflow-hidden bg-earth-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Dark whole Malabar Tellicherry extra bold black peppercorns spilling across a natural linen runner, showing wrinkled dense berries with high volatile oil sheen in crisp studio overhead daylight on warm stone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABlCXaEnnbOJl9btYLrvXZRIqJdqH4aUjD-38AbN2Ee8kdekb9bs1EIjOZIL9dOopOaeDxVRqv1l4t-wxPsyUjGdhFrXhs9q0ON2DxCaA1c3CORhhZxu1vRp1pEhFtiBGe7a7mC__85xxrxbFiZuCH6wN6VxJRwY3WdkG76CAMZJLIvJdp6c3C7x2ExL8hFRs1fNGcJRjrdMu960M1Yy6yhuY3aSy7yS_RCXccgxYxBh73VBhXFTEW"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-2 left-2 flex flex-wrap gap-1">
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-gold-50 text-gold-800 font-mono text-xs tracking-wider uppercase font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-gold-800">verified</span>
+                NABL 95/100
+              </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-earth-100 text-earth-900 font-mono text-xs tracking-wider uppercase font-medium">
+                TGSEB Grade
+              </span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">#BP-PEP-2026-104</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium bg-black/40 px-1 py-0.5 rounded backdrop-blur-sm">FPO Trust: 92%</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-earth-500 font-mono text-xs tracking-wider uppercase font-medium">
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">location_on</span>Wayanad Spices Society</span>
+<span class="text-primary-700 font-semibold">Piperine: 6.8%</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 line-clamp-1">Tellicherry Black Pepper TGSEB</h3>
+<p class="font-body text-xs font-normal text-earth-700 line-clamp-2">Hand-picked 4.75mm diameter bold berries. High essential oil concentration with intense pungent aromatic profile.</p>
+</div>
+<div class="grid grid-cols-3 gap-1 bg-earth-100 p-2 rounded-lg text-center">
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Total Available</span>
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">3,200 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Min Mandate</span>
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-700">400 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Unit Rate</span>
+<span class="font-mono text-sm tracking-wide font-bold text-primary-800">₹825<span class="text-xs tracking-wider uppercase font-normal text-earth-500">/kg</span></span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-800 text-white font-body text-xs font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-1 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span>View Provenance &amp; Order</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+<button aria-label="Sample Request" class="p-2 rounded-lg bg-earth-100 hover:bg-earth-200 text-earth-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px]">science</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 5: Bhalia Organic Wheat -->
+<article class="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[16/10] overflow-hidden bg-earth-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Plump golden amber grains of certified organic Bhalia wheat poured into a hand-carved teak trough, with wheat sheaves in warm sunlight and natural hessian grain sacks in an airy dry warehouse background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5OWWAg7Ngk2v5ufuU658ftZbAPnuZf1i7fyGwQwJfj28LTFyA5WvHRI2dp5GkAxLqnya69R6DAIAMxMTHmeDP-Zjimgn_-iPEg2_l1wbMWUHxVTwnPyceMeJCes77yOJm0qtUXu1lgLzYAlCur1FwIx__cSqxr_G3AI9KKfjFHPTB83NoAUu1s2dqjEXhNqmu_KTuQTxqnYLXWfoy2VUahDAOxSL2ezr2024SIW8bPDT-YjQCxc01"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-2 left-2 flex flex-wrap gap-1">
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-gold-50 text-gold-800 font-mono text-xs tracking-wider uppercase font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-gold-800">verified</span>
+                NABL 91/100
+              </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-primary-50 text-primary-900 font-mono text-xs tracking-wider uppercase font-medium">
+                GI Tagged
+              </span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">#BP-WHT-2026-067</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium bg-black/40 px-1 py-0.5 rounded backdrop-blur-sm">FPO Trust: 94%</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-earth-500 font-mono text-xs tracking-wider uppercase font-medium">
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">location_on</span>Bhal Region FPC</span>
+<span class="text-primary-700 font-semibold">Protein: 14.8%</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 line-clamp-1">Bhalia Organic Long Grain Wheat</h3>
+<p class="font-body text-xs font-normal text-earth-700 line-clamp-2">Non-irrigated rainfed heirloom variety grown in saline black soil. Naturally sweet notes with high glutenin strength.</p>
+</div>
+<div class="grid grid-cols-3 gap-1 bg-earth-100 p-2 rounded-lg text-center">
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Total Available</span>
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">18,000 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Min Mandate</span>
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-700">2,000 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Unit Rate</span>
+<span class="font-mono text-sm tracking-wide font-bold text-primary-800">₹72<span class="text-xs tracking-wider uppercase font-normal text-earth-500">/kg</span></span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-800 text-white font-body text-xs font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-1 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span>View Provenance &amp; Order</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+<button aria-label="Sample Request" class="p-2 rounded-lg bg-earth-100 hover:bg-earth-200 text-earth-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px]">science</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 6: Kashmir Mongra Grade-1 Saffron -->
+<article class="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[16/10] overflow-hidden bg-earth-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Vibrant deep crimson threads of pure Kashmir Mongra saffron stigmas resting in a carved walnut wood ceremonial bowl with delicate purple crocus sativus flower petals on silk backdrop in soft daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUtUAGPCU-SwZ4RaQtyYFtNfKgcOaELP1ymEKnff1z1u_QlfZlSn5b0rmDYqfN567OqEbK3z5vL_t5e2v5UZVSqMCK5A4-hQa-DImt2OZb5zBRYpVM-RwB1l3QATQvrjoiwFLjbc0Beo7KNw187OquaUBIItZxVP-ChTYw8_Z9uUQLOs5bu2rc9eaGJsnnU-stvtiv0DejpHmWqkj-pFXXf3zPODojpMw46yG3umdGXhXFk3WMFMdw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-2 left-2 flex flex-wrap gap-1">
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-gold-50 text-gold-800 font-mono text-xs tracking-wider uppercase font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-gold-800">verified</span>
+                NABL 99/100
+              </span>
+<span class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded bg-gold-400 text-gold-800 font-mono text-xs tracking-wider uppercase font-bold">
+                Mongra Gr-1
+              </span>
+</div>
+<div class="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+<span class="font-mono text-xs tracking-wider uppercase font-semibold">#BP-SAF-2026-003</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium bg-black/40 px-1 py-0.5 rounded backdrop-blur-sm">FPO Trust: 100%</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-1 justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-earth-500 font-mono text-xs tracking-wider uppercase font-medium">
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">location_on</span>Pampore Saffron Valley</span>
+<span class="text-primary-700 font-semibold">Crocin: 248.5</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 line-clamp-1">Kashmir Mongra Grade-1 Saffron</h3>
+<p class="font-body text-xs font-normal text-earth-700 line-clamp-2">GI-tagged pure stigmas with verified safranal aroma &amp; picrocrocin bitterness indexes. Vacuum sealed at source.</p>
+</div>
+<div class="grid grid-cols-3 gap-1 bg-earth-100 p-2 rounded-lg text-center">
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Total Available</span>
+<span class="font-mono text-sm tracking-wide font-bold text-earth-900">15 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Min Mandate</span>
+<span class="font-mono text-sm tracking-wide font-semibold text-earth-700">2 kg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Unit Rate</span>
+<span class="font-mono text-sm tracking-wide font-bold text-primary-800">₹4.9L<span class="text-xs tracking-wider uppercase font-normal text-earth-500">/kg</span></span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-800 text-white font-body text-xs font-medium hover:bg-primary-700 transition-colors flex items-center justify-center gap-1 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span>View Provenance &amp; Order</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+<button aria-label="Sample Request" class="p-2 rounded-lg bg-earth-100 hover:bg-earth-200 text-earth-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[20px]">science</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- PAGINATION BAR -->
+<footer class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-white rounded-xl shadow-sm mt-3">
+<div class="flex items-center gap-2 font-mono text-xs tracking-wider uppercase font-medium text-earth-700">
+<span>Page <strong class="text-earth-900">1</strong> of <strong class="text-earth-900">4</strong></span>
+<span class="inline-block w-1 h-1 rounded-full bg-earth-200"></span>
+<span>48 verified lots matching criteria</span>
+</div>
+<nav aria-label="Pagination" class="flex items-center gap-1">
+<button class="w-9 h-9 flex items-center justify-center rounded-lg bg-earth-100 text-earth-500 cursor-not-allowed opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg bg-primary-800 text-white font-mono text-xs tracking-wider uppercase font-bold shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">1</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg bg-earth-100 text-earth-900 hover:bg-earth-100 font-mono text-xs tracking-wider uppercase font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">2</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg bg-earth-100 text-earth-900 hover:bg-earth-100 font-mono text-xs tracking-wider uppercase font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">3</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg bg-earth-100 text-earth-900 hover:bg-earth-100 font-mono text-xs tracking-wider uppercase font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">4</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-lg bg-earth-100 text-earth-900 hover:bg-earth-100 font-mono text-xs tracking-wider uppercase font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</nav>
+</footer>
+</section>
+</div>
+</div>
+<script>
+  // Range slider dynamic feedback
+  const slider = document.getElementById('quantity-slider');
+  const label = document.getElementById('quantity-val');
+  if (slider && label) {
+    slider.addEventListener('input', (e) => {
+      const val = Number(e.target.value).toLocaleString('en-IN');
+      label.textContent = val + ' kg';
+    });
+  }
+
+  // Reset button feedback
+  const resetBtn = document.getElementById('reset-filters-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (slider && label) {
+        slider.value = 1000;
+        label.textContent = '1,000 kg';
+      }
+      const telemetry = document.getElementById('telemetry-toggle');
+      if (telemetry) telemetry.checked = true;
+    });
+  }
+</script></main></div></body></html>

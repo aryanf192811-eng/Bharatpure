@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-earth-50" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style></head><body class="bg-earth-50 text-earth-900 font-body min-h-full flex flex-col antialiased selection:bg-gold-100 selection:text-earth-900"><header class="fixed top-0 inset-x-0 z-50 bg-earth-50/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(28,20,8,0.04)]"><div class="h-14 px-3 flex items-center justify-between gap-3"><div class="flex items-center gap-2 min-w-0"><button aria-label="Go back" class="w-11 h-11 flex items-center justify-center rounded-lg text-primary-800 hover:bg-earth-100 active:scale-95 transition-colors -ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-7 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col min-w-0"><h1 class="font-body text-lg font-semibold text-primary-800 truncate leading-tight">Active Waypoint Navigation</h1><span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700 truncate">BHARATPURE TELEMETRY</span></div></div><div class="flex items-center gap-2 flex-shrink-0"><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-14 pb-safe bg-earth-50 min-h-screen"><div class="flex flex-col w-full px-4 pt-2 pb-12 space-y-4">
+<!-- Stop Type & Status Header Banner -->
+<section class="bg-white rounded-xl p-4 shadow-sm flex flex-col space-y-3">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-800 text-white font-mono text-xs tracking-wider uppercase font-medium">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+        DELIVERY STOP #03
+      </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-50 text-primary-700 font-mono text-xs tracking-wider uppercase font-medium">
+<span class="material-symbols-outlined text-[13px]">verified_user</span>
+        Escrow Protected
+      </span>
+</div>
+<div>
+<h2 class="font-display text-xl font-semibold text-primary-800 tracking-tight">
+        Central Cold Hub &amp; Consumer Drop
+      </h2>
+<p class="font-body text-xs font-normal text-earth-700 mt-0.5">
+        Defence Colony Block C • Gate Receiving Point
+      </p>
+</div>
+<div class="bg-earth-100 rounded-lg p-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-8 h-8 rounded-full bg-primary-100 text-primary-800 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-xs text-earth-900 font-medium truncate">Anand Sharma / Mrs. Radhika Sen</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 truncate">#ORD-DEL-2026-9941</span>
+</div>
+</div>
+<span class="inline-flex items-center text-primary-700 font-mono text-xs tracking-wider uppercase font-medium bg-white px-2 py-1 rounded">
+        In Person
+      </span>
+</div>
+</section>
+<!-- Location & Geolocation Card -->
+<section class="bg-white rounded-xl p-4 shadow-sm flex flex-col space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-800 text-[20px]">pin_drop</span>
+<span class="font-body text-lg font-semibold text-primary-800">Destination Point</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase text-primary-700 bg-primary-50 px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
+        GEOFENCE ACTIVE
+      </span>
+</div>
+<!-- Map Preview -->
+<div class="w-full h-36 bg-cover bg-center rounded-lg relative overflow-hidden flex items-end p-2.5 shadow-sm" data-location="Defence Colony Block C, New Delhi, India" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFIS4VcUwJiobPGl5M3c-_pKqTiI7qPu2Uw2OWsfWcCbvCt8ijCMYCtRyx1LJh6azB_zwMwu6KGRFJLi9n1Sav9v_ths6VilkWnMhaXIpK0CNmmgk-E0JQE5oKjf-_rrZHUgBzMhlm5qnIHtmi-b2-qKn49hml0Ox0mvdu9yzv-KUqRhA1GsEz8fJztyoY4L5S2nRD5NhDf6486KlRqEGvqOFBk-FwcOn4HPbwwASfp8sSr4W8QX6s')">
+<div class="absolute inset-0 bg-gradient-to-t from-primary-900/80 via-primary-900/20 to-transparent pointer-events-none"></div>
+<div class="relative z-10 flex items-center justify-between w-full text-white">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-gold-100">satellite_alt</span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium">28.5728° N, 77.2341° E</span>
+</div>
+<span class="bg-primary-700/90 backdrop-blur-sm text-white px-2 py-0.5 rounded text-[10px] font-medium tracking-tight">
+          ±15m Match ✓
+        </span>
+</div>
+</div>
+<div class="space-y-1">
+<p class="font-body text-sm font-normal text-earth-900 leading-snug">
+        A-42, Defence Colony, Block C, Gate 2, New Delhi 110024
+      </p>
+<p class="font-body text-xs font-normal text-primary-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+        Telemetry confirmed driver within delivery zone
+      </p>
+</div>
+<!-- Quick Action Split Buttons -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="w-full h-11 bg-earth-100 hover:bg-earth-200 active:scale-[0.98] transition-all rounded-lg flex items-center justify-center gap-2 text-primary-800 font-body text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" type="button">
+<span class="material-symbols-outlined text-[18px]">navigation</span>
+<span>Open Maps</span>
+</button>
+<a class="w-full h-11 bg-earth-100 hover:bg-earth-200 active:scale-[0.98] transition-all rounded-lg flex items-center justify-center gap-2 text-primary-800 font-body text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" href="tel:+919811234567">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span>Call (+91)</span>
+</a>
+</div>
+</section>
+<!-- Items at this Stop (Manifest Inspection) -->
+<section class="bg-white rounded-xl p-4 shadow-sm flex flex-col space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-800 text-[20px]">inventory_2</span>
+<span class="font-body text-lg font-semibold text-primary-800">Manifest Cargo</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-700 bg-earth-100 px-2 py-0.5 rounded">
+        2 Units Pending Sign-off
+      </span>
+</div>
+<!-- Line Item 1 -->
+<div class="bg-earth-100 rounded-lg p-3 space-y-3 transition-colors hover:bg-earth-100">
+<div class="flex items-start justify-between gap-3">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-earth-100 shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="Vibrant golden raw cured Salem turmeric roots packaged inside a certified transparent vacuum pouch with holographic verification stamps resting on an earthy wooden surface under soft diffused daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN__U_PyfiJIWYeziQJRY4ifmYLGUtes2DAzrJF_KB__4WI0oFyDXWnM826eny9KNf1eJv6t-Qs0ds74qlbqpc8XRAWXfflJEkT2WBHiqk-0H6K0TPMkXKtDyJzvqEacwE-o1UbycoTa421bBVj48pG7d5qJCkGbJNfpfSZAvj-SKNJMA1VfFkheM3M_mG5r_6Tzn70KzmD5YhD16ZiqOAyjLPe8OE_AOGyvMdmTc1uUH34iKnJvY-"/>
+<span class="absolute bottom-0 right-0 bg-primary-800 text-white text-[9px] px-1 rounded-tl font-bold">NABL</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-mono text-xs tracking-wider uppercase text-gold-800 bg-gold-100 px-1.5 py-0.5 rounded font-medium">
+              #BP-TUR-2026-089
+            </span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 truncate">Sangli Cluster</span>
+</div>
+<h3 class="font-body text-lg font-semibold text-earth-900 mt-1 leading-tight">
+            Salem Golden Turmeric
+          </h3>
+<p class="font-body text-xs font-normal text-earth-700 italic">Curcuma Longa • 2.5 kg hermetic pouch</p>
+</div>
+</div>
+<!-- Telemetry Chip Pair -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div class="bg-white rounded p-2 flex items-center justify-between">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Seal ID</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold text-primary-800">#NFC-7721</span>
+</div>
+<div class="bg-primary-50 rounded p-2 flex items-center justify-between">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-primary-700">Reefer Temp</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold text-primary-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">device_thermostat</span>
+            6.4°C (Safe)
+          </span>
+</div>
+</div>
+</div>
+<!-- Line Item 2 -->
+<div class="bg-earth-100 rounded-lg p-3 space-y-3 transition-colors hover:bg-earth-100">
+<div class="flex items-start justify-between gap-3">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-earth-100 shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="Traditional cold pressed pure golden yellow mustard oil stored in an artisanal amber glass bottle encased in an insulated cold-chain protective carrier on an inspection counter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeWR_cqDSX7Mb1XLfM3d0HFJFoPdUeMG0_-DHMdiEFhOFGi47aVGuovgU_t60OMZxfQqf0_nhOU8l4jdc7e8iOMizOO1MC-SZt4g9uU46J9n2hvPWyTCQxdX8bXYAGZbYKq4dJD3KLl-vZ_YDbQoxcIlYEn8rq1s-mfk-18xsSt7k31Zc-6i7aAdg0GtWetNc0mj21GmRsSAlPKAIntkbqV7pevgfvurYD6fP5EkQ-vSkiGDyqltEi"/>
+<span class="absolute bottom-0 right-0 bg-gold-100 text-gold-800 text-[9px] px-1 rounded-tl font-bold">REEFER</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-mono text-xs tracking-wider uppercase text-gold-800 bg-gold-100 px-1.5 py-0.5 rounded font-medium">
+              #BP-MUS-2026-041
+            </span>
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500 truncate">Alwar Cluster</span>
+</div>
+<h3 class="font-body text-lg font-semibold text-earth-900 mt-1 leading-tight">
+            Cold-Pressed Mustard Oil
+          </h3>
+<p class="font-body text-xs font-normal text-earth-700 italic">2.0 L artisan glass bottle in cushioned pod</p>
+</div>
+</div>
+<!-- Telemetry Chip Pair -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div class="bg-white rounded p-2 flex items-center justify-between">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Seal ID</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold text-primary-800">#NFC-8840</span>
+</div>
+<div class="bg-white rounded p-2 flex items-center justify-between">
+<span class="font-mono text-xs tracking-wider uppercase font-medium text-earth-500">Sensor Seal</span>
+<span class="font-mono text-xs tracking-wider uppercase font-semibold text-primary-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+            Intact
+          </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Custody Transfer Interactive Checklist -->
+<section class="bg-white rounded-xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-800 text-[20px]">fact_check</span>
+<span class="font-body text-lg font-semibold text-primary-800">Custody Sign-Off Checks</span>
+</div>
+<span class="font-mono text-xs tracking-wider uppercase text-primary-700 font-medium bg-primary-50 px-2 py-0.5 rounded" id="checklist-counter">
+        3 of 4 Complete
+      </span>
+</div>
+<div class="space-y-2">
+<!-- Item 1: Auto Completed -->
+<label class="flex items-start gap-3 p-2.5 rounded-lg bg-earth-100 transition-colors select-none cursor-pointer">
+<input checked="" class="mt-0.5 w-5 h-5 rounded text-primary-800 focus:ring-0 accent-primary-800 flex-shrink-0 cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" disabled="" type="checkbox"/>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm text-earth-900 font-medium">Geofence arrival confirmed</span>
+<span class="font-mono text-xs text-earth-500">Auto-logged 10:43 AM IST via GNSS-900</span>
+</div>
+</label>
+<!-- Item 2: Auto Completed -->
+<label class="flex items-start gap-3 p-2.5 rounded-lg bg-earth-100 transition-colors select-none cursor-pointer">
+<input checked="" class="mt-0.5 w-5 h-5 rounded text-primary-800 focus:ring-0 accent-primary-800 flex-shrink-0 cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" disabled="" type="checkbox"/>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm text-earth-900 font-medium">Tamper-evident holographic seals verified</span>
+<span class="font-mono text-xs text-earth-500">Both cryptographic ribbons intact</span>
+</div>
+</label>
+<!-- Item 3: Auto Completed -->
+<label class="flex items-start gap-3 p-2.5 rounded-lg bg-earth-100 transition-colors select-none cursor-pointer">
+<input checked="" class="mt-0.5 w-5 h-5 rounded text-primary-800 focus:ring-0 accent-primary-800 flex-shrink-0 cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" disabled="" type="checkbox"/>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm text-earth-900 font-medium">IoT Cold-chain telemetry verified</span>
+<span class="font-mono text-xs text-earth-500">Zero excursion breaches across route journey</span>
+</div>
+</label>
+<!-- Item 4: Interactive Checkbox -->
+<label class="flex items-start gap-3 p-2.5 rounded-lg bg-gold-50 hover:bg-gold-100/70 transition-colors select-none cursor-pointer active:scale-[0.99]" id="handoff-toggle">
+<input class="mt-0.5 w-5 h-5 rounded text-primary-800 focus:ring-0 accent-primary-800 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="recipient-scan-check" type="checkbox"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body text-sm text-earth-900 font-semibold">Recipient visual inspection &amp; QR scan</span>
+<span class="material-symbols-outlined text-gold-800 text-[16px]">qr_code_scanner</span>
+</div>
+<span class="font-body text-xs font-normal text-earth-700">Scan consumer passkey or gate sign-off token</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Primary Execution Sticky Actions -->
+<section class="space-y-3 pt-2">
+<button class="w-full h-12 bg-primary-800 hover:bg-primary-700 active:scale-[0.98] text-white rounded-lg font-body text-lg font-semibold flex items-center justify-center gap-2 shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="btn-delivery-signoff" type="button">
+<span>Proceed to Cryptographic Sign-Off</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<div class="text-center">
+<button class="font-body text-sm text-terracotta-700 hover:underline font-medium inline-flex items-center gap-1.5 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="alert('Gate incident report logged. Dispatch notified.');" type="button">
+<span class="material-symbols-outlined text-[16px]">report_problem</span>
+        Report Delivery Issue / Gate Delay
+      </button>
+</div>
+</section>
+</div>
+<script>
+  (function() {
+    const handoffCheck = document.getElementById('recipient-scan-check');
+    const counterBadge = document.getElementById('checklist-counter');
+    const signoffBtn = document.getElementById('btn-delivery-signoff');
+
+    if (handoffCheck && counterBadge && signoffBtn) {
+      handoffCheck.addEventListener('change', function() {
+        if (this.checked) {
+          counterBadge.textContent = '4 of 4 Ready';
+          counterBadge.classList.remove('text-primary-700', 'bg-primary-50');
+          counterBadge.classList.add('text-white', 'bg-primary-700');
+          signoffBtn.classList.add('animate-pulse');
+        } else {
+          counterBadge.textContent = '3 of 4 Complete';
+          counterBadge.classList.add('text-primary-700', 'bg-primary-50');
+          counterBadge.classList.remove('text-white', 'bg-primary-700');
+          signoffBtn.classList.remove('animate-pulse');
+        }
+      });
+
+      signoffBtn.addEventListener('click', function() {
+        if (!handoffCheck.checked) {
+          alert('Please verify recipient handoff or trigger the cryptographic QR scan before proceeding.');
+          handoffCheck.focus();
+        } else {
+          alert('Opening sovereign cryptographic handoff scanner & e-signature protocol...');
+        }
+      });
+    }
+  })();
+</script></main></body></html>

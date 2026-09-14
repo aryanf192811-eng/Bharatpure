@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};
+</script></head><body class="bg-earth-50 font-body text-earth-900 antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-primary-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-4 flex items-center gap-2 bg-primary-800"><div class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></div><div class="flex flex-col"><span class="font-body text-lg font-semibold text-white font-bold tracking-wide">BharatPure</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase tracking-wider">DPI Mission Core</span></div></div><div class="px-4 pt-4 pb-2"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase tracking-wider opacity-70">Intelligence &amp; Governance</span></div><nav class="flex flex-col px-2 gap-1" data-active-classes="bg-primary-800 text-white font-body"><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="overview-iei" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body text-sm font-normal">Overview &amp; IEI</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="demand-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body text-sm font-normal">Demand Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="price-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">currency_rupee</span><span class="font-body text-sm font-normal">Price Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="route-optimizer" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span class="font-body text-sm font-normal">Route Optimizer</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="what-if-simulator" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body text-sm font-normal">What-if Simulator</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="fpo-batches" href="#"><span class="material-symbols-outlined text-[20px]">agriculture</span><span class="font-body text-sm font-normal">FPO &amp; Batches</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="escrow-settlements" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span class="font-body text-sm font-normal">Escrow &amp; Settlements</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="dpi-integration-status" href="#"><span class="material-symbols-outlined text-[20px]">sensors</span><span class="font-body text-sm font-normal">DPI Status</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="audit-ledger" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body text-sm font-normal">Audit Ledger</span></a></nav></div><div class="p-4 bg-primary-800 flex flex-col gap-2"><div class="flex items-center justify-between"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase">DPI Sovereign Node</span><span class="px-1 py-1 rounded bg-primary-800 text-primary-100 font-mono text-xs font-medium tracking-wider uppercase">v4.2</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary-500">shield</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">AgriStack • eNAM • ONDC</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-earth-50/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-6"><div class="flex items-center gap-4"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332 - Font: playfairDisplay - Mode: light - Roundness: rounded-md . The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-xl font-semibold text-earth-900 leading-tight">Admin &amp; DPI Operations Portal</span><span class="font-body text-xs font-normal text-earth-700">National Farm-to-Market Trust Network</span></div></div><div class="flex items-center gap-4"><div class="hidden xl:flex items-center gap-1 px-3 py-1 rounded bg-primary-50"><div class="w-2 h-2 rounded-full bg-primary-500"></div><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">DPI Node: ONLINE • Sandbox Active</span></div><div class="flex items-center gap-1 px-3 py-1 rounded bg-gold-50"><span class="material-symbols-outlined text-[16px] text-gold-800">cloud_done</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800">PROD-MIRROR</span></div><button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 relative p-1 rounded hover:bg-earth-100 transition-colors" type="button"><span class="material-symbols-outlined text-[20px] text-earth-700">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-warning"></span></button><div class="flex items-center gap-3 pl-2"><div class="flex flex-col text-right"><span class="font-body text-sm font-normal text-earth-900 font-medium">MoA&amp;FW / NITI Aayog</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">officer@agri.gov.in</span></div><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-earth-50"><div class="flex flex-col w-full">
+<div class="w-full px-6 py-4 flex flex-col gap-6">
+<!-- Top Summary & Global Actions -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 rounded-full bg-primary-100 text-primary-900 font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider font-semibold">AgriStack DPI Cadastre v4.2</span>
+<span class="text-earth-500 text-xs font-medium tracking-wider uppercase">•</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700">Synced: 4m ago</span>
+</div>
+<h1 class="font-display text-3xl font-semibold text-earth-900 tracking-tight">Farmer Producer Organizations &amp; Sovereign Batch Governance</h1>
+<p class="font-body text-sm font-normal text-earth-700">National statutory oversight, NABL assays verification, and cadastral lot traceability across active FPO collectives.</p>
+</div>
+<div class="flex items-center flex-wrap gap-3 self-start xl:self-center">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 inline-flex items-center gap-2 px-4 py-3 rounded bg-earth-100 hover:bg-earth-200 text-earth-900 transition-all duration-150 shadow-sm active:scale-95" id="btnExport">
+<span class="material-symbols-outlined text-[18px] text-earth-700">download</span>
+<span class="font-body text-sm font-normal font-medium">Export Registry (CSV)</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 inline-flex items-center gap-2 px-4 py-3 rounded bg-primary-800 hover:bg-primary-700 text-white transition-all duration-150 shadow-md active:scale-95" id="btnRegister">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span class="font-body text-sm font-normal font-medium">Register New FPO Node</span>
+</button>
+</div>
+</div>
+<!-- Quick Counts & Macro Telemetry Bento -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="p-4 rounded bg-white shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Verified FPO Nodes</span>
+<span class="material-symbols-outlined text-primary-500 text-[22px]">verified_user</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="font-display text-4xl font-bold text-earth-900">412</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-semibold">+14 this mo.</span>
+</div>
+<div class="mt-2 flex items-center justify-between text-earth-700">
+<span class="font-body text-xs font-normal">28 States &amp; UTs</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">100% Aadhaar/UIDAI</span>
+</div>
+</div>
+<div class="p-4 rounded bg-white shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Active Harvest Batches</span>
+<span class="material-symbols-outlined text-gold-800 text-[22px]">inventory_2</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="font-display text-4xl font-bold text-earth-900">1,842</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-semibold">12,480 MT Vol</span>
+</div>
+<div class="mt-2 flex items-center justify-between text-earth-700">
+<span class="font-body text-xs font-normal">NABL Assay Verified</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Avg Purity 98.2%</span>
+</div>
+</div>
+<div class="p-4 rounded bg-white shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Batches In Review</span>
+<span class="material-symbols-outlined text-warning text-[22px]">pending_actions</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="font-display text-4xl font-bold text-warning">18</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Pending Assay</span>
+</div>
+<div class="mt-2 flex items-center justify-between text-earth-700">
+<span class="font-body text-xs font-normal">SLA Horizon &lt; 14 hrs</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-warning">Urgent: 4</span>
+</div>
+</div>
+<div class="p-4 rounded bg-white shadow-sm flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Suspended / Quarantined Lots</span>
+<span class="material-symbols-outlined text-danger text-[22px]">gavel</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="font-display text-4xl font-bold text-danger">3</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-danger font-medium">Escrow Locked</span>
+</div>
+<div class="mt-2 flex items-center justify-between text-earth-700">
+<span class="font-body text-xs font-normal">Moisture / Adulteration Alert</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Log #902-D</span>
+</div>
+</div>
+</div>
+<!-- Dual Tab Bar + Operational Search & Filter Ribbon -->
+<div class="bg-white rounded shadow-sm p-4 flex flex-col gap-4">
+<!-- Tabs + View Meta -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2">
+<div class="inline-flex p-1 rounded bg-earth-100">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 tab-button px-4 py-2 rounded-md bg-white text-earth-900 shadow-sm font-body text-sm font-normal font-semibold transition-all" id="tabFPOs">
+            Verified FPOs <span class="ml-1 px-2 py-1 rounded-full bg-primary-100 text-primary-900 font-mono text-xs font-medium tracking-wider uppercase">412</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 tab-button px-4 py-2 rounded-md text-earth-700 hover:text-earth-900 font-body transition-all" id="tabBatches">
+            Harvest Batches <span class="ml-1 px-2 py-1 rounded-full bg-earth-200 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase">1,842</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-earth-500 font-mono text-xs font-medium tracking-wider uppercase">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-500"></span>
+<span>Ledger Consensus: 99.98% Cryptographic Integrity</span>
+</div>
+</div>
+<!-- Search & Multi-criteria Filters -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+<!-- Search bar -->
+<div class="md:col-span-4 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-earth-500">search</span>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full pl-9 pr-4 py-2 rounded bg-earth-100 text-earth-900 placeholder:text-earth-500 font-body text-sm font-normal focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-800 transition-all" id="searchInput" placeholder="Search by FPO Name, Reg #, Cadastral Lot..." type="text"/>
+</div>
+<!-- Filter Dropdowns -->
+<div class="md:col-span-2">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full px-3 py-2 rounded bg-earth-100 text-earth-900 font-body text-sm font-normal focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-800 cursor-pointer transition-all" id="stateFilter">
+<option value="ALL">All States (India)</option>
+<option value="MH">Maharashtra</option>
+<option value="RJ">Rajasthan</option>
+<option value="GJ">Gujarat</option>
+<option value="KL">Kerala</option>
+<option value="UP">Uttar Pradesh</option>
+</select>
+</div>
+<div class="md:col-span-2">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full px-3 py-2 rounded bg-earth-100 text-earth-900 font-body text-sm font-normal focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-800 cursor-pointer transition-all" id="cropFilter">
+<option value="ALL">All Commodities</option>
+<option value="TURMERIC">Salem Turmeric</option>
+<option value="MUSTARD">Mustard / Kachi Ghani</option>
+<option value="WHEAT">Bhalia Durum Wheat</option>
+<option value="PEPPER">Tellicherry Pepper</option>
+<option value="CARDAMOM">Green Cardamom</option>
+</select>
+</div>
+<div class="md:col-span-2">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full px-3 py-2 rounded bg-earth-100 text-earth-900 font-body text-sm font-normal focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-800 cursor-pointer transition-all" id="tierFilter">
+<option value="ALL">All Assurance Tiers</option>
+<option value="TIER1">Tier-1 NABL Gold</option>
+<option value="TIER2">Tier-2 Baseline Verified</option>
+<option value="PROVISIONAL">Provisional Node</option>
+</select>
+</div>
+<div class="md:col-span-2 flex items-center gap-2">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full px-3 py-2 rounded bg-earth-100 text-earth-900 font-body text-sm font-normal focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-800 cursor-pointer transition-all" id="statusFilter">
+<option value="ALL">Status: All</option>
+<option value="ACTIVE">Active &amp; Verified</option>
+<option value="AUDIT">Under Audit</option>
+<option value="REVIEW">Pending Review</option>
+</select>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-2 rounded bg-earth-100 hover:bg-earth-100 text-earth-700 hover:text-earth-900 transition-colors" id="resetFilters" title="Reset Filters">
+<span class="material-symbols-outlined text-[18px]">filter_alt_off</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Primary Data Table Container -->
+<div class="bg-white rounded shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto w-full">
+<!-- View 1: Verified FPOs Table -->
+<table class="w-full text-left border-collapse" id="fpoTable">
+<thead>
+<tr class="bg-earth-100 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">
+<th class="py-3 px-4 font-semibold">FPO Identifier &amp; Entity</th>
+<th class="py-3 px-4 font-semibold">Cadastral Cluster</th>
+<th class="py-3 px-4 font-semibold text-right">Active Farmers</th>
+<th class="py-3 px-4 font-semibold">Registered Commodities</th>
+<th class="py-3 px-4 font-semibold text-right">Volume (MT)</th>
+<th class="py-3 px-4 font-semibold text-center">Trust Score (IEI)</th>
+<th class="py-3 px-4 font-semibold">Sovereign Status</th>
+<th class="py-3 px-4 font-semibold text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body text-sm font-normal divide-y-0 text-earth-900" id="fpoTableBody">
+<!-- Row 1 -->
+<tr class="hover:bg-earth-100/70 transition-colors group cursor-pointer" onclick="openDrawer('MH-SAN-482')">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-gold-50 flex items-center justify-center text-gold-800 shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[22px]">psychiatry</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm font-normal font-semibold text-earth-900 truncate group-hover:text-primary-800 transition-colors">Sangli Turmeric Growers FPO</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 font-medium">#MH-SAN-482</span>
+<span class="text-earth-500 text-[10px]">•</span>
+<span class="px-1 py-1 rounded bg-gold-50 text-gold-800 font-mono text-[10px] font-semibold">Tier-1 NABL</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-earth-900">Maharashtra</span>
+<span class="font-body text-xs font-normal text-earth-500">Sangli South Taluk</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-medium">
+                410
+              </td>
+<td class="py-4 px-4">
+<div class="flex flex-wrap gap-1 max-w-xs">
+<span class="px-2 py-1 rounded-full bg-earth-100 text-earth-700 text-xs font-normal">Salem Turmeric</span>
+<span class="px-2 py-1 rounded-full bg-earth-100 text-earth-700 text-xs font-normal">Organic Ginger</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-semibold">
+                142.5
+              </td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex flex-col items-center">
+<div class="flex items-center gap-1">
+<span class="font-mono text-sm font-normal font-bold text-primary-700">88.4</span>
+<span class="text-earth-500 text-xs font-normal">/100</span>
+</div>
+<div class="w-16 h-1.5 rounded-full bg-earth-100 overflow-hidden mt-1">
+<div class="h-full bg-primary-500 rounded-full" style="width: 88.4%;"></div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
+                  Active &amp; Verified
+                </span>
+</td>
+<td class="py-4 px-4 text-center" onclick="event.stopPropagation()">
+<div class="inline-flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-earth-100 hover:bg-primary-800 hover:text-white text-earth-900 text-xs font-normal font-medium transition-all shadow-sm" onclick="openDrawer('MH-SAN-482')">
+                    View Registry
+                  </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 rounded hover:bg-gold-50 text-gold-800 transition-colors" onclick="initiateAudit('MH-SAN-482', 'Sangli Turmeric Growers FPO')" title="Trigger Sovereign Spot Audit">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-earth-100/70 transition-colors group cursor-pointer" onclick="openDrawer('RJ-ALW-104')">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-gold-50 flex items-center justify-center text-gold-800 shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[22px]">oil_barrel</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm font-normal font-semibold text-earth-900 truncate group-hover:text-primary-800 transition-colors">Alwar Mustard Kisan Sangh</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 font-medium">#RJ-ALW-104</span>
+<span class="text-earth-500 text-[10px]">•</span>
+<span class="px-1 py-1 rounded bg-gold-50 text-gold-800 font-mono text-[10px] font-semibold">Tier-1 NABL</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-earth-900">Rajasthan</span>
+<span class="font-body text-xs font-normal text-earth-500">Alwar North Belt</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-medium">
+                320
+              </td>
+<td class="py-4 px-4">
+<div class="flex flex-wrap gap-1 max-w-xs">
+<span class="px-2 py-1 rounded-full bg-earth-100 text-earth-700 text-xs font-normal">Mustard Seed</span>
+<span class="px-2 py-1 rounded-full bg-earth-100 text-earth-700 text-xs font-normal">Kachi Ghani Raw</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-semibold">
+                98.0
+              </td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex flex-col items-center">
+<div class="flex items-center gap-1">
+<span class="font-mono text-sm font-normal font-bold text-primary-700">95.0</span>
+<span class="text-earth-500 text-xs font-normal">/100</span>
+</div>
+<div class="w-16 h-1.5 rounded-full bg-earth-100 overflow-hidden mt-1">
+<div class="h-full bg-primary-500 rounded-full" style="width: 95%;"></div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
+                  Active &amp; Verified
+                </span>
+</td>
+<td class="py-4 px-4 text-center" onclick="event.stopPropagation()">
+<div class="inline-flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-earth-100 hover:bg-primary-800 hover:text-white text-earth-900 text-xs font-normal font-medium transition-all shadow-sm" onclick="openDrawer('RJ-ALW-104')">
+                    View Registry
+                  </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 rounded hover:bg-gold-50 text-gold-800 transition-colors" onclick="initiateAudit('RJ-ALW-104', 'Alwar Mustard Kisan Sangh')" title="Trigger Sovereign Spot Audit">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-earth-100/70 transition-colors group cursor-pointer" onclick="openDrawer('GJ-BHL-309')">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-gold-50 flex items-center justify-center text-gold-800 shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[22px]">grain</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm font-normal font-semibold text-earth-900 truncate group-hover:text-primary-800 transition-colors">Bhal Durum Wheat Producers</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 font-medium">#GJ-BHL-309</span>
+<span class="text-earth-500 text-[10px]">•</span>
+<span class="px-1 py-1 rounded bg-earth-100 text-earth-700 font-mono text-[10px] font-semibold">GI Certified</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-earth-900">Gujarat</span>
+<span class="font-body text-xs font-normal text-earth-500">Bhal Coastal Plain</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-medium">
+                580
+              </td>
+<td class="py-4 px-4">
+<div class="flex flex-wrap gap-1 max-w-xs">
+<span class="px-2 py-1 rounded-full bg-earth-100 text-earth-700 text-xs font-normal">Bhalia Organic Wheat</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-semibold">
+                310.0
+              </td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex flex-col items-center">
+<div class="flex items-center gap-1">
+<span class="font-mono text-sm font-normal font-bold text-primary-700">91.2</span>
+<span class="text-earth-500 text-xs font-normal">/100</span>
+</div>
+<div class="w-16 h-1.5 rounded-full bg-earth-100 overflow-hidden mt-1">
+<div class="h-full bg-primary-500 rounded-full" style="width: 91.2%;"></div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
+                  Active &amp; Verified
+                </span>
+</td>
+<td class="py-4 px-4 text-center" onclick="event.stopPropagation()">
+<div class="inline-flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-earth-100 hover:bg-primary-800 hover:text-white text-earth-900 text-xs font-normal font-medium transition-all shadow-sm" onclick="openDrawer('GJ-BHL-309')">
+                    View Registry
+                  </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 rounded hover:bg-gold-50 text-gold-800 transition-colors" onclick="initiateAudit('GJ-BHL-309', 'Bhal Durum Wheat Producers')" title="Trigger Sovereign Spot Audit">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-earth-100/70 transition-colors group cursor-pointer" onclick="openDrawer('KL-WAY-088')">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-gold-50 flex items-center justify-center text-gold-800 shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[22px]">eco</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm font-normal font-semibold text-earth-900 truncate group-hover:text-primary-800 transition-colors">Wayanad Organic Spices</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 font-medium">#KL-WAY-088</span>
+<span class="text-earth-500 text-[10px]">•</span>
+<span class="px-1 py-1 rounded bg-gold-50 text-gold-800 font-mono text-[10px] font-semibold">Tier-1 NABL</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-earth-900">Kerala</span>
+<span class="font-body text-xs font-normal text-earth-500">Wayanad Hill High-Altitude</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-medium">
+                215
+              </td>
+<td class="py-4 px-4">
+<div class="flex flex-wrap gap-1 max-w-xs">
+<span class="px-2 py-1 rounded-full bg-earth-100 text-earth-700 text-xs font-normal">Tellicherry Black Pepper</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-semibold">
+                45.2
+              </td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex flex-col items-center">
+<div class="flex items-center gap-1">
+<span class="font-mono text-sm font-normal font-bold text-primary-700">92.6</span>
+<span class="text-earth-500 text-xs font-normal">/100</span>
+</div>
+<div class="w-16 h-1.5 rounded-full bg-earth-100 overflow-hidden mt-1">
+<div class="h-full bg-primary-500 rounded-full" style="width: 92.6%;"></div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse"></span>
+                  Active &amp; Verified
+                </span>
+</td>
+<td class="py-4 px-4 text-center" onclick="event.stopPropagation()">
+<div class="inline-flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-earth-100 hover:bg-primary-800 hover:text-white text-earth-900 text-xs font-normal font-medium transition-all shadow-sm" onclick="openDrawer('KL-WAY-088')">
+                    View Registry
+                  </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 rounded hover:bg-gold-50 text-gold-800 transition-colors" onclick="initiateAudit('KL-WAY-088', 'Wayanad Organic Spices')" title="Trigger Sovereign Spot Audit">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 (Under review case) -->
+<tr class="hover:bg-earth-100/70 transition-colors group cursor-pointer" onclick="openDrawer('UP-VNS-512')">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-gold-50 flex items-center justify-center text-gold-800 shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[22px]">rice_bowl</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body text-sm font-normal font-semibold text-earth-900 truncate group-hover:text-primary-800 transition-colors">Kashi Kalanamak Rice Collective</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 font-medium">#UP-VNS-512</span>
+<span class="text-earth-500 text-[10px]">•</span>
+<span class="px-1 py-1 rounded bg-gold-50 text-gold-800 font-mono text-[10px] font-semibold">Tier-2 Baseline</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-earth-900">Uttar Pradesh</span>
+<span class="font-body text-xs font-normal text-earth-500">Varanasi Periphery</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-medium">
+                194
+              </td>
+<td class="py-4 px-4">
+<div class="flex flex-wrap gap-1 max-w-xs">
+<span class="px-2 py-1 rounded-full bg-earth-100 text-earth-700 text-xs font-normal">Kalanamak Aromatic Rice</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-sm font-normal font-semibold">
+                67.8
+              </td>
+<td class="py-4 px-4 text-center">
+<div class="inline-flex flex-col items-center">
+<div class="flex items-center gap-1">
+<span class="font-mono text-sm font-normal font-bold text-warning">76.8</span>
+<span class="text-earth-500 text-xs font-normal">/100</span>
+</div>
+<div class="w-16 h-1.5 rounded-full bg-earth-100 overflow-hidden mt-1">
+<div class="h-full bg-warning rounded-full" style="width: 76.8%;"></div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-gold-50 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-gold-400"></span>
+                  Under NABL Audit
+                </span>
+</td>
+<td class="py-4 px-4 text-center" onclick="event.stopPropagation()">
+<div class="inline-flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-earth-100 hover:bg-primary-800 hover:text-white text-earth-900 text-xs font-normal font-medium transition-all shadow-sm" onclick="openDrawer('UP-VNS-512')">
+                    View Registry
+                  </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 rounded hover:bg-gold-50 text-gold-800 transition-colors" onclick="initiateAudit('UP-VNS-512', 'Kashi Kalanamak Rice Collective')" title="Trigger Sovereign Spot Audit">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- View 2: Harvest Batches Table (Toggled via Tabs) -->
+<table class="w-full text-left border-collapse hidden" id="batchesTable">
+<thead>
+<tr class="bg-earth-100 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">
+<th class="py-3 px-4 font-semibold">Batch ID &amp; Commodity</th>
+<th class="py-3 px-4 font-semibold">Producer FPO Node</th>
+<th class="py-3 px-4 font-semibold">NABL Assay Lab</th>
+<th class="py-3 px-4 font-semibold text-right">Batch Weight</th>
+<th class="py-3 px-4 font-semibold text-center">Moisture / Purity</th>
+<th class="py-3 px-4 font-semibold">Escrow Clearance</th>
+<th class="py-3 px-4 font-semibold text-center">Intervention</th>
+</tr>
+</thead>
+<tbody class="font-body text-sm font-normal divide-y-0 text-earth-900">
+<!-- Batch Row 1 -->
+<tr class="hover:bg-earth-100/70 transition-colors">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-50 text-primary-700 flex items-center justify-center font-mono">
+                    #48
+                  </div>
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal font-semibold">LOT-TUR-2024-0982</span>
+<span class="font-body text-xs font-normal text-earth-500">Curcumin 5.4% • GI Grade A</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="font-medium">Sangli Turmeric Growers (#MH-SAN-482)</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal">CFTRI Mysore (Node-8)</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">CERT-8902-NABL</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono">
+                24.5 MT
+              </td>
+<td class="py-4 px-4 text-center">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+                  8.2% / 99.4%
+                </span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span>
+                  Settlement Cleared
+                </span>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-danger/10 hover:bg-danger hover:text-white text-danger text-xs font-normal font-medium transition-all" onclick="freezeEscrowModal('LOT-TUR-2024-0982', 'Sangli Turmeric')">
+                  Freeze Escrow
+                </button>
+</td>
+</tr>
+<!-- Batch Row 2 -->
+<tr class="hover:bg-earth-100/70 transition-colors">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-gold-50 text-gold-800 flex items-center justify-center font-mono">
+                    #91
+                  </div>
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal font-semibold">LOT-MST-2024-4410</span>
+<span class="font-body text-xs font-normal text-earth-500">Erucic Acid 32.1% • Premium Press</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="font-medium">Alwar Mustard Kisan Sangh (#RJ-ALW-104)</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal">ICAR-DRMR Bharatpur</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">CERT-1102-NABL</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono">
+                18.0 MT
+              </td>
+<td class="py-4 px-4 text-center">
+<span class="px-2 py-1 rounded bg-earth-100 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+                  6.9% / 99.8%
+                </span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span>
+                  Settlement Cleared
+                </span>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-danger/10 hover:bg-danger hover:text-white text-danger text-xs font-normal font-medium transition-all" onclick="freezeEscrowModal('LOT-MST-2024-4410', 'Alwar Mustard')">
+                  Freeze Escrow
+                </button>
+</td>
+</tr>
+<!-- Batch Row 3 (Contested moisture) -->
+<tr class="hover:bg-earth-100/70 transition-colors bg-danger/5">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-danger-bg text-terracotta-700 flex items-center justify-center font-mono">
+                    #03
+                  </div>
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal font-semibold text-danger">LOT-WHT-2024-8831</span>
+<span class="font-body text-xs font-normal text-danger">DISPUTE: Excess Moisture Alert (+3.2%)</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="font-medium">Bhal Durum Wheat Producers (#GJ-BHL-309)</span>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal">Gujarat Agri Lab Anand</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-danger">FLAG-CONTESTED-67</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-danger font-semibold">
+                32.0 MT
+              </td>
+<td class="py-4 px-4 text-center">
+<span class="px-2 py-1 rounded bg-danger-bg text-terracotta-700 font-mono text-xs font-medium tracking-wider uppercase font-bold">
+                  14.8% (Max 11.5%)
+                </span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-danger-bg text-terracotta-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-danger"></span>
+                  Escrow Frozen (₹18.4L)
+                </span>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-primary-800 text-white text-xs font-normal font-medium hover:bg-primary-700 transition-all shadow-sm" onclick="openDisputeResolution('LOT-WHT-2024-8831')">
+                  Review &amp; Re-assay
+                </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination Controls -->
+<div class="py-3 px-4 bg-earth-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-earth-700">
+<span class="font-body text-xs font-normal">
+          Displaying <span class="font-semibold text-earth-900">1 - 5</span> of <span class="font-semibold text-earth-900">412 Verified Entities</span> (Filtered by Active Sovereignty)
+        </span>
+<div class="inline-flex items-center gap-1">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-white text-earth-700 hover:text-earth-900 font-body disabled:opacity-40" disabled="">
+            Previous
+          </button>
+<span class="px-3 py-1 font-mono text-xs font-medium tracking-wider uppercase font-semibold text-earth-900">Page 1 of 83</span>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-1 rounded bg-white text-earth-700 hover:text-earth-900 font-body hover:bg-earth-100 transition-all">
+            Next
+          </button>
+</div>
+</div>
+</div>
+<!-- Administrative Override & Quality Oversight Dialog / Statutory Banner -->
+<div class="rounded bg-earth-100 p-4 shadow-sm relative overflow-hidden">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10">
+<div class="flex items-start gap-3 max-w-4xl">
+<div class="w-10 h-10 rounded-full bg-primary-50 text-primary-800 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">gavel</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-body text-lg font-semibold text-earth-900 font-bold">Government Statutory Sovereign Override Authority</span>
+<p class="font-body text-sm font-normal text-earth-700 leading-relaxed">
+              Empowered under the <strong class="text-earth-900 font-medium">National Farm-to-Market Trust Protocol &amp; MoA&amp;FW Circular 2024/7A</strong>: Designated government officers can initiate sovereign spot audits, order secondary laboratory assays, or unilaterally freeze smart contract escrow clearance on any batch with disputed moisture, pesticide residues, or assay parameters. All administrative actions are cryptographically signed with your departmental credentials and committed to the immutable DPI public audit ledger.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-stretch md:self-auto shrink-0">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full md:w-auto px-4 py-3 rounded bg-terracotta-600 hover:bg-terracotta-700 text-white font-body text-sm font-normal font-semibold transition-all shadow-sm" onclick="openDisputeResolution('GLOBAL-DISPUTE-DESK')">
+            Escrow Freeze Protocol
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide-Out Action & Deep Audit Inspection Drawer (Hidden by default) -->
+<div class="fixed inset-0 bg-earth-900/40 backdrop-blur-xs z-50 transition-opacity duration-300 opacity-0 pointer-events-none" id="drawerBackdrop" onclick="closeDrawer()"></div>
+<aside class="fixed top-0 right-0 h-full w-full max-w-2xl bg-white z-50 shadow-2xl transition-transform duration-300 transform translate-x-full overflow-y-auto flex flex-col justify-between" id="actionDrawer">
+<!-- Drawer Header -->
+<div class="p-6 bg-earth-100 flex items-start justify-between sticky top-0 z-10">
+<div class="flex items-start gap-3">
+<div class="w-12 h-12 rounded bg-gold-50 text-gold-800 flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[28px]">account_balance</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs font-medium tracking-wider uppercase font-bold text-primary-700 uppercase tracking-wide" id="drawerFpoId">#MH-SAN-482</span>
+<span class="px-2 py-1 rounded bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">NABL Accredited Tier-1</span>
+</div>
+<h2 class="font-display text-2xl font-semibold text-earth-900 mt-1" id="drawerFpoTitle">Sangli Turmeric Growers FPO</h2>
+<span class="font-body text-xs font-normal text-earth-500" id="drawerCluster">Sangli South Taluk, Maharashtra • Cadastral Block 44-B</span>
+</div>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-2 rounded-full hover:bg-earth-200 text-earth-700 hover:text-earth-900 transition-colors" onclick="closeDrawer()">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Drawer Content Body -->
+<div class="p-6 flex flex-col gap-6">
+<!-- High Level Trust Gauge & Quick Metrics -->
+<div class="grid grid-cols-3 gap-3 p-4 rounded bg-earth-100">
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase">IEI Trust Index</span>
+<span class="font-display text-3xl font-semibold text-primary-700 font-bold mt-1" id="drawerTrustScore">88.4</span>
+<span class="font-body text-xs font-normal text-primary-500 font-medium">Rank #4 Regional</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase">Registered Land</span>
+<span class="font-display text-3xl font-semibold text-earth-900 font-bold mt-1">1,240 <span class="text-sm font-normal font-normal text-earth-700">Ha</span></span>
+<span class="font-body text-xs font-normal text-earth-500">AgriStack Geo-fenced</span>
+</div>
+<div class="flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase">NABL Lab Tests</span>
+<span class="font-display text-3xl font-semibold text-earth-900 font-bold mt-1">142</span>
+<span class="font-body text-xs font-normal text-primary-700 font-medium">99.2% Pass Ratio</span>
+</div>
+</div>
+<!-- FPO Visual Asset & Farm Field Provenance -->
+<div class="flex flex-col gap-2">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Field Survey &amp; Geo-Cadastral Image Feed</span>
+<div class="relative h-48 w-full rounded overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A sprawling golden-hour organic turmeric field in Sangli Maharashtra, neat cultivation beds with lush broad green turmeric leaves, warm afternoon sunshine, laboratory drone survey overlay markers in deep forest green and gold, high institutional clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXnaCwsn5mI1h-y7CI0KgwkhTPHVoPxChEVuu4gKAKNXLiUOr1lisMRc_Fv7igTEzOxGlUifPXKhgk4uTgWyXHxCeGAEujiFiS-6kv5tFZ2E9ejdgsV8rn9E28KQOIUzkfgoXpTt-lrSSNFs9SMH_iDXn9mUDJsYTN-9j6Qs86_pLHVN5BgB4ja36txk3_T-WvXaxWcygBZx7Nf0_Jj_j9rSS4RCcRnwHFzVXfzxkSm2a0Fo5tnL6w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-900/80 via-transparent to-transparent flex items-end p-4">
+<div class="flex items-center justify-between w-full text-white">
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal font-semibold">Sangli Turmeric Basin (Plot #448-9)</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">Sentinel-2 Multispectral NDVI: 0.74 (Healthy Crop Canopy)</span>
+</div>
+<span class="material-symbols-outlined text-primary-500">satellite_alt</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cadastral & Farmer Registry Breakdown -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-body text-lg font-semibold text-earth-900 font-semibold">Active Member Clusters</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">410 Certified Farmers</span>
+</div>
+<div class="p-3 rounded bg-earth-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-700 text-[20px]">group</span>
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Small &amp; Marginal Farmers (&lt;2 Ha)</span>
+</div>
+<span class="font-mono text-sm font-normal font-semibold text-earth-900">342 (83.4%)</span>
+</div>
+<div class="p-3 rounded bg-earth-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-700 text-[20px]">badge</span>
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Aadhaar / AgriStack eKYC Compliant</span>
+</div>
+<span class="font-mono text-sm font-normal font-semibold text-primary-700">100.0% Verified</span>
+</div>
+<div class="p-3 rounded bg-earth-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-700 text-[20px]">account_balance_wallet</span>
+<span class="font-body text-sm font-normal text-earth-900 font-medium">Settlement Escrow Active Balance</span>
+</div>
+<span class="font-mono text-sm font-normal font-semibold text-earth-900">₹ 42,80,450.00</span>
+</div>
+</div>
+<!-- Sovereign Enforcement Actions Form Section -->
+<div class="p-4 rounded bg-gold-50 flex flex-col gap-3">
+<div class="flex items-center gap-2 text-gold-800">
+<span class="material-symbols-outlined text-[20px]">security</span>
+<span class="font-body text-sm font-normal font-bold">Officer Statutory Enforcement Actions</span>
+</div>
+<p class="font-body text-xs font-normal text-earth-700">
+          Execute sovereign interventions regarding this FPO entity. All events emit signed telemetry to eNAM, ONDC, and state nodal monitors.
+        </p>
+<div class="grid grid-cols-2 gap-2 mt-1">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-3 rounded bg-white hover:bg-gold-100 text-earth-900 font-body text-xs font-normal font-semibold flex items-center justify-center gap-1 shadow-sm transition-all" onclick="dispatchSpotAudit()">
+<span class="material-symbols-outlined text-[18px] text-gold-800">assignment_turned_in</span>
+            Issue Spot Audit Order
+          </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-3 rounded bg-danger/10 hover:bg-danger/20 text-danger font-body text-xs font-normal font-semibold flex items-center justify-center gap-1 transition-all" onclick="freezeEscrowModal('FPO-GLOBAL', 'Sangli Turmeric FPO')">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+            Freeze Escrow Line
+          </button>
+</div>
+</div>
+</div>
+<!-- Drawer Footer Sticky Actions -->
+<div class="p-4 bg-earth-100 flex items-center justify-between sticky bottom-0">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-4 py-3 rounded bg-earth-100 hover:bg-earth-200 text-earth-700 text-sm font-normal font-medium transition-colors" onclick="closeDrawer()">
+        Dismiss
+      </button>
+<div class="flex items-center gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-4 py-3 rounded bg-white hover:bg-earth-200 text-earth-900 text-sm font-normal font-medium transition-colors shadow-sm" onclick="window.print()">
+          Print Full Dossier
+        </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-4 py-3 rounded bg-primary-800 hover:bg-primary-700 text-white text-sm font-normal font-medium transition-all shadow-md" onclick="confirmValidation()">
+          Endorse Node Status
+        </button>
+</div>
+</div>
+</aside>
+<!-- Interactive Modal: Escrow Freeze & Dispute Intervention -->
+<div class="fixed inset-0 bg-earth-900/50 backdrop-blur-xs z-50 hidden items-center justify-center p-4" id="freezeModal">
+<div class="bg-white rounded-md max-w-lg w-full p-6 shadow-2xl flex flex-col gap-4 animate-in fade-in zoom-in duration-200">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2 text-danger">
+<span class="material-symbols-outlined text-[28px]">lock_clock</span>
+<h3 class="font-display text-xl font-semibold font-bold text-earth-900">Freeze Sovereign Escrow Clearance</h3>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-earth-900" onclick="closeFreezeModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-3 rounded bg-danger-bg text-terracotta-700 font-body text-xs font-normal">
+<strong>Statutory Notice:</strong> Freezing escrow will immediately suspend automated clearing of pending settlements through RBI/NABARD gateway for lot <span class="font-mono font-bold" id="modalTargetLot">LOT-TUR-2024-0982</span>.
+      </div>
+<div class="flex flex-col gap-2">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 uppercase font-semibold">Select Reason for Sovereign Hold</label>
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 text-earth-900 font-body text-sm font-normal focus:outline-none focus:ring-2 focus:ring-primary-800" id="disputeReason">
+<option>Moisture Discrepancy &gt; Threshold (Adulteration Risk)</option>
+<option>Aflatoxin / Chemical Residue Above NABL Limits</option>
+<option>Farmer Group Cadastral Parcel Mismatch (AgriStack)</option>
+<option>Direct Court / Statutory Body Injunction</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 uppercase font-semibold">Government Officer Case Reference / Remarks</label>
+<textarea class="p-3 rounded bg-earth-100 text-earth-900 font-body text-sm font-normal placeholder:text-earth-500 focus:outline-none focus:ring-2 focus:ring-primary-800 resize-none" id="officerRemarks" placeholder="Specify statutory reference number, field laboratory assay report ID, and mandated re-testing timeline..." rows="3"></textarea>
+</div>
+<div class="flex items-center justify-end gap-3 pt-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-4 py-3 rounded bg-earth-100 text-earth-700 font-body font-medium hover:bg-earth-200 transition-colors" onclick="closeFreezeModal()">
+          Cancel
+        </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-4 py-3 rounded bg-terracotta-600 hover:bg-terracotta-700 text-white font-body font-semibold transition-colors shadow-md" onclick="commitFreezeEscrow()">
+          Confirm Escrow Freeze
+        </button>
+</div>
+</div>
+</div>
+<!-- Interactive Modal: Register New FPO Node -->
+<div class="fixed inset-0 bg-earth-900/50 backdrop-blur-xs z-50 hidden items-center justify-center p-4" id="registerModal">
+<div class="bg-white rounded-md max-w-xl w-full p-6 shadow-2xl flex flex-col gap-4 animate-in fade-in zoom-in duration-200">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[26px] text-primary-800">add_business</span>
+<h3 class="font-display text-xl font-semibold font-bold text-earth-900">Register Sovereign FPO Node</h3>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 p-1 text-earth-500 hover:text-earth-900" onclick="closeRegisterModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<p class="font-body text-xs font-normal text-earth-700">
+        Direct onboarding of a registered Farmer Producer Company or Co-operative into the BharatPure National Trust Cadastre with AgriStack UID link.
+      </p>
+<div class="grid grid-cols-2 gap-3">
+<div class="flex flex-col gap-1 col-span-2">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 uppercase font-semibold">FPO Legal Title (Ministry of Corporate Affairs)</label>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 text-earth-900 font-body focus:outline-none focus:ring-2 focus:ring-primary-800" placeholder="e.g. Sahyadri Farmers Producer Co. Ltd." type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 uppercase font-semibold">State Jurisdiction</label>
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 text-earth-900 font-body focus:outline-none focus:ring-2 focus:ring-primary-800">
+<option>Maharashtra</option>
+<option>Rajasthan</option>
+<option>Gujarat</option>
+<option>Kerala</option>
+<option>Madhya Pradesh</option>
+<option>Uttar Pradesh</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 uppercase font-semibold">District / Taluk</label>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 text-earth-900 font-body focus:outline-none focus:ring-2 focus:ring-primary-800" placeholder="e.g. Sangli / Miraj" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 uppercase font-semibold">Primary Crop Focus</label>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 text-earth-900 font-body focus:outline-none focus:ring-2 focus:ring-primary-800" placeholder="e.g. Turmeric, Pepper, Wheat" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 uppercase font-semibold">Initial Producer Member Count</label>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-3 py-2 rounded bg-earth-100 text-earth-900 font-body focus:outline-none focus:ring-2 focus:ring-primary-800" placeholder="e.g. 250" type="number"/>
+</div>
+</div>
+<div class="p-3 rounded bg-primary-50 text-primary-700 text-xs font-normal flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+<span>Aadhaar AgriStack validation will be automatically invoked for all member survey lots.</span>
+</div>
+<div class="flex items-center justify-end gap-3 pt-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-4 py-3 rounded bg-earth-100 text-earth-700 font-body font-medium hover:bg-earth-200 transition-colors" onclick="closeRegisterModal()">
+          Cancel
+        </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 px-4 py-3 rounded bg-primary-800 hover:bg-primary-700 text-white font-body font-semibold transition-colors shadow-md" onclick="submitNewFpo()">
+          Provision Node on Ledger
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Tab Switching Logic
+  const tabFPOs = document.getElementById('tabFPOs');
+  const tabBatches = document.getElementById('tabBatches');
+  const fpoTable = document.getElementById('fpoTable');
+  const batchesTable = document.getElementById('batchesTable');
+
+  tabFPOs.addEventListener('click', () => {
+    tabFPOs.classList.add('bg-white', 'text-earth-900', 'shadow-sm', 'font-semibold');
+    tabFPOs.classList.remove('text-earth-700');
+    tabBatches.classList.remove('bg-white', 'text-earth-900', 'shadow-sm', 'font-semibold');
+    tabBatches.classList.add('text-earth-700');
+
+    fpoTable.classList.remove('hidden');
+    batchesTable.classList.add('hidden');
+  });
+
+  tabBatches.addEventListener('click', () => {
+    tabBatches.classList.add('bg-white', 'text-earth-900', 'shadow-sm', 'font-semibold');
+    tabBatches.classList.remove('text-earth-700');
+    tabFPOs.classList.remove('bg-white', 'text-earth-900', 'shadow-sm', 'font-semibold');
+    tabFPOs.classList.add('text-earth-700');
+
+    batchesTable.classList.remove('hidden');
+    fpoTable.classList.add('hidden');
+  });
+
+  // Drawer Slide-out Behavior
+  const drawer = document.getElementById('actionDrawer');
+  const backdrop = document.getElementById('drawerBackdrop');
+
+  const fpoDataMap = {
+    'MH-SAN-482': {
+      name: 'Sangli Turmeric Growers FPO',
+      cluster: 'Sangli South Taluk, Maharashtra • Cadastral Block 44-B',
+      trust: '88.4'
+    },
+    'RJ-ALW-104': {
+      name: 'Alwar Mustard Kisan Sangh',
+      cluster: 'Alwar North Belt, Rajasthan • Cadastral Block 12-F',
+      trust: '95.0'
+    },
+    'GJ-BHL-309': {
+      name: 'Bhal Durum Wheat Producers',
+      cluster: 'Bhal Coastal Plain, Gujarat • Cadastral Block 88-A',
+      trust: '91.2'
+    },
+    'KL-WAY-088': {
+      name: 'Wayanad Organic Spices',
+      cluster: 'Wayanad High-Altitude, Kerala • Cadastral Block 04-W',
+      trust: '92.6'
+    },
+    'UP-VNS-512': {
+      name: 'Kashi Kalanamak Rice Collective',
+      cluster: 'Varanasi Periphery, Uttar Pradesh • Cadastral Block 19-K',
+      trust: '76.8'
+    }
+  };
+
+  function openDrawer(id) {
+    const data = fpoDataMap[id] || {
+      name: 'FPO Collective Node',
+      cluster: 'National Sovereign Agri Cluster',
+      trust: '85.0'
+    };
+
+    document.getElementById('drawerFpoId').innerText = '#' + id;
+    document.getElementById('drawerFpoTitle').innerText = data.name;
+    document.getElementById('drawerCluster').innerText = data.cluster;
+    document.getElementById('drawerTrustScore').innerText = data.trust;
+
+    backdrop.classList.remove('opacity-0', 'pointer-events-none');
+    backdrop.classList.add('opacity-100');
+    drawer.classList.remove('translate-x-full');
+  }
+
+  function closeDrawer() {
+    backdrop.classList.add('opacity-0', 'pointer-events-none');
+    backdrop.classList.remove('opacity-100');
+    drawer.classList.add('translate-x-full');
+  }
+
+  // Modals Handling
+  const freezeModal = document.getElementById('freezeModal');
+  const registerModal = document.getElementById('registerModal');
+
+  function freezeEscrowModal(lotId, name) {
+    document.getElementById('modalTargetLot').innerText = lotId + ' (' + name + ')';
+    freezeModal.classList.remove('hidden');
+    freezeModal.classList.add('flex');
+  }
+
+  function closeFreezeModal() {
+    freezeModal.classList.add('hidden');
+    freezeModal.classList.remove('flex');
+  }
+
+  function commitFreezeEscrow() {
+    alert('Sovereign Escrow Hold Order signed with officer credentials. Broadcast to RBI/NABARD clearing node.');
+    closeFreezeModal();
+  }
+
+  function openDisputeResolution(ref) {
+    freezeEscrowModal(ref, 'Statutory Action Desk');
+  }
+
+  function initiateAudit(id, name) {
+    if (confirm('Initiate formal sovereign NABL spot assay and audit for [' + name + ' - #' + id + ']?')) {
+      alert('Spot Audit Order #AUD-' + Math.floor(1000 + Math.random() * 9000) + ' dispatched to Regional Director.');
+    }
+  }
+
+  function dispatchSpotAudit() {
+    alert('Surprise Field Sampling assigned to Regional Agricultural Inspectorate.');
+  }
+
+  function confirmValidation() {
+    alert('Sovereign status confirmed and signed on audit chain.');
+    closeDrawer();
+  }
+
+  document.getElementById('btnRegister').addEventListener('click', () => {
+    registerModal.classList.remove('hidden');
+    registerModal.classList.add('flex');
+  });
+
+  function closeRegisterModal() {
+    registerModal.classList.add('hidden');
+    registerModal.classList.remove('flex');
+  }
+
+  function submitNewFpo() {
+    alert('New FPO node submitted to National Cadastre registry. AgriStack parcel validation pending.');
+    closeRegisterModal();
+  }
+
+  document.getElementById('btnExport').addEventListener('click', () => {
+    alert('Generating signed CSV export of 412 Verified FPO entities with NABL certification tags...');
+  });
+
+  // Client-side search and filters
+  const searchInput = document.getElementById('searchInput');
+  const stateFilter = document.getElementById('stateFilter');
+  const resetFilters = document.getElementById('resetFilters');
+
+  function filterTableRows() {
+    const query = searchInput.value.toLowerCase();
+    const stateVal = stateFilter.value;
+    const rows = document.querySelectorAll('#fpoTableBody tr');
+
+    rows.forEach(row => {
+      const text = row.innerText.toLowerCase();
+      const matchesQuery = text.includes(query);
+      let matchesState = true;
+      if (stateVal === 'MH') matchesState = text.includes('maharashtra');
+      else if (stateVal === 'RJ') matchesState = text.includes('rajasthan');
+      else if (stateVal === 'GJ') matchesState = text.includes('gujarat');
+      else if (stateVal === 'KL') matchesState = text.includes('kerala');
+      else if (stateVal === 'UP') matchesState = text.includes('uttar pradesh');
+
+      if (matchesQuery && matchesState) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  searchInput.addEventListener('input', filterTableRows);
+  stateFilter.addEventListener('change', filterTableRows);
+
+  resetFilters.addEventListener('click', () => {
+    searchInput.value = '';
+    stateFilter.value = 'ALL';
+    document.getElementById('cropFilter').value = 'ALL';
+    document.getElementById('tierFilter').value = 'ALL';
+    document.getElementById('statusFilter').value = 'ALL';
+    filterTableRows();
+  });
+</script></main></div></body></html>

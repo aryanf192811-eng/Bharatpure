@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-earth-50 font-body text-sm font-normal text-earth-900 antialiased flex flex-col min-h-full"><header class="fixed top-0 w-full z-50 pt-safe bg-earth-50/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-28 px-4 flex flex-col justify-between py-2"><div class="flex items-center justify-between"><div class="flex items-center gap-2"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-xl font-semibold text-primary-800 leading-tight tracking-tight">BharatPure Consumer</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 hidden">Browse</span></div></div><div class="flex items-center gap-2"><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center rounded-full text-earth-900 hover:bg-earth-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-gold-400"></span></button><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div><div class="flex items-center justify-between bg-gold-50 rounded-lg px-2 py-1"><div class="flex items-center gap-1 min-w-0"><span class="text-xs">📍</span><span class="font-body text-xs font-normal text-earth-700 truncate">Delivering to: <strong class="font-semibold text-earth-900">New Delhi 110001</strong></span><button class="font-body text-xs font-normal text-primary-700 underline underline-offset-2 shrink-0 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">Change</button></div><div class="flex items-center gap-1 shrink-0 bg-primary-50 px-1 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">Verified</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-28 pb-20 bg-earth-50"><div class="flex flex-col w-full">
+<!-- Search & Filter Area -->
+<section class="px-4 pt-3 pb-2 flex flex-col gap-3">
+<div class="relative flex items-center w-full shadow-[0_1px_3px_rgba(28,20,8,0.04)] rounded bg-white">
+<span class="material-symbols-outlined text-earth-500 text-[22px] ml-3 select-none pointer-events-none">search</span>
+<input class="w-full bg-transparent py-3 pl-2 pr-11 font-body text-sm font-normal text-earth-900 placeholder:text-earth-500 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" id="crop-search-input" placeholder="Search crop, FPO, spice, origin..." type="text"/>
+<button aria-label="Voice search" class="absolute right-2 w-11 h-11 rounded-full flex items-center justify-center text-primary-700 hover:bg-earth-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="this.classList.toggle('text-warning');">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+</div>
+<!-- Category Chips Carousel -->
+<div class="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5 -mx-4 px-4 select-none">
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-primary-800 text-white font-body text-xs font-normal font-medium shadow-sm transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>All</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-700 px-1.5 py-0.5 rounded-full text-white">42</span>
+</button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-white hover:bg-earth-100 text-earth-900 font-body text-xs font-normal shadow-[0_1px_2px_rgba(28,20,8,0.04)] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>Spices</span>
+<span class="text-xs">🌿</span>
+</button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-white hover:bg-earth-100 text-earth-900 font-body text-xs font-normal shadow-[0_1px_2px_rgba(28,20,8,0.04)] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>Cold-Pressed Oils</span>
+<span class="text-xs">🫒</span>
+</button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-white hover:bg-earth-100 text-earth-900 font-body text-xs font-normal shadow-[0_1px_2px_rgba(28,20,8,0.04)] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>Wild Forest Honey</span>
+<span class="text-xs">🍯</span>
+</button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-white hover:bg-earth-100 text-earth-900 font-body text-xs font-normal shadow-[0_1px_2px_rgba(28,20,8,0.04)] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>A2 Desi Ghee</span>
+<span class="text-xs">🧈</span>
+</button>
+<button class="shrink-0 px-3.5 py-1.5 rounded-full bg-white hover:bg-earth-100 text-earth-900 font-body text-xs font-normal shadow-[0_1px_2px_rgba(28,20,8,0.04)] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>Heritage Grains</span>
+<span class="text-xs">🌾</span>
+</button>
+</div>
+</section>
+<!-- Live Regional Demand-Matched Banner -->
+<section class="px-4 py-2">
+<div class="relative overflow-hidden rounded bg-gold-50 p-3 shadow-[0_2px_8px_rgba(200,151,26,0.08)] cursor-pointer group active:scale-[0.99] transition-transform">
+<div class="flex items-start gap-2">
+<div class="w-8 h-8 rounded-full bg-gold-400/50 flex items-center justify-center shrink-0 mt-0.5">
+<span class="text-sm">🔥</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1 flex-wrap">
+<span class="font-display text-sm font-bold text-gold-800 tracking-normal">Trending in Delhi NCR</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-gold-400/40 text-gold-800 px-1.5 py-0.5 rounded font-semibold">+18% Demand</span>
+</div>
+<p class="font-body text-xs font-normal text-earth-700 mt-1 leading-relaxed">
+            Fresh harvest batches direct from <strong class="text-earth-900 font-medium">Sangli FPO Node #12</strong>. Pure Salem Turmeric milled under 72h ago.
+          </p>
+<div class="flex items-center gap-1 mt-2 text-primary-700 font-medium font-body text-xs font-normal group-hover:translate-x-0.5 transition-transform">
+<span>Tap to view live cluster allotment</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="absolute -right-6 -bottom-6 w-24 h-24 bg-gold-100/60 rounded-full blur-xl pointer-events-none"></div>
+</div>
+</section>
+<!-- Direct from Verified Farms Carousel -->
+<section class="py-3 flex flex-col gap-2">
+<div class="px-4 flex items-center justify-between">
+<div>
+<h2 class="font-display text-xl font-semibold text-primary-800 tracking-tight">Direct from Verified Farms</h2>
+<p class="font-body text-xs font-normal text-earth-700 mt-0.5">Cryptographically tracked harvest lots with NABL lab certs</p>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium bg-gold-50 px-2 py-1 rounded-full shrink-0">Live Nodes</span>
+</div>
+<!-- Horizontal scroll cards -->
+<div class="flex gap-3 overflow-x-auto no-scrollbar px-4 pt-1 pb-2">
+<!-- Card 1: Salem Turmeric -->
+<article class="shrink-0 w-[272px] bg-white rounded overflow-hidden shadow-[0_2px_10px_rgba(28,20,8,0.06)] flex flex-col group cursor-pointer transition-shadow hover:shadow-md active:scale-[0.99]">
+<div class="relative h-44 w-full overflow-hidden bg-earth-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Rich natural unground turmeric root batched inside a rustic clay bowl on an antique weathered wooden apothecary counter, with a broken freshly cut piece revealing vivid natural cadmium orange-gold interior, soft daylight through a farm kitchen window, high organic texture and depth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW0om94b-3VAFfEURY4yXnHSgd4tIW-QYmuQMw9Wm-LITkRuyW902PUDwdNgZ1V31GIUMPQYqhsH8djX05e44uWP6ufPeVwsyPVKPCxzsO-mOc07Nn0ABietMGHNyXLFWenx2ZXTKtkiLRVUpK5uFKx7JbC9q6rHQ_B62yIWvfPISHg7Zcj8p_Ehhvsnt6y121BLujePPmr-ZC0GQ8L0fcxk5jLTkXzlSUq5eA0HV-fox19-iB-HrN"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full font-semibold shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary-500">verified</span>
+              94/100 NABL Purity
+            </span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-900/85 text-white px-1.5 py-0.5 rounded backdrop-blur-sm">
+              Curcumin 5.42%
+            </span>
+</div>
+<div class="absolute bottom-2.5 right-2.5">
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-white/90 backdrop-blur-sm text-earth-700 px-2 py-0.5 rounded font-mono">
+              #SNG-8820-T
+            </span>
+</div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between gap-2">
+<div>
+<div class="flex items-center gap-1 text-earth-500 font-body text-xs font-normal">
+<span class="text-xs">🌾</span>
+<span class="truncate">Sangli Turmeric Cluster • Farmer Ravi Patil</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 mt-1 font-semibold leading-snug">Salem Golden Turmeric</h3>
+<p class="font-body text-xs font-normal text-earth-700 line-clamp-2 mt-1">Sun-cured on earthen yards, ground raw without sulfur or anti-caking agents.</p>
+</div>
+<div class="pt-1 flex items-end justify-between">
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-display text-2xl font-semibold text-primary-800 font-bold">₹188</span>
+<span class="font-body text-xs font-normal text-earth-500">/ kg</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">Min 0.5 kg</span>
+</div>
+<div class="flex items-center bg-earth-100 rounded-lg p-1" data-cart-control="turmeric">
+<button aria-label="Decrease quantity" class="w-11 h-11 rounded bg-white text-earth-900 flex items-center justify-center shadow-xs active:bg-earth-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustQty(this, -0.5, 0.5, 'kg')">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 px-2 min-w-[48px] text-center font-semibold qty-display">1.0 kg</span>
+<button aria-label="Increase quantity" class="w-11 h-11 rounded bg-primary-800 text-white flex items-center justify-center shadow-xs active:bg-primary-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustQty(this, 0.5, 0.5, 'kg')">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2: Mustard Oil -->
+<article class="shrink-0 w-[272px] bg-white rounded overflow-hidden shadow-[0_2px_10px_rgba(28,20,8,0.06)] flex flex-col group cursor-pointer transition-shadow hover:shadow-md active:scale-[0.99]">
+<div class="relative h-44 w-full overflow-hidden bg-earth-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Clear artisanal glass bottle filled with deep golden cold pressed mustard oil standing on a rustic burlap runner outdoors amidst blooming yellow mustard blossom fields in golden sunlight, natural authentic agricultural scene with deep golden tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCDUEd0c4mDDEjcaMDQE7M9EgywbXE0IjR6QlpV9QoU5BtuBnkGDrEVP8f8OPt8CyrPENcBGF-8GdsYcyk6NiLNVPdY80a390B4DpHMcX5LXwVUzqUJRS5e0sI31WoP4-NppxhgOaKwR-nQ57zswc8qjxF7_zLSupSAKE61-T_HhPgUadmRCmwnJLKZqiOJhCVdbzc0redDWuvPf7Qcr63-BsC4NcVLlnvbV9yeNplCfkTfJrLURss"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full font-semibold shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary-500">verified</span>
+              96/100 Lab Certified
+            </span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-900/85 text-white px-1.5 py-0.5 rounded backdrop-blur-sm">
+              Wood-Pressed (Kolhu)
+            </span>
+</div>
+<div class="absolute bottom-2.5 right-2.5">
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-white/90 backdrop-blur-sm text-earth-700 px-2 py-0.5 rounded font-mono">
+              #ALW-4109-M
+            </span>
+</div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between gap-2">
+<div>
+<div class="flex items-center gap-1 text-earth-500 font-body text-xs font-normal">
+<span class="text-xs">🌻</span>
+<span class="truncate">Alwar Mustard Producers, Rajasthan</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 mt-1 font-semibold leading-snug">Cold-Pressed Mustard Oil</h3>
+<p class="font-body text-xs font-normal text-earth-700 line-clamp-2 mt-1">Single-press slow wooden expeller. Retains pungency and natural Omega-3 fatty acids.</p>
+</div>
+<div class="pt-1 flex items-end justify-between">
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-display text-2xl font-semibold text-primary-800 font-bold">₹245</span>
+<span class="font-body text-xs font-normal text-earth-500">/ 1L</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">1L Glass Bottle</span>
+</div>
+<div class="flex items-center bg-earth-100 rounded-lg p-1" data-cart-control="oil">
+<button aria-label="Decrease quantity" class="w-11 h-11 rounded bg-white text-earth-900 flex items-center justify-center shadow-xs active:bg-earth-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustQty(this, -1, 1, 'L')">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 px-2 min-w-[48px] text-center font-semibold qty-display">1 L</span>
+<button aria-label="Increase quantity" class="w-11 h-11 rounded bg-primary-800 text-white flex items-center justify-center shadow-xs active:bg-primary-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustQty(this, 1, 1, 'L')">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3: Forest Honey -->
+<article class="shrink-0 w-[272px] bg-white rounded overflow-hidden shadow-[0_2px_10px_rgba(28,20,8,0.06)] flex flex-col group cursor-pointer transition-shadow hover:shadow-md active:scale-[0.99]">
+<div class="relative h-44 w-full overflow-hidden bg-earth-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Raw unprocessed dark amber honey in a glass jar with a wooden honey dipper drizzling golden nectar surrounded by native wild flora and honeycomb fragments in a lush green misted Nilgiri mountain forest, dappled gentle sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD23sz9bm4ivaxnIXLHf6tiC_e-hsF7B9zDQN1ZLGXAVxW-FUI4PePV9pz0o2gBAhDQsRD6O8n9P88taGNaNaV_anICOU2evFgQatQh2jPbjNKnWfstBEdMr6facXDNrdFur9MapNzbSz7nOvHWdv1ECB00JQZcizdR9As4pWzubLLBozAYWR6I9wHtFgn74M3NHB8bNexftq7QPGE8rPgzEtuFTh0urId87_6aDEBfXgAJdPF0aKG7"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full font-semibold shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary-500">verified</span>
+              98/100 Purity Index
+            </span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-900/85 text-white px-1.5 py-0.5 rounded backdrop-blur-sm">
+              C3/C4 Sugar Passed
+            </span>
+</div>
+<div class="absolute bottom-2.5 right-2.5">
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-white/90 backdrop-blur-sm text-earth-700 px-2 py-0.5 rounded font-mono">
+              #NIL-1903-H
+            </span>
+</div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between gap-2">
+<div>
+<div class="flex items-center gap-1 text-earth-500 font-body text-xs font-normal">
+<span class="text-xs">🌲</span>
+<span class="truncate">Nilgiri Tribal Collective, TN</span>
+</div>
+<h3 class="font-display text-xl font-semibold text-earth-900 mt-1 font-semibold leading-snug">Wild Multifloral Honey</h3>
+<p class="font-body text-xs font-normal text-earth-700 line-clamp-2 mt-1">Ethically foraged raw forest honey. Unfiltered, unpasteurized with live active enzymes.</p>
+</div>
+<div class="pt-1 flex items-end justify-between">
+<div>
+<div class="flex items-baseline gap-1">
+<span class="font-display text-2xl font-semibold text-primary-800 font-bold">₹420</span>
+<span class="font-body text-xs font-normal text-earth-500">/ 500g</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 block">Zero Added Sugar</span>
+</div>
+<div class="flex items-center bg-earth-100 rounded-lg p-1" data-cart-control="honey">
+<button aria-label="Decrease quantity" class="w-11 h-11 rounded bg-white text-earth-900 flex items-center justify-center shadow-xs active:bg-earth-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustQty(this, -1, 1, 'jar')">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 px-2 min-w-[48px] text-center font-semibold qty-display">1 jar</span>
+<button aria-label="Increase quantity" class="w-11 h-11 rounded bg-primary-800 text-white flex items-center justify-center shadow-xs active:bg-primary-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="adjustQty(this, 1, 1, 'jar')">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Quality Guarantee Assurance Ribbon -->
+<section class="px-4 py-2">
+<div class="bg-primary-50 rounded p-3 flex items-center gap-3 shadow-[0_1px_3px_rgba(1,45,29,0.05)]">
+<div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-700 text-[22px]">shield</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-display text-sm font-semibold text-primary-800 block">100% Escrow &amp; Laboratory Guarantee</span>
+<p class="font-body text-xs font-normal text-earth-700 mt-0.5 leading-snug">
+          Payment released to farmer only post-delivery scan. Every packaging unit has a tamper-evident NABL cryptographic seal.
+        </p>
+</div>
+</div>
+</section>
+<!-- Single-Origin Verified Feed -->
+<section class="px-4 pt-3 pb-6 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<h2 class="font-display text-xl font-semibold text-primary-800 tracking-tight">Single-Origin Farm Catalog</h2>
+<button class="flex items-center gap-1 font-body text-xs font-normal text-primary-700 font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+<span>Sort: Purity Score</span>
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</button>
+</div>
+<!-- Feed Card 1: Bhalia Wheat -->
+<div class="bg-white rounded p-3 shadow-[0_1px_3px_rgba(28,20,8,0.04),0_4px_12px_rgba(28,20,8,0.03)] flex flex-col gap-3 cursor-pointer transition-shadow hover:shadow-md active:scale-[0.99]">
+<div class="flex gap-3">
+<div class="relative w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-earth-100">
+<img class="w-full h-full object-cover" data-alt="Golden sunlit ripe whole bhalia wheat grains falling through hands against natural farm burlap sack, organic harvest depth, warm golden tones with rustic high contrast texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNtIAXkmBQ6dqBbrlIhYBKnTFROUHkvP6rAhCK7XacG3u864xEVbtgfFolQD29dKODiFgqOgYEfsOMemZ4uzOv2bG8zDfzDlfqRL5xD2w1N3n-6upDc3cunaM5kl768FUSlz-oJ6VbyPpua1oACEebgv05lJ1ZZmBUduQaVE7Xd6uM2ivdMAf77nWQknN0cAuCTcyBluu45X4YQrO5HKXMwZPwWgETN7R9NtwvoP7osp3lYEow3WI0"/>
+<span class="absolute top-1 left-1 font-mono text-xs font-medium tracking-wider uppercase bg-primary-900/85 text-white px-1 py-0.2 rounded text-[10px]">
+            GI-Tag
+          </span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-50 text-primary-700 font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> 97 NABL
+              </span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 font-mono truncate">0x9F4A...3B81</span>
+</div>
+<h3 class="font-display text-base font-semibold text-earth-900 mt-1 truncate">Bhalia Long Grain Wheat</h3>
+<p class="font-body text-xs font-normal text-earth-500 truncate">Bhal Region FPC, Gujarat • Non-irrigated</p>
+</div>
+<div class="flex items-baseline justify-between pt-1">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-2xl font-semibold text-primary-800 font-bold">₹72</span>
+<span class="font-body text-xs font-normal text-earth-500">/ kg</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">Protein: 14.8%</span>
+</div>
+</div>
+</div>
+<!-- Lab Metrics Inset -->
+<div class="grid grid-cols-3 gap-1 bg-earth-100 rounded-lg p-2 text-center">
+<div>
+<span class="font-body text-xs font-normal text-earth-500 block text-[11px]">Moisture</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold font-mono">9.4% (Optimal)</span>
+</div>
+<div>
+<span class="font-body text-xs font-normal text-earth-500 block text-[11px]">Pesticide Res.</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-bold font-mono">ND (&lt;0.01)</span>
+</div>
+<div>
+<span class="font-body text-xs font-normal text-earth-500 block text-[11px]">Gluten Index</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold font-mono">88 / 100</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-500 text-[18px]">verified_user</span>
+<span class="font-body text-xs font-normal text-earth-700">Direct bag tracking enabled</span>
+</div>
+<button class="px-4 py-2 rounded-lg bg-primary-800 text-white font-body text-xs font-normal font-medium hover:bg-primary-700 active:scale-95 transition-all shadow-sm flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="triggerAddToCart(this, 'Bhalia Long Grain Wheat')">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+<span>Add 5kg Bag</span>
+</button>
+</div>
+</div>
+<!-- Feed Card 2: Wayanad Malabar Black Pepper -->
+<div class="bg-white rounded p-3 shadow-[0_1px_3px_rgba(28,20,8,0.04),0_4px_12px_rgba(28,20,8,0.03)] flex flex-col gap-3 cursor-pointer transition-shadow hover:shadow-md active:scale-[0.99]">
+<div class="flex gap-3">
+<div class="relative w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-earth-100">
+<img class="w-full h-full object-cover" data-alt="Sun-dried wrinkly bold black tellicherry peppercorns piled on hand-woven palm leaf basket in a tropical spice garden in Wayanad, high contrast earthy textures with warm natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfNmT18sTDRTZr7-BJdsMxE2aUAzI4Npua-GcPnbvpo0k5xziC_dSFk5bdomF8w8IHKsNZSPpoOM6sRKVerfd4NN555GT3nDzwkWn_FUNG9yTdSCzCjtIYJSIRs3mSFWx9Pb2kOO-x1j_H4WShWhlvEjYKq0Ys0P1OUEveuo99nTLUA3X1z58zVwNYKklFLm9s0-8N2jmLfuBi-2r5LWJQOQ_Q8OCubq4c7HYViqb-KdBY6x8enAVH"/>
+<span class="absolute top-1 left-1 font-mono text-xs font-medium tracking-wider uppercase bg-primary-900/85 text-white px-1 py-0.2 rounded text-[10px]">
+            Grade TGSEB
+          </span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-50 text-primary-700 font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> 95 NABL
+              </span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 font-mono truncate">0x4E18...C709</span>
+</div>
+<h3 class="font-display text-base font-semibold text-earth-900 mt-1 truncate">Malabar Tellicherry Pepper</h3>
+<p class="font-body text-xs font-normal text-earth-500 truncate">Wayanad Spices Society, Kerala</p>
+</div>
+<div class="flex items-baseline justify-between pt-1">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-2xl font-semibold text-primary-800 font-bold">₹165</span>
+<span class="font-body text-xs font-normal text-earth-500">/ 200g</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">Piperine: 6.8%</span>
+</div>
+</div>
+</div>
+<!-- Lab Metrics Inset -->
+<div class="grid grid-cols-3 gap-1 bg-earth-100 rounded-lg p-2 text-center">
+<div>
+<span class="font-body text-xs font-normal text-earth-500 block text-[11px]">Bulk Density</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold font-mono">570 g/L</span>
+</div>
+<div>
+<span class="font-body text-xs font-normal text-earth-500 block text-[11px]">Volatile Oil</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-bold font-mono">3.4% v/w</span>
+</div>
+<div>
+<span class="font-body text-xs font-normal text-earth-500 block text-[11px]">Mineral Matter</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold font-mono">&lt; 3.0%</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-500 text-[18px]">verified_user</span>
+<span class="font-body text-xs font-normal text-earth-700">Batch lot seal #WAY-881</span>
+</div>
+<button class="px-4 py-2 rounded-lg bg-primary-800 text-white font-body text-xs font-normal font-medium hover:bg-primary-700 active:scale-95 transition-all shadow-sm flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="triggerAddToCart(this, 'Malabar Tellicherry Pepper')">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+<span>Add 200g</span>
+</button>
+</div>
+</div>
+<!-- Feed Card 3: Kashmiri Mongra Saffron -->
+<div class="bg-white rounded p-3 shadow-[0_1px_3px_rgba(28,20,8,0.04),0_4px_12px_rgba(28,20,8,0.03)] flex flex-col gap-3 cursor-pointer transition-shadow hover:shadow-md active:scale-[0.99]">
+<div class="flex gap-3">
+<div class="relative w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-earth-100">
+<img class="w-full h-full object-cover" data-alt="Intense deep crimson red Kashmiri saffron threads delicately placed on pure white parchment with golden stigmas visible, macro detailed texture, museum archival botanical presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDEFeoQcuEjOQAAQ-vKzB2oZw6guItQofcXjDdDNcFZUkTBdPSy8Su00yQm9Ml-rVAPsRerS6TlhA-M6q3tfrWhSd-jCoLiy2RennV8NzZmC5s-hBoY8A42RHb7A3PqQSqrz7CnMoQbJFcEIurXl9J6wabAUolfN2J-Od-hOXzTC3Yw0x-yHIS2xLoxW-TRqFrslCC-uZjEcxl-vSAs5WB5o3Sik-gywaP8FdyF7GuXxrcDh-brE1V"/>
+<span class="absolute top-1 left-1 font-mono text-xs font-medium tracking-wider uppercase bg-primary-900/85 text-white px-1 py-0.2 rounded text-[10px]">
+            Grade 1 ISO
+          </span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase bg-primary-50 text-primary-700 font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> 99 NABL
+              </span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 font-mono truncate">0x18B2...D044</span>
+</div>
+<h3 class="font-display text-base font-semibold text-earth-900 mt-1 truncate">Pampore Mongra Saffron</h3>
+<p class="font-body text-xs font-normal text-earth-500 truncate">Pampore Saffron Valley FPO, Kashmir</p>
+</div>
+<div class="flex items-baseline justify-between pt-1">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-2xl font-semibold text-primary-800 font-bold">₹490</span>
+<span class="font-body text-xs font-normal text-earth-500">/ 1g</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">Crocin: 248.5</span>
+</div>
+</div>
+</div>
+<!-- Lab Metrics Inset -->
+<div class="grid grid-cols-3 gap-1 bg-earth-100 rounded-lg p-2 text-center">
+<div>
+<span class="font-body text-xs font-normal text-earth-500 block text-[11px]">Safranal (Aroma)</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-bold font-mono">42.1 (Pure)</span>
+</div>
+<div>
+<span class="font-body text-xs font-normal text-earth-500 block text-[11px]">Picrocrocin</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold font-mono">94.8 (Bitters)</span>
+</div>
+<div>
+<span class="font-body text-xs font-normal text-earth-500 block text-[11px]">Nitrogen Content</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-900 font-bold font-mono">2.6% (Uncut)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-500 text-[18px]">verified_user</span>
+<span class="font-body text-xs font-normal text-earth-700">Govt IIKSTC Certified</span>
+</div>
+<button class="px-4 py-2 rounded-lg bg-primary-800 text-white font-body text-xs font-normal font-medium hover:bg-primary-700 active:scale-95 transition-all shadow-sm flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" onclick="triggerAddToCart(this, 'Pampore Mongra Saffron')">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+<span>Add 1g Vial</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Interactive Mini Toast Container -->
+<div class="fixed bottom-20 left-4 right-4 z-40 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" id="toast-banner">
+<div class="bg-primary-800 text-white rounded px-4 py-3 shadow-[0_8px_24px_rgba(1,45,29,0.3)] flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-gold-400 text-[20px]">shopping_bag</span>
+<span class="font-body text-xs font-normal truncate" id="toast-msg">Added to your verified bag</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-400 uppercase tracking-wider font-semibold shrink-0">View Cart</span>
+</div>
+</div>
+<script>
+    // Micro-interactions: dynamic quantity adjustment
+    function adjustQty(button, delta, minVal, unit) {
+      const container = button.closest('[data-cart-control]');
+      const display = container.querySelector('.qty-display');
+      let currentVal = parseFloat(display.textContent);
+      
+      let nextVal = currentVal + delta;
+      if (nextVal < minVal) {
+        nextVal = minVal;
+      }
+      
+      // format appropriately for kg decimals vs integers
+      if (unit === 'kg') {
+        display.textContent = nextVal.toFixed(1) + ' ' + unit;
+      } else {
+        display.textContent = Math.round(nextVal) + ' ' + unit;
+      }
+
+      // Quick tactile bounce
+      display.classList.add('scale-110', 'text-primary-800');
+      setTimeout(() => {
+        display.classList.remove('scale-110', 'text-primary-800');
+      }, 150);
+    }
+
+    // Micro-interactions: toast confirmation feedback
+    function triggerAddToCart(btn, productName) {
+      const originalContent = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Adding...</span>';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span><span>Added</span>';
+        btn.classList.remove('bg-primary-800');
+        btn.classList.add('bg-primary-700');
+
+        const toast = document.getElementById('toast-banner');
+        const toastMsg = document.getElementById('toast-msg');
+        toastMsg.textContent = productName + ' added to box!';
+        toast.classList.remove('translate-y-24', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        setTimeout(() => {
+          toast.classList.add('translate-y-24', 'opacity-0');
+          toast.classList.remove('translate-y-0', 'opacity-100');
+        }, 2600);
+
+        setTimeout(() => {
+          btn.innerHTML = originalContent;
+          btn.classList.remove('bg-primary-700');
+          btn.classList.add('bg-primary-800');
+          btn.disabled = false;
+        }, 1800);
+      }, 400);
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-earth-50/80 backdrop-blur-xl shadow-[0_-1px_8px_rgba(0,0,0,0.04)]" data-active-classes="text-primary-800 font-semibold"><div class="h-16 px-2 flex items-center justify-around"><a aria-current="page" class="flex-1 flex flex-col items-center justify-center h-full min-w-[44px] transition-colors text-primary-800 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="browse" href="#"><span class="material-symbols-outlined text-[22px]">search</span><span class="font-body text-xs font-normal mt-1">Browse</span></a><a class="flex-1 flex flex-col items-center justify-center h-full min-w-[44px] text-earth-500 hover:text-earth-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="orders" href="#"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span class="font-body text-xs font-normal mt-1">Orders</span></a><div class="relative flex items-center justify-center -top-3 min-w-[44px]"><a class="w-12 h-12 rounded-full bg-primary-800 text-white flex items-center justify-center shadow-[0_4px_16px_rgba(28,20,8,0.12)] p-1 ring-4 ring-gold-400 hover:bg-primary-700 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="scan-qr" href="#"><span class="material-symbols-outlined text-[24px]">qr_code_scanner</span></a></div><a class="flex-1 flex flex-col items-center justify-center h-full min-w-[44px] text-earth-500 hover:text-earth-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2" data-path="profile" href="#"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-body text-xs font-normal mt-1">Profile</span></a></div></nav></body></html>

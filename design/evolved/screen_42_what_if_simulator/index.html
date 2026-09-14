@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}@media (prefers-reduced-motion: reduce){.animate-pulse,.animate-spin,.animate-ping,.animate-bounce{animation:none!important}}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#F0FDF4', 100:'#D8F3DC', 400:'#74C69D', 500:'#52B788', 600:'#40916C', 700:'#2D6A4F', 800:'#1B4332', 900:'#0D2818' },
+        gold:    { 50:'#FFFBEB', 100:'#FDF3D0', 400:'#E9B949', 600:'#C8971A', 800:'#92650A' },
+        earth:   { 50:'#FDF8F0', 100:'#F5F0E8', 200:'#E2D9CC', 500:'#9B8B72', 700:'#5C4F38', 900:'#1C1408' },
+        terracotta: { 100:'#FFEDD5', 400:'#E8795F', 600:'#C4522A', 700:'#9A3412' },
+        success: '#2D6A4F', 'success-bg': '#D1FAE5',
+        warning: '#E8841A', 'warning-bg': '#FEF3C7',
+        danger:  '#C4522A', 'danger-bg':  '#FEE2E2',
+        info:    '#1D6FA4', 'info-bg':    '#E0F2FE',
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        body:    ['Inter', '-apple-system', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'Courier New', 'monospace'],
+      },
+      borderRadius: { sharp:'2px', sm:'4px', DEFAULT:'8px', md:'12px', lg:'16px' },
+      boxShadow: {
+        sm:  '0 1px 2px rgba(28,20,8,.06)',
+        md:  '0 4px 12px rgba(28,20,8,.08)',
+        lg:  '0 8px 24px rgba(28,20,8,.12)',
+        xl:  '0 16px 40px rgba(28,20,8,.16)',
+        inner: 'inset 0 2px 4px rgba(28,20,8,.06)',
+      },
+    },
+  },
+};
+</script></head><body class="bg-earth-50 font-body text-earth-900 antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-primary-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-4 flex items-center gap-2 bg-primary-800"><div class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></div><div class="flex flex-col"><span class="font-body text-lg font-semibold text-white font-bold tracking-wide">BharatPure</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400 uppercase tracking-wider">DPI Mission Core</span></div></div><div class="px-4 pt-4 pb-2"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase tracking-wider opacity-70">Intelligence &amp; Governance</span></div><nav class="flex flex-col px-2 gap-1" data-active-classes="bg-primary-800 text-white font-body"><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="overview-iei" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body text-sm font-normal">Overview &amp; IEI</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="demand-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body text-sm font-normal">Demand Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="price-intelligence" href="#"><span class="material-symbols-outlined text-[20px]">currency_rupee</span><span class="font-body text-sm font-normal">Price Intel</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="route-optimizer" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span class="font-body text-sm font-normal">Route Optimizer</span></a><a aria-current="page" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded transition-colors bg-primary-800 text-white font-body" data-path="what-if-simulator" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body text-sm font-normal">What-if Simulator</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="fpo-batches" href="#"><span class="material-symbols-outlined text-[20px]">agriculture</span><span class="font-body text-sm font-normal">FPO &amp; Batches</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="escrow-settlements" href="#"><span class="material-symbols-outlined text-[20px]">account_balance</span><span class="font-body text-sm font-normal">Escrow &amp; Settlements</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="dpi-integration-status" href="#"><span class="material-symbols-outlined text-[20px]">sensors</span><span class="font-body text-sm font-normal">DPI Status</span></a><a class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex items-center gap-3 px-3 py-2 rounded text-primary-400 hover:bg-primary-800 hover:text-white transition-colors" data-path="audit-ledger" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body text-sm font-normal">Audit Ledger</span></a></nav></div><div class="p-4 bg-primary-800 flex flex-col gap-2"><div class="flex items-center justify-between"><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase">DPI Sovereign Node</span><span class="px-1 py-1 rounded bg-primary-800 text-primary-100 font-mono text-xs font-medium tracking-wider uppercase">v4.2</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary-500">shield</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-400">AgriStack • eNAM • ONDC</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-earth-50/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-6"><div class="flex items-center gap-4"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332 - Font: playfairDisplay - Mode: light - Roundness: rounded-md . The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Uj3tpFXDX9_88rD6VDX7Y4Fv-KPOn_Kyc076Qz6W3Id1mwEi1X2yLqD0Gck_FtaZAE7zyS0oQ0wrV6TqsnWG42fmY5bZwYakhOaVHlubEQscv9_9c-aP14qm__dKstpYRtNzH2lMfElZDM0vi623I_B7m1QK2-WyS0RFGA5i45PwnllMUP4LfrHmw--9BQcpqzhOuTlS2LdRXXaydaLt0G5-NVW-w93OBLPYSi4vMJo7jucAxe8nlRSlg"/><div class="flex flex-col"><span class="font-display text-xl font-semibold text-earth-900 leading-tight">Admin &amp; DPI Operations Portal</span><span class="font-body text-xs font-normal text-earth-700">National Farm-to-Market Trust Network</span></div></div><div class="flex items-center gap-4"><div class="hidden xl:flex items-center gap-1 px-3 py-1 rounded bg-primary-50"><div class="w-2 h-2 rounded-full bg-primary-500"></div><span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700">DPI Node: ONLINE • Sandbox Active</span></div><div class="flex items-center gap-1 px-3 py-1 rounded bg-gold-50"><span class="material-symbols-outlined text-[16px] text-gold-800">cloud_done</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800">PROD-MIRROR</span></div><button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 relative p-1 rounded hover:bg-earth-100 transition-colors" type="button"><span class="material-symbols-outlined text-[20px] text-earth-700">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-warning"></span></button><div class="flex items-center gap-3 pl-2"><div class="flex flex-col text-right"><span class="font-body text-sm font-normal text-earth-900 font-medium">MoA&amp;FW / NITI Aayog</span><span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">officer@agri.gov.in</span></div><div class="w-8 h-8 rounded-full bg-primary-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-earth-50"><div class="flex flex-col w-full">
+<div class="p-6 max-w-7xl mx-auto w-full flex flex-col gap-6">
+<!-- Top Context & Header Banner -->
+<div class="bg-white p-6 rounded shadow-sm relative overflow-hidden">
+<div class="absolute -right-12 -bottom-12 w-64 h-64 rounded-full bg-primary-100/30 pointer-events-none blur-2xl"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+<div class="flex flex-col gap-1 max-w-3xl">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 rounded-full bg-primary-50 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold tracking-wider uppercase">DPI Algorithmic Lab</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-700"></span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Model ID: BHARAT-SYNAPSE-v8.4.1</span>
+</div>
+<h1 class="font-display text-3xl font-semibold text-earth-900 tracking-tight">Sovereign Supply Chain ‘What-If’ Scenario Simulator</h1>
+<p class="font-body text-sm font-normal text-earth-700 leading-relaxed">
+            Test extreme climate disruptions, regional festival demand surges, and mandi trade shocks on FPO realizations and retail prices with real-time autonomous DPI hedge protocols.
+          </p>
+</div>
+<div class="flex items-center gap-3 self-start md:self-auto shrink-0">
+<div class="flex items-center gap-2 px-3 py-2 bg-earth-100 rounded">
+<span class="material-symbols-outlined text-[18px] text-gold-800">database</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 font-medium">AgriStack e-KYC Linked</span>
+</div>
+<span class="px-3 py-2 rounded bg-gold-50 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-gold-400 animate-ping"></span>
+            Monte Carlo Active
+          </span>
+</div>
+</div>
+</div>
+<!-- Main Simulator Grid: Two Column Laboratory -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Panel: Scenario Parameter Controls (340px base equivalent on desktop) -->
+<aside class="lg:col-span-4 xl:col-span-4 bg-white p-6 rounded shadow-sm flex flex-col gap-6">
+<!-- Header Controls Title -->
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary-700">tune</span>
+<span class="font-body text-lg font-semibold text-earth-900 font-bold">Scenario Parameters</span>
+</div>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 font-mono text-xs font-medium tracking-wider uppercase text-earth-500 hover:text-earth-900 transition-colors flex items-center gap-1" id="reset-params-btn" type="button">
+<span class="material-symbols-outlined text-[14px]">restart_alt</span> Reset
+          </button>
+</div>
+<!-- Quick Scenario Presets -->
+<div class="flex flex-col gap-2">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Fast Presets</span>
+<div class="grid grid-cols-1 gap-2">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 preset-btn group text-left px-3 py-2 rounded bg-earth-100 hover:bg-gold-50 transition-colors flex items-center justify-between" onclick="loadPreset('diwali')" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-gold-800 group-hover:scale-110 transition-transform">celebration</span>
+<span class="font-body text-sm font-normal font-medium text-earth-900">Diwali 2026 Peak</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-gold-800 font-medium">+40% Demand</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 preset-btn group text-left px-3 py-2 rounded bg-earth-100 hover:bg-earth-200 transition-colors flex items-center justify-between" onclick="loadPreset('cyclone')" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-earth-700 group-hover:scale-110 transition-transform">cyclone</span>
+<span class="font-body text-sm font-normal font-medium text-earth-900">Western Ghats Cyclone</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-danger font-medium">-30% Crop Yield</span>
+</button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 preset-btn group text-left px-3 py-2 rounded bg-earth-100 hover:bg-earth-200 transition-colors flex items-center justify-between" onclick="loadPreset('embargo')" type="button">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-earth-700 group-hover:scale-110 transition-transform">block</span>
+<span class="font-body text-sm font-normal font-medium text-earth-900">Export Embargo Shock</span>
+</div>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-medium">Glut Deflation</span>
+</button>
+</div>
+</div>
+<!-- Commodity & Target Geography -->
+<div class="flex flex-col gap-4 pt-2">
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider flex items-center justify-between">
+<span>Commodity Spec</span>
+<span class="text-primary-700 font-semibold">Salem Origin Verified</span>
+</label>
+<div class="relative">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full bg-earth-100 text-earth-900 font-body text-sm font-normal rounded px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-primary-800" id="commodity-select">
+<option selected="" value="salem-turmeric">Salem Turmeric (Grade-A Curcumin &gt;4.2%)</option>
+<option value="mustard-seed">Mustard Seed (Pusa Mustard 30)</option>
+<option value="durum-wheat">Durum Wheat (Bhalia GI Heritage)</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-earth-500 absolute right-3 top-3 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider flex items-center justify-between">
+<span>Target Consumer Zone</span>
+<span class="text-earth-500">ONDC Urban Cluster</span>
+</label>
+<div class="relative">
+<select class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full bg-earth-100 text-earth-900 font-body text-sm font-normal rounded px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-primary-800" id="zone-select">
+<option selected="" value="delhi-ncr">Delhi NCR (Azadpur &amp; ONDC Dark Stores)</option>
+<option value="lucknow">Lucknow Sub-Regional Hub</option>
+<option value="mumbai">Mumbai Metropolitan MMR</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-earth-500 absolute right-3 top-3 pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Slider 1: Demand Spike -->
+<div class="flex flex-col gap-1 bg-earth-100 p-3 rounded">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-gold-800">trending_up</span>
+<span class="font-body text-sm font-normal font-semibold text-earth-900">Demand Spike</span>
+</div>
+<span class="font-mono text-sm font-medium tracking-wide text-primary-700 font-bold" id="slider-demand-val">+25%</span>
+</div>
+<p class="font-body text-xs font-normal text-earth-700">Festive consumer surge &amp; bulk institutional orders</p>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full accent-primary-700 cursor-pointer mt-1" id="slider-demand" max="50" min="0" type="range" value="25"/>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase text-earth-500">
+<span>0% Baseline</span>
+<span>+25% Festive</span>
+<span>+50% Critical</span>
+</div>
+</div>
+<!-- Slider 2: Supply Disruption / Crop Loss -->
+<div class="flex flex-col gap-1 bg-earth-100 p-3 rounded">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-danger">water_damage</span>
+<span class="font-body text-sm font-normal font-semibold text-earth-900">Supply Disruption</span>
+</div>
+<span class="font-mono text-sm font-medium tracking-wide text-danger font-bold" id="slider-supply-val">-15%</span>
+</div>
+<p class="font-body text-xs font-normal text-earth-700">Unseasonal rainfall impact across Western harvest belt</p>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full accent-danger cursor-pointer mt-1" id="slider-supply" max="40" min="0" type="range" value="15"/>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase text-earth-500">
+<span>0% Intact</span>
+<span>-20% Wet Flash</span>
+<span>-40% Extreme</span>
+</div>
+</div>
+<!-- Slider 3: Freight Inflation -->
+<div class="flex flex-col gap-1 bg-earth-100 p-3 rounded">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-warning">local_shipping</span>
+<span class="font-body text-sm font-normal font-semibold text-earth-900">Cold-Chain Freight</span>
+</div>
+<span class="font-mono text-sm font-medium tracking-wide text-warning font-bold" id="slider-freight-val">+10%</span>
+</div>
+<p class="font-body text-xs font-normal text-earth-700">Diesel indexation &amp; inter-state toll corridor volatility</p>
+<input class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full accent-warning cursor-pointer mt-1" id="slider-freight" max="30" min="0" type="range" value="10"/>
+<div class="flex justify-between font-mono text-xs font-medium tracking-wider uppercase text-earth-500">
+<span>0% Nominal</span>
+<span>+15% Peak Toll</span>
+<span>+30% Crisis</span>
+</div>
+</div>
+<!-- Horizon Toggle -->
+<div class="flex flex-col gap-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase tracking-wider">Simulation Horizon</span>
+<div class="grid grid-cols-2 gap-1 p-1 bg-earth-100 rounded">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 py-2 rounded-md font-body text-sm font-normal font-semibold bg-white text-earth-900 shadow-xs transition-all flex items-center justify-center gap-1" id="btn-horizon-14" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary-700">bolt</span>
+              14-Day Tactical
+            </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 py-2 rounded-md font-body text-sm font-normal font-medium text-earth-700 hover:text-earth-900 transition-all flex items-center justify-center gap-1" id="btn-horizon-45" type="button">
+<span class="material-symbols-outlined text-[16px]">insights</span>
+              45-Day Strategic
+            </button>
+</div>
+</div>
+<!-- Primary Trigger Button -->
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 w-full py-3 px-4 bg-primary-800 hover:bg-primary-700 text-white rounded font-body text-lg font-semibold font-semibold flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.99]" id="btn-run-sim" type="button">
+<span class="material-symbols-outlined text-[20px] text-gold-400 animate-spin-none" id="sim-icon">auto_awesome</span>
+<span>Compute AI Interventions</span>
+</button>
+<!-- Model Telemetry Info -->
+<div class="flex items-center justify-between p-2 bg-earth-100 rounded">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Inference: 142ms</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-medium">Confidence: 98.4%</span>
+</div>
+</aside>
+<!-- Right Panel: Simulated Decision Engine Impact & Auto-Mitigations -->
+<main class="lg:col-span-8 xl:col-span-8 flex flex-col gap-6">
+<!-- Headline Summary Card (Alert-themed) -->
+<div class="bg-white p-6 rounded shadow-sm relative overflow-hidden">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded bg-danger-bg text-terracotta-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">crisis_alert</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-danger font-bold uppercase tracking-wider">High Risk Vector Identified</span>
+<span class="px-1 py-1 rounded bg-danger-bg text-terracotta-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">T+4 Vulnerability</span>
+</div>
+<h2 class="font-display text-2xl font-semibold text-earth-900 tracking-tight mt-1">
+                  Predicted Regional Shortfall: <span class="text-danger font-bold" id="metric-shortfall-text">3,200 kg</span> in Delhi NCR
+                </h2>
+<p class="font-body text-xs font-normal text-earth-700 mt-1">
+                  Triggered by simultaneous +25% consumer festival draw against Salem drying yard rain disruptions. Unchecked market spillover would yield an unauthorized ₹8.50/kg black-box aggregator markup.
+                </p>
+</div>
+</div>
+<div class="shrink-0 flex md:flex-col items-end justify-between md:justify-center gap-1 bg-earth-100 p-3 rounded">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500 uppercase">System Autonomy</span>
+<span class="font-mono text-sm font-medium tracking-wide text-primary-700 font-bold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-500"></span> Level 3 Active
+              </span>
+</div>
+</div>
+</div>
+<!-- Key Simulated Macro Deltas (4 Metric Cards Bento Grid) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+<!-- Delta Card 1 -->
+<div class="bg-white p-4 rounded shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-earth-500">
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">Farmer Realization</span>
+<span class="material-symbols-outlined text-[18px] text-primary-700">agriculture</span>
+</div>
+<div class="my-2">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-3xl font-semibold text-primary-700 font-bold">+6.4%</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-semibold">▲ Buffered</span>
+</div>
+<p class="font-body text-xs font-normal text-earth-700 mt-1">
+                FPO margins safeguarded via algorithmic floor reservation on ONDC e-Mandi.
+              </p>
+</div>
+<div class="w-full bg-earth-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-700 h-full rounded-full" style="width: 78%;"></div>
+</div>
+</div>
+<!-- Delta Card 2 -->
+<div class="bg-white p-4 rounded shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-earth-500">
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">Consumer Price Cap</span>
+<span class="material-symbols-outlined text-[18px] text-gold-800">currency_rupee</span>
+</div>
+<div class="my-2">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-3xl font-semibold text-earth-900 font-bold">+₹1.80<span class="text-sm font-normal font-normal text-earth-500">/kg</span></span>
+</div>
+<p class="font-body text-xs font-normal text-earth-700 mt-1">
+                Restrained below runaway APMC spot spike of <span class="text-danger font-medium line-through">+₹8.50/kg</span>.
+              </p>
+</div>
+<div class="w-full bg-earth-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-gold-400 h-full rounded-full" style="width: 32%;"></div>
+</div>
+</div>
+<!-- Delta Card 3 -->
+<div class="bg-white p-4 rounded shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-earth-500">
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">Logistics Surcharge</span>
+<span class="material-symbols-outlined text-[18px] text-warning">local_shipping</span>
+</div>
+<div class="my-2">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-3xl font-semibold text-warning font-bold">+₹1.10<span class="text-sm font-normal font-normal text-earth-500">/kg</span></span>
+</div>
+<p class="font-body text-xs font-normal text-earth-700 mt-1">
+                68% of fuel delta absorbed through sovereign EV freight fleet reallocation.
+              </p>
+</div>
+<div class="w-full bg-earth-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-warning h-full rounded-full" style="width: 44%;"></div>
+</div>
+</div>
+<!-- Delta Card 4 -->
+<div class="bg-white p-4 rounded shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-earth-500">
+<span class="font-mono text-xs font-medium tracking-wider uppercase uppercase tracking-wider">Stock-out Risk</span>
+<span class="material-symbols-outlined text-[18px] text-primary-500">shield_with_heart</span>
+</div>
+<div class="my-2">
+<div class="flex items-baseline gap-1">
+<span class="font-display text-3xl font-semibold text-primary-700 font-bold">12%</span>
+<span class="font-body text-xs font-normal text-earth-500 line-through">78%</span>
+</div>
+<p class="font-body text-xs font-normal text-earth-700 mt-1">
+                -66% reduction through AI multi-corridor pre-dispatch triggers.
+              </p>
+</div>
+<div class="w-full bg-earth-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-500 h-full rounded-full" style="width: 88%;"></div>
+</div>
+</div>
+</div>
+<!-- Visual Analytics & Spatial Flow Map Component -->
+<div class="bg-white p-6 rounded shadow-sm flex flex-col gap-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
+<div class="flex flex-col">
+<h3 class="font-display text-xl font-semibold text-earth-900">Autonomous Mitigation Logistics Map</h3>
+<span class="font-body text-xs font-normal text-earth-700">Active corridors rerouted to Delhi NCR consumer cluster</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-mono text-xs font-medium tracking-wider uppercase text-primary-700">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-700"></span> Primary EV Reefer Corridors
+              </span>
+<span class="flex items-center gap-1 font-mono text-xs font-medium tracking-wider uppercase text-warning ml-2">
+<span class="w-2.5 h-2.5 rounded-full bg-warning"></span> Buffer Pull Nodes
+              </span>
+</div>
+</div>
+<!-- Dynamic SVG Supply Network Visualization -->
+<div class="relative w-full h-56 rounded bg-earth-100 overflow-hidden p-4 flex flex-col justify-between">
+<svg class="absolute inset-0 w-full h-full text-primary-800/10" fill="none" preserveaspectratio="none" viewbox="0 0 700 220">
+<!-- Network Topology Grid -->
+<path class="text-primary-500" d="M 50 180 Q 220 80 520 70" stroke="currentColor" stroke-dasharray="4 4" stroke-width="2"></path>
+<path class="text-warning" d="M 280 160 Q 400 130 520 70" stroke="currentColor" stroke-width="3"></path>
+<path class="text-earth-500" d="M 120 40 Q 320 30 520 70" stroke="currentColor" stroke-dasharray="2 2" stroke-width="1.5"></path>
+<!-- Route nodes -->
+<circle cx="50" cy="180" fill="#1B4332" r="6"></circle>
+<circle cx="280" cy="160" fill="#E8841A" r="7"></circle>
+<circle cx="120" cy="40" fill="#9B8B72" r="5"></circle>
+<circle cx="520" cy="70" fill="#1B4332" r="10"></circle>
+</svg>
+<div class="relative z-10 flex justify-between items-start">
+<div class="bg-white/90 backdrop-blur-md px-3 py-1 rounded shadow-xs flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Origin A</span>
+<span class="font-body text-xs font-normal font-semibold text-earth-900">Salem FPO Hub (TN)</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-danger font-medium">Rain Disrupted (-15%)</span>
+</div>
+<div class="bg-white/90 backdrop-blur-md px-3 py-1 rounded shadow-xs flex flex-col">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-warning font-semibold">Reserve Trigger Node</span>
+<span class="font-body text-xs font-normal font-semibold text-earth-900">Rajasthan Mustard &amp; Spice Collective</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-medium">Auto-dispatch 2,800 kg (180 km)</span>
+</div>
+<div class="bg-primary-800 px-3 py-1 rounded shadow-xs flex flex-col text-white">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-100 uppercase tracking-wider">Demand Sink</span>
+<span class="font-body text-xs font-normal font-semibold text-white">Delhi NCR Mega-Hub</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-500">Deficit Stabilized</span>
+</div>
+</div>
+<div class="relative z-10 flex items-center justify-between">
+<div class="flex items-center gap-2 bg-white/90 backdrop-blur-md px-3 py-1 rounded text-earth-700">
+<span class="material-symbols-outlined text-[16px] text-primary-700">electric_meter</span>
+<span class="font-body text-xs font-normal">Fleet Carbon Offset: <strong class="text-earth-900">1.48 MT CO₂e</strong> saved</span>
+</div>
+<div class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 bg-white/90 backdrop-blur-md px-3 py-1 rounded">
+                Transit Est: 11 hrs 40 mins
+              </div>
+</div>
+</div>
+</div>
+<!-- Recommended Autonomous Interventions List (3 detailed cards) -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<h3 class="font-display text-xl font-semibold text-earth-900 flex items-center gap-1">
+<span class="material-symbols-outlined text-[20px] text-primary-700">psychology</span>
+              Recommended Autonomous DPI Interventions
+            </h3>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">3 Interventions Computed</span>
+</div>
+<!-- Intervention 1: Buffer Sourcing Trigger -->
+<div class="bg-white p-4 rounded shadow-sm transition-all hover:bg-white/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded bg-gold-50 text-gold-800 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-body text-lg font-semibold font-bold text-earth-900">Buffer Sourcing Trigger</span>
+<span class="px-1 py-1 rounded bg-gold-100 text-gold-800 font-mono text-xs font-medium tracking-wider uppercase font-semibold">Priority 1 • Instant Dispatch</span>
+</div>
+<p class="font-body text-sm font-normal text-earth-700 max-w-2xl">
+                  Auto-route <strong class="text-earth-900">2,800 kg reserve harvest</strong> from Rajasthan Mustard &amp; Spice Collective (180 km away, ready for dispatch). Covers 87.5% of projected Delhi NCR festive void.
+                </p>
+<div class="flex items-center gap-4 pt-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">FPO: RJ-ALWAR-094</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-primary-700 font-medium">eNAM Escrow Cleared</span>
+</div>
+</div>
+</div>
+<div class="shrink-0 flex sm:flex-col items-end gap-1 self-stretch sm:self-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Impact</span>
+<span class="font-body text-sm font-normal font-bold text-primary-700">+₹14.2K Realized</span>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-earth-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-700"></div>
+</label>
+</div>
+</div>
+<!-- Intervention 2: Algorithmic Price Band Adjustment -->
+<div class="bg-white p-4 rounded shadow-sm transition-all hover:bg-white/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded bg-primary-50 text-primary-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">price_change</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-body text-lg font-semibold font-bold text-earth-900">Algorithmic Price Band Adjustment</span>
+<span class="px-1 py-1 rounded bg-primary-100 text-primary-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">ONDC Dynamic Ceiling</span>
+</div>
+<p class="font-body text-sm font-normal text-earth-700 max-w-2xl">
+                  Shift upper price ceiling from <strong class="text-earth-900 font-mono font-semibold">₹195/kg</strong> to <strong class="text-earth-900 font-mono font-semibold">₹197/kg</strong> to incentivize voluntary farmer pooling while preventing urban hyper-inflation.
+                </p>
+<div class="flex items-center gap-4 pt-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Target Index: WPI-Agri Food</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 font-medium">Sub-Retail Cap Compliant</span>
+</div>
+</div>
+</div>
+<div class="shrink-0 flex sm:flex-col items-end gap-1 self-stretch sm:self-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Farmer Uplift</span>
+<span class="font-body text-sm font-normal font-bold text-primary-700">+₹2.00/kg</span>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-earth-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-700"></div>
+</label>
+</div>
+</div>
+<!-- Intervention 3: Fleet Optimization -->
+<div class="bg-white p-4 rounded shadow-sm transition-all hover:bg-white/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded bg-earth-100 text-earth-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">alt_route</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-body text-lg font-semibold font-bold text-earth-900">Fleet Optimization &amp; Waypoint Routing</span>
+<span class="px-1 py-1 rounded bg-earth-200 text-earth-700 font-mono text-xs font-medium tracking-wider uppercase font-semibold">Cold-Chain Reefer</span>
+</div>
+<p class="font-body text-sm font-normal text-earth-700 max-w-2xl">
+                  Re-route EV Reefer <span class="font-mono text-xs font-medium tracking-wider uppercase font-bold bg-earth-100 px-1 rounded text-earth-900">#MH-12-BP-402</span> to include emergency waypoint pickup at <strong class="text-earth-900">Sangli Cluster Gate 2</strong> before transiting to Northern corridors.
+                </p>
+<div class="flex items-center gap-4 pt-1">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Telemetry: IoT Temp +3.8°C</span>
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-700 font-medium">Zero Freshness Decay</span>
+</div>
+</div>
+</div>
+<div class="shrink-0 flex sm:flex-col items-end gap-1 self-stretch sm:self-center justify-between">
+<span class="font-mono text-xs font-medium tracking-wider uppercase text-earth-500">Route Gain</span>
+<span class="font-body text-sm font-normal font-bold text-earth-900">+420 kg Cap</span>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input checked="" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-earth-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-700"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Action Footer: Sovereign Execution & Dossier Download -->
+<div class="bg-white p-6 rounded shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-primary-50 text-primary-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body text-sm font-normal font-semibold text-earth-900">Statutory Sandbox Execution</span>
+<span class="font-body text-xs font-normal text-earth-700">Transactions staged to Smart Contract Escrow Node #42-Sovereign</span>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex-1 sm:flex-none px-4 py-2 rounded bg-earth-100 hover:bg-earth-200 text-earth-900 font-body text-sm font-normal font-semibold transition-colors flex items-center justify-center gap-2" id="btn-save-dossier" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+              Save Scenario Dossier (JSON)
+            </button>
+<button class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 flex-1 sm:flex-none px-4 py-2 rounded bg-primary-800 hover:bg-primary-700 text-white font-body text-sm font-normal font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm" id="btn-commit-scenario" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary-500">gavel</span>
+              Authorize &amp; Commit Plan
+            </button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const sliderDemand = document.getElementById('slider-demand');
+    const sliderSupply = document.getElementById('slider-supply');
+    const sliderFreight = document.getElementById('slider-freight');
+    
+    const valDemand = document.getElementById('slider-demand-val');
+    const valSupply = document.getElementById('slider-supply-val');
+    const valFreight = document.getElementById('slider-freight-val');
+
+    const shortfallText = document.getElementById('metric-shortfall-text');
+    const runBtn = document.getElementById('btn-run-sim');
+    const simIcon = document.getElementById('sim-icon');
+
+    const horizon14 = document.getElementById('btn-horizon-14');
+    const horizon45 = document.getElementById('btn-horizon-45');
+
+    function updateSimulationValues() {
+      const d = parseInt(sliderDemand.value, 10);
+      const s = parseInt(sliderSupply.value, 10);
+      const f = parseInt(sliderFreight.value, 10);
+
+      valDemand.textContent = `+${d}%`;
+      valSupply.textContent = `-${s}%`;
+      valFreight.textContent = `+${f}%`;
+
+      // Approximate dynamic shortfall calculation
+      const calculatedShortfall = Math.round(1000 + (d * 75) + (s * 48));
+      shortfallText.textContent = `${calculatedShortfall.toLocaleString('en-IN')} kg`;
+    }
+
+    sliderDemand.addEventListener('input', updateSimulationValues);
+    sliderSupply.addEventListener('input', updateSimulationValues);
+    sliderFreight.addEventListener('input', updateSimulationValues);
+
+    // Horizon Toggles
+    horizon14.addEventListener('click', function() {
+      horizon14.className = "py-2 rounded-md font-body text-sm font-normal font-semibold bg-white text-earth-900 shadow-xs transition-all flex items-center justify-center gap-1";
+      horizon45.className = "py-2 rounded-md font-body text-sm font-normal font-medium text-earth-700 hover:text-earth-900 transition-all flex items-center justify-center gap-1";
+    });
+
+    horizon45.addEventListener('click', function() {
+      horizon45.className = "py-2 rounded-md font-body text-sm font-normal font-semibold bg-white text-earth-900 shadow-xs transition-all flex items-center justify-center gap-1";
+      horizon14.className = "py-2 rounded-md font-body text-sm font-normal font-medium text-earth-700 hover:text-earth-900 transition-all flex items-center justify-center gap-1";
+    });
+
+    // Run Simulation Micro-animation
+    runBtn.addEventListener('click', function() {
+      simIcon.classList.add('animate-spin');
+      runBtn.disabled = true;
+      runBtn.classList.add('opacity-80');
+
+      setTimeout(function() {
+        simIcon.classList.remove('animate-spin');
+        runBtn.disabled = false;
+        runBtn.classList.remove('opacity-80');
+        updateSimulationValues();
+      }, 500);
+    });
+
+    // Preset handler function
+    window.loadPreset = function(type) {
+      if (type === 'diwali') {
+        sliderDemand.value = 40;
+        sliderSupply.value = 10;
+        sliderFreight.value = 18;
+      } else if (type === 'cyclone') {
+        sliderDemand.value = 15;
+        sliderSupply.value = 30;
+        sliderFreight.value = 25;
+      } else if (type === 'embargo') {
+        sliderDemand.value = 5;
+        sliderSupply.value = 0;
+        sliderFreight.value = 5;
+      }
+      updateSimulationValues();
+    };
+
+    // Reset button
+    document.getElementById('reset-params-btn').addEventListener('click', function() {
+      sliderDemand.value = 25;
+      sliderSupply.value = 15;
+      sliderFreight.value = 10;
+      updateSimulationValues();
+    });
+
+    // Commit Toast Simulation
+    document.getElementById('btn-commit-scenario').addEventListener('click', function() {
+      const originalText = this.innerHTML;
+      this.innerHTML = `<span class="material-symbols-outlined text-[18px]">done</span> Committed to Ledger`;
+      this.classList.replace('bg-primary-800', 'bg-primary-700');
+      setTimeout(() => {
+        this.innerHTML = originalText;
+        this.classList.replace('bg-primary-700', 'bg-primary-800');
+      }, 2500);
+    });
+
+    // Dossier Download Simulation
+    document.getElementById('btn-save-dossier').addEventListener('click', function() {
+      const dossier = {
+        timestamp: new Date().toISOString(),
+        commodity: document.getElementById('commodity-select').value,
+        zone: document.getElementById('zone-select').value,
+        demandDelta: sliderDemand.value,
+        supplyDelta: sliderSupply.value,
+        freightDelta: sliderFreight.value,
+        status: "PREDICTED_STABLE_POST_MITIGATION"
+      };
+      const blob = new Blob([JSON.stringify(dossier, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `BHARATPURE-Scenario-${Date.now()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+  })();
+</script></main></div></body></html>
