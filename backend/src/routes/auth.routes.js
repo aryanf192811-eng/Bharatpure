@@ -1,5 +1,5 @@
 const express = require('express');
-const rateLimit = require('express-rate-limit');
+const { rateLimit, ipKeyGenerator } = require('express-rate-limit');
 
 const controller = require('../controllers/auth.controller');
 const { sendError } = require('../utils/response');
@@ -18,8 +18,10 @@ const rateLimited = (code, windowMs, max, opts = {}) =>
 
 // Keyed by phone (the "user" in "5/15min/user") rather than IP — falls back to IP if the body
 // hasn't been parsed into a phone yet (shouldn't happen post express.json(), but keeps the
-// limiter from crashing on a malformed request).
-const byPhoneKey = (req) => req.body?.phone || req.ip;
+// limiter from crashing on a malformed request). Falls through ipKeyGenerator() rather than
+// raw req.ip so an IPv6 /64 subnet can't be used to dodge the limit by rotating the tail bits —
+// express-rate-limit refuses to start otherwise (ERR_ERL_KEY_GEN_IPV6).
+const byPhoneKey = (req) => req.body?.phone || ipKeyGenerator(req.ip);
 
 router.post('/register', rateLimited('RATE_LIMITED', 60 * 60 * 1000, 3), controller.register);
 router.post('/verify-otp', rateLimited('RATE_LIMITED', 15 * 60 * 1000, 5, { keyGenerator: byPhoneKey }), controller.verifyOtp);
