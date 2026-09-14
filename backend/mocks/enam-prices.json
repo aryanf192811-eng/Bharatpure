@@ -1,0 +1,756 @@
+{
+  "data_source": "eNAM_mock_feed",
+  "note": "Static mock data -- production requires eNAM API integration per BHARATPURE-CLAUDE.md.",
+  "crops": {
+    "TURMERIC": {
+      "baseline_price_paise": 14000,
+      "history": [
+        {
+          "date": "2026-08-16",
+          "price_paise_per_kg": 14207
+        },
+        {
+          "date": "2026-08-17",
+          "price_paise_per_kg": 14281
+        },
+        {
+          "date": "2026-08-18",
+          "price_paise_per_kg": 14226
+        },
+        {
+          "date": "2026-08-19",
+          "price_paise_per_kg": 14115
+        },
+        {
+          "date": "2026-08-20",
+          "price_paise_per_kg": 14012
+        },
+        {
+          "date": "2026-08-21",
+          "price_paise_per_kg": 13988
+        },
+        {
+          "date": "2026-08-22",
+          "price_paise_per_kg": 13842
+        },
+        {
+          "date": "2026-08-23",
+          "price_paise_per_kg": 13734
+        },
+        {
+          "date": "2026-08-24",
+          "price_paise_per_kg": 13762
+        },
+        {
+          "date": "2026-08-25",
+          "price_paise_per_kg": 13810
+        },
+        {
+          "date": "2026-08-26",
+          "price_paise_per_kg": 13729
+        },
+        {
+          "date": "2026-08-27",
+          "price_paise_per_kg": 13701
+        },
+        {
+          "date": "2026-08-28",
+          "price_paise_per_kg": 13793
+        },
+        {
+          "date": "2026-08-29",
+          "price_paise_per_kg": 13888
+        },
+        {
+          "date": "2026-08-30",
+          "price_paise_per_kg": 13741
+        },
+        {
+          "date": "2026-08-31",
+          "price_paise_per_kg": 13856
+        },
+        {
+          "date": "2026-09-01",
+          "price_paise_per_kg": 13933
+        },
+        {
+          "date": "2026-09-02",
+          "price_paise_per_kg": 13990
+        },
+        {
+          "date": "2026-09-03",
+          "price_paise_per_kg": 14207
+        },
+        {
+          "date": "2026-09-04",
+          "price_paise_per_kg": 14215
+        },
+        {
+          "date": "2026-09-05",
+          "price_paise_per_kg": 14224
+        },
+        {
+          "date": "2026-09-06",
+          "price_paise_per_kg": 14334
+        },
+        {
+          "date": "2026-09-07",
+          "price_paise_per_kg": 14230
+        },
+        {
+          "date": "2026-09-08",
+          "price_paise_per_kg": 14251
+        },
+        {
+          "date": "2026-09-09",
+          "price_paise_per_kg": 14201
+        },
+        {
+          "date": "2026-09-10",
+          "price_paise_per_kg": 14151
+        },
+        {
+          "date": "2026-09-11",
+          "price_paise_per_kg": 14160
+        },
+        {
+          "date": "2026-09-12",
+          "price_paise_per_kg": 14220
+        },
+        {
+          "date": "2026-09-13",
+          "price_paise_per_kg": 14152
+        },
+        {
+          "date": "2026-09-14",
+          "price_paise_per_kg": 13981
+        }
+      ]
+    },
+    "MUSTARD": {
+      "baseline_price_paise": 10500,
+      "history": [
+        {
+          "date": "2026-08-16",
+          "price_paise_per_kg": 10708
+        },
+        {
+          "date": "2026-08-17",
+          "price_paise_per_kg": 10632
+        },
+        {
+          "date": "2026-08-18",
+          "price_paise_per_kg": 10516
+        },
+        {
+          "date": "2026-08-19",
+          "price_paise_per_kg": 10563
+        },
+        {
+          "date": "2026-08-20",
+          "price_paise_per_kg": 10511
+        },
+        {
+          "date": "2026-08-21",
+          "price_paise_per_kg": 10465
+        },
+        {
+          "date": "2026-08-22",
+          "price_paise_per_kg": 10386
+        },
+        {
+          "date": "2026-08-23",
+          "price_paise_per_kg": 10361
+        },
+        {
+          "date": "2026-08-24",
+          "price_paise_per_kg": 10318
+        },
+        {
+          "date": "2026-08-25",
+          "price_paise_per_kg": 10299
+        },
+        {
+          "date": "2026-08-26",
+          "price_paise_per_kg": 10235
+        },
+        {
+          "date": "2026-08-27",
+          "price_paise_per_kg": 10288
+        },
+        {
+          "date": "2026-08-28",
+          "price_paise_per_kg": 10278
+        },
+        {
+          "date": "2026-08-29",
+          "price_paise_per_kg": 10339
+        },
+        {
+          "date": "2026-08-30",
+          "price_paise_per_kg": 10423
+        },
+        {
+          "date": "2026-08-31",
+          "price_paise_per_kg": 10500
+        },
+        {
+          "date": "2026-09-01",
+          "price_paise_per_kg": 10496
+        },
+        {
+          "date": "2026-09-02",
+          "price_paise_per_kg": 10525
+        },
+        {
+          "date": "2026-09-03",
+          "price_paise_per_kg": 10544
+        },
+        {
+          "date": "2026-09-04",
+          "price_paise_per_kg": 10630
+        },
+        {
+          "date": "2026-09-05",
+          "price_paise_per_kg": 10585
+        },
+        {
+          "date": "2026-09-06",
+          "price_paise_per_kg": 10763
+        },
+        {
+          "date": "2026-09-07",
+          "price_paise_per_kg": 10749
+        },
+        {
+          "date": "2026-09-08",
+          "price_paise_per_kg": 10749
+        },
+        {
+          "date": "2026-09-09",
+          "price_paise_per_kg": 10728
+        },
+        {
+          "date": "2026-09-10",
+          "price_paise_per_kg": 10628
+        },
+        {
+          "date": "2026-09-11",
+          "price_paise_per_kg": 10692
+        },
+        {
+          "date": "2026-09-12",
+          "price_paise_per_kg": 10541
+        },
+        {
+          "date": "2026-09-13",
+          "price_paise_per_kg": 10567
+        },
+        {
+          "date": "2026-09-14",
+          "price_paise_per_kg": 10480
+        }
+      ]
+    },
+    "HONEY": {
+      "baseline_price_paise": 28000,
+      "history": [
+        {
+          "date": "2026-08-16",
+          "price_paise_per_kg": 28337
+        },
+        {
+          "date": "2026-08-17",
+          "price_paise_per_kg": 28184
+        },
+        {
+          "date": "2026-08-18",
+          "price_paise_per_kg": 28211
+        },
+        {
+          "date": "2026-08-19",
+          "price_paise_per_kg": 28033
+        },
+        {
+          "date": "2026-08-20",
+          "price_paise_per_kg": 27778
+        },
+        {
+          "date": "2026-08-21",
+          "price_paise_per_kg": 27860
+        },
+        {
+          "date": "2026-08-22",
+          "price_paise_per_kg": 27655
+        },
+        {
+          "date": "2026-08-23",
+          "price_paise_per_kg": 27491
+        },
+        {
+          "date": "2026-08-24",
+          "price_paise_per_kg": 27641
+        },
+        {
+          "date": "2026-08-25",
+          "price_paise_per_kg": 27485
+        },
+        {
+          "date": "2026-08-26",
+          "price_paise_per_kg": 27238
+        },
+        {
+          "date": "2026-08-27",
+          "price_paise_per_kg": 27246
+        },
+        {
+          "date": "2026-08-28",
+          "price_paise_per_kg": 27644
+        },
+        {
+          "date": "2026-08-29",
+          "price_paise_per_kg": 27502
+        },
+        {
+          "date": "2026-08-30",
+          "price_paise_per_kg": 27602
+        },
+        {
+          "date": "2026-08-31",
+          "price_paise_per_kg": 27941
+        },
+        {
+          "date": "2026-09-01",
+          "price_paise_per_kg": 27780
+        },
+        {
+          "date": "2026-09-02",
+          "price_paise_per_kg": 28061
+        },
+        {
+          "date": "2026-09-03",
+          "price_paise_per_kg": 28129
+        },
+        {
+          "date": "2026-09-04",
+          "price_paise_per_kg": 28165
+        },
+        {
+          "date": "2026-09-05",
+          "price_paise_per_kg": 28625
+        },
+        {
+          "date": "2026-09-06",
+          "price_paise_per_kg": 28305
+        },
+        {
+          "date": "2026-09-07",
+          "price_paise_per_kg": 28581
+        },
+        {
+          "date": "2026-09-08",
+          "price_paise_per_kg": 28449
+        },
+        {
+          "date": "2026-09-09",
+          "price_paise_per_kg": 28728
+        },
+        {
+          "date": "2026-09-10",
+          "price_paise_per_kg": 28580
+        },
+        {
+          "date": "2026-09-11",
+          "price_paise_per_kg": 28216
+        },
+        {
+          "date": "2026-09-12",
+          "price_paise_per_kg": 28328
+        },
+        {
+          "date": "2026-09-13",
+          "price_paise_per_kg": 28315
+        },
+        {
+          "date": "2026-09-14",
+          "price_paise_per_kg": 28188
+        }
+      ]
+    },
+    "GROUNDNUT": {
+      "baseline_price_paise": 8500,
+      "history": [
+        {
+          "date": "2026-08-16",
+          "price_paise_per_kg": 8645
+        },
+        {
+          "date": "2026-08-17",
+          "price_paise_per_kg": 8554
+        },
+        {
+          "date": "2026-08-18",
+          "price_paise_per_kg": 8620
+        },
+        {
+          "date": "2026-08-19",
+          "price_paise_per_kg": 8497
+        },
+        {
+          "date": "2026-08-20",
+          "price_paise_per_kg": 8466
+        },
+        {
+          "date": "2026-08-21",
+          "price_paise_per_kg": 8469
+        },
+        {
+          "date": "2026-08-22",
+          "price_paise_per_kg": 8475
+        },
+        {
+          "date": "2026-08-23",
+          "price_paise_per_kg": 8356
+        },
+        {
+          "date": "2026-08-24",
+          "price_paise_per_kg": 8351
+        },
+        {
+          "date": "2026-08-25",
+          "price_paise_per_kg": 8363
+        },
+        {
+          "date": "2026-08-26",
+          "price_paise_per_kg": 8364
+        },
+        {
+          "date": "2026-08-27",
+          "price_paise_per_kg": 8304
+        },
+        {
+          "date": "2026-08-28",
+          "price_paise_per_kg": 8317
+        },
+        {
+          "date": "2026-08-29",
+          "price_paise_per_kg": 8311
+        },
+        {
+          "date": "2026-08-30",
+          "price_paise_per_kg": 8388
+        },
+        {
+          "date": "2026-08-31",
+          "price_paise_per_kg": 8456
+        },
+        {
+          "date": "2026-09-01",
+          "price_paise_per_kg": 8424
+        },
+        {
+          "date": "2026-09-02",
+          "price_paise_per_kg": 8488
+        },
+        {
+          "date": "2026-09-03",
+          "price_paise_per_kg": 8600
+        },
+        {
+          "date": "2026-09-04",
+          "price_paise_per_kg": 8575
+        },
+        {
+          "date": "2026-09-05",
+          "price_paise_per_kg": 8650
+        },
+        {
+          "date": "2026-09-06",
+          "price_paise_per_kg": 8625
+        },
+        {
+          "date": "2026-09-07",
+          "price_paise_per_kg": 8619
+        },
+        {
+          "date": "2026-09-08",
+          "price_paise_per_kg": 8612
+        },
+        {
+          "date": "2026-09-09",
+          "price_paise_per_kg": 8700
+        },
+        {
+          "date": "2026-09-10",
+          "price_paise_per_kg": 8596
+        },
+        {
+          "date": "2026-09-11",
+          "price_paise_per_kg": 8635
+        },
+        {
+          "date": "2026-09-12",
+          "price_paise_per_kg": 8540
+        },
+        {
+          "date": "2026-09-13",
+          "price_paise_per_kg": 8490
+        },
+        {
+          "date": "2026-09-14",
+          "price_paise_per_kg": 8479
+        }
+      ]
+    },
+    "GHEE": {
+      "baseline_price_paise": 55000,
+      "history": [
+        {
+          "date": "2026-08-16",
+          "price_paise_per_kg": 56111
+        },
+        {
+          "date": "2026-08-17",
+          "price_paise_per_kg": 55492
+        },
+        {
+          "date": "2026-08-18",
+          "price_paise_per_kg": 55526
+        },
+        {
+          "date": "2026-08-19",
+          "price_paise_per_kg": 54860
+        },
+        {
+          "date": "2026-08-20",
+          "price_paise_per_kg": 54878
+        },
+        {
+          "date": "2026-08-21",
+          "price_paise_per_kg": 54382
+        },
+        {
+          "date": "2026-08-22",
+          "price_paise_per_kg": 54437
+        },
+        {
+          "date": "2026-08-23",
+          "price_paise_per_kg": 53923
+        },
+        {
+          "date": "2026-08-24",
+          "price_paise_per_kg": 53945
+        },
+        {
+          "date": "2026-08-25",
+          "price_paise_per_kg": 54061
+        },
+        {
+          "date": "2026-08-26",
+          "price_paise_per_kg": 54195
+        },
+        {
+          "date": "2026-08-27",
+          "price_paise_per_kg": 54301
+        },
+        {
+          "date": "2026-08-28",
+          "price_paise_per_kg": 53659
+        },
+        {
+          "date": "2026-08-29",
+          "price_paise_per_kg": 54551
+        },
+        {
+          "date": "2026-08-30",
+          "price_paise_per_kg": 54644
+        },
+        {
+          "date": "2026-08-31",
+          "price_paise_per_kg": 54708
+        },
+        {
+          "date": "2026-09-01",
+          "price_paise_per_kg": 54902
+        },
+        {
+          "date": "2026-09-02",
+          "price_paise_per_kg": 55391
+        },
+        {
+          "date": "2026-09-03",
+          "price_paise_per_kg": 55470
+        },
+        {
+          "date": "2026-09-04",
+          "price_paise_per_kg": 55710
+        },
+        {
+          "date": "2026-09-05",
+          "price_paise_per_kg": 55921
+        },
+        {
+          "date": "2026-09-06",
+          "price_paise_per_kg": 56169
+        },
+        {
+          "date": "2026-09-07",
+          "price_paise_per_kg": 55989
+        },
+        {
+          "date": "2026-09-08",
+          "price_paise_per_kg": 55702
+        },
+        {
+          "date": "2026-09-09",
+          "price_paise_per_kg": 55986
+        },
+        {
+          "date": "2026-09-10",
+          "price_paise_per_kg": 56215
+        },
+        {
+          "date": "2026-09-11",
+          "price_paise_per_kg": 55552
+        },
+        {
+          "date": "2026-09-12",
+          "price_paise_per_kg": 55846
+        },
+        {
+          "date": "2026-09-13",
+          "price_paise_per_kg": 55189
+        },
+        {
+          "date": "2026-09-14",
+          "price_paise_per_kg": 54665
+        }
+      ]
+    },
+    "SPICES": {
+      "baseline_price_paise": 18000,
+      "history": [
+        {
+          "date": "2026-08-16",
+          "price_paise_per_kg": 18332
+        },
+        {
+          "date": "2026-08-17",
+          "price_paise_per_kg": 18180
+        },
+        {
+          "date": "2026-08-18",
+          "price_paise_per_kg": 18127
+        },
+        {
+          "date": "2026-08-19",
+          "price_paise_per_kg": 18146
+        },
+        {
+          "date": "2026-08-20",
+          "price_paise_per_kg": 18020
+        },
+        {
+          "date": "2026-08-21",
+          "price_paise_per_kg": 17803
+        },
+        {
+          "date": "2026-08-22",
+          "price_paise_per_kg": 17932
+        },
+        {
+          "date": "2026-08-23",
+          "price_paise_per_kg": 17876
+        },
+        {
+          "date": "2026-08-24",
+          "price_paise_per_kg": 17586
+        },
+        {
+          "date": "2026-08-25",
+          "price_paise_per_kg": 17628
+        },
+        {
+          "date": "2026-08-26",
+          "price_paise_per_kg": 17577
+        },
+        {
+          "date": "2026-08-27",
+          "price_paise_per_kg": 17681
+        },
+        {
+          "date": "2026-08-28",
+          "price_paise_per_kg": 17667
+        },
+        {
+          "date": "2026-08-29",
+          "price_paise_per_kg": 17849
+        },
+        {
+          "date": "2026-08-30",
+          "price_paise_per_kg": 17675
+        },
+        {
+          "date": "2026-08-31",
+          "price_paise_per_kg": 17768
+        },
+        {
+          "date": "2026-09-01",
+          "price_paise_per_kg": 17864
+        },
+        {
+          "date": "2026-09-02",
+          "price_paise_per_kg": 17951
+        },
+        {
+          "date": "2026-09-03",
+          "price_paise_per_kg": 18240
+        },
+        {
+          "date": "2026-09-04",
+          "price_paise_per_kg": 18265
+        },
+        {
+          "date": "2026-09-05",
+          "price_paise_per_kg": 18308
+        },
+        {
+          "date": "2026-09-06",
+          "price_paise_per_kg": 18374
+        },
+        {
+          "date": "2026-09-07",
+          "price_paise_per_kg": 18253
+        },
+        {
+          "date": "2026-09-08",
+          "price_paise_per_kg": 18242
+        },
+        {
+          "date": "2026-09-09",
+          "price_paise_per_kg": 18321
+        },
+        {
+          "date": "2026-09-10",
+          "price_paise_per_kg": 18384
+        },
+        {
+          "date": "2026-09-11",
+          "price_paise_per_kg": 18123
+        },
+        {
+          "date": "2026-09-12",
+          "price_paise_per_kg": 18295
+        },
+        {
+          "date": "2026-09-13",
+          "price_paise_per_kg": 17987
+        },
+        {
+          "date": "2026-09-14",
+          "price_paise_per_kg": 18009
+        }
+      ]
+    }
+  }
+}
