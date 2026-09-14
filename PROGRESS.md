@@ -29,9 +29,18 @@ User explicitly requested: **finish the design work first, then start backend + 
   - Complete Batch D's remaining 8 screens (39–46) — screen 38 already done and left untouched.
 - Updated this progress log (this entry).
 
+### Batch C UX-upgrade pass — completed and independently verified
+Agent reported completion; re-verified directly via grep rather than trusting the report:
+- `focus-visible` present in all 10 files (counts range 7–38 per file).
+- Zero leftover Material-3 tokens across all 10.
+- `prefers-reduced-motion` guard present in all 10.
+Notable fixes made: 3 controls with no press feedback at all (toast-dismiss on screen_33, stops-accordion on screen_34, modal close on screen_37); 2 sub-44px icon buttons padded up to 44px (toast close, modal close); 2 non-canonical radii fixed (screen_34 bottom sheet, screen_37 modal — both were the generic `rounded-2xl` stack-default mistake the spec explicitly warns against). Deviation: desktop-oriented buttons in screens 28/29/32 intentionally did not get `active:scale` press-shrink, matching the established desktop convention (hover + focus-ring only) already used in screen_38.
+
+**Batches A, B, C now fully verified clean — 30 of 32 screens done.** Only Batch D's remaining 8 screens (39–46) are still in progress (background agent running).
+
 ### Next (pick up here)
-1. Wait for / check the 2 new agents' completion reports.
-2. Once both report back: grep-verify their claims directly (as done above) rather than trusting self-reports — check for `focus-visible` presence and zero leftover M3 tokens across all 32 files.
+1. Wait for / check the Batch D completion report (screens 39–46 — Demand Intelligence, Price Intelligence, Route Optimization, What-if Simulator, FPO/Batch Management, Escrow Management, DPI Integration Status, Audit Log Viewer).
+2. Once it reports back: grep-verify directly (as done for A/B/C above) — don't trust the self-report alone.
 3. Assemble all 32 evolved screens into one reviewable gallery (before/after against `stitch_export/*/screen.png`) for visual sign-off. Nothing in `design/evolved/` is committed to git yet — intentional, pending this review.
 4. **After design sign-off** (explicit user gate — do not skip ahead): start backend Phase 0 per `CLAUDE-CODE-BACKEND.md` + `chatbot.md` TASK-001 (Express skeleton: package.json, app.js, server.js, response/logger utils, health route). Node v24.14.0 / npm 11.12.1 confirmed available.
 5. Frontend work (`CLAUDE-CODE-FRONTEND.md`) starts after backend Phase 0 gate passes, per the standing sequencing — confirm with user whether backend and frontend should run as two separate sessions/agents in parallel (the docs are written as if for two separate Claude Code instances) or sequentially in this one.
