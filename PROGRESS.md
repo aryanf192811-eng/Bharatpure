@@ -128,6 +128,26 @@ User said "continue with backend" (design gallery sign-off implied) then "keep p
 
 ---
 
+## 2026-09-15 (cont.) — Session 3 pt 2: Phase 0 complete (TASK-001 through TASK-010)
+
+User said "complete whole backend firstly, then we will test it and take many looks" — proceeding through the full chatbot.md task board (Phase 0 → Phase 5) without further per-task check-ins, per that instruction.
+
+### Done
+- **TASK-007 completed**: `register()` — role-discriminated Zod validation, full transaction, bcrypt OTP hashing. Escalated and resolved the consumer/bulk_buyer/logistics profile-table schema gap (user chose to add 3 new migrations, 031-033 — schema now 33 tables). Research doc written first (Zod v4 `.issues` vs `.errors` — a real breaking-change finding, not just style).
+- **TASK-008 completed**: `verifyOtp`/`login`/`refresh` with token-theft detection. Caught and fixed a self-introduced transaction bug (missing ROLLBACK on failure after BEGIN) before it shipped. OTP lockout implemented as a rolling failed-attempt count against `otp_attempts`, not a `users.status` mutation, since the schema has no auto-expiring suspension field.
+- **TASK-009 completed**: auth middleware + all 8 routes + controllers + Postman suite. Filled in 4 missing service functions (forgotPassword/verifyResetOtp/resetPassword/logout) that TASK-009 assumed existed but TASK-007/008 hadn't built. Added `cookie-parser` (missing from TASK-001's dep list, required for the documented HttpOnly refresh cookie). Added a minimal documented-as-stub `GET /api/users/me`. **Full newman run: 9 requests, 20 assertions, 0 failures** — `docs/testing/phase-0-newman-2026-09-15.txt`.
+- **TASK-010 completed**: idempotent seed script (check-then-insert on natural keys, not hardcoded UUIDs). Caught a real FK bug by actually running it (`cluster_farmers.farmer_id` needs `farmer_profiles`, not `fpo_profiles` — fixed by removing the incorrect insert, since this seed model's FARMER accounts are FPO operators, not individual member-farmers). Expanded demand-forecast seeding to all 3 crop/city pairs from BHARATPURE-CLAUDE.md's fuller spec (task text only asked for 1). Verified idempotent across 2 runs: batches=6, bir_events=29, demand_forecasts=36 unchanged both times. Login with seeded farmer (9000000001/Test@1234) succeeds.
+- **Phase 0 gate: 4 of 5 items done.** Only remaining: the separate FastAPI AI microservice health check — not in chatbot.md's task board scope, not started.
+- Every task this session: implemented → tested live against the real database or real HTTP requests (never just read-through) → committed → pushed to `origin/master` immediately, per "keep pushing also."
+
+### Pattern worth remembering for the rest of this build
+Several real bugs were caught specifically *because* things were actually run rather than just read back after writing: Express 5 vs required 4, missing ROLLBACK paths, the cluster_farmers FK mismatch, the Zod `.issues` vs `.errors` rename. Keep verifying live at every task, not just trusting that carefully-written code is correct — this codebase has already proven that assumption wrong multiple times in one session.
+
+### Next (pick up here)
+Phase 1 — Farmer Core (chatbot.md TASK-P1-001 through TASK-P1-003): Batch CRUD (create/list/get/soft-delete, batch_code generation, qr_hash via HMAC, auto BIR events), Quality tests + certificate upload + B-sample requests, Listings (create/browse/update/pause). Read the DB.md batch state-machine and BIR event-sourcing rules again before starting — this is the first task that actually mutates batches.status, which is enforced in the service layer per the documented state machine, not by a DB constraint.
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
