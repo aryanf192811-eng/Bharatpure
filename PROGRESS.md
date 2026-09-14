@@ -199,6 +199,32 @@ After Phase 5: the full `chatbot.md` Phase 0-5 backend task board is done. Still
 
 ---
 
+## 2026-09-15 (cont.) — Session 3 pt 7: Phase 5 nearly done — stopping for the night
+
+User: "lets finish these agents run and goodnight for now, we will continue tomorrow exactly from where we are stopping rn." **Nothing is running in the background right now** — all of tonight's work (TASK-001 through TASK-P5-002) was done directly in this session, not via background subagents, since it's all schema/auth/money-adjacent work kept in-house per the standing supervisor/subagent ownership rules. Safe to close the session; nothing to wait on.
+
+### Done tonight (TASK-P5-001, TASK-P5-002)
+- **TASK-P5-001 (Admin routes)**: IEI dashboard uses BHARATPURE-DB.md's exact "Pattern 4" query, read directly from source. Documented (not hidden) data-sparsity caveat: `price_intelligence`/completed `delivery_routes` are never populated elsewhere in this codebase, so 2 of the 5 IEI metrics read `null` against current seed data — the query and contract are correct, the data just isn't dense enough yet. Verified live: dashboard returns all 5 IEI keys, escrow release without reason → 400, with reason → audit-logged correctly, non-admin → 403 on the whole router.
+- **TASK-P5-002 (DPI mocks + WhatsApp webhook)**: **user switched the NLU provider mid-task, from Claude to Gemini** (cheaper/free tier) — swapped `@anthropic-ai/sdk` for `@google/genai`, verified the exact current SDK API shape via context7 (`ai.models.generateContent` with `responseSchema` structured output) rather than guessing, removed the now-dead Anthropic dependency. No `GEMINI_API_KEY` configured in this dev environment — `whatsapp.service.js` has a full rule-based local fallback (Hindi/Hinglish/English keyword matching) that's what's actually running and tested right now; a real key upgrades it to genuine NLU with zero other code changes, matching the same graceful-degradation pattern used everywhere else this session. Verified live through the real webhook endpoint: `Content-Type: text/xml` confirmed on headers, 4 real message flows (Hinglish price query, English demand query, batch-code lookup, empty body) all produced correct TwiML with real computed numbers, session state persists correctly. DPI mock routes (AgriStack/eNAM/ONDC) all verified live with correct `data_source` labels.
+
+### Where things actually stand — full picture for tomorrow
+**Backend `chatbot.md` task board: 15 of 16 tasks VERIFIED.** Only **TASK-P5-003 remains**: FPO Trust Score + Buyer Reliability Score nightly cron jobs (node-cron), with manual-trigger admin endpoints. This is the last task on the entire Phase 0–5 board.
+
+Known outstanding items beyond the board itself (flagged throughout, not forgotten):
+1. **TASK-P5-003** — not started. Formula for trust score is in BHARATPURE-DB.md table 26 ("Score formula" — `fulfillment_rate*0.30 + quality_consistency*0.25 + on_time_delivery_rate*0.20 + (100-dispute_rate)*0.15 + buyer_rating_avg*20*0.10`), needs a `docs/research/trust-score-formula.md` per that section's own instruction. Read it directly from source before implementing, don't rely on this summary.
+2. **Postman collection** — deferred since TASK-P1-001 (only the original 8 auth routes + 1 smoke test are in it). One consolidation pass across every domain was promised for "before calling the backend done" per the Definition of Done — do this after TASK-P5-003, before declaring Phase 0-5 fully complete.
+3. **The separate FastAPI AI microservice** (`ai/` directory, BHARATPURE-AI.md) — never started, not in `chatbot.md`'s scope at all. Every AI-proxying Node route (demand, price, simulation, route optimization) already handles its absence gracefully and is tested for that path specifically.
+4. **Frontend** — not started (`CLAUDE-CODE-FRONTEND.md` exists but frontend work hasn't begun).
+5. **API keys not configured, all with working fallbacks**: `GEMINI_API_KEY` (WhatsApp NLU — free tier available at aistudio.google.com/apikey), `TWILIO_ACCOUNT_SID`/`TWILIO_AUTH_TOKEN` (WhatsApp signature validation, skipped in dev).
+6. Backend Postgres credentials (dedicated `bharatpure` role, `bharatpure_dev` database) live only in `backend/.env` (gitignored) — if this session's local Postgres install isn't available tomorrow, these were the setup steps: `CREATE ROLE`/`CREATE DATABASE` as postgres superuser, then `npm run migrate:up` (33 migrations) + `node src/db/seed.js`.
+
+### Next (pick up here, tomorrow)
+1. TASK-P5-003 — trust score / reliability score cron jobs. Last task on the board.
+2. Postman collection consolidation pass.
+3. Then: user said "we will test it and take many looks" after the backend is done — expect a review/testing phase before moving to frontend or the AI microservice.
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
