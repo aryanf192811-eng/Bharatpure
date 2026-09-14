@@ -87,11 +87,19 @@ All 4 declutter agents failed simultaneously, same as the Session 1 pattern — 
 
 Relaunched 4 new agents scoped ONLY to the remaining 16 files (explicitly told which files were already done and not to touch them) — cheaper and avoids risk of double-editing already-finished screens.
 
+### Declutter pass — complete and verified (all 32 screens)
+All 4 relaunched agents finished. Full sweep verification across all 32 files (not just the ones just touched):
+- `Playfair` — **zero matches anywhere**.
+- Decorative `blur-3xl|blur-2xl|backdrop-blur` — only 5 instances remain across 3 files (screen_21: 1, screen_43: 3, screen_44: 1). Inspected directly, not just trusted the report: all are `fixed inset-0` modal/drawer dimming scrims or a 2px QR-scanner viewfinder overlay — functional, not decorative glass cards. Legitimate keeps.
+- `focus-visible` — present in all 32 files, confirming the earlier accessibility pass wasn't disturbed by this typography/declutter pass.
+
+**Gallery republished** at the same URL (https://claude.ai/code/artifact/9273a120-45cd-4ad2-99a1-f5cb2b040f3a) — required two publish calls: the first only updates the shell page, the individually-published per-screen files needed an explicit `files` re-push since they're snapshotted at publish time, not live-linked to the local filesystem. Worth remembering for next time this gallery needs updating.
+
+**Committed**: one commit for the full declutter pass across all 32 `design/evolved/*/index.html` files.
+
 ### Next (pick up here)
-1. Wait for the 4 relaunched agents (covering the 16 remaining screens), then **grep-verify directly across all 32** (not just the ones just touched) — search for `Playfair` and `blur-3xl|blur-2xl|backdrop-blur`, both should be ~zero everywhere; spot-check `focus-visible` counts are unchanged from the pre-declutter baseline logged earlier in this file.
-2. Republish the review gallery artifact (same URL: redeploy, don't create a new one — https://claude.ai/code/artifact/9273a120-45cd-4ad2-99a1-f5cb2b040f3a) so the user can re-review the decluttered version.
-3. Get actual user sign-off — still the explicit gate before backend/frontend work starts.
-4. Commit the declutter pass (one commit, same pattern as the original reconciliation commit).
+1. **Get actual user sign-off on the re-published gallery** — this is still the explicit gate before backend/frontend work starts. Nothing beyond this point should proceed without it.
+2. Once approved: start backend Phase 0 per `CLAUDE-CODE-BACKEND.md` + `chatbot.md` TASK-001.
 
 ---
 
