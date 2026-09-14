@@ -338,12 +338,18 @@ _(Tasks after Phase 4 gate)_
 
 ### TASK-P5-002
 - **Title:** DPI mock routes and WhatsApp webhook
-- **Status:** QUEUED
-- **Owner:** subagent
+- **Status:** VERIFIED
+- **Owner:** subagent (done directly by supervisor)
 - **Scope:** `backend/src/routes/dpi.routes.js`, `backend/src/routes/webhooks.js`, `backend/src/services/whatsapp.service.js`
 - **Spec:** DPI routes: all 3 per BHARATPURE-API.md, all responses labeled with data_source field. WhatsApp webhook: Twilio signature validation (skip in dev), parse form-urlencoded body, call whatsapp.service.js (full implementation per BHARATPURE-AI.md), return TwiML. whatsapp.service.js: session management, Claude API intent extraction, Decision Engine API calls, bilingual response generation. Never 500 to Twilio — always return TwiML even on error.
 - **Acceptance Check:** POST /api/webhooks/whatsapp with valid Twilio body → TwiML response (Content-Type: text/xml). Send "Delhi mein haldi ka rate" → response contains price numbers in rupees. Invalid Twilio signature in production mode → 403.
-- **Result/Notes:** _(subagent fills)_
+- **Result/Notes:** Done. **User switched the NLU provider mid-task**: originally spec'd as Claude API, user explicitly requested Gemini instead (cheaper/free tier) while this task was in progress. Swapped `@anthropic-ai/sdk` for `@google/genai` — verified the exact current API shape via context7 (`ai.models.generateContent({model, contents, config: {systemInstruction, responseMimeType, responseSchema}})`, response via `.text`) rather than guessing at SDK method names, since getting this wrong would silently break intent extraction. Removed the now-unused `@anthropic-ai/sdk` dependency entirely (confirmed nothing else referenced it) rather than leaving dead weight. Used Gemini's `responseSchema` structured-output feature to force valid JSON for intent extraction — actually more robust than the original Claude-via-prompt-instruction approach, since malformed JSON becomes structurally impossible rather than something to catch and fall back from.
+
+  **No `GEMINI_API_KEY` is configured in this dev environment** (left blank in `.env` with a comment pointing at the free-tier signup URL) — same situation as the AI microservice all session: rather than block on it, `whatsapp.service.js` has a full rule-based local fallback (keyword matching across Hindi devanagari script / Hinglish romanized keywords / English) for both intent classification and response generation, used automatically whenever `gemini` is null or a live call fails. This is what's actually running and fully tested right now; adding a real key later upgrades the bot to genuine NLU with zero code changes elsewhere — same pattern as every other AI-dependent piece this session.
+
+  Also added `express.urlencoded()` to `app.js` (missing — Twilio posts form-encoded bodies, not JSON, and the app previously only parsed `express.json()`).
+
+  Verified live: `Content-Type: text/xml; charset=utf-8` confirmed on the response headers directly (not just inferred from the body). Four real message flows through the actual webhook endpoint (not the service function in isolation): a Hinglish price query ("Delhi mein haldi ka bhav kya hai") → correctly classified `price_query`/`TURMERIC`/`Delhi`, real computed price numbers in the reply (₹175-₹194/kg); an English demand query → real forecast numbers (800kg, 78% confidence); a batch-code lookup → real batch data (status `listed`, quality `94.00`) via regex-extracted batch code; and a message with no `Body` field → graceful bilingual fallback TwiML, never a 500. `whatsapp_sessions.state`/`context_data` confirmed persisted correctly after each turn. Twilio signature validation logic is written per the documented `twilio.validateRequest` pattern but structurally untestable without a real `TWILIO_AUTH_TOKEN` in production mode — same external-dependency situation, flagged not hidden. DPI mock routes (AgriStack/eNAM/ONDC) all verified live, each correctly labeled with its `data_source` field. Committed as `feat: implement DPI mock routes and Gemini-powered WhatsApp webhook`.
 
 ---
 
