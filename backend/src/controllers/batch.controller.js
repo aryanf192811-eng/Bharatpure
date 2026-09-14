@@ -59,4 +59,17 @@ const remove = async (req, res, next) => {
   }
 };
 
-module.exports = { create, list, getById, remove };
+const clearTemperatureBreach = async (req, res, next) => {
+  const parsed = z.object({ review_notes: z.string().min(1) }).safeParse(req.body);
+  if (!parsed.success) {
+    return sendError(res, 400, 'VALIDATION_ERROR', 'Invalid input', parsed.error.issues);
+  }
+  try {
+    const result = await batchService.clearTemperatureBreach(req.params.batchId, req.user, parsed.data.review_notes);
+    return sendSuccess(res, result, 200, 'Temperature breach flag cleared.');
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = { create, list, getById, remove, clearTemperatureBreach };

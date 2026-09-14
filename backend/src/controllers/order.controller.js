@@ -62,4 +62,14 @@ const cancel = async (req, res, next) => {
   }
 };
 
-module.exports = { create, list, getById, cancel };
+const markDelivered = async (req, res, next) => {
+  try {
+    const result = await orderService.markDelivered(req.params.orderId, req.user);
+    logger.info({ action: 'ORDER_DELIVERED_ROUTE_OK', orderId: req.params.orderId, userId: req.user.id });
+    return sendSuccess(res, result, 200, 'Order marked delivered.');
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = { create, list, getById, cancel, markDelivered };

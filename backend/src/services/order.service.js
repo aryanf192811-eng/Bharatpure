@@ -235,4 +235,68 @@ const cancelOrder = async (orderId, user, reason) => {
   }
 };
 
-module.exports = { createOrder, listOrders, getOrderById, cancelOrder };
+/**
+ * Marks an order delivered and releases escrow, per BHARATPURE-DB.md's exact documented
+ * "Escrow release pattern" (release -> update order -> append EscrowReleased, one transaction).
+ * Two guards run BEFORE the transaction opens, per BHARATPURE-DB.md's documented edge cases:
+ *   - any batch on this order flagged notes='TEMP_BREACH_REVIEW' -> 422 TEMPERATURE_BREACH_REVIEW
+ *   - any dispute on this order not in ('resolved','dismissed') -> 409 OPEN_DISPUTE
+ * Both must clear before delivery can be confirmed at all.
+ */
+const markDelivered = async (orderId, user) => {
+  const orderResult = await pool.query(`SELECT id, status FROM orders WHERE id = $1`, [orderId]);
+  if (orderResult.rows.length === 0) {
+    throw apiError(404, 'ORDER_NOT_FOUND', 'Order not found.');
+  }
+  if (orderResult.rows[0].status === 'delivered') {
+    return { id: orderId, status: 'delivered', already_delivered: true }; // idempotent
+  }
+
+  const breachResult = await pool.query(
+    `SELECT DISTINCT b.id FROM order_items oi JOIN batches b ON b.id = oi.batch_id
+     WHERE oi.order_id = $1 AND b.notes = 'TEMP_BREACH_REVIEW'`,
+    [orderId],
+  );
+  if (breachResult.rows.length > 0) {
+    throw apiError(422, 'TEMPERATURE_BREACH_REVIEW', 'A temperature breach on this order is still under review.');
+  }
+
+  const disputeResult = await pool.query(
+    `SELECT COUNT(*) FROM disputes WHERE order_id = $1 AND status NOT IN ('resolved', 'dismissed')`,
+    [orderId],
+  );
+  if (Number(disputeResult.rows[0].count) > 0) {
+    throw apiError(409, 'OPEN_DISPUTE', 'This order has an open dispute blocking delivery confirmation.');
+  }
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const escrowResult = await client.query(
+      `UPDATE escrow_transactions SET status = 'released', released_at = NOW(), release_triggered_by = 'BIR_EVENT'
+       WHERE order_id = $1 AND status = 'held' RETURNING amount_paise`,
+      [orderId],
+    );
+    await client.query(`UPDATE orders SET status = 'delivered', actual_delivery_at = NOW() WHERE id = $1`, [orderId]);
+
+    const batchesResult = await client.query(`SELECT DISTINCT batch_id FROM order_items WHERE order_id = $1`, [orderId]);
+    for (const row of batchesResult.rows) {
+      // eslint-disable-next-line no-await-in-loop
+      await addBirEvent(client, row.batch_id, 'DeliveredToConsumer', { order_id: orderId }, user.id, user.role);
+      // eslint-disable-next-line no-await-in-loop
+      await addBirEvent(client, row.batch_id, 'EscrowReleased', { order_id: orderId, amount_paise: escrowResult.rows[0]?.amount_paise ?? null }, null, 'SYSTEM');
+    }
+
+    await client.query('COMMIT');
+    logger.info({ action: 'ORDER_DELIVERED', orderId, userId: user.id });
+    return { id: orderId, status: 'delivered' };
+  } catch (err) {
+    await client.query('ROLLBACK');
+    logger.error({ action: 'ORDER_DELIVERED_FAILED', orderId, err: err.message });
+    throw err;
+  } finally {
+    client.release();
+  }
+};
+
+module.exports = { createOrder, listOrders, getOrderById, cancelOrder, markDelivered };

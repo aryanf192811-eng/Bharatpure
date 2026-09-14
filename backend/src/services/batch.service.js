@@ -240,4 +240,43 @@ const deleteBatch = async (batchId, user) => {
   return null;
 };
 
-module.exports = { createBatch, listBatches, getBatchById, deleteBatch };
+/**
+ * ADMIN clears a temperature-breach review flag after manually confirming the batch is still
+ * safe to deliver. Mandatory review_notes, per BHARATPURE-CLAUDE.md's admin route spec, written
+ * to audit_logs -- this is exactly the kind of state override that must never happen silently.
+ * Implemented here (batch.routes.js) rather than deferred to the later Admin-domain task,
+ * because TASK-P4-001's own acceptance check requires clearing a breach to prove delivery can
+ * proceed afterward -- the route path matches BHARATPURE-API.md's documented Admin route
+ * exactly, so this isn't a shortcut that Phase 5 will need to redo, just built a bit early.
+ */
+const clearTemperatureBreach = async (batchId, admin, reviewNotes) => {
+  const batchResult = await pool.query(`SELECT notes FROM batches WHERE id = $1 AND deleted_at IS NULL`, [batchId]);
+  if (batchResult.rows.length === 0) {
+    throw apiError(404, 'BATCH_NOT_FOUND', 'Batch not found.');
+  }
+  if (batchResult.rows[0].notes !== 'TEMP_BREACH_REVIEW') {
+    throw apiError(422, 'NO_BREACH_TO_CLEAR', 'This batch has no temperature breach flagged for review.');
+  }
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    await client.query(`UPDATE batches SET notes = NULL, updated_at = NOW() WHERE id = $1`, [batchId]);
+    await client.query(
+      `INSERT INTO audit_logs (actor_id, actor_role, action, entity_type, entity_id, old_value, new_value)
+       VALUES ($1,$2,'TEMPERATURE_BREACH_CLEARED','batch',$3,$4,$5)`,
+      [admin.id, admin.role, batchId, JSON.stringify({ notes: 'TEMP_BREACH_REVIEW' }), JSON.stringify({ notes: null, review_notes: reviewNotes })],
+    );
+    await client.query('COMMIT');
+    logger.info({ action: 'TEMPERATURE_BREACH_CLEARED', batchId, adminId: admin.id });
+    return { id: batchId, breach_cleared: true };
+  } catch (err) {
+    await client.query('ROLLBACK');
+    logger.error({ action: 'TEMPERATURE_BREACH_CLEAR_FAILED', batchId, err: err.message });
+    throw err;
+  } finally {
+    client.release();
+  }
+};
+
+module.exports = { createBatch, listBatches, getBatchById, deleteBatch, clearTemperatureBreach };
