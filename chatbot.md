@@ -102,12 +102,12 @@
 
 ### TASK-006
 - **Title:** Migrations 021–030 (disputes through audit_logs)
-- **Status:** QUEUED
+- **Status:** VERIFIED
 - **Owner:** supervisor
 - **Scope:** `backend/src/db/migrations/021_*.js` through `030_*.js`
 - **Spec:** Tables: disputes, dispute_evidence, demand_forecasts, price_intelligence, simulation_runs, fpo_trust_scores, buyer_reliability_scores, whatsapp_sessions, notifications, audit_logs. whatsapp_sessions: phone UNIQUE. demand_forecasts: UNIQUE(crop_type, city, forecast_date, model_version).
 - **Acceptance Check:** All 30 tables present. `SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public'` = 30. `npx node-pg-migrate up` is idempotent (run twice, no errors).
-- **Result/Notes:** _(supervisor fills)_
+- **Result/Notes:** Done. **Full 30-table BharatPure schema is now live.** All 10 migrations run verbatim from BHARATPURE-DB.md tables 21–30. Verified: exactly 30 app tables (`table_name != 'pgmigrations'` count), whatsapp_sessions.phone UNIQUE present, demand_forecasts has the 4-column UNIQUE constraint, re-ran `migrate:up` a second time and got "No migrations to run!" confirming full idempotency across all 30 files, not just the last batch. This closes out the entire PHASE 0 schema — TASK-002 through TASK-006 complete. Committed as `chore: add migrations 021-030 (disputes through audit_logs) — schema complete`.
 
 ---
 
