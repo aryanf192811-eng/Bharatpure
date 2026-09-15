@@ -18,6 +18,7 @@ import {
   Wallet,
   Wifi,
 } from 'lucide-react'
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import type { PWATab } from '@/components/layout/PWAShell'
@@ -25,55 +26,74 @@ import { PWAShell } from '@/components/layout/PWAShell'
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute'
 import type { WebNavLink } from '@/components/layout/WebShell'
 import { WebShell } from '@/components/layout/WebShell'
-import ForgotPassword from '@/pages/auth/ForgotPassword'
-import Landing from '@/pages/auth/Landing'
-import Login from '@/pages/auth/Login'
-import OtpVerification from '@/pages/auth/OtpVerification'
-import Register from '@/pages/auth/Register'
-import ResetPassword from '@/pages/auth/ResetPassword'
-import Browse from '@/pages/consumer/Browse'
-import Cart from '@/pages/consumer/Cart'
-import OrderConfirmation from '@/pages/consumer/OrderConfirmation'
-import OrderHistory from '@/pages/consumer/OrderHistory'
-import OrderTracking from '@/pages/consumer/OrderTracking'
-import ProductDetail from '@/pages/consumer/ProductDetail'
-import QrScanner from '@/pages/consumer/QrScanner'
-import QrScanResult from '@/pages/consumer/QrScanResult'
-import SubscriptionOverview from '@/pages/consumer/SubscriptionOverview'
-import BatchDetailBuyer from '@/pages/buyer/BatchDetailBuyer'
-import BulkOrderForm from '@/pages/buyer/BulkOrderForm'
-import Catalog from '@/pages/buyer/Catalog'
-import BuyerDashboard from '@/pages/buyer/Dashboard'
-import OrderHistoryBuyer from '@/pages/buyer/OrderHistoryBuyer'
-import ReliabilityScore from '@/pages/buyer/ReliabilityScore'
-import AuditLogViewer from '@/pages/admin/AuditLogViewer'
-import AdminDashboard from '@/pages/admin/Dashboard'
-import DemandIntelligence from '@/pages/admin/DemandIntelligence'
-import DpiStatus from '@/pages/admin/DpiStatus'
-import EscrowManagement from '@/pages/admin/EscrowManagement'
-import FpoBatchManagement from '@/pages/admin/FpoBatchManagement'
-import PriceIntelligence from '@/pages/admin/PriceIntelligence'
-import RouteOptimization from '@/pages/admin/RouteOptimization'
-import WhatIfSimulator from '@/pages/admin/WhatIfSimulator'
-import BatchCreateStep1 from '@/pages/farmer/BatchCreateStep1'
-import DeliveryConfirmation from '@/pages/logistics/DeliveryConfirmation'
-import LogisticsDashboard from '@/pages/logistics/Dashboard'
-import RouteMapView from '@/pages/logistics/RouteMapView'
-import RoutesList from '@/pages/logistics/RoutesList'
-import StopDetail from '@/pages/logistics/StopDetail'
-import TemperatureLogEntry from '@/pages/logistics/TemperatureLogEntry'
-import BatchCreateStep2 from '@/pages/farmer/BatchCreateStep2'
-import BatchCreateStep3 from '@/pages/farmer/BatchCreateStep3'
-import BatchDetail from '@/pages/farmer/BatchDetail'
-import BatchList from '@/pages/farmer/BatchList'
-import CertificateUpload from '@/pages/farmer/CertificateUpload'
-import ContractDetail from '@/pages/farmer/ContractDetail'
-import ContractsList from '@/pages/farmer/ContractsList'
-import FarmerDashboard from '@/pages/farmer/Dashboard'
-import Earnings from '@/pages/farmer/Earnings'
-import QualityTestResult from '@/pages/farmer/QualityTestResult'
-import TrustScore from '@/pages/farmer/TrustScore'
-import Profile from '@/pages/shared/Profile'
+import { Skeleton } from '@/components/ui/skeleton'
+
+// Every screen is its own chunk -- lazy-loaded per route rather than bundled eagerly. This is
+// what actually addresses the bundle-size gap (recharts/leaflet/html5-qrcode were all being
+// pulled into the main chunk regardless of which role/screen a session ever visits).
+const Landing = lazy(() => import('@/pages/auth/Landing'))
+const Register = lazy(() => import('@/pages/auth/Register'))
+const Login = lazy(() => import('@/pages/auth/Login'))
+const OtpVerification = lazy(() => import('@/pages/auth/OtpVerification'))
+const ForgotPassword = lazy(() => import('@/pages/auth/ForgotPassword'))
+const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'))
+const QrScanResult = lazy(() => import('@/pages/consumer/QrScanResult'))
+
+const FarmerDashboard = lazy(() => import('@/pages/farmer/Dashboard'))
+const BatchList = lazy(() => import('@/pages/farmer/BatchList'))
+const BatchCreateStep1 = lazy(() => import('@/pages/farmer/BatchCreateStep1'))
+const BatchCreateStep2 = lazy(() => import('@/pages/farmer/BatchCreateStep2'))
+const BatchCreateStep3 = lazy(() => import('@/pages/farmer/BatchCreateStep3'))
+const BatchDetail = lazy(() => import('@/pages/farmer/BatchDetail'))
+const QualityTestResult = lazy(() => import('@/pages/farmer/QualityTestResult'))
+const CertificateUpload = lazy(() => import('@/pages/farmer/CertificateUpload'))
+const Earnings = lazy(() => import('@/pages/farmer/Earnings'))
+const ContractsList = lazy(() => import('@/pages/farmer/ContractsList'))
+const ContractDetail = lazy(() => import('@/pages/farmer/ContractDetail'))
+const TrustScore = lazy(() => import('@/pages/farmer/TrustScore'))
+
+const Browse = lazy(() => import('@/pages/consumer/Browse'))
+const ProductDetail = lazy(() => import('@/pages/consumer/ProductDetail'))
+const QrScanner = lazy(() => import('@/pages/consumer/QrScanner'))
+const Cart = lazy(() => import('@/pages/consumer/Cart'))
+const OrderConfirmation = lazy(() => import('@/pages/consumer/OrderConfirmation'))
+const OrderTracking = lazy(() => import('@/pages/consumer/OrderTracking'))
+const OrderHistory = lazy(() => import('@/pages/consumer/OrderHistory'))
+const SubscriptionOverview = lazy(() => import('@/pages/consumer/SubscriptionOverview'))
+
+const BuyerDashboard = lazy(() => import('@/pages/buyer/Dashboard'))
+const Catalog = lazy(() => import('@/pages/buyer/Catalog'))
+const BatchDetailBuyer = lazy(() => import('@/pages/buyer/BatchDetailBuyer'))
+const BulkOrderForm = lazy(() => import('@/pages/buyer/BulkOrderForm'))
+const OrderHistoryBuyer = lazy(() => import('@/pages/buyer/OrderHistoryBuyer'))
+const ReliabilityScore = lazy(() => import('@/pages/buyer/ReliabilityScore'))
+
+const LogisticsDashboard = lazy(() => import('@/pages/logistics/Dashboard'))
+const RoutesList = lazy(() => import('@/pages/logistics/RoutesList'))
+const RouteMapView = lazy(() => import('@/pages/logistics/RouteMapView'))
+const StopDetail = lazy(() => import('@/pages/logistics/StopDetail'))
+const TemperatureLogEntry = lazy(() => import('@/pages/logistics/TemperatureLogEntry'))
+const DeliveryConfirmation = lazy(() => import('@/pages/logistics/DeliveryConfirmation'))
+
+const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'))
+const DemandIntelligence = lazy(() => import('@/pages/admin/DemandIntelligence'))
+const PriceIntelligence = lazy(() => import('@/pages/admin/PriceIntelligence'))
+const RouteOptimization = lazy(() => import('@/pages/admin/RouteOptimization'))
+const WhatIfSimulator = lazy(() => import('@/pages/admin/WhatIfSimulator'))
+const FpoBatchManagement = lazy(() => import('@/pages/admin/FpoBatchManagement'))
+const EscrowManagement = lazy(() => import('@/pages/admin/EscrowManagement'))
+const DpiStatus = lazy(() => import('@/pages/admin/DpiStatus'))
+const AuditLogViewer = lazy(() => import('@/pages/admin/AuditLogViewer'))
+
+const Profile = lazy(() => import('@/pages/shared/Profile'))
+
+function RouteLoadingFallback() {
+  return (
+    <div className="flex min-h-[50vh] items-center justify-center p-6">
+      <Skeleton className="h-40 w-full max-w-md" />
+    </div>
+  )
+}
 
 const FARMER_TABS: PWATab[] = [
   { label: 'Home', path: '/farmer/dashboard', icon: Home },
@@ -119,92 +139,94 @@ const ADMIN_LINKS: WebNavLink[] = [
 
 function App() {
   return (
-    <Routes>
-      {/* Public / auth */}
-      <Route path="/" element={<Landing />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/verify-otp" element={<OtpVerification />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/scan/:qrHash" element={<QrScanResult />} />
+    <Suspense fallback={<RouteLoadingFallback />}>
+      <Routes>
+        {/* Public / auth */}
+        <Route path="/" element={<Landing />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/verify-otp" element={<OtpVerification />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/scan/:qrHash" element={<QrScanResult />} />
 
-      {/* Farmer PWA */}
-      <Route element={<ProtectedRoute role="FARMER" />}>
-        <Route element={<PWAShell title="BharatPure" tabs={FARMER_TABS} />}>
-          <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
-          <Route path="/farmer/batches" element={<BatchList />} />
-          <Route path="/farmer/batches/new/step-1" element={<BatchCreateStep1 />} />
-          <Route path="/farmer/batches/new/step-2" element={<BatchCreateStep2 />} />
-          <Route path="/farmer/batches/new/step-3" element={<BatchCreateStep3 />} />
-          <Route path="/farmer/batches/:batchId" element={<BatchDetail />} />
-          <Route path="/farmer/batches/:batchId/test-result" element={<QualityTestResult />} />
-          <Route path="/farmer/batches/:batchId/upload-certificate" element={<CertificateUpload />} />
-          <Route path="/farmer/earnings" element={<Earnings />} />
-          <Route path="/farmer/contracts" element={<ContractsList />} />
-          <Route path="/farmer/contracts/:contractId" element={<ContractDetail />} />
-          <Route path="/farmer/trust-score" element={<TrustScore />} />
-          <Route path="/farmer/profile" element={<Profile />} />
+        {/* Farmer PWA */}
+        <Route element={<ProtectedRoute role="FARMER" />}>
+          <Route element={<PWAShell title="BharatPure" tabs={FARMER_TABS} />}>
+            <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
+            <Route path="/farmer/batches" element={<BatchList />} />
+            <Route path="/farmer/batches/new/step-1" element={<BatchCreateStep1 />} />
+            <Route path="/farmer/batches/new/step-2" element={<BatchCreateStep2 />} />
+            <Route path="/farmer/batches/new/step-3" element={<BatchCreateStep3 />} />
+            <Route path="/farmer/batches/:batchId" element={<BatchDetail />} />
+            <Route path="/farmer/batches/:batchId/test-result" element={<QualityTestResult />} />
+            <Route path="/farmer/batches/:batchId/upload-certificate" element={<CertificateUpload />} />
+            <Route path="/farmer/earnings" element={<Earnings />} />
+            <Route path="/farmer/contracts" element={<ContractsList />} />
+            <Route path="/farmer/contracts/:contractId" element={<ContractDetail />} />
+            <Route path="/farmer/trust-score" element={<TrustScore />} />
+            <Route path="/farmer/profile" element={<Profile />} />
+          </Route>
         </Route>
-      </Route>
 
-      {/* Consumer PWA */}
-      <Route element={<ProtectedRoute role="CONSUMER" />}>
-        <Route element={<PWAShell title="BharatPure" tabs={CONSUMER_TABS} />}>
-          <Route path="/consumer/browse" element={<Browse />} />
-          <Route path="/consumer/listings/:listingId" element={<ProductDetail />} />
-          <Route path="/consumer/scan" element={<QrScanner />} />
-          <Route path="/consumer/cart" element={<Cart />} />
-          <Route path="/consumer/orders/:orderId/confirmation" element={<OrderConfirmation />} />
-          <Route path="/consumer/orders/:orderId/track" element={<OrderTracking />} />
-          <Route path="/consumer/orders" element={<OrderHistory />} />
-          <Route path="/consumer/subscriptions" element={<SubscriptionOverview />} />
-          <Route path="/consumer/profile" element={<Profile />} />
+        {/* Consumer PWA */}
+        <Route element={<ProtectedRoute role="CONSUMER" />}>
+          <Route element={<PWAShell title="BharatPure" tabs={CONSUMER_TABS} />}>
+            <Route path="/consumer/browse" element={<Browse />} />
+            <Route path="/consumer/listings/:listingId" element={<ProductDetail />} />
+            <Route path="/consumer/scan" element={<QrScanner />} />
+            <Route path="/consumer/cart" element={<Cart />} />
+            <Route path="/consumer/orders/:orderId/confirmation" element={<OrderConfirmation />} />
+            <Route path="/consumer/orders/:orderId/track" element={<OrderTracking />} />
+            <Route path="/consumer/orders" element={<OrderHistory />} />
+            <Route path="/consumer/subscriptions" element={<SubscriptionOverview />} />
+            <Route path="/consumer/profile" element={<Profile />} />
+          </Route>
         </Route>
-      </Route>
 
-      {/* Bulk Buyer web */}
-      <Route element={<ProtectedRoute role="BULK_BUYER" />}>
-        <Route element={<WebShell links={BUYER_LINKS} />}>
-          <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
-          <Route path="/buyer/catalog" element={<Catalog />} />
-          <Route path="/buyer/listings/:listingId" element={<BatchDetailBuyer />} />
-          <Route path="/buyer/orders/new" element={<BulkOrderForm />} />
-          <Route path="/buyer/orders" element={<OrderHistoryBuyer />} />
-          <Route path="/buyer/reliability" element={<ReliabilityScore />} />
+        {/* Bulk Buyer web */}
+        <Route element={<ProtectedRoute role="BULK_BUYER" />}>
+          <Route element={<WebShell links={BUYER_LINKS} />}>
+            <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
+            <Route path="/buyer/catalog" element={<Catalog />} />
+            <Route path="/buyer/listings/:listingId" element={<BatchDetailBuyer />} />
+            <Route path="/buyer/orders/new" element={<BulkOrderForm />} />
+            <Route path="/buyer/orders" element={<OrderHistoryBuyer />} />
+            <Route path="/buyer/reliability" element={<ReliabilityScore />} />
+          </Route>
         </Route>
-      </Route>
 
-      {/* Logistics PWA */}
-      <Route element={<ProtectedRoute role="LOGISTICS" />}>
-        <Route element={<PWAShell title="BharatPure" tabs={LOGISTICS_TABS} />}>
-          <Route path="/logistics/dashboard" element={<LogisticsDashboard />} />
-          <Route path="/logistics/routes" element={<RoutesList />} />
-          <Route path="/logistics/routes/:routeId" element={<RouteMapView />} />
-          <Route path="/logistics/routes/:routeId/stops/:stopId" element={<StopDetail />} />
-          <Route path="/logistics/temperature-log" element={<TemperatureLogEntry />} />
-          <Route path="/logistics/deliver/:orderId" element={<DeliveryConfirmation />} />
-          <Route path="/logistics/profile" element={<Profile />} />
+        {/* Logistics PWA */}
+        <Route element={<ProtectedRoute role="LOGISTICS" />}>
+          <Route element={<PWAShell title="BharatPure" tabs={LOGISTICS_TABS} />}>
+            <Route path="/logistics/dashboard" element={<LogisticsDashboard />} />
+            <Route path="/logistics/routes" element={<RoutesList />} />
+            <Route path="/logistics/routes/:routeId" element={<RouteMapView />} />
+            <Route path="/logistics/routes/:routeId/stops/:stopId" element={<StopDetail />} />
+            <Route path="/logistics/temperature-log" element={<TemperatureLogEntry />} />
+            <Route path="/logistics/deliver/:orderId" element={<DeliveryConfirmation />} />
+            <Route path="/logistics/profile" element={<Profile />} />
+          </Route>
         </Route>
-      </Route>
 
-      {/* Admin web */}
-      <Route element={<ProtectedRoute role="ADMIN" />}>
-        <Route element={<WebShell links={ADMIN_LINKS} />}>
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/demand" element={<DemandIntelligence />} />
-          <Route path="/admin/price" element={<PriceIntelligence />} />
-          <Route path="/admin/routes" element={<RouteOptimization />} />
-          <Route path="/admin/simulate" element={<WhatIfSimulator />} />
-          <Route path="/admin/fpos" element={<FpoBatchManagement />} />
-          <Route path="/admin/escrow" element={<EscrowManagement />} />
-          <Route path="/admin/dpi" element={<DpiStatus />} />
-          <Route path="/admin/audit" element={<AuditLogViewer />} />
+        {/* Admin web */}
+        <Route element={<ProtectedRoute role="ADMIN" />}>
+          <Route element={<WebShell links={ADMIN_LINKS} />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/demand" element={<DemandIntelligence />} />
+            <Route path="/admin/price" element={<PriceIntelligence />} />
+            <Route path="/admin/routes" element={<RouteOptimization />} />
+            <Route path="/admin/simulate" element={<WhatIfSimulator />} />
+            <Route path="/admin/fpos" element={<FpoBatchManagement />} />
+            <Route path="/admin/escrow" element={<EscrowManagement />} />
+            <Route path="/admin/dpi" element={<DpiStatus />} />
+            <Route path="/admin/audit" element={<AuditLogViewer />} />
+          </Route>
         </Route>
-      </Route>
 
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   )
 }
 
