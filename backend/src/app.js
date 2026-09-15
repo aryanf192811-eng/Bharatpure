@@ -36,6 +36,7 @@ app.get('/health', (req, res) => {
 
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/users', require('./routes/users.routes'));
+app.use('/api/clusters', require('./routes/cluster.routes'));
 app.use('/api/batches', require('./routes/batch.routes'));
 app.use('/api/quality', require('./routes/quality.routes'));
 app.use('/api/listings', require('./routes/listing.routes'));
