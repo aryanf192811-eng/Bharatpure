@@ -48,4 +48,13 @@ const getTrustScore = async (req, res, next) => {
   }
 };
 
-module.exports = { getProfile, getDashboard, getEarnings, getTrustScore };
+const getCreditEligibility = async (req, res, next) => {
+  try {
+    const creditEligibility = await farmerService.getCreditEligibility(req.user.id);
+    return sendSuccess(res, creditEligibility);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = { getProfile, getDashboard, getEarnings, getTrustScore, getCreditEligibility };

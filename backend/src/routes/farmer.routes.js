@@ -11,5 +11,6 @@ router.get('/profile', controller.getProfile);
 router.get('/dashboard', controller.getDashboard);
 router.get('/earnings', controller.getEarnings);
 router.get('/trust-score', controller.getTrustScore);
+router.get('/credit-eligibility', controller.getCreditEligibility);
 
 module.exports = router;

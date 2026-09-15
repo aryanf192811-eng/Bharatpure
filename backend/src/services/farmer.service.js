@@ -164,4 +164,23 @@ const getTrustScore = async (userId) => {
   return result.rows[0];
 };
 
-module.exports = { getProfile, getDashboard, getEarnings, getTrustScore, getCropAdvisories };
+/**
+ * Micro-credit eligibility -- same "latest + last-12-history, computed_at DESC then .reverse()"
+ * shape as buyer.service.js's getReliability, the cleanest existing template for a score
+ * time-series getter.
+ */
+const getCreditEligibility = async (userId) => {
+  const fpo = await getFpoForUser(userId);
+  const result = await pool.query(
+    `SELECT trust_score_component, repayment_proxy_component, batch_volume_component, dispute_penalty_component,
+            computed_score, eligibility_band, computed_at
+     FROM fpo_credit_scores WHERE fpo_id = $1 ORDER BY computed_at DESC LIMIT 12`,
+    [fpo.id],
+  );
+  if (result.rows.length === 0) {
+    throw apiError(404, 'CREDIT_SCORE_NOT_COMPUTED', 'Credit eligibility has not been computed for this FPO yet.');
+  }
+  return { latest: result.rows[0], history: result.rows.reverse() };
+};
+
+module.exports = { getProfile, getDashboard, getEarnings, getTrustScore, getCropAdvisories, getCreditEligibility };
