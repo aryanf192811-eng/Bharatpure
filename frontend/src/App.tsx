@@ -47,6 +47,12 @@ import BuyerDashboard from '@/pages/buyer/Dashboard'
 import OrderHistoryBuyer from '@/pages/buyer/OrderHistoryBuyer'
 import ReliabilityScore from '@/pages/buyer/ReliabilityScore'
 import BatchCreateStep1 from '@/pages/farmer/BatchCreateStep1'
+import DeliveryConfirmation from '@/pages/logistics/DeliveryConfirmation'
+import LogisticsDashboard from '@/pages/logistics/Dashboard'
+import RouteMapView from '@/pages/logistics/RouteMapView'
+import RoutesList from '@/pages/logistics/RoutesList'
+import StopDetail from '@/pages/logistics/StopDetail'
+import TemperatureLogEntry from '@/pages/logistics/TemperatureLogEntry'
 import BatchCreateStep2 from '@/pages/farmer/BatchCreateStep2'
 import BatchCreateStep3 from '@/pages/farmer/BatchCreateStep3'
 import BatchDetail from '@/pages/farmer/BatchDetail'
@@ -164,15 +170,13 @@ function App() {
       {/* Logistics PWA */}
       <Route element={<ProtectedRoute role="LOGISTICS" />}>
         <Route element={<PWAShell title="BharatPure" tabs={LOGISTICS_TABS} />}>
-          <Route path="/logistics/dashboard" element={<NotBuiltYet screen="Driver Dashboard (33)" />} />
-          <Route path="/logistics/routes/:routeId" element={<NotBuiltYet screen="Route Map View (34)" />} />
-          <Route
-            path="/logistics/routes/:routeId/stops/:stopId"
-            element={<NotBuiltYet screen="Stop Detail / Pickup Confirmation (35)" />}
-          />
-          <Route path="/logistics/temperature-log" element={<NotBuiltYet screen="Temperature Log Entry (36)" />} />
-          <Route path="/logistics/deliver/:orderId" element={<NotBuiltYet screen="Delivery Confirmation (37)" />} />
-          <Route path="/logistics/profile" element={<NotBuiltYet screen="Profile" />} />
+          <Route path="/logistics/dashboard" element={<LogisticsDashboard />} />
+          <Route path="/logistics/routes" element={<RoutesList />} />
+          <Route path="/logistics/routes/:routeId" element={<RouteMapView />} />
+          <Route path="/logistics/routes/:routeId/stops/:stopId" element={<StopDetail />} />
+          <Route path="/logistics/temperature-log" element={<TemperatureLogEntry />} />
+          <Route path="/logistics/deliver/:orderId" element={<DeliveryConfirmation />} />
+          <Route path="/logistics/profile" element={<Profile />} />
         </Route>
       </Route>
 
