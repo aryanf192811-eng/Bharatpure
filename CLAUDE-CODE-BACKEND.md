@@ -129,7 +129,7 @@ TASK-P5-001 (Admin + IEI), TASK-P5-002 (DPI mock + WhatsApp), TASK-P5-003 (Trust
 For the WhatsApp bot: the full implementation is in BHARATPURE-AI.md under 
 "WHATSAPP BOT — FULL IMPLEMENTATION". Copy the whatsapp.service.js implementation
 exactly — do not rewrite it. The intent extraction and response generation via 
-Claude API are already designed; implement as written.
+gemini( cheap and free access) API are already designed; implement as written.
 
 After all Phase 5 tasks are VERIFIED:
 1. Run full newman suite across all route groups
