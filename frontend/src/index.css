@@ -172,3 +172,14 @@
     @apply bg-background text-foreground font-body;
   }
 }
+
+/* Safe-area insets for the PWA shell on notched devices -- plain CSS, not a Tailwind @theme
+   utility, since these are fixed env() values rather than part of the design token scale. */
+@layer utilities {
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
