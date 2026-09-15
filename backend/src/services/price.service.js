@@ -110,4 +110,4 @@ const getPremiumCalculator = async (qualityScore, cropType, quantityKg, city) =>
   };
 };
 
-module.exports = { getRecommendation, getMarketRates, getPremiumCalculator, computeLocalRecommendation };
+module.exports = { getRecommendation, getMarketRates, getPremiumCalculator, computeLocalRecommendation, getCommodityPricePaise };

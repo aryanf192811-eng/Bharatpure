@@ -1,5 +1,6 @@
 const { pool } = require('../db');
 const logger = require('../utils/logger');
+const priceService = require('./price.service');
 
 const apiError = (statusCode, code, message) => {
   const err = new Error(message);
@@ -185,10 +186,62 @@ const getOrderById = async (orderId, user) => {
   }
 
   const itemsResult = await pool.query(
-    `SELECT oi.*, b.batch_code, b.crop_type FROM order_items oi JOIN batches b ON b.id = oi.batch_id WHERE oi.order_id = $1`,
+    `SELECT oi.*, b.batch_code, b.crop_type, b.fpo_id, fp.fpo_name, fp.state AS fpo_state
+     FROM order_items oi
+     JOIN batches b ON b.id = oi.batch_id
+     LEFT JOIN fpo_profiles fp ON fp.id = b.fpo_id
+     WHERE oi.order_id = $1`,
     [orderId],
   );
   return { ...order, items: itemsResult.rows };
+};
+
+/**
+ * "Impact Receipt" — per-item comparison of what the farmer actually realized through
+ * BharatPure (the locked-in order price, order_items.price_per_kg_paise) against what a
+ * traditional mandi/commodity channel would have paid (price.service.js's eNAM mock lookup).
+ * Deliberately compares against the ACTUAL paid price, not price.service.js's
+ * getPremiumCalculator (which compares against a *recommended* price) -- a receipt claiming
+ * impact from money that was never actually paid would overstate the story. Only available
+ * once delivered/escrow-released, since before that the money hasn't reached the farmer yet.
+ */
+const getImpactSummary = async (orderId, user) => {
+  const order = await getOrderById(orderId, user);
+  if (order.status !== 'delivered') {
+    throw apiError(422, 'ORDER_NOT_DELIVERED', 'Impact receipt is only available once an order has been delivered.');
+  }
+
+  let totalTraditionalPaise = 0;
+  let totalBharatpurePaise = 0;
+  const items = order.items.map((item) => {
+    const commodityPricePaise = priceService.getCommodityPricePaise(item.crop_type);
+    const quantityKg = Number(item.quantity_kg);
+    const bharatpurePaise = Number(item.subtotal_paise);
+    const traditionalPaise = commodityPricePaise !== null ? Math.round(commodityPricePaise * quantityKg) : null;
+
+    totalBharatpurePaise += bharatpurePaise;
+    if (traditionalPaise !== null) totalTraditionalPaise += traditionalPaise;
+
+    return {
+      batch_code: item.batch_code,
+      crop_type: item.crop_type,
+      fpo_name: item.fpo_name,
+      fpo_state: item.fpo_state,
+      quantity_kg: quantityKg,
+      price_per_kg_paise: Number(item.price_per_kg_paise),
+      commodity_price_per_kg_paise: commodityPricePaise,
+      traditional_paise: traditionalPaise,
+      bharatpure_paise: bharatpurePaise,
+    };
+  });
+
+  return {
+    order_id: orderId,
+    items,
+    total_traditional_paise: totalTraditionalPaise,
+    total_bharatpure_paise: totalBharatpurePaise,
+    total_uplift_paise: totalBharatpurePaise - totalTraditionalPaise,
+  };
 };
 
 const cancelOrder = async (orderId, user, reason) => {
@@ -299,4 +352,4 @@ const markDelivered = async (orderId, user) => {
   }
 };
 
-module.exports = { createOrder, listOrders, getOrderById, cancelOrder, markDelivered };
+module.exports = { createOrder, listOrders, getOrderById, cancelOrder, markDelivered, getImpactSummary };

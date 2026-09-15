@@ -72,4 +72,13 @@ const markDelivered = async (req, res, next) => {
   }
 };
 
-module.exports = { create, list, getById, cancel, markDelivered };
+const getImpact = async (req, res, next) => {
+  try {
+    const summary = await orderService.getImpactSummary(req.params.orderId, req.user);
+    return sendSuccess(res, summary);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = { create, list, getById, cancel, markDelivered, getImpact };
