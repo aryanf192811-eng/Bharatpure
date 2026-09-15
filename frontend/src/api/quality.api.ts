@@ -14,6 +14,16 @@ export interface QualityTest {
   created_at: string
 }
 
+export interface QualityCertificate {
+  id: string
+  cert_number: string
+  file_size_bytes: number
+  mime_type: string
+  issued_at: string
+  expires_at: string | null
+  uploaded_at: string
+}
+
 export interface BSampleRequest {
   id: string
   quality_test_id: string
@@ -45,6 +55,21 @@ export const qualityApi = {
 
   getBatchTests: (batchId: string) =>
     client.get<ApiSuccess<QualityTest[]>>(`/api/quality/batches/${batchId}/tests`).then((r) => r.data),
+
+  getCertificatesForBatch: (batchId: string) =>
+    client.get<ApiSuccess<QualityCertificate[]>>(`/api/quality/batches/${batchId}/certificates`).then((r) => r.data),
+
+  // Streams the PDF as a blob and triggers the browser's save dialog directly -- there's no JSON
+  // response to hand back, this is a side-effecting action, not a data fetch.
+  downloadCertificate: async (certId: string, certNumber: string) => {
+    const response = await client.get(`/api/quality/certificates/${certId}/download`, { responseType: 'blob' })
+    const url = URL.createObjectURL(response.data as Blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `${certNumber}.pdf`
+    link.click()
+    URL.revokeObjectURL(url)
+  },
 
   getBSamples: (batchId: string) =>
     client.get<ApiSuccess<BSampleRequest[]>>(`/api/quality/b-samples/${batchId}`).then((r) => r.data),

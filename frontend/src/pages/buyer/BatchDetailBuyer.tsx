@@ -6,7 +6,9 @@ import { toast } from 'sonner'
 
 import { listingApi } from '@/api/listing.api'
 import { orderApi } from '@/api/order.api'
+import { BIRTimeline } from '@/components/shared/BIRTimeline'
 import { QualityBadge } from '@/components/shared/QualityBadge'
+import { TrustScoreRing } from '@/components/shared/TrustScoreRing'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -56,11 +58,25 @@ export default function BatchDetailBuyer() {
         <div className="rounded-md bg-white p-4 shadow-sm">
           <p className="font-mono text-xs text-earth-500">{listing.batch_code}</p>
           <h1 className="font-display text-2xl font-bold text-earth-900">{listing.crop_type}</h1>
+          <p className="mt-1 text-sm text-earth-500">
+            {listing.cluster_name} &middot; {listing.district}, {listing.state}
+          </p>
           {listing.quality_score && <QualityBadge score={listing.quality_score} tier="NABL" />}
         </div>
+
+        {listing.fpo_trust_score !== null && (
+          <div className="flex items-center gap-3 rounded-md bg-white p-4 shadow-sm">
+            <TrustScoreRing score={Number(listing.fpo_trust_score)} size="md" />
+            <div>
+              <p className="text-sm font-semibold text-earth-900">{listing.fpo_name}</p>
+              <p className="text-xs text-earth-500">FPO Trust Score</p>
+            </div>
+          </div>
+        )}
+
         <div className="rounded-md bg-white p-4 shadow-sm">
           <p className="mb-2 text-sm font-semibold text-earth-900">Batch Identity Record</p>
-          <p className="text-sm text-earth-500">Full provenance timeline is available on the batch&apos;s public QR trace page.</p>
+          <BIRTimeline events={[...listing.bir_events].reverse()} />
         </div>
       </div>
 

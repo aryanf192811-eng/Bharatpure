@@ -48,8 +48,7 @@ export default function ProductDetail() {
       <div className="flex flex-col gap-4 p-4">
         <div>
           <p className="text-sm text-earth-500">
-            {(listing as unknown as { cluster_name?: string }).cluster_name ?? ''}{' '}
-            {(listing as unknown as { district?: string }).district ?? ''}
+            {listing.cluster_name} &middot; {listing.district}, {listing.state}
           </p>
           <h1 className="font-display text-2xl font-bold text-earth-900">{listing.crop_type}</h1>
         </div>
@@ -106,7 +105,7 @@ export default function ProductDetail() {
               listingId: listing.id,
               batchCode: listing.batch_code,
               cropType: listing.crop_type,
-              fpoName: (listing as unknown as { cluster_name?: string }).cluster_name ?? '',
+              fpoName: listing.fpo_name ?? listing.cluster_name,
               pricePerKgPaise: listing.price_per_kg_paise,
               minOrderKg: listing.min_order_kg,
               maxOrderKg: listing.max_order_kg,

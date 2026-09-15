@@ -1,6 +1,6 @@
 import client from './client'
 import type { ApiPaginated, ApiSuccess } from '@/types/api.types'
-import type { Listing } from '@/types/listing.types'
+import type { Listing, ListingDetail } from '@/types/listing.types'
 
 export interface CreateListingPayload {
   batch_id: string
@@ -15,7 +15,7 @@ export const listingApi = {
   list: (params?: { crop_type?: string; city?: string; min_quality?: number; page?: number; limit?: number; sort?: string }) =>
     client.get<ApiPaginated<Listing>>('/api/listings', { params }).then((r) => r.data),
 
-  getById: (id: string) => client.get<ApiSuccess<Listing>>(`/api/listings/${id}`).then((r) => r.data),
+  getById: (id: string) => client.get<ApiSuccess<ListingDetail>>(`/api/listings/${id}`).then((r) => r.data),
 
   create: (payload: CreateListingPayload) =>
     client.post<ApiSuccess<Listing>>('/api/listings', payload).then((r) => r.data),

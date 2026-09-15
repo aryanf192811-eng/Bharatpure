@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { CheckCircle2 } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -55,6 +55,11 @@ export default function BatchDetail() {
     queryFn: () => qualityApi.getBSamples(batchId!),
     enabled: !!batchId && batchRes?.data.status === 'test_failed',
   })
+  const { data: certsRes } = useQuery({
+    queryKey: ['batch', batchId, 'certificates'],
+    queryFn: () => qualityApi.getCertificatesForBatch(batchId!),
+    enabled: !!batchId,
+  })
 
   const submitForTesting = useMutation({
     mutationFn: () => batchApi.updateStatus(batchId!, 'pending_test'),
@@ -97,7 +102,7 @@ export default function BatchDetail() {
   const tests = testsRes?.data ?? []
   const listing = myListings?.data.find((l) => l.batch_id === batchId)
   const bsample = bsamplesRes?.data[0]
-  const latestTest = tests[0]
+  const certs = certsRes?.data ?? []
 
   return (
     <div className="mx-auto flex max-w-[480px] flex-col gap-5 p-4">
@@ -163,10 +168,19 @@ export default function BatchDetail() {
               {test.purity_score !== null && <QualityBadge score={test.purity_score} tier={test.tier === 'TIER2' ? 'NABL' : 'Rapid'} />}
             </div>
           ))}
-          {latestTest?.tier === 'TIER2' && latestTest.result === 'PASS' && (
-            <p className="mt-2 flex items-center gap-1.5 text-xs text-success">
-              <CheckCircle2 className="size-3.5" /> NABL certificate on file
-            </p>
+          {certs.length > 0 && (
+            <div className="mt-2 flex flex-col gap-1">
+              {certs.map((cert) => (
+                <button
+                  key={cert.id}
+                  type="button"
+                  onClick={() => qualityApi.downloadCertificate(cert.id, cert.cert_number)}
+                  className="flex items-center gap-1.5 text-xs font-medium text-success hover:underline"
+                >
+                  <Download className="size-3.5" /> Download {cert.cert_number}.pdf
+                </button>
+              ))}
+            </div>
           )}
         </div>
       )}
