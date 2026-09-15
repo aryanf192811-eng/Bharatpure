@@ -1,6 +1,10 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type { LucideIcon } from 'lucide-react'
 import { Bell } from 'lucide-react'
 import { NavLink, Outlet } from 'react-router-dom'
+
+import { userApi } from '@/api/user.api'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 
 export interface PWATab {
   label: string
@@ -13,18 +17,72 @@ interface PWAShellProps {
   tabs: PWATab[]
 }
 
+function NotificationBell() {
+  const queryClient = useQueryClient()
+  const { data } = useQuery({
+    queryKey: ['notifications'],
+    queryFn: () => userApi.notifications({ limit: 10 }),
+    refetchInterval: 60_000,
+  })
+  const notifications = data?.data ?? []
+  const unreadCount = notifications.filter((n) => !n.read_at).length
+
+  const handleOpen = async (id: string, readAt: string | null) => {
+    if (readAt) return
+    await userApi.markNotificationRead(id)
+    queryClient.invalidateQueries({ queryKey: ['notifications'] })
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          aria-label="Notifications"
+          className="relative rounded-full p-2 text-earth-700 transition-shadow hover:bg-earth-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2"
+        >
+          <Bell className="size-5" />
+          {unreadCount > 0 && (
+            <span className="absolute right-1 top-1 flex size-4 items-center justify-center rounded-full bg-danger font-mono text-[10px] font-bold text-white">
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </span>
+          )}
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-80 max-w-[calc(100vw-2rem)] p-0">
+        <div className="max-h-96 overflow-y-auto">
+          {notifications.length === 0 ? (
+            <p className="p-4 text-center text-sm text-earth-500">No notifications yet.</p>
+          ) : (
+            notifications.map((n) => (
+              <button
+                key={n.id}
+                type="button"
+                onClick={() => handleOpen(n.id, n.read_at)}
+                className={`flex w-full flex-col gap-0.5 border-b border-earth-100 p-3 text-left last:border-b-0 hover:bg-earth-50 ${
+                  n.read_at ? 'opacity-60' : 'bg-primary-50/40'
+                }`}
+              >
+                <p className="text-sm font-semibold text-earth-900">{n.title}</p>
+                <p className="text-xs text-earth-600">{n.body}</p>
+                <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-earth-400">
+                  {new Date(n.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                </p>
+              </button>
+            ))
+          )}
+        </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
 export function PWAShell({ title, tabs }: PWAShellProps) {
   return (
     <div className="mx-auto flex min-h-screen max-w-[480px] flex-col bg-earth-50">
       <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center justify-between border-b border-earth-200 bg-white px-4">
         <p className="font-display text-lg font-bold text-primary-800">{title}</p>
-        <button
-          type="button"
-          aria-label="Notifications"
-          className="rounded-full p-2 text-earth-700 transition-shadow hover:bg-earth-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2"
-        >
-          <Bell className="size-5" />
-        </button>
+        <NotificationBell />
       </header>
 
       <main className="flex-1 overflow-y-auto pb-20">

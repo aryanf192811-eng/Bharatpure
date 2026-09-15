@@ -9,12 +9,21 @@ export interface DemandSignal {
   demand_delta_pct: number
 }
 
+export interface CropAdvisory {
+  crop_type: string
+  recommendation: 'INCREASE' | 'MAINTAIN' | 'DECREASE'
+  demand_delta_pct: number
+  rationale: string
+  computed_at: string
+}
+
 export interface FarmerDashboard {
   active_batches: number
   pending_payments_paise: number
   total_earned_paise: number
   trust_score: number | null
   demand_signals: DemandSignal[]
+  crop_advisories: CropAdvisory[]
   recent_batches: Array<{
     id: string
     batch_code: string

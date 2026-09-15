@@ -104,6 +104,21 @@ export default function FarmerDashboard() {
                 <span className="font-mono text-xs font-medium uppercase tracking-wider text-earth-500">
                   {signal.confidence_pct}% confidence
                 </span>
+                {(() => {
+                  const advisory = d.crop_advisories.find((a) => a.crop_type === signal.crop_type)
+                  if (!advisory || advisory.recommendation === 'MAINTAIN') return null
+                  const isIncrease = advisory.recommendation === 'INCREASE'
+                  return (
+                    <span
+                      title={advisory.rationale}
+                      className={`mt-1 w-fit rounded-sm px-1.5 py-0.5 font-mono text-xs font-semibold uppercase tracking-wider ${
+                        isIncrease ? 'bg-success-bg text-success' : 'bg-gold-50 text-gold-800'
+                      }`}
+                    >
+                      {isIncrease ? 'Grow more next season' : 'Grow less next season'}
+                    </span>
+                  )
+                })()}
               </div>
             ))}
           </div>

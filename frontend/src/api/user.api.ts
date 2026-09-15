@@ -24,4 +24,7 @@ export const userApi = {
 
   notifications: (params?: { unread_only?: boolean; page?: number; limit?: number }) =>
     client.get<ApiPaginated<Notification>>('/api/users/me/notifications', { params }).then((r) => r.data),
+
+  markNotificationRead: (id: string) =>
+    client.patch<ApiSuccess<{ id: string; read_at: string }>>(`/api/users/me/notifications/${id}/read`).then((r) => r.data),
 }
