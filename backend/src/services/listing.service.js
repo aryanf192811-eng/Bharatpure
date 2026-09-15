@@ -62,16 +62,19 @@ const createListing = async (user, data) => {
       }
     }
 
-    if (batch.status !== 'test_passed') {
-      throw apiError(422, 'BATCH_NOT_READY', 'Batch must pass quality testing before it can be listed.');
-    }
-
+    // Checked before the status guard: once a batch is listed its status moves to 'listed', which
+    // would otherwise always mask a duplicate-listing attempt behind the generic BATCH_NOT_READY
+    // (422) instead of the more specific BATCH_ALREADY_LISTED (409) documented in BHARATPURE-API.md.
     const existingListing = await client.query(
       `SELECT id FROM listings WHERE batch_id = $1 AND status = 'active' AND deleted_at IS NULL`,
       [data.batch_id],
     );
     if (existingListing.rows.length > 0) {
       throw apiError(409, 'BATCH_ALREADY_LISTED', 'This batch already has an active listing.');
+    }
+
+    if (batch.status !== 'test_passed') {
+      throw apiError(422, 'BATCH_NOT_READY', 'Batch must pass quality testing before it can be listed.');
     }
 
     await client.query('BEGIN');

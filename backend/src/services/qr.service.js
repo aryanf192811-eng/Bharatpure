@@ -16,6 +16,19 @@ const apiError = (statusCode, code, message) => {
  * log, aggregated with json_agg exactly as documented. No price/order data, this is public.
  */
 const scanQr = async (qrHash, meta = {}) => {
+  const batchLookup = await pool.query(`SELECT id FROM batches WHERE qr_hash = $1 AND deleted_at IS NULL`, [qrHash]);
+  if (batchLookup.rows.length === 0) {
+    throw apiError(404, 'QR_NOT_FOUND', 'This QR code is not recognized.');
+  }
+
+  // Recorded before the read below so the just-recorded scan is itself included in the BIR event
+  // log the caller sees -- inserting after the read (the original order here) meant every scan's
+  // response was stale by exactly its own event.
+  await pool.query(
+    `INSERT INTO bir_events (batch_id, event_type, event_data, actor_id, actor_role) VALUES ($1,'QRScanned',$2,$3,$4)`,
+    [batchLookup.rows[0].id, JSON.stringify({ ip_address: meta.ip_address ?? null }), meta.userId ?? null, meta.userRole ?? 'PUBLIC'],
+  );
+
   const result = await pool.query(
     `SELECT
        b.id AS batch_id, b.batch_code, b.crop_type, b.harvest_date, b.quality_score, b.status,
@@ -43,18 +56,7 @@ const scanQr = async (qrHash, meta = {}) => {
      GROUP BY b.id, c.id, fpo.id, qt.tier, qt.result, qt.purity_score, qt.test_parameters, qc.cert_url, qc.cert_number`,
     [qrHash],
   );
-  if (result.rows.length === 0) {
-    throw apiError(404, 'QR_NOT_FOUND', 'This QR code is not recognized.');
-  }
-  const batch = result.rows[0];
-
-  // Fire-and-forget-ish, but awaited so a scan is always recorded before responding.
-  await pool.query(
-    `INSERT INTO bir_events (batch_id, event_type, event_data, actor_id, actor_role) VALUES ($1,'QRScanned',$2,$3,$4)`,
-    [batch.batch_id, JSON.stringify({ ip_address: meta.ip_address ?? null }), meta.userId ?? null, meta.userRole ?? 'PUBLIC'],
-  );
-
-  return batch;
+  return result.rows[0];
 };
 
 /**

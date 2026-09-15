@@ -45,14 +45,23 @@ const submitTest = async (batchId, user, data) => {
       throw apiError(404, 'BATCH_NOT_FOUND', 'Batch not found.');
     }
     const batch = batchResult.rows[0];
-    if (batch.status !== 'pending_test') {
-      throw apiError(422, 'BATCH_WRONG_STATUS', 'This batch is not awaiting a quality test.');
-    }
 
-    if (data.tier === 'TIER2') {
+    if (data.tier === 'TIER1') {
+      if (batch.status !== 'pending_test') {
+        throw apiError(422, 'BATCH_WRONG_STATUS', 'This batch is not awaiting a quality test.');
+      }
+    } else {
+      // TIER2 (NABL) always follows a resolved TIER1 -- by the time it's submitted the batch has
+      // already left 'pending_test' (TIER1 PASS/FAIL both move it out). Per BHARATPURE-DB.md:
+      // "TIER2 always supersedes TIER1", so it must be submittable from test_passed or test_failed,
+      // not just pending_test. Checked before the status guard below so skipping TIER1 entirely
+      // reports the more specific INVALID_TIER2_WITHOUT_TIER1 rather than a generic wrong-status.
       const priorTier1 = await client.query(`SELECT id FROM quality_tests WHERE batch_id = $1 AND tier = 'TIER1'`, [batchId]);
       if (priorTier1.rows.length === 0) {
         throw apiError(400, 'INVALID_TIER2_WITHOUT_TIER1', 'A TIER1 rapid test must exist before a TIER2 NABL test.');
+      }
+      if (!['test_passed', 'test_failed'].includes(batch.status)) {
+        throw apiError(422, 'BATCH_WRONG_STATUS', 'This batch has no resolved TIER1 result yet.');
       }
     }
 
