@@ -61,7 +61,7 @@ export default function WhatIfSimulator() {
             <div className="flex flex-col gap-1">
               {history.data.map((h, i) => (
                 <div key={i} className="rounded bg-earth-50 p-2 text-xs text-earth-700">
-                  Shortage: {h.shortage_kg} kg &middot; {h.run_duration_ms}ms
+                  Shortage: {h.output_results.shortage_kg} kg &middot; {h.run_duration_ms}ms
                 </div>
               ))}
             </div>

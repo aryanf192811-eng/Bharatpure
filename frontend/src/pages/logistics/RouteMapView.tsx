@@ -34,8 +34,8 @@ export default function RouteMapView() {
   }
 
   const route = data.data
-  const positions = route.stops.map((s) => [s.lat, s.lng] as [number, number])
-  const currentStop = route.stops.find((s) => s.status === 'pending')
+  const positions = route.stops.map((s) => [s.latitude, s.longitude] as [number, number])
+  const currentStop = route.stops.find((s) => !s.completed_at)
   const center = positions[0] ?? [20.5937, 78.9629]
 
   return (
@@ -44,9 +44,9 @@ export default function RouteMapView() {
         <TileLayer url={import.meta.env.VITE_MAPS_TILE_URL} attribution="&copy; OpenStreetMap" />
         {positions.length > 1 && <Polyline positions={positions} color="#1B4332" />}
         {route.stops.map((stop) => (
-          <Marker key={stop.id} position={[stop.lat, stop.lng]} icon={defaultMarkerIcon}>
+          <Marker key={stop.id} position={[stop.latitude, stop.longitude]} icon={defaultMarkerIcon}>
             <Popup>
-              #{stop.sequence_number} &middot; {stop.stop_type} &middot; {stop.address}
+              #{stop.sequence_number} &middot; {stop.stop_type} &middot; {stop.location_name}
             </Popup>
           </Marker>
         ))}
@@ -61,9 +61,9 @@ export default function RouteMapView() {
         <div className="max-h-full overflow-y-auto px-4 pb-4">
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-earth-900">
-              {route.total_distance_km} km &middot; ~{route.estimated_time_min} min &middot; {route.vehicle_id}
+              {route.total_distance_km} km &middot; {route.vehicle_id}
             </p>
-            {route.status === 'assigned' && (
+            {route.status === 'planned' && (
               <Button type="button" size="sm" disabled={startMutation.isPending} onClick={() => startMutation.mutate()}>
                 Start Route
               </Button>
@@ -79,9 +79,9 @@ export default function RouteMapView() {
                 }`}
               >
                 <span>
-                  #{stop.sequence_number} {stop.stop_type} &middot; {stop.address}
+                  #{stop.sequence_number} {stop.stop_type} &middot; {stop.location_name}
                 </span>
-                <span className="text-xs uppercase">{stop.status}</span>
+                <span className="text-xs uppercase">{stop.completed_at ? 'completed' : 'pending'}</span>
               </Link>
             ))}
           </div>

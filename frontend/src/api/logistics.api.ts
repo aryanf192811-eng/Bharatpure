@@ -8,23 +8,37 @@ export interface LogisticsDashboard {
   pending_pickups: number
 }
 
+// Field names match the real route_stops table exactly (SELECT * is what the backend returns) --
+// latitude/longitude, not lat/lng; location_name, not address; completion is tracked via
+// completed_at being non-null, there's no separate status column.
 export interface RouteStop {
   id: string
-  sequence_number: number
+  route_id: string
+  order_id: string | null
   stop_type: 'PICKUP' | 'DELIVERY' | 'HUB'
-  address: string
-  lat: number
-  lng: number
-  status: 'pending' | 'completed'
+  sequence_number: number
+  location_name: string | null
+  latitude: number
+  longitude: number
+  arrival_window_start: string | null
+  arrival_window_end: string | null
   actual_arrival_at: string | null
+  completed_at: string | null
+  notes: string | null
 }
 
 export interface Route {
   id: string
-  status: 'assigned' | 'in_progress' | 'completed'
+  route_name: string | null
+  status: 'planned' | 'in_progress' | 'completed' | 'cancelled'
   total_distance_km: number
-  estimated_time_min: number
+  estimated_duration_h: number | null
+  vehicle_type: string
   vehicle_id: string
+  driver_id: string | null
+  baseline_distance_km: number | null
+  cost_estimate_paise: number | null
+  baseline_cost_paise: number | null
   stops: RouteStop[]
 }
 

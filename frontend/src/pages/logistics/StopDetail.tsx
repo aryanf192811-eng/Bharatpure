@@ -52,10 +52,10 @@ export default function StopDetail() {
 
       <div className="rounded-md bg-white p-4 shadow-sm">
         <p className="flex items-center gap-1.5 text-sm font-semibold text-earth-900">
-          <MapPin className="size-4 text-earth-500" /> {stop.address}
+          <MapPin className="size-4 text-earth-500" /> {stop.location_name}
         </p>
         <a
-          href={`https://www.google.com/maps?q=${stop.lat},${stop.lng}`}
+          href={`https://www.google.com/maps?q=${stop.latitude},${stop.longitude}`}
           target="_blank"
           rel="noreferrer"
           className="mt-2 flex items-center gap-1 text-sm text-primary-700 hover:underline"
