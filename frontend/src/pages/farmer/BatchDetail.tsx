@@ -13,6 +13,7 @@ import { QualityBadge } from '@/components/shared/QualityBadge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
+import { getCropPhoto } from '@/lib/cropImagery'
 
 const STATUS_HERO_BG: Record<string, string> = {
   draft: 'bg-earth-100',
@@ -100,12 +101,15 @@ export default function BatchDetail() {
 
   return (
     <div className="mx-auto flex max-w-[480px] flex-col gap-5 p-4">
-      <div className={`rounded-md p-4 shadow-sm ${STATUS_HERO_BG[batch.status] ?? 'bg-earth-100'}`}>
-        <p className="font-mono text-sm font-semibold tracking-wide text-earth-900">{batch.batch_code}</p>
-        <h1 className="mt-1 font-display text-2xl font-bold text-earth-900">{batch.crop_type}</h1>
-        <div className="mt-2 flex items-center gap-2">
-          <BatchStatusPill status={batch.status} />
-          {batch.quality_score && <QualityBadge score={Number(batch.quality_score)} tier="Rapid" />}
+      <div className={`overflow-hidden rounded-md shadow-sm ${STATUS_HERO_BG[batch.status] ?? 'bg-earth-100'}`}>
+        <img src={getCropPhoto(batch.crop_type, batch.batch_code.length)} alt="" className="h-28 w-full object-cover" />
+        <div className="p-4">
+          <p className="font-mono text-sm font-semibold tracking-wide text-earth-900">{batch.batch_code}</p>
+          <h1 className="mt-1 font-display text-2xl font-bold text-earth-900">{batch.crop_type}</h1>
+          <div className="mt-2 flex items-center gap-2">
+            <BatchStatusPill status={batch.status} />
+            {batch.quality_score && <QualityBadge score={Number(batch.quality_score)} tier="Rapid" />}
+          </div>
         </div>
       </div>
 

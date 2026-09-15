@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './App.tsx'
 import './index.css'
+import 'leaflet/dist/leaflet.css'
 import { Toaster } from '@/components/ui/sonner'
 
 const queryClient = new QueryClient({

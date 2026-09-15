@@ -7,6 +7,7 @@ import { batchApi } from '@/api/batch.api'
 import { BatchStatusPill } from '@/components/shared/BatchStatusPill'
 import { QualityBadge } from '@/components/shared/QualityBadge'
 import { Skeleton } from '@/components/ui/skeleton'
+import { getCropPhoto } from '@/lib/cropImagery'
 import type { BatchStatus } from '@/types/batch.types'
 
 const FILTERS: { label: string; value: BatchStatus | 'all' }[] = [
@@ -79,6 +80,11 @@ export default function BatchList() {
               to={`/farmer/batches/${batch.id}`}
               className="flex items-center gap-3 rounded-md bg-white p-3 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800"
             >
+              <img
+                src={getCropPhoto(batch.crop_type, batch.batch_code.length)}
+                alt=""
+                className="size-14 shrink-0 rounded object-cover"
+              />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xs font-medium text-primary-800">{batch.batch_code}</span>

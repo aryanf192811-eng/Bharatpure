@@ -180,3 +180,13 @@ The color palette (primary/gold/earth/terracotta), the accessibility upgrades fr
 ## 6. Output convention
 
 Evolved file goes to `design/evolved/<same-folder-name-as-source>/index.html`. Do not overwrite the original Stitch export files (kept out of git under `stitch_export/`, ignored). Reference screenshots stay in the original `screen.png` per folder for before/after comparison.
+
+## 8. Revision 2026-09-15 — Real photography is back (React rebuild)
+
+User feedback partway through the React rebuild: the app read as **stale and generic**, missing pictures/visuals, and not "psychologically agriculture" enough — wanted the green (growth) + gold (harvest, Green/White Revolution) mood carried by real imagery, not just flat color.
+
+**What this reverses:** §7b's "flatten photographic backgrounds, no decorative photography" rule — but only for *content* photography, not decorative chrome. The distinction:
+- **Content photography (bring back):** product/crop photos on listing cards and product detail (this IS the product being sold — informative, not decorative), a farm-field hero image on the Landing/Farmer Dashboard/Auth screens, role-relevant portrait/scene photography (farmer, logistics driver, lab testing, warehouse) where a screen calls for a human/environmental moment.
+- **Decorative chrome (stays removed):** blur/glow orbs, glassmorphism cards, ambient background effects with no informational content. §7b's shadow-elevation discipline, §4's accessibility upgrades (focus-visible, touch targets, reduced-motion), and the typography/spacing/radius rules are all unchanged and still apply.
+
+**Image source:** `frontend/src/lib/cropImagery.ts` — a curated, hand-verified set of URLs pulled from this same `design/evolved/` reference (the `aida-public/*` asset path Stitch generated; confirmed live via curl before use). The `aida/*` path used for the brand emblem specifically returns 403 and is not usable — the emblem stays a Lucide `Leaf` icon, not a photo. Reuse this file's exports (`getCropPhoto`, `HERO_IMAGES`) rather than pulling new hotlinked URLs piecemeal.

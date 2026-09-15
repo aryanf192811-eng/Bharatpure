@@ -2,6 +2,7 @@ import { ArrowRight, FlaskConical, Leaf, Network, Shield, ShieldCheck } from 'lu
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { HERO_IMAGES } from '@/lib/cropImagery'
 import type { UserRole } from '@/types/auth.types'
 
 interface RoleOption {
@@ -35,15 +36,22 @@ export default function Landing() {
   return (
     <div className="flex min-h-[100dvh] flex-col bg-earth-50 pt-safe pb-safe">
       <div className="mx-auto flex w-full max-w-lg flex-1 flex-col px-4 pb-10 pt-8">
-        <header className="-mx-4 mb-6 flex flex-col items-center rounded-b-lg bg-primary-800 px-4 pb-6 pt-8 text-center">
-          <div className="mb-3 flex size-[72px] items-center justify-center rounded-full bg-white p-2 shadow-sm">
+        <header className="relative -mx-4 mb-6 flex flex-col items-center overflow-hidden rounded-b-lg px-4 pb-6 pt-8 text-center">
+          <img
+            src={HERO_IMAGES.turmericField}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 size-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-900/80 via-primary-800/85 to-primary-800/95" />
+          <div className="relative z-10 mb-3 flex size-[72px] items-center justify-center rounded-full bg-white p-2 shadow-sm">
             <Leaf className="size-9 text-primary-800" />
           </div>
-          <h1 className="font-display text-3xl font-black tracking-tight text-white">BharatPure</h1>
-          <p className="mt-1 font-body text-sm font-medium tracking-wide text-primary-100">
+          <h1 className="relative z-10 font-display text-3xl font-black tracking-tight text-white">BharatPure</h1>
+          <p className="relative z-10 mt-1 font-body text-sm font-medium tracking-wide text-primary-100">
             India&apos;s Farm-to-Market Trust Network
           </p>
-          <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-primary-600 bg-primary-700 px-3 py-1">
+          <div className="relative z-10 mt-3 inline-flex items-center gap-1.5 rounded-full border border-gold-400/40 bg-primary-900/60 px-3 py-1">
             <ShieldCheck className="size-3.5 text-gold-100" />
             <span className="font-mono text-xs font-medium uppercase tracking-wider text-gold-100">
               NABL Lab Certified &amp; DPI Enabled

@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom'
 import { farmerApi } from '@/api/farmer.api'
 import { BatchStatusPill } from '@/components/shared/BatchStatusPill'
 import { Skeleton } from '@/components/ui/skeleton'
+import { HERO_IMAGES } from '@/lib/cropImagery'
 import type { BatchStatus } from '@/types/batch.types'
 
 const formatRupees = (paise: number) => `₹${(paise / 100).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`
@@ -38,10 +39,16 @@ export default function FarmerDashboard() {
   return (
     <div className="mx-auto flex max-w-[480px] flex-col gap-6 p-4">
       {/* Header */}
-      <div>
-        <p className="font-mono text-xs font-medium uppercase tracking-wider text-earth-500">Namaste</p>
-        <h1 className="font-display text-xl font-extrabold tracking-tight text-earth-900">Welcome back 🌾</h1>
-        {fpoName && <p className="mt-0.5 text-xs text-earth-700">{fpoName}</p>}
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <p className="font-mono text-xs font-medium uppercase tracking-wider text-earth-500">Namaste</p>
+          <h1 className="font-display text-xl font-extrabold tracking-tight text-earth-900">Welcome back 🌾</h1>
+          {fpoName && <p className="mt-0.5 text-xs text-earth-700">{fpoName}</p>}
+        </div>
+        <div className="relative size-14 shrink-0 overflow-hidden rounded-md shadow-sm">
+          <img src={HERO_IMAGES.turmericField} alt="Your farm" className="size-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/40 to-transparent" />
+        </div>
       </div>
 
       {/* Trust score ribbon */}

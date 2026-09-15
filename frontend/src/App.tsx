@@ -31,6 +31,15 @@ import Login from '@/pages/auth/Login'
 import OtpVerification from '@/pages/auth/OtpVerification'
 import Register from '@/pages/auth/Register'
 import ResetPassword from '@/pages/auth/ResetPassword'
+import Browse from '@/pages/consumer/Browse'
+import Cart from '@/pages/consumer/Cart'
+import OrderConfirmation from '@/pages/consumer/OrderConfirmation'
+import OrderHistory from '@/pages/consumer/OrderHistory'
+import OrderTracking from '@/pages/consumer/OrderTracking'
+import ProductDetail from '@/pages/consumer/ProductDetail'
+import QrScanner from '@/pages/consumer/QrScanner'
+import QrScanResult from '@/pages/consumer/QrScanResult'
+import SubscriptionOverview from '@/pages/consumer/SubscriptionOverview'
 import BatchCreateStep1 from '@/pages/farmer/BatchCreateStep1'
 import BatchCreateStep2 from '@/pages/farmer/BatchCreateStep2'
 import BatchCreateStep3 from '@/pages/farmer/BatchCreateStep3'
@@ -97,7 +106,7 @@ function App() {
       <Route path="/verify-otp" element={<OtpVerification />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/scan/:qrHash" element={<NotBuiltYet screen="QR Scan Result / BIR View (22)" />} />
+      <Route path="/scan/:qrHash" element={<QrScanResult />} />
 
       {/* Farmer PWA */}
       <Route element={<ProtectedRoute role="FARMER" />}>
@@ -121,18 +130,15 @@ function App() {
       {/* Consumer PWA */}
       <Route element={<ProtectedRoute role="CONSUMER" />}>
         <Route element={<PWAShell title="BharatPure" tabs={CONSUMER_TABS} />}>
-          <Route path="/consumer/browse" element={<NotBuiltYet screen="Consumer Browse / Dashboard (19)" />} />
-          <Route path="/consumer/listings/:listingId" element={<NotBuiltYet screen="Product Detail (20)" />} />
-          <Route path="/consumer/scan" element={<NotBuiltYet screen="QR Scanner (21)" />} />
-          <Route path="/consumer/cart" element={<NotBuiltYet screen="Cart (23)" />} />
-          <Route
-            path="/consumer/orders/:orderId/confirmation"
-            element={<NotBuiltYet screen="Order Confirmation (24)" />}
-          />
-          <Route path="/consumer/orders/:orderId/track" element={<NotBuiltYet screen="Order Tracking (25)" />} />
-          <Route path="/consumer/orders" element={<NotBuiltYet screen="Order History (26)" />} />
-          <Route path="/consumer/subscriptions" element={<NotBuiltYet screen="Subscription Overview (27)" />} />
-          <Route path="/consumer/profile" element={<NotBuiltYet screen="Profile" />} />
+          <Route path="/consumer/browse" element={<Browse />} />
+          <Route path="/consumer/listings/:listingId" element={<ProductDetail />} />
+          <Route path="/consumer/scan" element={<QrScanner />} />
+          <Route path="/consumer/cart" element={<Cart />} />
+          <Route path="/consumer/orders/:orderId/confirmation" element={<OrderConfirmation />} />
+          <Route path="/consumer/orders/:orderId/track" element={<OrderTracking />} />
+          <Route path="/consumer/orders" element={<OrderHistory />} />
+          <Route path="/consumer/subscriptions" element={<SubscriptionOverview />} />
+          <Route path="/consumer/profile" element={<Profile />} />
         </Route>
       </Route>
 
