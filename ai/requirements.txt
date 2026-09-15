@@ -1,0 +1,11 @@
+# Pinned to versions with prebuilt wheels for Python 3.14 (this environment) -- see
+# docs/research/ai-service-scope.md. BHARATPURE-AI.md's originally documented pins (fastapi
+# 0.111.0, pydantic 2.7.0, ortools 9.10.4067) predate Python 3.14 wheel availability and fail to
+# build from source here (pydantic-core needs a Rust/MSVC toolchain that isn't installed;
+# ortools 9.10.x was never published for 3.14 at all).
+fastapi==0.141.1
+uvicorn[standard]==0.53.0
+pydantic==2.13.5
+ortools==9.15.6755
+psycopg2-binary==2.9.13
+python-dotenv==1.2.3
