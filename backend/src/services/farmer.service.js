@@ -1,4 +1,5 @@
 const { pool } = require('../db');
+const { computeDemandDeltaPct } = require('../utils/demandSignal');
 
 const apiError = (statusCode, code, message) => {
   const err = new Error(message);
@@ -51,17 +52,33 @@ const getDemandSignals = async (cropTypes) => {
      ORDER BY crop_type, forecast_date ASC`,
     [cropTypes],
   );
-  return result.rows.map((row) => {
-    const midpoint = (Number(row.range_low_kg) + Number(row.range_high_kg)) / 2;
-    const demandDeltaPct = midpoint > 0 ? Math.round(((Number(row.predicted_kg) - midpoint) / midpoint) * 1000) / 10 : 0;
-    return {
-      crop_type: row.crop_type,
-      city: row.city,
-      predicted_kg: Number(row.predicted_kg),
-      confidence_pct: Number(row.confidence_pct),
-      demand_delta_pct: demandDeltaPct,
-    };
-  });
+  return result.rows.map((row) => ({
+    crop_type: row.crop_type,
+    city: row.city,
+    predicted_kg: Number(row.predicted_kg),
+    confidence_pct: Number(row.confidence_pct),
+    demand_delta_pct: computeDemandDeltaPct(row.predicted_kg, row.range_low_kg, row.range_high_kg),
+  }));
+};
+
+/**
+ * The FPO's most recent next-season crop advisory per crop type, per crop-advisory.job.js's
+ * nightly run. Advisories are computed per cluster (clusters.crop_type is singular), so an FPO's
+ * advisories are resolved via its own batches' cluster_id -- fpo_profiles has no direct cluster
+ * FK of its own (see docs/research/crop-advisory-recipients.md for why this join, not
+ * cluster_farmers, is the real recipient path in this schema).
+ */
+const getCropAdvisories = async (fpoId, cropTypes) => {
+  if (cropTypes.length === 0) return [];
+  const result = await pool.query(
+    `SELECT DISTINCT ON (ca.crop_type) ca.crop_type, ca.recommendation, ca.demand_delta_pct, ca.rationale, ca.computed_at
+     FROM crop_advisories ca
+     WHERE ca.crop_type = ANY($1)
+       AND ca.cluster_id IN (SELECT DISTINCT cluster_id FROM batches WHERE fpo_id = $2)
+     ORDER BY ca.crop_type, ca.computed_at DESC`,
+    [cropTypes, fpoId],
+  );
+  return result.rows.map((row) => ({ ...row, demand_delta_pct: Number(row.demand_delta_pct) }));
 };
 
 const getDashboard = async (userId) => {
@@ -91,6 +108,7 @@ const getDashboard = async (userId) => {
   );
 
   const demandSignals = await getDemandSignals(fpo.primary_crop_types);
+  const cropAdvisories = await getCropAdvisories(fpo.id, fpo.primary_crop_types);
 
   return {
     active_batches: Number(activeBatchesResult.rows[0].count),
@@ -98,6 +116,7 @@ const getDashboard = async (userId) => {
     total_earned_paise: Number(paymentsResult.rows[0].total_earned_paise),
     trust_score: fpo.trust_score !== null ? Number(fpo.trust_score) : null,
     demand_signals: demandSignals,
+    crop_advisories: cropAdvisories,
     recent_batches: recentBatchesResult.rows,
     // Procurement contracts are out of scope for this build -- per BHARATPURE-CLAUDE.md's own
     // documented Phase 1 cut line ("Procurement contracts deferred to demo script only").
@@ -145,4 +164,4 @@ const getTrustScore = async (userId) => {
   return result.rows[0];
 };
 
-module.exports = { getProfile, getDashboard, getEarnings, getTrustScore };
+module.exports = { getProfile, getDashboard, getEarnings, getTrustScore, getCropAdvisories };

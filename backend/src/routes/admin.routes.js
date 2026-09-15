@@ -17,5 +17,6 @@ router.get('/iei', controller.iei);
 router.get('/audit-logs', controller.auditLogs);
 router.post('/routes/optimize', controller.optimizeRoutes);
 router.post('/jobs/trust-scores', controller.triggerTrustScoreJob);
+router.post('/jobs/crop-advisories', controller.triggerCropAdvisoryJob);
 
 module.exports = router;

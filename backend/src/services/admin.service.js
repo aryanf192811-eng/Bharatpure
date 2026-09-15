@@ -2,6 +2,7 @@ const { pool } = require('../db');
 const logger = require('../utils/logger');
 const { callAI } = require('./ai.service');
 const { runTrustScoreJob } = require('../jobs/trust-score.job');
+const { runCropAdvisoryJob } = require('../jobs/crop-advisory.job');
 
 const apiError = (statusCode, code, message) => {
   const err = new Error(message);
@@ -269,5 +270,9 @@ const optimizeRoutes = async (admin, data) => {
 };
 
 const triggerTrustScoreJob = async () => runTrustScoreJob();
+const triggerCropAdvisoryJob = async () => runCropAdvisoryJob();
 
-module.exports = { getDashboard, getIei, listBatches, listUsers, updateUserStatus, listEscrow, releaseEscrow, listAuditLogs, optimizeRoutes, triggerTrustScoreJob };
+module.exports = {
+  getDashboard, getIei, listBatches, listUsers, updateUserStatus, listEscrow, releaseEscrow,
+  listAuditLogs, optimizeRoutes, triggerTrustScoreJob, triggerCropAdvisoryJob,
+};

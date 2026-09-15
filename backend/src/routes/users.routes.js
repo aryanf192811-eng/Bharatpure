@@ -1,16 +1,17 @@
 const express = require('express');
 
+const controller = require('../controllers/users.controller');
 const { verifyToken } = require('../middleware/auth');
-const { sendSuccess } = require('../utils/response');
 
 const router = express.Router();
 
-// STUB: minimal implementation, added ahead of its own task purely so TASK-009's acceptance
-// check ("GET /api/users/me without token -> 401") has a real protected route to exercise.
-// The full version (profile + role-specific data joined in, per BHARATPURE-API.md's Users
-// section) belongs to a later Users-domain task — this only echoes the verified JWT claims.
-router.get('/me', verifyToken, (req, res) => {
-  return sendSuccess(res, { id: req.user.id, role: req.user.role });
-});
+router.use(verifyToken);
+
+// Minimal: echoes the verified JWT claims. The full version (profile + role-specific data
+// joined in, per BHARATPURE-API.md's Users section) belongs to a later Users-domain task.
+router.get('/me', controller.me);
+
+router.get('/me/notifications', controller.listNotifications);
+router.patch('/me/notifications/:notificationId/read', controller.markNotificationRead);
 
 module.exports = router;

@@ -120,4 +120,17 @@ const triggerTrustScoreJob = async (req, res, next) => {
   }
 };
 
-module.exports = { dashboard, batches, users, updateUserStatus, escrow, releaseEscrow, iei, auditLogs, optimizeRoutes, triggerTrustScoreJob };
+const triggerCropAdvisoryJob = async (req, res, next) => {
+  try {
+    const result = await adminService.triggerCropAdvisoryJob();
+    logger.info({ action: 'CROP_ADVISORY_JOB_ROUTE_OK', adminId: req.user.id, ...result });
+    return sendSuccess(res, result, 200, 'Crop advisory job completed.');
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = {
+  dashboard, batches, users, updateUserStatus, escrow, releaseEscrow, iei, auditLogs,
+  optimizeRoutes, triggerTrustScoreJob, triggerCropAdvisoryJob,
+};
