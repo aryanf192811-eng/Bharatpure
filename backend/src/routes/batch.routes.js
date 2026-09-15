@@ -12,5 +12,6 @@ router.get('/', controller.list); // role-scoped inside the service, not route-g
 router.get('/:batchId', controller.getById);
 router.delete('/:batchId', requireRoles('FARMER', 'ADMIN'), controller.remove);
 router.patch('/:batchId/temperature-breach-clear', requireRoles('ADMIN'), controller.clearTemperatureBreach);
+router.patch('/:batchId/status', requireRoles('FARMER', 'ADMIN'), controller.updateStatus);
 
 module.exports = router;

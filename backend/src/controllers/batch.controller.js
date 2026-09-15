@@ -72,4 +72,19 @@ const clearTemperatureBreach = async (req, res, next) => {
   }
 };
 
-module.exports = { create, list, getById, remove, clearTemperatureBreach };
+const updateStatus = async (req, res, next) => {
+  const parsed = z.object({
+    status: z.enum(['pending_test', 'test_passed', 'test_failed', 'listed', 'partially_sold', 'sold', 'dispatched', 'delivered', 'rejected_post_delivery']),
+  }).safeParse(req.body);
+  if (!parsed.success) {
+    return sendError(res, 400, 'VALIDATION_ERROR', 'Invalid input', parsed.error.issues);
+  }
+  try {
+    const result = await batchService.updateBatchStatus(req.params.batchId, req.user, parsed.data.status);
+    return sendSuccess(res, result, 200, 'Batch status updated.');
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = { create, list, getById, remove, clearTemperatureBreach, updateStatus };

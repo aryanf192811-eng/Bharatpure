@@ -279,4 +279,45 @@ const clearTemperatureBreach = async (batchId, admin, reviewNotes) => {
   }
 };
 
-module.exports = { createBatch, listBatches, getBatchById, deleteBatch, clearTemperatureBreach };
+// The documented batch state machine (BHARATPURE-DB.md) — used by updateStatus below. Most of
+// these transitions already happen automatically as a side effect of the relevant domain action
+// (quality.service.js's submitTest, listing.service.js's createListing, order.service.js's
+// createOrder/markDelivered) — this endpoint exists because 'draft' -> 'pending_test' has no
+// other trigger anywhere in the codebase; a farmer has to be able to explicitly submit a batch
+// for testing. Also lets ADMIN force other legal transitions when needed.
+const ALLOWED_TRANSITIONS = {
+  draft: ['pending_test'],
+  pending_test: ['test_passed', 'test_failed'],
+  test_passed: ['listed'],
+  listed: ['partially_sold', 'sold'],
+  partially_sold: ['sold'],
+  sold: ['dispatched'],
+  dispatched: ['delivered'],
+  delivered: ['rejected_post_delivery'],
+};
+
+const updateBatchStatus = async (batchId, user, newStatus) => {
+  const batchResult = await pool.query(`SELECT fpo_id, status FROM batches WHERE id = $1 AND deleted_at IS NULL`, [batchId]);
+  if (batchResult.rows.length === 0) {
+    throw apiError(404, 'BATCH_NOT_FOUND', 'Batch not found.');
+  }
+  const batch = batchResult.rows[0];
+
+  if (user.role !== 'ADMIN') {
+    const fpoResult = await pool.query(`SELECT id FROM fpo_profiles WHERE user_id = $1`, [user.id]);
+    if (fpoResult.rows.length === 0 || fpoResult.rows[0].id !== batch.fpo_id) {
+      throw apiError(404, 'BATCH_NOT_FOUND', 'Batch not found.');
+    }
+  }
+
+  const allowedNext = ALLOWED_TRANSITIONS[batch.status] ?? [];
+  if (!allowedNext.includes(newStatus)) {
+    throw apiError(422, 'INVALID_STATUS_TRANSITION', `Cannot transition batch from '${batch.status}' to '${newStatus}'.`);
+  }
+
+  await pool.query(`UPDATE batches SET status = $1, updated_at = NOW() WHERE id = $2`, [newStatus, batchId]);
+  logger.info({ action: 'BATCH_STATUS_UPDATED', batchId, from: batch.status, to: newStatus, userId: user.id });
+  return { id: batchId, status: newStatus };
+};
+
+module.exports = { createBatch, listBatches, getBatchById, deleteBatch, clearTemperatureBreach, updateBatchStatus };
