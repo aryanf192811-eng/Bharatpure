@@ -1,3 +1,4 @@
+const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
 
@@ -80,6 +81,28 @@ const uploadCertificate = async (req, res, next) => {
   }
 };
 
+const getCertificatesForBatch = async (req, res, next) => {
+  try {
+    const rows = await qualityService.getCertificatesForBatch(req.params.batchId);
+    return sendSuccess(res, rows);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+const downloadCertificate = async (req, res, next) => {
+  try {
+    const cert = await qualityService.getCertificateFile(req.params.certId);
+    const absolutePath = path.resolve(cert.cert_url);
+    if (!fs.existsSync(absolutePath)) {
+      return sendError(res, 404, 'CERTIFICATE_FILE_MISSING', 'Certificate file is no longer available on disk.');
+    }
+    return res.download(absolutePath, `${cert.cert_number}.pdf`);
+  } catch (err) {
+    return next(err);
+  }
+};
+
 const getBSamples = async (req, res, next) => {
   try {
     const rows = await qualityService.getBSampleRequests(req.params.batchId);
@@ -102,4 +125,13 @@ const requestBSample = async (req, res, next) => {
   }
 };
 
-module.exports = { submitTest, getBatchTests, uploadMiddleware, uploadCertificate, getBSamples, requestBSample };
+module.exports = {
+  submitTest,
+  getBatchTests,
+  uploadMiddleware,
+  uploadCertificate,
+  getCertificatesForBatch,
+  downloadCertificate,
+  getBSamples,
+  requestBSample,
+};

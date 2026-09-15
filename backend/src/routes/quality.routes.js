@@ -10,6 +10,8 @@ router.use(verifyToken);
 router.post('/tests', requireRoles('FARMER', 'ADMIN'), controller.submitTest);
 router.get('/batches/:batchId/tests', controller.getBatchTests);
 router.post('/certificates', requireRoles('FARMER', 'ADMIN'), controller.uploadMiddleware, controller.uploadCertificate);
+router.get('/batches/:batchId/certificates', controller.getCertificatesForBatch);
+router.get('/certificates/:certId/download', controller.downloadCertificate);
 router.get('/b-samples/:batchId', controller.getBSamples);
 router.post('/b-samples/:batchId/request', requireRoles('FARMER'), controller.requestBSample);
 

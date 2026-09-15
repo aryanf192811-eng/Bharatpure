@@ -173,11 +173,32 @@ const listListings = async (user, { cropType, city, minQuality, page = 1, limit 
   return { rows: dataResult.rows, total: Number(countResult.rows[0].count) };
 };
 
+/**
+ * Includes the batch's BIR event log and FPO trust score inline -- Screen 30 (Bulk Buyer batch
+ * detail) documents a "full BIR timeline" + "FPO trust score detail" panel, but until now nothing
+ * on the listings side exposed either (only the public /api/qr/scan/:qrHash view did, and a buyer
+ * evaluating a listing before ordering has no qr_hash to scan yet). Same json_agg pattern as
+ * qr.service.js's scanQr, ordered oldest-first to match that same convention.
+ */
 const getListingById = async (listingId) => {
   const result = await pool.query(
-    `SELECT l.*, b.batch_code, b.crop_type, b.quality_score, b.harvest_date, c.name AS cluster_name, c.state, c.district
-     FROM listings l JOIN batches b ON b.id = l.batch_id JOIN clusters c ON c.id = b.cluster_id
-     WHERE l.id = $1 AND l.deleted_at IS NULL`,
+    `SELECT l.*, b.batch_code, b.crop_type, b.quality_score, b.harvest_date, b.status AS batch_status,
+            c.name AS cluster_name, c.state, c.district,
+            fpo.fpo_name, fpo.trust_score AS fpo_trust_score,
+            COALESCE(
+              json_agg(
+                json_build_object('event_type', be.event_type, 'event_data', be.event_data, 'created_at', be.created_at, 'actor_role', be.actor_role)
+                ORDER BY be.created_at ASC
+              ) FILTER (WHERE be.id IS NOT NULL),
+              '[]'
+            ) AS bir_events
+     FROM listings l
+     JOIN batches b ON b.id = l.batch_id
+     JOIN clusters c ON c.id = b.cluster_id
+     LEFT JOIN fpo_profiles fpo ON fpo.id = b.fpo_id
+     LEFT JOIN bir_events be ON be.batch_id = b.id
+     WHERE l.id = $1 AND l.deleted_at IS NULL
+     GROUP BY l.id, b.id, c.id, fpo.id`,
     [listingId],
   );
   if (result.rows.length === 0) {

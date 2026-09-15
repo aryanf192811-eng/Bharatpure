@@ -165,6 +165,25 @@ const getBatchTests = async (batchId) => {
   return result.rows;
 };
 
+const getCertificatesForBatch = async (batchId) => {
+  const result = await pool.query(
+    `SELECT id, cert_number, file_size_bytes, mime_type, issued_at, expires_at, uploaded_at
+     FROM quality_certificates WHERE batch_id = $1 ORDER BY uploaded_at DESC`,
+    [batchId],
+  );
+  return result.rows;
+};
+
+/** Any authenticated user may download -- per BHARATPURE-API.md this isn't owner-restricted
+ * (a certificate is proof for buyers/consumers just as much as the farmer who uploaded it). */
+const getCertificateFile = async (certId) => {
+  const result = await pool.query(`SELECT cert_url, cert_number, mime_type FROM quality_certificates WHERE id = $1`, [certId]);
+  if (result.rows.length === 0) {
+    throw apiError(404, 'CERTIFICATE_NOT_FOUND', 'Certificate not found.');
+  }
+  return result.rows[0];
+};
+
 const getBSampleRequests = async (batchId) => {
   const result = await pool.query(
     `SELECT id, quality_test_id, requested_by, request_window_end, status, selected_lab, result, cost_paid_by, created_at
@@ -202,4 +221,12 @@ const requestBSample = async (batchId, user, selectedLab) => {
   return { id: bsample.id, status: 'lab_selected', selected_lab: selectedLab };
 };
 
-module.exports = { submitTest, getBatchTests, uploadCertificate, getBSampleRequests, requestBSample };
+module.exports = {
+  submitTest,
+  getBatchTests,
+  uploadCertificate,
+  getCertificatesForBatch,
+  getCertificateFile,
+  getBSampleRequests,
+  requestBSample,
+};
