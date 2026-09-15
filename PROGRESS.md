@@ -3,6 +3,31 @@
 
 ---
 
+## 2026-09-15 — Session 7: All 5 known gaps closed — certs, BIR, code-splitting, AI service, PWA
+
+### What happened
+User handed back Session 6's own gap list and said to continue. All five closed in this session:
+
+1. **Certificate download.** `quality.service.js` gained `getCertificatesForBatch`/`getCertificateFile` (throws `404 CERTIFICATE_NOT_FOUND`); new routes `GET /batches/:batchId/certificates` and `GET /certificates/:certId/download` (`res.download`). Farmer's Batch Detail now lists real certs with working download buttons instead of static "certificate on file" text.
+2. **Per-listing BIR for bulk buyers.** `listing.service.js`'s `getListingById` rewritten to include `bir_events` (same `json_agg` pattern as `qr.service.js`'s scan endpoint) plus `fpo_name`/`fpo_trust_score`/`batch_status` via joins. Bulk Buyer's Batch Detail now renders a real `BIRTimeline` + `TrustScoreRing` instead of a placeholder note.
+3. **Bundle size.** Converted every page import in `App.tsx` to `React.lazy` behind one `Suspense` boundary. Main bundle: 1.75MB → 420KB (512KB → 137KB gzipped).
+4. **PWA manifest + service worker.** `vite-plugin-pwa` wired in `vite.config.ts` with the exact manifest from `BHARATPURE-CLAUDE.md` and Workbox `runtimeCaching` (NetworkOnly on auth, NetworkFirst on listings, CacheFirst on QR scans). Icons generated with a hand-rolled pure-Node PNG encoder (`frontend/scripts/generate-icons.cjs`) since no ImageMagick/sharp/rsvg-convert was available in this environment.
+5. **AI microservice.** Built the FastAPI service at `ai/` — real OR-Tools CVRP solving for routing (capacity dimension; time-windows dropped, Node never sends them), a documented statistical heuristic for demand (not trained ML — see `docs/research/ai-service-scope.md` for the scope call and why), and faithful ports of the documented price/simulation formulas. Two real contract mismatches were found by reading the actual Node callers before building against the docs: demand forecast is GET not POST, and routing's real payload/response field names differ from `BHARATPURE-AI.md`'s text (matched the real Node code, not the doc, consistent with this project's standing practice).
+
+### Bugs found once the AI service made real data flow for the first time
+- `ai/utils/db.py`: `WHERE o.id = ANY(%s)` → `operator does not exist: uuid = text`. Fixed with an explicit `::uuid[]` cast.
+- `admin.service.js`'s `optimizeRoutes` created routes but never set `driver_id` — every logistics query filters on it, so every generated route was permanently invisible to drivers. Fixed with round-robin assignment across active `LOGISTICS` users.
+- First live Leaflet render of a real route crashed (`Invalid LatLng object: (undefined, undefined)`): `logistics.api.ts`'s `RouteStop`/`Route` types had invented field names (`lat`/`lng`, `address`, a `status` enum including `'assigned'`) that don't match the real `route_stops`/`delivery_routes` columns (`latitude`/`longitude`, `location_name`, completion via `completed_at IS NULL`, and the real status CHECK constraint only allows `planned`/`in_progress`/`completed`/`cancelled`). Fixed in `logistics.api.ts`, `RouteMapView.tsx`, `StopDetail.tsx`.
+- `simulation.api.ts` assumed a nested `input: {...}` field that doesn't exist in the real flat response, and conflated the run-response shape with `GET /simulation/history`'s raw `simulation_runs` rows (`output_results` as a nested JSON blob). Fixed the types and `WhatIfSimulator.tsx`'s history rendering.
+
+### Verification
+Full Postman regression after every fix: **189/189 assertions passing** (`docs/testing/full-regression-newman-2026-09-15d.txt`). Route Map View, Stop Detail, certificate download, and bulk-buyer BIR timeline all verified live against the real backend + AI service, zero console errors.
+
+### Outstanding
+None of the five known gaps remain open. No new gaps surfaced beyond the bugs listed above, all of which were fixed in this session.
+
+---
+
 ## 2026-09-15 — Session 6: All 47 frontend screens built — full app functional end-to-end
 
 ### What happened
