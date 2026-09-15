@@ -355,12 +355,16 @@ _(Tasks after Phase 4 gate)_
 
 ### TASK-P5-003
 - **Title:** FPO Trust Score + Buyer Reliability Score cron jobs
-- **Status:** QUEUED
-- **Owner:** subagent
+- **Status:** VERIFIED
+- **Owner:** subagent (done directly by supervisor)
 - **Scope:** `backend/src/jobs/trust-score.job.js`, `backend/src/jobs/index.js`
 - **Spec:** node-cron scheduled job: runs nightly at 2am IST. Computes trust score per BHARATPURE-DB.md formula for all FPOs with activity. Inserts new row into fpo_trust_scores. Same for buyer_reliability_scores. Updates fpo_profiles.trust_score with latest computed_score. Expose manual trigger: POST /api/admin/jobs/trust-scores (ADMIN only).
 - **Acceptance Check:** POST /api/admin/jobs/trust-scores → fpo_trust_scores table has new rows for all 3 seeded FPOs with computed_score > 0.
-- **Result/Notes:** _(subagent fills)_
+- **Result/Notes:** Done. **This is the last task on the entire Phase 0-5 board — the full backend task board is now complete.** Research doc written first per the schema's own instruction (`docs/research/trust-score-formula.md`), reading BHARATPURE-DB.md table 26 directly rather than from the earlier digest. Found real, documented gaps while designing the underlying queries (the formula itself was given, but not the SQL behind each input): `fulfillment_rate` is honestly `0` for every FPO since no `procurement_contracts` are ever created anywhere in this codebase; `on_time_delivery_rate` uses "order reached delivered" as a proxy since `orders.estimated_delivery_at` is never set by TASK-P3-001's `createOrder`; `buyer_rating_avg` defaults to a neutral `3.5` since there's no ratings feature anywhere in the 33-table schema. None of these are bugs in this task — they're gaps in earlier tasks' data, surfaced honestly rather than faked with plausible-looking numbers. Buyer reliability score has no formula given in the spec at all — designed one analogous to the FPO formula (same weighting philosophy: primary signal weighted heaviest, penalty metrics inverted, weights summing to 1.0), documented in the same research file.
+
+  Cron uses `node-cron` with an explicit `timezone: 'Asia/Kolkata'` so "2am IST" is correct regardless of server locale, scheduled once from `server.js` at boot via a new `jobs/index.js` registry (a natural place for any future scheduled jobs too). The manual-trigger endpoint and the cron job both call the exact same `runTrustScoreJob()` function — no duplicated logic between the two trigger paths.
+
+  Verified live: manual trigger → **all 3 seeded FPOs got `computed_score > 0`** (Sangli 43.67, Rajasthan 67.00, Himachal 47.00) with real underlying `quality_consistency`/`dispute_rate` numbers, `fpo_profiles.trust_score` correctly synced to match. Buyer reliability computed for both seeded buyers with sensible real numbers (a buyer with a clean history scored 100, one with a cancellation showed it in both `cancellation_rate` and the composite score). Re-running the job a second time succeeds cleanly (adds fresh snapshot rows, as a time-series table should — no idempotency guard needed here unlike the one-time seed script). FARMER attempting the trigger → 403. Committed as `feat: implement trust score / buyer reliability nightly cron jobs — Phase 5 complete`.
 
 ---
 
