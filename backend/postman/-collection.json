@@ -372,6 +372,34 @@
               { "key": "issued_at", "value": "2026-09-16", "type": "text" }
             ]},
             "url": "{{baseUrl}}/api/quality/certificates" }
+        },
+        {
+          "name": "List Certificates for Batch",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('one certificate found', () => pm.expect(body.data.length).to.eql(1));",
+            "pm.test('cert_number matches upload', () => pm.expect(body.data[0].cert_number).to.eql(pm.environment.get('newCertNumber')));",
+            "pm.environment.set('certId', body.data[0].id);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/quality/batches/{{certBatchId}}/certificates" }
+        },
+        {
+          "name": "Download Certificate",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('content-type is PDF', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('application/pdf'));",
+            "pm.test('content-disposition is attachment', () => pm.expect(pm.response.headers.get('Content-Disposition')).to.include('attachment'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/quality/certificates/{{certId}}/download" }
+        },
+        {
+          "name": "Download Unknown Certificate -> 404",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 404', () => pm.response.to.have.status(404));",
+            "pm.test('error code CERTIFICATE_NOT_FOUND', () => pm.expect(pm.response.json().error.code).to.eql('CERTIFICATE_NOT_FOUND'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/quality/certificates/00000000-0000-0000-0000-000000000000/download" }
         }
       ]
     },
@@ -430,7 +458,13 @@
           "name": "Get Listing Detail",
           "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
             "pm.test('status 200', () => pm.response.to.have.status(200));",
-            "pm.test('correct batch_code', () => pm.expect(pm.response.json().data.batch_code).to.match(/^MH-TUR-/));"
+            "const body = pm.response.json();",
+            "pm.test('correct batch_code', () => pm.expect(body.data.batch_code).to.match(/^MH-TUR-/));",
+            "pm.test('includes fpo_name', () => pm.expect(body.data.fpo_name).to.eql('Sangli Turmeric FPO'));",
+            "pm.test('includes bir_events with BatchCreated first', () => {",
+            "  pm.expect(body.data.bir_events.length).to.be.at.least(2);",
+            "  pm.expect(body.data.bir_events[0].event_type).to.eql('BatchCreated');",
+            "});"
           ]}}],
           "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/listings/{{mainListingId}}" }
         },
