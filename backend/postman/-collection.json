@@ -77,6 +77,56 @@
       ]
     },
     {
+      "name": "0b. Farmer Profile",
+      "item": [
+        {
+          "name": "Get Farmer Profile",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('has fpo_name', () => pm.expect(body.data.fpo_name).to.be.a('string'));",
+            "pm.test('has total_earned_paise', () => pm.expect(body.data.total_earned_paise).to.be.a('number'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/farmers/profile" }
+        },
+        {
+          "name": "Get Farmer Dashboard",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('active_batches is a number', () => pm.expect(body.data.active_batches).to.be.a('number'));",
+            "pm.test('recent_batches has at most 5', () => pm.expect(body.data.recent_batches.length).to.be.at.most(5));",
+            "pm.test('demand_signals is an array', () => pm.expect(body.data.demand_signals).to.be.an('array'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/farmers/dashboard" }
+        },
+        {
+          "name": "Get Farmer Earnings",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('data is an array', () => pm.expect(pm.response.json().data).to.be.an('array'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/farmers/earnings" }
+        },
+        {
+          "name": "Get Farmer Trust Score",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('computed_score present', () => pm.expect(body.data.computed_score).to.not.be.undefined);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/farmers/trust-score" }
+        },
+        {
+          "name": "Consumer Cannot Access Farmer Dashboard -> 403",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 403', () => pm.response.to.have.status(403));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/farmers/dashboard" }
+        }
+      ]
+    },
+    {
       "name": "1. Batches",
       "item": [
         {
