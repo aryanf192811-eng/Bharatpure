@@ -40,6 +40,12 @@ import ProductDetail from '@/pages/consumer/ProductDetail'
 import QrScanner from '@/pages/consumer/QrScanner'
 import QrScanResult from '@/pages/consumer/QrScanResult'
 import SubscriptionOverview from '@/pages/consumer/SubscriptionOverview'
+import BatchDetailBuyer from '@/pages/buyer/BatchDetailBuyer'
+import BulkOrderForm from '@/pages/buyer/BulkOrderForm'
+import Catalog from '@/pages/buyer/Catalog'
+import BuyerDashboard from '@/pages/buyer/Dashboard'
+import OrderHistoryBuyer from '@/pages/buyer/OrderHistoryBuyer'
+import ReliabilityScore from '@/pages/buyer/ReliabilityScore'
 import BatchCreateStep1 from '@/pages/farmer/BatchCreateStep1'
 import BatchCreateStep2 from '@/pages/farmer/BatchCreateStep2'
 import BatchCreateStep3 from '@/pages/farmer/BatchCreateStep3'
@@ -80,6 +86,7 @@ const LOGISTICS_TABS: PWATab[] = [
 const BUYER_LINKS: WebNavLink[] = [
   { label: 'Dashboard', path: '/buyer/dashboard', icon: LayoutDashboard },
   { label: 'Catalog', path: '/buyer/catalog', icon: Store },
+  { label: 'New Procurement', path: '/buyer/orders/new', icon: FileText },
   { label: 'Orders', path: '/buyer/orders', icon: Receipt },
   { label: 'Reliability', path: '/buyer/reliability', icon: Award },
 ]
@@ -145,12 +152,12 @@ function App() {
       {/* Bulk Buyer web */}
       <Route element={<ProtectedRoute role="BULK_BUYER" />}>
         <Route element={<WebShell links={BUYER_LINKS} />}>
-          <Route path="/buyer/dashboard" element={<NotBuiltYet screen="Bulk Buyer Dashboard (28)" />} />
-          <Route path="/buyer/catalog" element={<NotBuiltYet screen="Verified Batch Catalog (29)" />} />
-          <Route path="/buyer/listings/:listingId" element={<NotBuiltYet screen="Batch Detail — Bulk Buyer (30)" />} />
-          <Route path="/buyer/orders/new" element={<NotBuiltYet screen="Bulk Order Form (31)" />} />
-          <Route path="/buyer/orders" element={<NotBuiltYet screen="Order History — Bulk Buyer (32)" />} />
-          <Route path="/buyer/reliability" element={<NotBuiltYet screen="Buyer Reliability Score (47)" />} />
+          <Route path="/buyer/dashboard" element={<BuyerDashboard />} />
+          <Route path="/buyer/catalog" element={<Catalog />} />
+          <Route path="/buyer/listings/:listingId" element={<BatchDetailBuyer />} />
+          <Route path="/buyer/orders/new" element={<BulkOrderForm />} />
+          <Route path="/buyer/orders" element={<OrderHistoryBuyer />} />
+          <Route path="/buyer/reliability" element={<ReliabilityScore />} />
         </Route>
       </Route>
 
