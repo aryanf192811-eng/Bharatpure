@@ -110,4 +110,14 @@ const optimizeRoutes = async (req, res, next) => {
   }
 };
 
-module.exports = { dashboard, batches, users, updateUserStatus, escrow, releaseEscrow, iei, auditLogs, optimizeRoutes };
+const triggerTrustScoreJob = async (req, res, next) => {
+  try {
+    const result = await adminService.triggerTrustScoreJob();
+    logger.info({ action: 'TRUST_SCORE_JOB_ROUTE_OK', adminId: req.user.id, ...result });
+    return sendSuccess(res, result, 200, 'Trust score job completed.');
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports = { dashboard, batches, users, updateUserStatus, escrow, releaseEscrow, iei, auditLogs, optimizeRoutes, triggerTrustScoreJob };
