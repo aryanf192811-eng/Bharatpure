@@ -1,111 +1,174 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * BharatPure design tokens — source of truth is BHARATPURE-UI.md + design/DESIGN-SYSTEM.md.
+ * shadcn/ui's semantic roles (primary/secondary/muted/accent/destructive/border/ring) are
+ * remapped to the brand palette below so every shadcn primitive already renders on-brand.
+ * The full primary/gold/earth/terracotta scales are also exposed directly as e.g. bg-primary-800,
+ * text-gold-600, per the component specs in BHARATPURE-UI.md -- never introduce a raw hex value
+ * or a new color key outside this block.
+ */
+@theme {
+  /* Primary -- Deep Forest Green (farmland, trust, growth) */
+  --color-primary-50: #F0FDF4;
+  --color-primary-100: #D8F3DC;
+  --color-primary-400: #74C69D;
+  --color-primary-500: #52B788;
+  --color-primary-600: #40916C;
+  --color-primary-700: #2D6A4F;
+  --color-primary-800: #1B4332;
+  --color-primary-900: #0D2818;
+
+  /* Gold -- Harvest Gold (quality, premium, verified) */
+  --color-gold-50: #FFFBEB;
+  --color-gold-100: #FDF3D0;
+  --color-gold-400: #E9B949;
+  --color-gold-600: #C8971A;
+  --color-gold-800: #92650A;
+
+  /* Earth -- warm neutrals (backgrounds, borders, ink) */
+  --color-earth-50: #FDF8F0;
+  --color-earth-100: #F5F0E8;
+  --color-earth-200: #E2D9CC;
+  --color-earth-500: #9B8B72;
+  --color-earth-700: #5C4F38;
+  --color-earth-900: #1C1408;
+
+  /* Terracotta -- CTAs, energy, earth accent */
+  --color-terracotta-100: #FFEDD5;
+  --color-terracotta-400: #E8795F;
+  --color-terracotta-600: #C4522A;
+  --color-terracotta-700: #9A3412;
+
+  /* Semantic */
+  --color-success: #2D6A4F;
+  --color-success-bg: #D1FAE5;
+  --color-warning: #E8841A;
+  --color-warning-bg: #FEF3C7;
+  --color-danger: #C4522A;
+  --color-danger-bg: #FEE2E2;
+  --color-info: #1D6FA4;
+  --color-info-bg: #E0F2FE;
+
+  /* Fonts -- weight carries hierarchy, not typeface (Playfair Display retired 2026-09-14) */
+  --font-display: 'Inter', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Radius scale (concrete px per BHARATPURE-UI.md, not a ratio of a single base) */
+  --radius-sharp: 2px;
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Shadow / elevation scale */
+  --shadow-sm: 0 1px 2px rgba(28,20,8,.06);
+  --shadow-md: 0 4px 12px rgba(28,20,8,.08);
+  --shadow-lg: 0 8px 24px rgba(28,20,8,.12);
+  --shadow-xl: 0 16px 40px rgba(28,20,8,.16);
+  --shadow-inner: inset 0 2px 4px rgba(28,20,8,.06);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --background: #FDF8F0;
+  --foreground: #1C1408;
+  --card: #FFFFFF;
+  --card-foreground: #1C1408;
+  --popover: #FFFFFF;
+  --popover-foreground: #1C1408;
+  --primary: #1B4332;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F5F0E8;
+  --secondary-foreground: #1C1408;
+  --muted: #F5F0E8;
+  --muted-foreground: #9B8B72;
+  --accent: #D8F3DC;
+  --accent-foreground: #1B4332;
+  --destructive: #C4522A;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2D9CC;
+  --input: #E2D9CC;
+  --ring: #1B4332;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1C1408;
+  --sidebar-primary: #1B4332;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F5F0E8;
+  --sidebar-accent-foreground: #1B4332;
+  --sidebar-border: #E2D9CC;
+  --sidebar-ring: #1B4332;
+}
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+.dark {
+  --background: #0D2818;
+  --foreground: #F0FDF4;
+  --card: #1B4332;
+  --card-foreground: #F0FDF4;
+  --popover: #1B4332;
+  --popover-foreground: #F0FDF4;
+  --primary: #74C69D;
+  --primary-foreground: #0D2818;
+  --secondary: #2D6A4F;
+  --secondary-foreground: #F0FDF4;
+  --muted: #2D6A4F;
+  --muted-foreground: #D8F3DC;
+  --accent: #40916C;
+  --accent-foreground: #F0FDF4;
+  --destructive: #E8795F;
+  --destructive-foreground: #0D2818;
+  --border: rgba(255,255,255,.12);
+  --input: rgba(255,255,255,.15);
+  --ring: #74C69D;
+  --sidebar: #1B4332;
+  --sidebar-foreground: #F0FDF4;
+  --sidebar-primary: #74C69D;
+  --sidebar-primary-foreground: #0D2818;
+  --sidebar-accent: #2D6A4F;
+  --sidebar-accent-foreground: #F0FDF4;
+  --sidebar-border: rgba(255,255,255,.12);
+  --sidebar-ring: #74C69D;
+}
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  body {
+    @apply bg-background text-foreground font-body;
   }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
 }
