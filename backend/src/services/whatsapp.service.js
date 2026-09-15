@@ -8,11 +8,52 @@ const priceService = require('./price.service');
 const SESSION_TTL_MINUTES = 30;
 const CROP_TYPES = ['TURMERIC', 'MUSTARD', 'HONEY', 'GROUNDNUT', 'GHEE', 'SPICES'];
 const CITIES = ['Delhi', 'Mumbai', 'Ahmedabad', 'Bangalore', 'Pune', 'Kolkata', 'Chennai'];
-const GEMINI_MODEL = 'gemini-2.0-flash'; // cheap/free-tier-eligible per user's explicit request, swapped in from Claude
+// gemini-2.0-flash was retired (404s as of 2026-09-15); gemini-3.6-flash is its replacement,
+// still cheap/free-tier-eligible per user's explicit request to swap in from Claude. It's a
+// "thinking" model by default, which burns maxOutputTokens on hidden reasoning before ever
+// emitting the reply -- verified live, both calls below hit MAX_TOKENS with an empty/truncated
+// response at their original token budgets until thinkingConfig.thinkingBudget was set to 0.
+const GEMINI_MODEL = 'gemini-3.6-flash';
 
 const gemini = process.env.GEMINI_API_KEY ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY }) : null;
 
-const INTENT_SYSTEM_PROMPT = `You are an intent classifier for an Indian farmer-facing WhatsApp bot. The user message may be in Hindi, English, or Hinglish. Classify it.`;
+// thinkingConfig.thinkingBudget is 0 on every call using this prompt (see GEMINI_MODEL comment
+// above) -- the model does zero internal reasoning before writing its answer, so every
+// disambiguation rule it would otherwise have worked out step-by-step has to be spelled out
+// here instead. Keep this in sync with classifyIntentLocally's keyword rules below (same
+// classification job, just the non-Gemini fallback), and with CROP_TYPES/CITIES/the schema.
+const INTENT_SYSTEM_PROMPT = `You are an intent classifier for an Indian farmer-facing WhatsApp bot serving farmers, buyers, and logistics staff on the BharatPure agricultural marketplace platform. Incoming messages may be in Hindi (Devanagari script), English, or Hinglish (Hindi written in Roman letters, e.g. "haldi ka bhav kya hai"). You must classify each message in a single pass with no back-and-forth -- output only the structured fields, nothing else.
+
+CLASSIFY "intent" AS EXACTLY ONE OF:
+- price_query -- the sender wants to know a rate/price for a crop. Trigger words: rate, price, bhav, daam, kimat, kya bhav hai, कीमत, दाम, भाव, "kitne ka", "kya rate hai".
+- demand_query -- the sender wants to know how much of a crop is wanted/selling in a market, i.e. market demand rather than price. Trigger words: demand, mang, मांग, "kitna bikta hai", "kitni demand hai".
+- batch_status -- the sender is asking about a specific tracked batch. Trigger: a batch code matching the pattern XX-XXX-NNNN-NNN (two letters, dash, three letters, dash, four digits, dash, three digits), e.g. "KA-TUR-2026-014". If a code matching that pattern appears anywhere in the message, this is always batch_status regardless of other words present.
+- order_status -- the sender is asking about an order they placed or received. Trigger words: order, आर्डर, ऑर्डर, "mera order kaha hai", "order kab aayega".
+- list_batch -- the sender (a farmer) wants to list/sell a new batch of produce. Trigger words: list, becho, बेचो, sell, "bechna hai", "naya batch".
+- support -- anything that is a greeting, thanks, complaint, unclear request, or does not clearly match one of the five categories above. This is the default when no clear trigger is present -- do not force-fit an ambiguous message into a wrong category.
+
+If multiple triggers appear in one message, prefer in this order: batch_status (a batch code is the most specific, unambiguous signal) > price_query > demand_query > order_status > list_batch > support.
+
+EXTRACT "crop_type" (one of ${CROP_TYPES.join(', ')}, or the literal string "null" if none is mentioned or implied):
+Map local/vernacular names to the enum: haldi/हल्दी -> TURMERIC, sarson/सरसों -> MUSTARD, shahad/शहद -> HONEY, moongfali/मूंगफली -> GROUNDNUT, ghee/घी -> GHEE, masala/मसाला/spices -> SPICES. Match case-insensitively and match the English enum names too (e.g. "turmeric price" -> TURMERIC).
+
+EXTRACT "city" (one of ${CITIES.join(', ')}, or the literal string "null" if none is mentioned):
+Match the city name in any script or common transliteration appearing in the message. If no city is named, use "null" -- do not guess a default city.
+
+EXTRACT "batch_code": if a substring matches XX-XXX-NNNN-NNN, copy it exactly (preserve case and dashes) into batch_code. Otherwise omit this field or leave it empty.
+
+DETERMINE "original_language":
+- hindi: the message contains Devanagari script characters (the Unicode range for Hindi letters/matras).
+- hinglish: the message is written in Latin/Roman letters but uses Hindi vocabulary or grammar (e.g. "haldi ka bhav kya hai", "mera order kab aayega", "kitna hai").
+- english: the message is written in Latin letters using standard English vocabulary and grammar with no Hindi words mixed in.
+When in doubt between hinglish and english, look for any Hindi word (however small) mixed into Latin text -- its presence means hinglish, not english.
+
+SET "confidence" (a number from 0 to 1):
+- 0.85-1.0: an explicit trigger keyword or exact batch-code pattern is present and unambiguous.
+- 0.5-0.84: the intent is inferred from context/phrasing without an exact trigger keyword, or exactly one of two plausible intents was chosen.
+- below 0.5: the message is vague, off-topic, or you are defaulting to "support" because nothing else matched.
+
+Output must strictly follow the response schema and contain nothing beyond the requested fields -- no explanation, no extra commentary, no markdown.`;
 const INTENT_RESPONSE_SCHEMA = {
   type: Type.OBJECT,
   properties: {
@@ -65,6 +106,7 @@ const extractIntent = async (messageBody) => {
       config: {
         systemInstruction: INTENT_SYSTEM_PROMPT,
         maxOutputTokens: 256,
+        thinkingConfig: { thinkingBudget: 0 },
         responseMimeType: 'application/json',
         responseSchema: INTENT_RESPONSE_SCHEMA,
       },
@@ -91,7 +133,24 @@ const generateResponseLocally = (intent, responseContext, language) => {
   return `${greeting}${responseContext}`;
 };
 
-const RESPONSE_SYSTEM_PROMPT = `You are a warm, helpful assistant for Indian farmers on WhatsApp. Reply in the farmer's own language/style (Hindi, English, or Hinglish, matching what they used). Keep it under 160 words. Only use the numbers and facts given in the context below — never invent or guess numbers. If the context says data is unavailable, say so honestly and offer general guidance instead.`;
+// Same thinkingBudget: 0 constraint as INTENT_SYSTEM_PROMPT above -- the model writes its final
+// answer directly with no hidden draft-and-revise pass, so structure/tone/length rules have to
+// be explicit and directly followable rather than left for the model to infer and balance itself.
+const RESPONSE_SYSTEM_PROMPT = `You are a warm, respectful assistant replying to Indian farmers, bulk buyers, and logistics staff over WhatsApp on the BharatPure agricultural marketplace platform. You will be given the sender's detected intent, their message language, and a context string containing the only facts you are allowed to state.
+
+LANGUAGE: Reply in the same language/style as "Language" tells you:
+- hindi -> reply fully in Hindi, Devanagari script.
+- hinglish -> reply in Hinglish (Hindi words/grammar written in Roman letters), matching a natural WhatsApp texting register -- this is the default for most farmer messages.
+- english -> reply in plain English.
+Open with a short, warm greeting appropriate to the language (e.g. "Ram Ram Kisan bhai!" / "Namaste!" / "Hello!") only on the first line, then answer directly -- do not repeat the greeting later in the message.
+
+FACTS: The "Context" string is your ONLY source of numbers and facts. Copy figures from it exactly (same digits, same units, same currency symbol) -- never calculate, round differently, invent, or guess a number that is not literally present in Context. If Context begins with "API data unavailable", say plainly (in the sender's language) that the information is not available right now, then offer brief general guidance relevant to their intent instead of any specific figure.
+
+STRUCTURE: Keep the whole reply under 160 words. When Context contains multiple numeric facts (e.g. a price range and a commodity rate, or a demand quantity and a confidence percentage), present them as short bullet points, not a run-on sentence. End with one short, encouraging closing line inviting a follow-up question. Use at most one or two emoji total (e.g. 🙏 in the greeting, 🌾 in the closing) -- do not overuse them.
+
+TONE: Warm, plain-spoken, respectful of the sender as a working farmer or business contact -- never salesy, never robotic, never use jargon the sender didn't already use themselves.
+
+Output only the reply text meant to be sent to the sender -- no labels, no explanation of your reasoning, no markdown headers.`;
 
 const generateResponse = async (intent, responseContext, language) => {
   if (!gemini) {
@@ -101,7 +160,7 @@ const generateResponse = async (intent, responseContext, language) => {
     const response = await gemini.models.generateContent({
       model: GEMINI_MODEL,
       contents: `Intent: ${intent}\nLanguage: ${language}\nContext: ${responseContext}`,
-      config: { systemInstruction: RESPONSE_SYSTEM_PROMPT, maxOutputTokens: 300 },
+      config: { systemInstruction: RESPONSE_SYSTEM_PROMPT, maxOutputTokens: 300, thinkingConfig: { thinkingBudget: 0 } },
     });
     return response.text || generateResponseLocally(intent, responseContext, language);
   } catch (err) {
