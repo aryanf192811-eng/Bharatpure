@@ -95,14 +95,40 @@ const classifyIntentLocally = (messageBody) => {
   return { intent, crop_type: cropType, city, batch_code: batchCodeMatch?.[0] ?? null, original_language, confidence: 0.5 };
 };
 
-const extractIntent = async (messageBody) => {
+// Sentinel returned when a voice note can't be classified at all -- either no GEMINI_API_KEY is
+// configured, or the Gemini audio call itself failed. classifyIntentLocally has no way to
+// understand audio (it's pure keyword matching over text), so silently falling back to it with
+// an empty messageBody would misclassify every voice note as a blank "support" message instead
+// of honestly telling the farmer to type instead. handleMessage checks this flag and short-
+// circuits before the normal reply pipeline.
+const VOICE_UNAVAILABLE = { intent: 'support', crop_type: null, city: null, batch_code: null, original_language: 'hinglish', confidence: 0, voice_unavailable: true };
+
+/**
+ * @param {string} messageBody
+ * @param {{ mediaBase64: string, mediaMimeType: string } | null} [media] - a voice note, already
+ *   fetched and base64-encoded by webhooks.js. When present, Gemini transcribes and classifies
+ *   it in one call -- no separate transcription step.
+ */
+const extractIntent = async (messageBody, media) => {
+  if (media && !gemini) {
+    return VOICE_UNAVAILABLE;
+  }
   if (!gemini) {
     return classifyIntentLocally(messageBody);
   }
   try {
+    // Confirmed exact shape for the installed @google/genai@2.22.0 SDK: an array of Parts, an
+    // inline-audio object part alongside a plain string part, both in `contents` directly (the
+    // SDK's `PartUnion = Part | string`, so a bare string is a valid array entry).
+    const contents = media
+      ? [
+          { inlineData: { mimeType: media.mediaMimeType, data: media.mediaBase64 } },
+          messageBody || 'Transcribe this farmer voice note (Hindi/English/Hinglish) and classify it per the system instructions.',
+        ]
+      : messageBody;
     const response = await gemini.models.generateContent({
       model: GEMINI_MODEL,
-      contents: messageBody,
+      contents,
       config: {
         systemInstruction: INTENT_SYSTEM_PROMPT,
         maxOutputTokens: 256,
@@ -119,7 +145,8 @@ const extractIntent = async (messageBody) => {
     if (parsed.city === 'null') parsed.city = null;
     return parsed;
   } catch (err) {
-    logger.error({ action: 'WHATSAPP_INTENT_EXTRACTION_FAILED', err: err.message });
+    logger.error({ action: 'WHATSAPP_INTENT_EXTRACTION_FAILED', err: err.message, hadMedia: Boolean(media) });
+    if (media) return VOICE_UNAVAILABLE;
     return classifyIntentLocally(messageBody);
   }
 };
@@ -225,11 +252,27 @@ const buildResponseContext = async (parsedIntent) => {
  * The full inbound-message pipeline: session -> intent -> data lookup -> reply -> session update.
  * Never throws -- webhooks.js must always get a string back to put in a TwiML response, this is
  * the WhatsApp-equivalent of "AI/external failures never surface as an error to the end user."
+ *
+ * @param {{ mediaBase64: string, mediaMimeType: string } | null} [media] - see extractIntent's doc.
  */
-const handleMessage = async (phone, messageBody) => {
+const handleMessage = async (phone, messageBody, media = null) => {
   try {
     const session = await getOrCreateSession(phone);
-    const parsedIntent = await extractIntent(messageBody);
+    const parsedIntent = await extractIntent(messageBody, media);
+
+    if (parsedIntent.voice_unavailable) {
+      const replyText = 'Maaf kijiye, abhi voice message samajh nahi paa rahe hain. Kripya apna sawaal type karke bhejein. 🙏\n\n'
+        + "Sorry, we can't process voice messages right now — please type your question instead.";
+      await pool.query(
+        `UPDATE whatsapp_sessions SET state = 'voice_unavailable', context_data = $1, last_message_at = NOW(),
+                session_expires_at = NOW() + INTERVAL '${SESSION_TTL_MINUTES} minutes'
+         WHERE phone = $2`,
+        [JSON.stringify(parsedIntent), phone],
+      );
+      logger.info({ action: 'WHATSAPP_MESSAGE_HANDLED', phone, intent: 'voice_unavailable', usedGemini: false });
+      return replyText;
+    }
+
     const responseContext = await buildResponseContext(parsedIntent);
     const replyText = await generateResponse(parsedIntent.intent, responseContext, parsedIntent.original_language);
 
@@ -240,7 +283,7 @@ const handleMessage = async (phone, messageBody) => {
       [parsedIntent.intent, JSON.stringify(parsedIntent), phone],
     );
 
-    logger.info({ action: 'WHATSAPP_MESSAGE_HANDLED', phone, intent: parsedIntent.intent, usedGemini: Boolean(gemini) });
+    logger.info({ action: 'WHATSAPP_MESSAGE_HANDLED', phone, intent: parsedIntent.intent, usedGemini: Boolean(gemini), hadMedia: Boolean(media) });
     return replyText;
   } catch (err) {
     logger.error({ action: 'WHATSAPP_MESSAGE_HANDLING_FAILED', phone, err: err.message });
