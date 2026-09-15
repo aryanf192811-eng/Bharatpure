@@ -222,19 +222,29 @@ const optimizeRoutes = async (admin, data) => {
     return { optimized: false, reason: 'AI routing service unavailable' };
   }
 
+  // Round-robin across active LOGISTICS drivers so every created route actually has a
+  // driver_id -- without this, routes were created successfully but permanently invisible to
+  // everyone (logistics.service.js's getDashboard/listRoutes/getRouteById all filter on
+  // driver_id, and nothing else in this codebase ever sets it; BHARATPURE-UI.md's Screen 41
+  // documents a separate "Assign to Drivers" action, but no such endpoint exists, so this folds
+  // the assignment into the same create step).
+  const driversResult = await pool.query(`SELECT id FROM users WHERE role = 'LOGISTICS' AND status = 'active' ORDER BY id`);
+  const drivers = driversResult.rows;
+
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
     const routeIds = [];
-    for (const vehicleRoute of aiData.routes ?? []) {
+    for (const [routeIndex, vehicleRoute] of (aiData.routes ?? []).entries()) {
+      const driverId = drivers.length > 0 ? drivers[routeIndex % drivers.length].id : null;
       // eslint-disable-next-line no-await-in-loop
       const routeResult = await client.query(
-        `INSERT INTO delivery_routes (route_name, total_distance_km, vehicle_type, vehicle_id, status,
+        `INSERT INTO delivery_routes (route_name, total_distance_km, vehicle_type, vehicle_id, status, driver_id,
                                        baseline_distance_km, cost_estimate_paise, baseline_cost_paise)
-         VALUES ($1,$2,$3,$4,'planned',$5,$6,$7) RETURNING id`,
+         VALUES ($1,$2,$3,$4,'planned',$5,$6,$7,$8) RETURNING id`,
         [
           vehicleRoute.route_name ?? null, aiData.total_distance_km ?? null, data.vehicle_type ?? null, vehicleRoute.vehicle_id ?? null,
-          aiData.baseline_distance_km ?? null, aiData.cost_estimate_paise ?? null, aiData.baseline_cost_paise ?? null,
+          driverId, aiData.baseline_distance_km ?? null, aiData.cost_estimate_paise ?? null, aiData.baseline_cost_paise ?? null,
         ],
       );
       routeIds.push(routeResult.rows[0].id);
