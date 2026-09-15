@@ -25,6 +25,12 @@ import { PWAShell } from '@/components/layout/PWAShell'
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute'
 import type { WebNavLink } from '@/components/layout/WebShell'
 import { WebShell } from '@/components/layout/WebShell'
+import ForgotPassword from '@/pages/auth/ForgotPassword'
+import Landing from '@/pages/auth/Landing'
+import Login from '@/pages/auth/Login'
+import OtpVerification from '@/pages/auth/OtpVerification'
+import Register from '@/pages/auth/Register'
+import ResetPassword from '@/pages/auth/ResetPassword'
 import NotBuiltYet from '@/pages/NotBuiltYet'
 
 const FARMER_TABS: PWATab[] = [
@@ -72,12 +78,12 @@ function App() {
   return (
     <Routes>
       {/* Public / auth */}
-      <Route path="/" element={<NotBuiltYet screen="Landing / Role Selector (01)" />} />
-      <Route path="/register" element={<NotBuiltYet screen="Register (02)" />} />
-      <Route path="/login" element={<NotBuiltYet screen="Login (03)" />} />
-      <Route path="/verify-otp" element={<NotBuiltYet screen="OTP Verification (04)" />} />
-      <Route path="/forgot-password" element={<NotBuiltYet screen="Forgot Password (05)" />} />
-      <Route path="/reset-password" element={<NotBuiltYet screen="Reset Password (06)" />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/verify-otp" element={<OtpVerification />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/scan/:qrHash" element={<NotBuiltYet screen="QR Scan Result / BIR View (22)" />} />
 
       {/* Farmer PWA */}
