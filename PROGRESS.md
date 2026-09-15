@@ -3,6 +3,42 @@
 
 ---
 
+## 2026-09-15 — Session 6: All 47 frontend screens built — full app functional end-to-end
+
+### What happened
+User: "now take looks... all 47 screens now" — built the entire React frontend from scratch following CLAUDE-CODE-FRONTEND.md against the real, tested backend (not just the spec docs), referencing `design/evolved/` where a screen existed there (30/47) and `BHARATPURE-UI.md`'s text spec for the rest.
+
+**Core infrastructure:** Vite + React 18 + TS + Tailwind v4 + shadcn/ui with BharatPure's exact design tokens; axios client with full 401-refresh-and-retry; Zustand auth+cart stores; a 16-file typed API layer for all backend domains; 9 custom shared components (QualityBadge, BIRTimeline, TrustScoreRing, etc.); PWAShell/WebShell/ProtectedRoute; the full 47-screen route table.
+
+**All 47 screens implemented and wired:** Auth (01-06), Farmer PWA (07-18), Consumer PWA (19-27), Bulk Buyer web (28-32, 47), Logistics PWA (33-37), Admin web (38-46). Every screen calls real backend endpoints via TanStack Query — no mock data anywhere except where a backend feature is explicitly out of scope (procurement contracts, subscriptions — both honestly labeled "not available," matching documented cut lines, not faked).
+
+### Mid-build course correction (user feedback)
+User: "the ui ux looks so stale and generic... pictures, visuals are missing... should be psychologically agriculture, green and golden/white revolution." Paused after 27 screens, reversed part of the earlier declutter pass (`design/DESIGN-SYSTEM.md` §7b removed ALL photography) for *content* photography specifically — product/crop photos, farm imagery — while keeping the anti-glassmorphism/anti-blur-orb rules from that pass intact. Built `frontend/src/lib/cropImagery.ts`, a curated set of image URLs pulled from `design/evolved/` itself (verified live via curl first). Documented the reversal in `design/DESIGN-SYSTEM.md` §8.
+
+This surfaced a real, separate bug: of 32 active listings, 30 were TURMERIC (1 mustard, 1 honey) — not an imagery bug, but leftover pollution from this session's own Postman regression testing (dozens of throwaway test batches against the one seeded turmeric farmer, never cleaned up). Confirmed via direct API query, then (with explicit user confirmation, since it's a destructive DB operation) cleared the polluted rows and re-ran `seed.js` to restore the clean 3-crop demo data.
+
+### Real backend gaps found and fixed while building the frontend
+Same "verify live, fix real bugs" discipline as the backend build:
+- `/api/farmers/{profile,dashboard,earnings,trust-score}` — documented in BHARATPURE-API.md but never built. Needed by farmer screens 07/15/18.
+- `/api/buyers/{profile,dashboard,reliability}` — not even documented (BHARATPURE-API.md only has a farmers group). Needed by the bulk buyer dashboard's IEI badge and screen 47.
+- `demand.api.ts`'s type for `GET /api/demand/forecast` was wrong — BHARATPURE-API.md documents a flat single-object response, but the real controller returns `{ forecast: DemandForecastRow[], stale }`. Caught by reading `demand.controller.js`/`demand.service.js` directly before building screen 39's chart; building against the documented-but-wrong shape would have crashed on first render.
+- `qr.service.js`, `listing.service.js` check-ordering bugs (from the earlier testing session) already fixed.
+
+Procurement contracts and subscriptions confirmed still out of scope (no backend support) — built as honest empty-state screens.
+
+### Verification
+Every role's core flow verified live in a browser via Playwright against the real running backend (not just typecheck/build) — registration→OTP→dashboard, batch create→test→list, consumer browse→cart→order, bulk buyer catalog→order, logistics route→delivery, admin dashboard→simulator — zero console errors throughout. Final full Postman regression after all backend additions: **179/179 assertions passing** (`docs/testing/full-regression-newman-2026-09-15b.txt`).
+
+### Known gaps (not fixed, documented instead)
+- No certificate-download endpoint exists (`GET /api/quality/certificates/:certId/download` is documented but not built) — Batch Detail shows "certificate on file" instead of a broken download link.
+- Bulk buyer batch detail has no BIR-by-listing endpoint — shows a note pointing to the public QR trace page instead of an empty timeline.
+- Bundle size warning (~500KB gzipped) — not addressed; route-based code-splitting would be the fix, deferred since it doesn't block functionality.
+
+### Outstanding
+The FastAPI AI microservice remains unbuilt (every AI-proxying route already has a tested graceful-degradation path, per the original design). PWA manifest/service worker config not yet done.
+
+---
+
 ## 2026-09-15 — Session 5: Full-backend Postman regression — 161/161 assertions passing
 
 ### What happened
