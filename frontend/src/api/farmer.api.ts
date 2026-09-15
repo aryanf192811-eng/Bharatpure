@@ -58,6 +58,21 @@ export interface FarmerTrustScore {
   computed_at: string
 }
 
+export interface CreditScoreRow {
+  trust_score_component: string
+  repayment_proxy_component: string
+  batch_volume_component: string
+  dispute_penalty_component: string
+  computed_score: string
+  eligibility_band: 'HIGH' | 'MEDIUM' | 'LOW' | 'INSUFFICIENT_DATA'
+  computed_at: string
+}
+
+export interface FarmerCreditEligibility {
+  latest: CreditScoreRow
+  history: CreditScoreRow[]
+}
+
 export const farmerApi = {
   profile: () => client.get<ApiSuccess<Record<string, unknown>>>('/api/farmers/profile').then((r) => r.data),
 
@@ -67,4 +82,6 @@ export const farmerApi = {
     client.get<ApiSuccess<FarmerEarningsRow[]>>('/api/farmers/earnings', { params }).then((r) => r.data),
 
   trustScore: () => client.get<ApiSuccess<FarmerTrustScore>>('/api/farmers/trust-score').then((r) => r.data),
+
+  creditEligibility: () => client.get<ApiSuccess<FarmerCreditEligibility>>('/api/farmers/credit-eligibility').then((r) => r.data),
 }
