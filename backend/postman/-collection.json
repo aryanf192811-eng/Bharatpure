@@ -127,6 +127,37 @@
       ]
     },
     {
+      "name": "0c. Buyer Profile",
+      "item": [
+        {
+          "name": "Get Buyer Profile",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('has company_name', () => pm.expect(body.data.company_name).to.be.a('string'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{bulkBuyerToken}}" }], "url": "{{baseUrl}}/api/buyers/profile" }
+        },
+        {
+          "name": "Get Buyer Dashboard",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('active_orders is a number', () => pm.expect(body.data.active_orders).to.be.a('number'));",
+            "pm.test('total_spent_paise is a number', () => pm.expect(body.data.total_spent_paise).to.be.a('number'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{bulkBuyerToken}}" }], "url": "{{baseUrl}}/api/buyers/dashboard" }
+        },
+        {
+          "name": "Farmer Cannot Access Buyer Dashboard -> 403",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 403', () => pm.response.to.have.status(403));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/buyers/dashboard" }
+        }
+      ]
+    },
+    {
       "name": "1. Batches",
       "item": [
         {
