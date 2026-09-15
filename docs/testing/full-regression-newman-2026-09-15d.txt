@@ -1,0 +1,534 @@
+(node:12488) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+BharatPure API
+
+□ 0. Setup
+└ Login Farmer
+  POST http://localhost:5000/api/auth/login [200 OK, 1.76kB, 307ms]
+  √  status 200
+  √  has accessToken
+
+└ Login Consumer
+  POST http://localhost:5000/api/auth/login [200 OK, 1.77kB, 206ms]
+  √  status 200
+
+└ Login Bulk Buyer
+  POST http://localhost:5000/api/auth/login [200 OK, 1.77kB, 204ms]
+  √  status 200
+
+└ Login Logistics
+  POST http://localhost:5000/api/auth/login [200 OK, 1.77kB, 204ms]
+  √  status 200
+
+└ Login Admin
+  POST http://localhost:5000/api/auth/login [200 OK, 1.76kB, 204ms]
+  √  status 200
+
+└ Get Clusters (discover cluster IDs)
+  GET http://localhost:5000/api/clusters [200 OK, 1.97kB, 11ms]
+  √  status 200
+  √  has 3 seeded clusters
+  √  turmeric cluster found
+
+□ 0b. Farmer Profile
+└ Get Farmer Profile
+  GET http://localhost:5000/api/farmers/profile [200 OK, 1.61kB, 26ms]
+  √  status 200
+  √  has fpo_name
+  √  has total_earned_paise
+
+└ Get Farmer Dashboard
+  GET http://localhost:5000/api/farmers/dashboard [200 OK, 2.57kB, 11ms]
+  √  status 200
+  √  active_batches is a number
+  √  recent_batches has at most 5
+  √  demand_signals is an array
+
+└ Get Farmer Earnings
+  GET http://localhost:5000/api/farmers/earnings [200 OK, 2.7kB, 22ms]
+  √  status 200
+  √  data is an array
+
+└ Get Farmer Trust Score
+  GET http://localhost:5000/api/farmers/trust-score [200 OK, 1.33kB, 4ms]
+  √  status 200
+  √  computed_score present
+
+└ Consumer Cannot Access Farmer Dashboard -> 403
+  GET http://localhost:5000/api/farmers/dashboard [403 Forbidden, 1.19kB, 4ms]
+  √  status 403
+
+□ 0c. Buyer Profile
+└ Get Buyer Profile
+  GET http://localhost:5000/api/buyers/profile [200 OK, 1.47kB, 10ms]
+  √  status 200
+  √  has company_name
+
+└ Get Buyer Dashboard
+  GET http://localhost:5000/api/buyers/dashboard [200 OK, 1.2kB, 5ms]
+  √  status 200
+  √  active_orders is a number
+  √  total_spent_paise is a number
+
+└ Farmer Cannot Access Buyer Dashboard -> 403
+  GET http://localhost:5000/api/buyers/dashboard [403 Forbidden, 1.19kB, 2ms]
+  √  status 403
+
+□ 1. Batches
+└ Create Main Batch
+  POST http://localhost:5000/api/batches [201 Created, 1.3kB, 22ms]
+  √  status 201
+  √  batch_code matches pattern
+  √  qr_hash is 64 hex chars
+  √  status is draft
+
+└ Get Batch Detail — 2 BIR events
+  GET http://localhost:5000/api/batches/01567104-1ec7-483b-8dea-53c1c3c85fd4 [200 OK, 2.15kB, 11ms]
+  √  status 200
+  √  exactly 2 BIR events on fresh batch
+  √  events are BatchCreated then HarvestDataLogged
+
+└ List Batches (Farmer, role-scoped)
+  GET http://localhost:5000/api/batches?limit=50 [200 OK, 6.05kB, 5ms]
+  √  status 200
+  √  pagination present
+  √  main batch appears in list
+
+└ Consumer Cannot See Draft Batch (404, not 403)
+  GET http://localhost:5000/api/batches/01567104-1ec7-483b-8dea-53c1c3c85fd4 [404 Not Found, 1.17kB, 5ms]
+  √  status 404
+  √  error code BATCH_NOT_FOUND
+
+└ Submit Main Batch for Testing (draft -> pending_test)
+  PATCH http://localhost:5000/api/batches/01567104-1ec7-483b-8dea-53c1c3c85fd4/status [200 OK, 1.21kB, 5ms]
+  √  status 200
+  √  status is pending_test
+
+└ Invalid Status Transition -> 422
+  PATCH http://localhost:5000/api/batches/01567104-1ec7-483b-8dea-53c1c3c85fd4/status [422 Unprocessable Entity, 1.23kB, 4ms]
+  √  status 422
+  √  error code INVALID_STATUS_TRANSITION
+
+└ Create + Delete Draft Batch -> 204
+  POST http://localhost:5000/api/batches [201 Created, 1.3kB, 9ms]
+  DELETE http://localhost:5000/api/batches/2eadb174-b8b4-4c1d-a643-5b82df05ec34 [204 No Content, 976B, 4ms]
+  √  status 204
+
+□ 2. Quality — Tests, Certificates, B-Samples
+└ TIER1 PASS on Main Batch
+  POST http://localhost:5000/api/quality/tests [201 Created, 1.27kB, 10ms]
+  √  status 201
+  √  result PASS
+
+└ Batch is now test_passed
+  GET http://localhost:5000/api/batches/01567104-1ec7-483b-8dea-53c1c3c85fd4 [200 OK, 2.43kB, 5ms]
+  √  status 200
+  √  status test_passed
+
+└ TIER1 FAIL Batch -> auto b_sample_requests
+  POST http://localhost:5000/api/batches [201 Created, 1.3kB, 8ms]
+  PATCH http://localhost:5000/api/batches/28231d6b-823c-4cd3-8497-acfbdb85f455/status [200 OK, 1.21kB, 4ms]
+  POST http://localhost:5000/api/quality/tests [201 Created, 1.27kB, 10ms]
+  √  status 201
+  √  result FAIL
+
+└ B-Sample Auto-Created with ~7 Day Window
+  GET http://localhost:5000/api/quality/b-samples/28231d6b-823c-4cd3-8497-acfbdb85f455 [200 OK, 1.42kB, 4ms]
+  √  status 200
+  √  one b-sample request exists
+  √  status pending
+  √  window is ~7 days out
+
+└ Request B-Sample Lab Selection
+  POST http://localhost:5000/api/quality/b-samples/28231d6b-823c-4cd3-8497-acfbdb85f455/request [200 OK, 1.25kB, 5ms]
+  √  status 200
+  √  status lab_selected
+
+└ TIER2 without TIER1 -> 400
+  POST http://localhost:5000/api/batches [201 Created, 1.3kB, 7ms]
+  PATCH http://localhost:5000/api/batches/d192cb06-909b-4e3c-86cd-87c7e3733d44/status [200 OK, 1.21kB, 4ms]
+  POST http://localhost:5000/api/quality/tests [400 Bad Request, 1.22kB, 6ms]
+  √  status 400
+  √  error code INVALID_TIER2_WITHOUT_TIER1
+
+└ TIER1 PASS then TIER2 PASS on Cert Batch
+  POST http://localhost:5000/api/quality/tests [201 Created, 1.27kB, 6ms]
+  POST http://localhost:5000/api/quality/tests [201 Created, 1.27kB, 6ms]
+  √  status 201
+  √  result PASS
+
+└ Upload Certificate — Non-PDF -> 400 INVALID_MIME_TYPE
+  POST http://localhost:5000/api/quality/certificates (node:12488) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+[400 Bad Request, 1.18kB, 9ms]
+  √  status 400
+  √  error code INVALID_MIME_TYPE
+
+└ Upload Certificate — Valid PDF -> 201
+  POST http://localhost:5000/api/quality/certificates [201 Created, 1.24kB, 11ms]
+  √  status 201
+  √  cert_number returned
+
+└ List Certificates for Batch
+  GET http://localhost:5000/api/quality/batches/d192cb06-909b-4e3c-86cd-87c7e3733d44/certificates [200 OK, 1.34kB, 7ms]
+  √  status 200
+  √  one certificate found
+  √  cert_number matches upload
+
+└ Download Certificate
+  GET http://localhost:5000/api/quality/certificates/7ed83180-f4dc-469c-99a4-8c1b5f04eeee/download [200 OK, 1.27kB, 8ms]
+  √  status 200
+  √  content-type is PDF
+  √  content-disposition is attachment
+
+└ Download Unknown Certificate -> 404
+  GET http://localhost:5000/api/quality/certificates/00000000-0000-0000-0000-000000000000/download [404 Not Found, 1.18kB, 3ms]
+  √  status 404
+  √  error code CERTIFICATE_NOT_FOUND
+
+□ 3. Listings
+└ List on Non-test_passed Batch -> 422
+  POST http://localhost:5000/api/listings [422 Unprocessable Entity, 1.22kB, 8ms]
+  √  status 422
+  √  error code BATCH_NOT_READY
+
+└ Create Listing on Main Batch
+  POST http://localhost:5000/api/listings [201 Created, 1.29kB, 24ms]
+  √  status 201
+
+└ Duplicate Active Listing -> 409
+  POST http://localhost:5000/api/listings [409 Conflict, 1.2kB, 5ms]
+  √  status 409
+  √  error code BATCH_ALREADY_LISTED
+
+└ Browse Listings (Consumer)
+  GET http://localhost:5000/api/listings?limit=50 [200 OK, 5.34kB, 6ms]
+  √  status 200
+  √  main listing appears
+
+└ Recommended Listings (Delhi demand join)
+  GET http://localhost:5000/api/listings/recommended?city=Delhi [200 OK, 2.43kB, 4ms]
+  √  status 200
+  √  returns at most 5
+  √  turmeric row has demand_forecast_kg
+
+└ Get Listing Detail
+  GET http://localhost:5000/api/listings/9a8e16a2-1d41-4855-b60b-0d2ce685a8be [200 OK, 2.46kB, 7ms]
+  √  status 200
+  √  correct batch_code
+  √  includes fpo_name
+  √  includes bir_events with BatchCreated first
+
+└ Pause Listing
+  PATCH http://localhost:5000/api/listings/9a8e16a2-1d41-4855-b60b-0d2ce685a8be/status [200 OK, 1.2kB, 5ms]
+  √  status 200
+  √  status paused
+
+└ Reactivate Listing
+  PATCH http://localhost:5000/api/listings/9a8e16a2-1d41-4855-b60b-0d2ce685a8be/status [200 OK, 1.2kB, 5ms]
+  √  status 200
+  √  status active
+
+□ 4. Demand + Price + Simulation
+└ Demand Forecast (Delhi Turmeric)
+  GET http://localhost:5000/api/demand/forecast?crop_type=TURMERIC&city=Delhi&days=30 [200 OK, 1.91kB, 22ms]
+  √  status 200
+  √  stale flag is boolean
+  √  forecast array present
+
+└ Multi-City Demand (partial-availability isolation)
+  GET http://localhost:5000/api/demand/multi-city?crop_type=TURMERIC&cities=Delhi,Bangalore [200 OK, 2.4kB, 15ms]
+  √  status 200
+  √  Delhi has data
+  √  response never throws for missing city
+
+└ Price Recommendation
+  GET http://localhost:5000/api/price/recommendation?crop_type=TURMERIC&quality_score=94&city=Delhi [200 OK, 1.37kB, 5ms]
+  √  status 200
+  √  recommended range is positive
+  √  quality band PREMIUM
+
+└ Market Rates
+  GET http://localhost:5000/api/price/market-rates?crop_type=TURMERIC [200 OK, 2.64kB, 4ms]
+  √  status 200
+  √  30 days of history
+
+└ Premium Calculator
+  GET http://localhost:5000/api/price/premium-calculator?quality_score=94&crop_type=TURMERIC&quantity_kg=200&destination_city=Delhi [200 OK, 1.49kB, 6ms]
+  √  status 200
+  √  uplift is positive
+
+└ Simulation — Invalid demand_spike_pct -> 400
+  POST http://localhost:5000/api/simulation/run [400 Bad Request, 1.32kB, 4ms]
+  √  status 400
+  √  error code VALIDATION_ERROR
+
+└ Simulation — Valid Run
+  POST http://localhost:5000/api/simulation/run [201 Created, 2.02kB, 9ms]
+  √  status 201
+  √  shortage_kg is a number
+
+└ Simulation History (ADMIN only)
+  GET http://localhost:5000/api/simulation/history [200 OK, 4.47kB, 6ms]
+  √  status 200
+  √  at least 1 run
+
+└ Simulation History — FARMER 403
+  GET http://localhost:5000/api/simulation/history [403 Forbidden, 1.19kB, 3ms]
+  √  status 403
+
+□ 5. Orders
+└ Order Below min_order_kg -> 409
+  POST http://localhost:5000/api/orders [409 Conflict, 1.22kB, 5ms]
+  √  status 409
+  √  error code MIN_ORDER_NOT_MET
+
+└ Order Above max_order_kg -> 409
+  POST http://localhost:5000/api/orders [409 Conflict, 1.23kB, 4ms]
+  √  status 409
+  √  error code MAX_ORDER_EXCEEDED
+
+└ Order More Than Remaining Stock -> 409
+  POST http://localhost:5000/api/orders [201 Created, 1.24kB, 13ms]
+  √  status 201 (150kg is within stock and max_order_kg)
+
+└ Second Order for Remaining 50kg -> Insufficient Stock
+  POST http://localhost:5000/api/orders [409 Conflict, 1.24kB, 5ms]
+  √  status 409 (only 50kg left, 100kg requested)
+  √  error code INSUFFICIENT_STOCK
+
+└ Get Order Detail (owner)
+  GET http://localhost:5000/api/orders/725ad7a5-6fff-4aae-b8d5-ae015ee305ff [200 OK, 2kB, 5ms]
+  √  status 200
+  √  has 1 item
+
+└ Get Order Detail — Wrong Buyer -> 404
+  GET http://localhost:5000/api/orders/725ad7a5-6fff-4aae-b8d5-ae015ee305ff [404 Not Found, 1.17kB, 3ms]
+  √  status 404
+
+└ Batch is now partially_sold, Escrow Held
+  GET http://localhost:5000/api/batches/01567104-1ec7-483b-8dea-53c1c3c85fd4 [200 OK, 2.74kB, 5ms]
+  √  status 200
+  √  batch status partially_sold (150 of 200kg sold, 50kg remains)
+
+└ Cancel Order -> Stock Restored
+  POST http://localhost:5000/api/batches [201 Created, 1.3kB, 6ms]
+  PATCH http://localhost:5000/api/batches/9c78cfd6-7ed9-447c-96ff-1c7e1c639c66/status [200 OK, 1.21kB, 5ms]
+  POST http://localhost:5000/api/quality/tests [201 Created, 1.27kB, 5ms]
+  POST http://localhost:5000/api/listings [201 Created, 1.29kB, 8ms]
+  POST http://localhost:5000/api/orders [201 Created, 1.23kB, 6ms]
+  PATCH http://localhost:5000/api/orders/86cfa3b4-dad7-4fcf-b23d-9db9c09b1bc0/cancel [200 OK, 1.2kB, 6ms]
+  √  status 200
+  √  status cancelled
+
+□ 6. QR Scan + Burn
+└ Public Scan (no auth)
+  GET http://localhost:5000/api/qr/scan/a7d7b08c9b6f865619222ed87f38a0895ef1fffb707cbd3ed2ab5cc4062d1101 [200 OK, 2.42kB, 9ms]
+  √  status 200
+  √  bir_events array present
+  √  QRScanned event appended
+
+└ Scan Unknown QR -> 404
+  GET http://localhost:5000/api/qr/scan/0000000000000000000000000000000000000000000000000000000000000000 [404 Not Found, 1.18kB, 5ms]
+  √  status 404
+  √  error code QR_NOT_FOUND
+
+└ Burn — First Call (owning buyer)
+  POST http://localhost:5000/api/qr/burn/a7d7b08c9b6f865619222ed87f38a0895ef1fffb707cbd3ed2ab5cc4062d1101 [200 OK, 1.22kB, 5ms]
+  √  status 200
+
+└ Burn — Second Call -> 409 (not 500)
+  POST http://localhost:5000/api/qr/burn/a7d7b08c9b6f865619222ed87f38a0895ef1fffb707cbd3ed2ab5cc4062d1101 [409 Conflict, 1.19kB, 3ms]
+  √  status 409
+  √  error code QR_ALREADY_BURNED
+
+└ Generate QR Image (owner FARMER)
+  GET http://localhost:5000/api/qr/generate/01567104-1ec7-483b-8dea-53c1c3c85fd4 [200 OK, 6.01kB, 38ms]
+  √  status 200
+  √  base64 PNG data URL
+
+□ 7. Disputes
+└ Dispute on Seeded 24-Day-Old Delivery -> 422 Window Closed
+  GET http://localhost:5000/api/orders?limit=50 [200 OK, 1.38kB, 6ms]
+  POST http://localhost:5000/api/disputes [422 Unprocessable Entity, 1.22kB, 4ms]
+  √  status 422
+  √  error code DISPUTE_WINDOW_CLOSED
+
+└ Dispute on Recent Delivery -> Succeeds
+  POST http://localhost:5000/api/batches [201 Created, 1.3kB, 6ms]
+  PATCH http://localhost:5000/api/batches/5dfca342-a4b3-4c61-9bb5-626518012246/status [200 OK, 1.21kB, 3ms]
+  POST http://localhost:5000/api/quality/tests [201 Created, 1.27kB, 5ms]
+  POST http://localhost:5000/api/listings [201 Created, 1.29kB, 9ms]
+  POST http://localhost:5000/api/orders [201 Created, 1.23kB, 8ms]
+  PATCH http://localhost:5000/api/orders/de983939-6fdf-4a5d-9697-b6dbec417183/delivered [200 OK, 1.2kB, 10ms]
+  POST http://localhost:5000/api/disputes [201 Created, 1.25kB, 6ms]
+  √  status 201
+
+└ Resolve Dispute with Partial Refund
+  PATCH http://localhost:5000/api/disputes/de560152-c0a3-42b5-b26f-424dacfc0242/resolve [200 OK, 1.2kB, 6ms]
+  √  status 200
+  √  status resolved
+
+□ 8. Logistics — Temperature Breach Flow
+└ Setup: batch + order for breach test
+  POST http://localhost:5000/api/batches [201 Created, 1.3kB, 6ms]
+  √  setup batch created
+
+└ Setup: submit + pass + list + order
+  PATCH http://localhost:5000/api/batches/f652f176-5c97-4ed2-807e-ddba74ee1d3e/status [200 OK, 1.2kB, 5ms]
+  POST http://localhost:5000/api/quality/tests [201 Created, 1.27kB, 7ms]
+  POST http://localhost:5000/api/listings [201 Created, 1.29kB, 9ms]
+  POST http://localhost:5000/api/orders [201 Created, 1.23kB, 8ms]
+  GET http://localhost:5000/api/batches/f652f176-5c97-4ed2-807e-ddba74ee1d3e [200 OK, 2.7kB, 12ms]
+  √  setup complete
+
+└ Log Temperature Breach
+  POST http://localhost:5000/api/logistics/temperature-log [201 Created, 1.2kB, 12ms]
+  √  status 201
+  √  breach_detected true
+
+└ Delivery Blocked -> 422 TEMPERATURE_BREACH_REVIEW
+  PATCH http://localhost:5000/api/orders/f1170dfd-e58f-4bc0-8019-222bfcfa1df4/delivered [422 Unprocessable Entity, 1.23kB, 3ms]
+  √  status 422
+  √  error code TEMPERATURE_BREACH_REVIEW
+
+└ Admin Clears Breach
+  PATCH http://localhost:5000/api/batches/f652f176-5c97-4ed2-807e-ddba74ee1d3e/temperature-breach-clear [200 OK, 1.21kB, 9ms]
+  √  status 200
+
+└ Delivery Now Succeeds — Escrow Released
+  PATCH http://localhost:5000/api/orders/f1170dfd-e58f-4bc0-8019-222bfcfa1df4/delivered [200 OK, 1.2kB, 6ms]
+  √  status 200
+  √  status delivered
+
+└ Logistics Dashboard
+  GET http://localhost:5000/api/logistics/dashboard [200 OK, 1.35kB, 6ms]
+  √  status 200
+  √  assigned_routes is a number
+
+□ 9. Admin
+└ Dashboard — IEI has all 5 metrics
+  GET http://localhost:5000/api/admin/dashboard [200 OK, 1.37kB, 76ms]
+  √  status 200
+  √  iei has total_orders
+  √  iei has avg_farmer_premium_rupees
+  √  iei has avg_distance_saved_km
+  √  iei has avg_logistics_saving_rupees
+  √  iei has settled_under_24h
+
+└ Dashboard — FARMER 403
+  GET http://localhost:5000/api/admin/dashboard [403 Forbidden, 1.19kB, 2ms]
+  √  status 403
+
+└ List Batches (Admin, all FPOs)
+  GET http://localhost:5000/api/admin/batches?limit=100 [200 OK, 7.29kB, 5ms]
+  √  status 200
+  √  at least 10 batches total
+
+└ List Users
+  GET http://localhost:5000/api/admin/users [200 OK, 3.25kB, 7ms]
+  √  status 200
+
+└ Escrow List
+  GET http://localhost:5000/api/admin/escrow?limit=50 [200 OK, 4.68kB, 5ms]
+  √  status 200
+
+└ Escrow Release Without Reason -> 400
+  POST http://localhost:5000/api/admin/escrow/da963d0f-bc84-4da4-93c3-5089da61f3a4/release [400 Bad Request, 1.3kB, 3ms]
+  √  status 400
+  √  error code VALIDATION_ERROR
+
+└ Escrow Release With Reason -> Audit Logged
+  POST http://localhost:5000/api/admin/escrow/da963d0f-bc84-4da4-93c3-5089da61f3a4/release [200 OK, 1.2kB, 8ms]
+  √  status 200
+  √  status released
+
+└ Audit Logs Contain the Release
+  GET http://localhost:5000/api/admin/audit-logs?limit=20 [200 OK, 5.15kB, 7ms]
+  √  status 200
+  √  MANUAL_ESCROW_RELEASE action present
+
+└ Trigger Trust Score Job
+  POST http://localhost:5000/api/admin/jobs/trust-scores [200 OK, 1.21kB, 22ms]
+  √  status 200
+  √  3 FPO scores computed
+
+└ Suspend + Reactivate a Test User
+  PATCH http://localhost:5000/api/admin/users/61bf8ba5-fedc-446e-af7b-f432d2c82849/status [200 OK, 1.2kB, 6ms]
+  √  status 200
+  √  status suspended
+
+└ Suspended User Cannot Log In
+  POST http://localhost:5000/api/auth/login [403 Forbidden, 1.18kB, 202ms]
+  √  status 403
+  √  error code ACCOUNT_SUSPENDED
+
+└ Reactivate Test User
+  PATCH http://localhost:5000/api/admin/users/61bf8ba5-fedc-446e-af7b-f432d2c82849/status [200 OK, 1.2kB, 6ms]
+  √  status 200
+  √  status active
+
+□ 10. DPI Mocks
+└ AgriStack Farmer (mock)
+  GET http://localhost:5000/api/dpi/agristack/farmer/NEWMAN-TEST-001 [200 OK, 1.39kB, 2ms]
+  √  status 200
+  √  data_source AgriStack_mock_sandbox
+
+└ eNAM Prices (mock)
+  GET http://localhost:5000/api/dpi/enam/prices?crop_type=TURMERIC&days=7 [200 OK, 1.51kB, 5ms]
+  √  status 200
+  √  data_source eNAM_mock_feed
+
+└ ONDC Listings (mock, ADMIN)
+  GET http://localhost:5000/api/dpi/ondc/listings [200 OK, 5.37kB, 5ms]
+  √  status 200
+  √  data_source ONDC_sandbox_adapter
+
+□ 11. WhatsApp Webhook
+└ Price Query -> TwiML with real numbers
+  POST http://localhost:5000/api/webhooks/whatsapp [200 OK, 1.26kB, 49ms]
+  √  status 200
+  √  content-type text/xml
+  √  response is valid XML with a Message
+
+└ Empty Body -> Graceful Fallback, Never 500
+  POST http://localhost:5000/api/webhooks/whatsapp [200 OK, 1.35kB, 2ms]
+  √  status 200 (never 500)
+
+□ 12. RBAC Cross-Role Rejections
+└ No Token -> 401
+  GET http://localhost:5000/api/users/me [401 Unauthorized, 1.2kB, 2ms]
+  √  status 401
+
+└ CONSUMER cannot create a batch -> 403
+  POST http://localhost:5000/api/batches [403 Forbidden, 1.19kB, 2ms]
+  √  status 403
+
+└ FARMER cannot place an order -> 403
+  POST http://localhost:5000/api/orders [403 Forbidden, 1.19kB, 3ms]
+  √  status 403
+
+└ LOGISTICS cannot access admin dashboard -> 403
+  GET http://localhost:5000/api/admin/dashboard [403 Forbidden, 1.19kB, 2ms]
+  √  status 403
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 1 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │               116 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                94 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                10 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │               189 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 1m 12.7s                                   │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 73.84kB (approx)                          │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 19ms [min: 2ms, max: 307ms, s.d.: 48ms] │
+└────────────────────────────────────────────────────────────────┘
