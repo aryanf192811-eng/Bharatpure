@@ -14,6 +14,7 @@ ai/**/__pycache__/
 Thumbs.db
 *.log
 npm-debug.log*
+.playwright-mcp/
 
 # Raw design export (large binary) — extracted contents are tracked under design/
 stitch_agricultural_field_app_design.zip
