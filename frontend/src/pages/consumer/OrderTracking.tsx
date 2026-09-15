@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
-import { CheckCircle2, Circle, Thermometer, Truck } from 'lucide-react'
+import { CheckCircle2, Circle, Sprout, Thermometer, Truck } from 'lucide-react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import { Link, useParams } from 'react-router-dom'
 
 import { orderApi } from '@/api/order.api'
+import { IEIMetric } from '@/components/shared/IEIMetric'
 import { Skeleton } from '@/components/ui/skeleton'
 import { defaultMarkerIcon } from '@/lib/leafletIcons'
+
+const formatRupees = (paise: number) => `₹${(paise / 100).toFixed(2)}`
 
 const STEPS = ['placed', 'confirmed', 'dispatched', 'delivered'] as const
 
@@ -20,6 +23,11 @@ export default function OrderTracking() {
     queryKey: ['order', orderId, 'track'],
     queryFn: () => orderApi.track(orderId!),
     enabled: !!orderId,
+  })
+  const { data: impactRes } = useQuery({
+    queryKey: ['order', orderId, 'impact'],
+    queryFn: () => orderApi.getImpact(orderId!),
+    enabled: !!orderId && orderRes?.data.status === 'delivered',
   })
 
   if (isLoading || !orderRes) {
@@ -96,6 +104,34 @@ export default function OrderTracking() {
           </div>
         ))}
       </div>
+
+      {order.status === 'delivered' && impactRes?.data && (
+        <div className="rounded-md bg-white p-4 shadow-sm">
+          <p className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-earth-900">
+            <Sprout className="size-4 text-primary-700" /> Your Impact
+          </p>
+          <p className="mb-2 text-xs text-earth-500">
+            What you paid vs. a traditional mandi channel, per item.
+          </p>
+          {impactRes.data.items.map((item, i) => (
+            <IEIMetric
+              key={i}
+              label={`${item.crop_type} · ${item.fpo_name ?? 'FPO'}${item.fpo_state ? `, ${item.fpo_state}` : ''}`}
+              before={item.traditional_paise !== null ? formatRupees(item.traditional_paise) : '—'}
+              after={formatRupees(item.bharatpure_paise)}
+              delta={
+                item.traditional_paise !== null
+                  ? `+${formatRupees(item.bharatpure_paise - item.traditional_paise)} to farmer`
+                  : ''
+              }
+            />
+          ))}
+          <div className="mt-2 flex items-baseline justify-between border-t border-earth-200 pt-2">
+            <span className="text-xs font-semibold uppercase tracking-widest text-earth-500">Total extra to farmers</span>
+            <span className="font-display text-lg font-bold text-success">{formatRupees(impactRes.data.total_uplift_paise)}</span>
+          </div>
+        </div>
+      )}
 
       <Link to={`/consumer/orders`} className="text-center text-sm text-earth-500 hover:text-earth-700">
         &larr; Back to orders
