@@ -225,6 +225,29 @@ Known outstanding items beyond the board itself (flagged throughout, not forgott
 
 ---
 
+## 2026-09-16 — Session 4: TASK-P5-003 complete — entire backend task board done
+
+Picked up exactly where Session 3 left off, per the plan written down for this. Postman MCP got authorized by the user mid-session (via `/mcp` in an interactive terminal) — available for the deferred Postman consolidation pass whenever that happens.
+
+### Done
+**TASK-P5-003 (FPO Trust Score + Buyer Reliability Score cron jobs) — VERIFIED. This was the last task on the entire chatbot.md Phase 0-5 board.** Research doc written first (`docs/research/trust-score-formula.md`), reading BHARATPURE-DB.md's formula table directly. Found and documented real data gaps while deriving the underlying component queries (not bugs in this task — gaps in earlier tasks' data, surfaced honestly): `fulfillment_rate` is `0` for every FPO (no `procurement_contracts` ever created anywhere in this codebase), `on_time_delivery_rate` uses a proxy (`orders.estimated_delivery_at` is never set), `buyer_rating_avg` defaults to a neutral placeholder (no ratings feature exists in the schema at all). Buyer reliability's formula wasn't given in the spec — designed one analogous to the FPO formula.
+
+Verified live: manual trigger produces `computed_score > 0` for all 3 seeded FPOs with real underlying numbers, `fpo_profiles.trust_score` synced correctly, buyer scores computed sensibly for both seeded buyers, re-run is safe (time-series table, adds new snapshots), non-admin role correctly rejected.
+
+### 🎉 Backend milestone: all 16 chatbot.md tasks (TASK-001 through TASK-P5-003) VERIFIED
+Full recap of what exists now: complete 33-table schema, full auth system (register/OTP/login/refresh/forgot-password with token-theft detection), batch CRUD + quality testing + B-sample protocol + certificate upload, listings with demand-forecast join, the atomic-escrow order-creation transaction (the most critical piece, per BHARATPURE-CLAUDE.md itself), QR scan/burn, disputes with escrow refund, logistics + temperature-breach-gated delivery, admin dashboard with IEI, DPI mocks, a Gemini-powered WhatsApp bot (swapped from Claude mid-build per user request) with full local-fallback resilience, and nightly trust-score cron jobs. Every single task was verified live against the real database/HTTP server, not just read through — and that discipline caught a lot of real bugs before they shipped (Express 5 vs required 4, a missing ROLLBACK path, a wrong foreign-key reference in seed data, a Postgres operator-type-inference bug that would have broken every order, a query that let one bad city crash an entire multi-city response, and more — full list in each task's Result/Notes in `chatbot.md`).
+
+### Still outstanding (per the Definition of Done, not yet done)
+1. **Postman collection consolidation** — only the original 8 auth routes + 1 smoke test are covered; every route since (batches, quality, listings, orders, QR, disputes, logistics, admin, DPI, webhooks) was verified via direct curl/HTTP instead, deliberately deferred each time to keep the "complete the whole backend" pass moving. Postman MCP is now authorized if that's the preferred path for this.
+2. **The separate FastAPI AI microservice** (`ai/`, BHARATPURE-AI.md) — never started, not in `chatbot.md`'s scope. Every AI-proxying Node route already handles its absence gracefully and is tested for exactly that path.
+3. **Frontend** — not started.
+4. User's own stated next step (from the "goodnight" message): **"we will test it and take many looks"** — this is the natural handoff point for that. The backend is functionally complete; a proper review/testing pass is the logical next move before Postman consolidation, the AI service, or frontend.
+
+### Next (pick up here)
+Ask the user what they want first: Postman consolidation, their own manual testing pass, starting the AI microservice, or frontend. Don't assume — this is a genuine fork in priorities now that the backend board is clear, not a "just keep going" continuation like every previous checkpoint this build.
+
+---
+
 ## 2026-09-08 — Session 1: Context gathering, tooling setup, design system reconciliation kickoff
 
 ### Done
