@@ -46,6 +46,15 @@ import Catalog from '@/pages/buyer/Catalog'
 import BuyerDashboard from '@/pages/buyer/Dashboard'
 import OrderHistoryBuyer from '@/pages/buyer/OrderHistoryBuyer'
 import ReliabilityScore from '@/pages/buyer/ReliabilityScore'
+import AuditLogViewer from '@/pages/admin/AuditLogViewer'
+import AdminDashboard from '@/pages/admin/Dashboard'
+import DemandIntelligence from '@/pages/admin/DemandIntelligence'
+import DpiStatus from '@/pages/admin/DpiStatus'
+import EscrowManagement from '@/pages/admin/EscrowManagement'
+import FpoBatchManagement from '@/pages/admin/FpoBatchManagement'
+import PriceIntelligence from '@/pages/admin/PriceIntelligence'
+import RouteOptimization from '@/pages/admin/RouteOptimization'
+import WhatIfSimulator from '@/pages/admin/WhatIfSimulator'
 import BatchCreateStep1 from '@/pages/farmer/BatchCreateStep1'
 import DeliveryConfirmation from '@/pages/logistics/DeliveryConfirmation'
 import LogisticsDashboard from '@/pages/logistics/Dashboard'
@@ -64,7 +73,6 @@ import FarmerDashboard from '@/pages/farmer/Dashboard'
 import Earnings from '@/pages/farmer/Earnings'
 import QualityTestResult from '@/pages/farmer/QualityTestResult'
 import TrustScore from '@/pages/farmer/TrustScore'
-import NotBuiltYet from '@/pages/NotBuiltYet'
 import Profile from '@/pages/shared/Profile'
 
 const FARMER_TABS: PWATab[] = [
@@ -183,15 +191,15 @@ function App() {
       {/* Admin web */}
       <Route element={<ProtectedRoute role="ADMIN" />}>
         <Route element={<WebShell links={ADMIN_LINKS} />}>
-          <Route path="/admin/dashboard" element={<NotBuiltYet screen="Admin Dashboard (38)" />} />
-          <Route path="/admin/demand" element={<NotBuiltYet screen="Demand Intelligence Dashboard (39)" />} />
-          <Route path="/admin/price" element={<NotBuiltYet screen="Price Intelligence Dashboard (40)" />} />
-          <Route path="/admin/routes" element={<NotBuiltYet screen="Route Optimization Control Panel (41)" />} />
-          <Route path="/admin/simulate" element={<NotBuiltYet screen="What-if Simulator (42)" />} />
-          <Route path="/admin/fpos" element={<NotBuiltYet screen="FPO & Batch Management (43)" />} />
-          <Route path="/admin/escrow" element={<NotBuiltYet screen="Escrow Management (44)" />} />
-          <Route path="/admin/dpi" element={<NotBuiltYet screen="DPI Integration Status (45)" />} />
-          <Route path="/admin/audit" element={<NotBuiltYet screen="Audit Log Viewer (46)" />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/demand" element={<DemandIntelligence />} />
+          <Route path="/admin/price" element={<PriceIntelligence />} />
+          <Route path="/admin/routes" element={<RouteOptimization />} />
+          <Route path="/admin/simulate" element={<WhatIfSimulator />} />
+          <Route path="/admin/fpos" element={<FpoBatchManagement />} />
+          <Route path="/admin/escrow" element={<EscrowManagement />} />
+          <Route path="/admin/dpi" element={<DpiStatus />} />
+          <Route path="/admin/audit" element={<AuditLogViewer />} />
         </Route>
       </Route>
 
