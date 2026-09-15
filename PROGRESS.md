@@ -3,6 +3,29 @@
 
 ---
 
+## 2026-09-15 — Session 5: Full-backend Postman regression — 161/161 assertions passing
+
+### What happened
+User's explicit instruction: "test it rigorously until every test case, assertion of endpoints pass correctly." Built a comprehensive Postman collection (`backend/postman/-collection.json`) covering all 12 domains end-to-end — Setup/login for all 5 seeded roles, clusters, batches (full status state machine incl. invalid transitions), quality (TIER1/TIER2/B-sample/certificate upload incl. non-PDF rejection), listings (incl. duplicate-listing and not-ready rejections), demand/price/simulation, orders (incl. min/max/stock-exhaustion/cancellation), QR scan+burn (incl. double-burn), disputes (incl. window-closed), logistics temperature-breach flow end-to-end, admin (dashboard/escrow/audit-logs/trust-score trigger/user suspension), DPI mocks, WhatsApp webhook, and cross-role RBAC rejections.
+
+### Two real API gaps found and built before the suite could even be written
+- `GET /api/clusters` didn't exist — batch creation needs `cluster_id` but nothing let a client discover one.
+- `PATCH /api/batches/:batchId/status` didn't exist — the `draft → pending_test` transition had no trigger anywhere in the API; all prior manual testing had silently faked it via direct `psql UPDATE`.
+
+### Four real bugs found and fixed by the regression pass itself
+1. `quality.service.js`: TIER2 (NABL) tests were unreachable — the status guard required `pending_test` for any tier, but TIER1 PASS/FAIL both move the batch out of `pending_test`, and BHARATPURE-DB.md says TIER2 "always supersedes TIER1." Fixed the guard to allow TIER2 from `test_passed`/`test_failed`.
+2. `listing.service.js`: `BATCH_ALREADY_LISTED` (409) was unreachable — the `test_passed`-status check ran before the active-listing check, but listing creation itself flips status to `listed`, so a repeat attempt always hit the generic `BATCH_NOT_READY` (422) instead. Reordered the checks.
+3. `qr.service.js`: a QR scan never saw its own `QRScanned` event in the response — the event was inserted after the query that reads the BIR event log back. Reordered to insert first.
+4. Operational, not a code bug: the login rate limiter (10/15min/IP) is shared across the suite's ~6 logins per run, so re-running the full suite twice against the same server process trips `429`s purely from the prior run's logins. `express-rate-limit`'s in-memory store resets on server restart — documented in `chatbot.md`, not worked around with a code change.
+
+### Result
+Full details, every bug's root cause and fix, and the final passing run are logged in `chatbot.md`'s "PHASE 0 NEWMAN RESULTS LOG" section and `docs/testing/full-regression-newman-2026-09-15.txt` (105 requests, 161/161 assertions, 0 failures).
+
+### Outstanding (unchanged from Session 4, not started)
+The FastAPI AI microservice and all frontend work remain untouched — do not start without explicit direction.
+
+---
+
 ## 2026-09-14 — Session 2: Design evolution recovery, backend/frontend task boards added
 
 ### What happened between sessions

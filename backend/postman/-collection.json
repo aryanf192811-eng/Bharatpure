@@ -1,244 +1,974 @@
 {
   "info": {
     "name": "BharatPure API",
-    "description": "TASK-009: Auth folder covers all 8 auth routes end-to-end. Run against a freshly-migrated dev DB; the pre-request script on 'Register' generates a random 10-digit phone each run so the suite is repeatable without manual cleanup.",
+    "description": "Full end-to-end coverage across every domain. Run top-to-bottom (folders are ordered by dependency). Fixtures for multipart tests live in postman/fixtures/. Run from the backend/ directory so relative fixture paths resolve.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Auth",
+      "name": "0. Setup",
       "item": [
         {
-          "name": "1. Register",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "const phone = '9' + Math.floor(100000000 + Math.random() * 899999999);",
-                  "pm.environment.set('testPhone', phone);"
-                ]
-              }
-            },
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 201', () => pm.response.to.have.status(201));",
-                  "const body = pm.response.json();",
-                  "pm.test('success true', () => pm.expect(body.success).to.be.true);",
-                  "pm.test('has userId', () => pm.expect(body.data.userId).to.be.a('string'));",
-                  "pm.test('devOtp is 6 digits', () => pm.expect(/^\\d{6}$/.test(body.data.devOtp)).to.be.true);",
-                  "pm.environment.set('devOtp', body.data.devOtp);",
-                  "pm.environment.set('consumerUserId', body.data.userId);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"role\":\"CONSUMER\",\"phone\":\"{{testPhone}}\",\"password\":\"Testpass1\",\"full_name\":\"Newman Test User\",\"delivery_pincode\":\"110001\"}"
-            },
-            "url": "{{baseUrl}}/api/auth/register"
-          }
+          "name": "Login Farmer",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('has accessToken', () => pm.expect(body.data.accessToken).to.be.a('string'));",
+            "pm.environment.set('farmerToken', body.data.accessToken);",
+            "pm.environment.set('farmerUserId', body.data.user.id);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"identifier\":\"9000000001\",\"password\":\"Test@1234\"}" }, "url": "{{baseUrl}}/api/auth/login" }
         },
         {
-          "name": "2. Verify OTP",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "const body = pm.response.json();",
-                  "pm.test('has accessToken', () => pm.expect(body.data.accessToken).to.be.a('string'));",
-                  "pm.test('user is CONSUMER', () => pm.expect(body.data.user.role).to.eql('CONSUMER'));",
-                  "pm.environment.set('consumerToken', body.data.accessToken);",
-                  "pm.environment.set('authToken', body.data.accessToken);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"phone\":\"{{testPhone}}\",\"otp\":\"{{devOtp}}\",\"purpose\":\"registration\"}"
-            },
-            "url": "{{baseUrl}}/api/auth/verify-otp"
-          }
+          "name": "Login Consumer",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.environment.set('consumerToken', body.data.accessToken);",
+            "pm.environment.set('consumerUserId', body.data.user.id);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"identifier\":\"9000000002\",\"password\":\"Test@1234\"}" }, "url": "{{baseUrl}}/api/auth/login" }
         },
         {
-          "name": "3. Refresh",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "const body = pm.response.json();",
-                  "pm.test('has new accessToken', () => pm.expect(body.data.accessToken).to.be.a('string'));",
-                  "pm.environment.set('consumerToken', body.data.accessToken);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": "{{baseUrl}}/api/auth/refresh"
-          }
+          "name": "Login Bulk Buyer",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.environment.set('bulkBuyerToken', body.data.accessToken);",
+            "pm.environment.set('bulkBuyerUserId', body.data.user.id);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"identifier\":\"9000000003\",\"password\":\"Test@1234\"}" }, "url": "{{baseUrl}}/api/auth/login" }
         },
         {
-          "name": "4. Login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "const body = pm.response.json();",
-                  "pm.test('has accessToken', () => pm.expect(body.data.accessToken).to.be.a('string'));",
-                  "pm.environment.set('consumerToken', body.data.accessToken);",
-                  "pm.environment.set('authToken', body.data.accessToken);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"identifier\":\"{{testPhone}}\",\"password\":\"Testpass1\"}"
-            },
-            "url": "{{baseUrl}}/api/auth/login"
-          }
+          "name": "Login Logistics",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.environment.set('logisticsToken', body.data.accessToken);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"identifier\":\"9000000004\",\"password\":\"Test@1234\"}" }, "url": "{{baseUrl}}/api/auth/login" }
         },
         {
-          "name": "5. Forgot Password",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "const body = pm.response.json();",
-                  "pm.test('devOtp is 6 digits', () => pm.expect(/^\\d{6}$/.test(body.data.devOtp)).to.be.true);",
-                  "pm.environment.set('devOtp', body.data.devOtp);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": { "mode": "raw", "raw": "{\"phone\":\"{{testPhone}}\"}" },
-            "url": "{{baseUrl}}/api/auth/forgot-password"
-          }
+          "name": "Login Admin",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.environment.set('adminToken', body.data.accessToken);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"identifier\":\"9000000005\",\"password\":\"Test@1234\"}" }, "url": "{{baseUrl}}/api/auth/login" }
         },
         {
-          "name": "6. Verify Reset OTP",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "const body = pm.response.json();",
-                  "pm.test('has resetToken', () => pm.expect(body.data.resetToken).to.be.a('string'));",
-                  "pm.environment.set('resetToken', body.data.resetToken);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"phone\":\"{{testPhone}}\",\"otp\":\"{{devOtp}}\"}"
-            },
-            "url": "{{baseUrl}}/api/auth/verify-reset-otp"
-          }
-        },
-        {
-          "name": "7. Reset Password",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 200', () => pm.response.to.have.status(200));",
-                  "const body = pm.response.json();",
-                  "pm.test('success message present', () => pm.expect(body.message).to.eql('Password reset successful.'));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{resetToken}}" }
-            ],
-            "body": { "mode": "raw", "raw": "{\"newPassword\":\"NewTestpass2\"}" },
-            "url": "{{baseUrl}}/api/auth/reset-password"
-          }
-        },
-        {
-          "name": "8. Logout",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": ["pm.test('status 204', () => pm.response.to.have.status(204));"]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": "{{baseUrl}}/api/auth/logout"
-          }
+          "name": "Get Clusters (discover cluster IDs)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('has 3 seeded clusters', () => pm.expect(body.data.length).to.be.at.least(3));",
+            "const turmeric = body.data.find(c => c.crop_type === 'TURMERIC');",
+            "pm.test('turmeric cluster found', () => pm.expect(turmeric).to.not.be.undefined);",
+            "pm.environment.set('clusterId', turmeric.id);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/clusters" }
         }
       ]
     },
     {
-      "name": "Users (smoke test)",
+      "name": "1. Batches",
       "item": [
         {
-          "name": "Get Me - No Token",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('status 401', () => pm.response.to.have.status(401));",
-                  "pm.test('error code UNAUTHENTICATED', () => pm.expect(pm.response.json().error.code).to.eql('UNAUTHENTICATED'));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": "{{baseUrl}}/api/users/me"
-          }
+          "name": "Create Main Batch",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201', () => pm.response.to.have.status(201));",
+            "const body = pm.response.json();",
+            "pm.test('batch_code matches pattern', () => pm.expect(/^MH-TUR-\\d{4}-\\d{3}$/.test(body.data.batch_code)).to.be.true);",
+            "pm.test('qr_hash is 64 hex chars', () => pm.expect(/^[a-f0-9]{64}$/.test(body.data.qr_hash)).to.be.true);",
+            "pm.test('status is draft', () => pm.expect(body.data.status).to.eql('draft'));",
+            "pm.environment.set('mainBatchId', body.data.id);",
+            "pm.environment.set('mainQrHash', body.data.qr_hash);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"cluster_id\":\"{{clusterId}}\",\"crop_type\":\"TURMERIC\",\"harvest_date\":\"2026-09-01\",\"total_quantity_kg\":200,\"notes\":\"newman test batch\"}" },
+            "url": "{{baseUrl}}/api/batches" }
+        },
+        {
+          "name": "Get Batch Detail — 2 BIR events",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('exactly 2 BIR events on fresh batch', () => pm.expect(body.data.bir_events.length).to.eql(2));",
+            "pm.test('events are BatchCreated then HarvestDataLogged', () => {",
+            "  pm.expect(body.data.bir_events[0].event_type).to.eql('BatchCreated');",
+            "  pm.expect(body.data.bir_events[1].event_type).to.eql('HarvestDataLogged');",
+            "});"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/batches/{{mainBatchId}}" }
+        },
+        {
+          "name": "List Batches (Farmer, role-scoped)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('pagination present', () => pm.expect(body.pagination.total).to.be.a('number'));",
+            "pm.test('main batch appears in list', () => pm.expect(body.data.some(b => b.id === pm.environment.get('mainBatchId'))).to.be.true);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/batches?limit=50" }
+        },
+        {
+          "name": "Consumer Cannot See Draft Batch (404, not 403)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 404', () => pm.response.to.have.status(404));",
+            "pm.test('error code BATCH_NOT_FOUND', () => pm.expect(pm.response.json().error.code).to.eql('BATCH_NOT_FOUND'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/batches/{{mainBatchId}}" }
+        },
+        {
+          "name": "Submit Main Batch for Testing (draft -> pending_test)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status is pending_test', () => pm.expect(pm.response.json().data.status).to.eql('pending_test'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"status\":\"pending_test\"}" }, "url": "{{baseUrl}}/api/batches/{{mainBatchId}}/status" }
+        },
+        {
+          "name": "Invalid Status Transition -> 422",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 422', () => pm.response.to.have.status(422));",
+            "pm.test('error code INVALID_STATUS_TRANSITION', () => pm.expect(pm.response.json().error.code).to.eql('INVALID_STATUS_TRANSITION'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"status\":\"delivered\"}" }, "url": "{{baseUrl}}/api/batches/{{mainBatchId}}/status" }
+        },
+        {
+          "name": "Create + Delete Draft Batch -> 204",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [
+            "pm.sendRequest({",
+            "  url: pm.environment.get('baseUrl') + '/api/batches',",
+            "  method: 'POST',",
+            "  header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "  body: { mode: 'raw', raw: JSON.stringify({ cluster_id: pm.environment.get('clusterId'), crop_type: 'TURMERIC', harvest_date: '2026-09-01', total_quantity_kg: 5 }) }",
+            "}, (err, res) => { pm.environment.set('throwawayBatchId', res.json().data.id); });"
+          ]}}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 204', () => pm.response.to.have.status(204));"
+          ]}}],
+          "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/batches/{{throwawayBatchId}}" }
+        }
+      ]
+    },
+    {
+      "name": "2. Quality — Tests, Certificates, B-Samples",
+      "item": [
+        {
+          "name": "TIER1 PASS on Main Batch",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201', () => pm.response.to.have.status(201));",
+            "pm.test('result PASS', () => pm.expect(pm.response.json().data.result).to.eql('PASS'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"batch_id\":\"{{mainBatchId}}\",\"tier\":\"TIER1\",\"result\":\"PASS\",\"purity_score\":91,\"test_parameters\":{\"moisture_pct\":8.5}}" },
+            "url": "{{baseUrl}}/api/quality/tests" }
+        },
+        {
+          "name": "Batch is now test_passed",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status test_passed', () => pm.expect(pm.response.json().data.status).to.eql('test_passed'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/batches/{{mainBatchId}}" }
+        },
+        {
+          "name": "TIER1 FAIL Batch -> auto b_sample_requests",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [
+            "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/batches', method: 'POST',",
+            "  header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "  body: { mode: 'raw', raw: JSON.stringify({ cluster_id: pm.environment.get('clusterId'), crop_type: 'TURMERIC', harvest_date: '2026-09-01', total_quantity_kg: 15 }) }",
+            "}, (e1, r1) => {",
+            "  const batchId = r1.json().data.id;",
+            "  pm.environment.set('tier1FailBatchId', batchId);",
+            "  pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/batches/' + batchId + '/status', method: 'PATCH',",
+            "    header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "    body: { mode: 'raw', raw: JSON.stringify({ status: 'pending_test' }) } }, () => {});",
+            "});"
+          ]}}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201', () => pm.response.to.have.status(201));",
+            "pm.test('result FAIL', () => pm.expect(pm.response.json().data.result).to.eql('FAIL'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"batch_id\":\"{{tier1FailBatchId}}\",\"tier\":\"TIER1\",\"result\":\"FAIL\",\"purity_score\":55}" },
+            "url": "{{baseUrl}}/api/quality/tests" }
+        },
+        {
+          "name": "B-Sample Auto-Created with ~7 Day Window",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('one b-sample request exists', () => pm.expect(body.data.length).to.eql(1));",
+            "pm.test('status pending', () => pm.expect(body.data[0].status).to.eql('pending'));",
+            "const windowEnd = new Date(body.data[0].request_window_end);",
+            "const hoursLeft = (windowEnd - new Date()) / (1000 * 60 * 60);",
+            "pm.test('window is ~7 days out', () => pm.expect(hoursLeft).to.be.within(160, 169));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/quality/b-samples/{{tier1FailBatchId}}" }
+        },
+        {
+          "name": "Request B-Sample Lab Selection",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status lab_selected', () => pm.expect(pm.response.json().data.status).to.eql('lab_selected'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"selected_lab\":\"AgriQuality Labs, Pune\"}" }, "url": "{{baseUrl}}/api/quality/b-samples/{{tier1FailBatchId}}/request" }
+        },
+        {
+          "name": "TIER2 without TIER1 -> 400",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [
+            "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/batches', method: 'POST',",
+            "  header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "  body: { mode: 'raw', raw: JSON.stringify({ cluster_id: pm.environment.get('clusterId'), crop_type: 'TURMERIC', harvest_date: '2026-09-01', total_quantity_kg: 20 }) }",
+            "}, (e1, r1) => {",
+            "  const batchId = r1.json().data.id;",
+            "  pm.environment.set('certBatchId', batchId);",
+            "  pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/batches/' + batchId + '/status', method: 'PATCH',",
+            "    header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "    body: { mode: 'raw', raw: JSON.stringify({ status: 'pending_test' }) } }, () => {});",
+            "});"
+          ]}}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 400', () => pm.response.to.have.status(400));",
+            "pm.test('error code INVALID_TIER2_WITHOUT_TIER1', () => pm.expect(pm.response.json().error.code).to.eql('INVALID_TIER2_WITHOUT_TIER1'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"batch_id\":\"{{certBatchId}}\",\"tier\":\"TIER2\",\"result\":\"PASS\",\"purity_score\":96}" },
+            "url": "{{baseUrl}}/api/quality/tests" }
+        },
+        {
+          "name": "TIER1 PASS then TIER2 PASS on Cert Batch",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [
+            "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/quality/tests', method: 'POST',",
+            "  header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "  body: { mode: 'raw', raw: JSON.stringify({ batch_id: pm.environment.get('certBatchId'), tier: 'TIER1', result: 'PASS', purity_score: 93 }) }",
+            "}, () => {});"
+          ]}}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201', () => pm.response.to.have.status(201));",
+            "pm.test('result PASS', () => pm.expect(pm.response.json().data.result).to.eql('PASS'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"batch_id\":\"{{certBatchId}}\",\"tier\":\"TIER2\",\"result\":\"PASS\",\"purity_score\":96,\"lab_name\":\"AgriQuality Labs, Pune\"}" },
+            "url": "{{baseUrl}}/api/quality/tests" }
+        },
+        {
+          "name": "Upload Certificate — Non-PDF -> 400 INVALID_MIME_TYPE",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 400', () => pm.response.to.have.status(400));",
+            "pm.test('error code INVALID_MIME_TYPE', () => pm.expect(pm.response.json().error.code).to.eql('INVALID_MIME_TYPE'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "formdata", "formdata": [
+              { "key": "certificate", "type": "file", "src": "postman/fixtures/test-invalid.txt" },
+              { "key": "batch_id", "value": "{{certBatchId}}", "type": "text" },
+              { "key": "cert_number", "value": "NEWMAN-CERT-INVALID", "type": "text" },
+              { "key": "issued_at", "value": "2026-09-16", "type": "text" }
+            ]},
+            "url": "{{baseUrl}}/api/quality/certificates" }
+        },
+        {
+          "name": "Upload Certificate — Valid PDF -> 201",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [
+            "pm.environment.set('newCertNumber', 'NEWMAN-CERT-' + Date.now());"
+          ]}}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201', () => pm.response.to.have.status(201));",
+            "const body = pm.response.json();",
+            "pm.test('cert_number returned', () => pm.expect(body.data.cert_number).to.eql(pm.environment.get('newCertNumber')));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "formdata", "formdata": [
+              { "key": "certificate", "type": "file", "src": "postman/fixtures/test-cert.pdf" },
+              { "key": "batch_id", "value": "{{certBatchId}}", "type": "text" },
+              { "key": "cert_number", "value": "{{newCertNumber}}", "type": "text" },
+              { "key": "issued_at", "value": "2026-09-16", "type": "text" }
+            ]},
+            "url": "{{baseUrl}}/api/quality/certificates" }
+        }
+      ]
+    },
+    {
+      "name": "3. Listings",
+      "item": [
+        {
+          "name": "List on Non-test_passed Batch -> 422",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"batch_id\":\"{{tier1FailBatchId}}\",\"price_per_kg_paise\":15000}" }, "url": "{{baseUrl}}/api/listings" },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 422', () => pm.response.to.have.status(422));",
+            "pm.test('error code BATCH_NOT_READY', () => pm.expect(pm.response.json().error.code).to.eql('BATCH_NOT_READY'));"
+          ]}}]
+        },
+        {
+          "name": "Create Listing on Main Batch",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201', () => pm.response.to.have.status(201));",
+            "pm.environment.set('mainListingId', pm.response.json().data.id);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"batch_id\":\"{{mainBatchId}}\",\"price_per_kg_paise\":18500,\"min_order_kg\":5,\"max_order_kg\":150}" },
+            "url": "{{baseUrl}}/api/listings" }
+        },
+        {
+          "name": "Duplicate Active Listing -> 409",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 409', () => pm.response.to.have.status(409));",
+            "pm.test('error code BATCH_ALREADY_LISTED', () => pm.expect(pm.response.json().error.code).to.eql('BATCH_ALREADY_LISTED'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"batch_id\":\"{{mainBatchId}}\",\"price_per_kg_paise\":19000}" }, "url": "{{baseUrl}}/api/listings" }
+        },
+        {
+          "name": "Browse Listings (Consumer)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('main listing appears', () => pm.expect(body.data.some(l => l.id === pm.environment.get('mainListingId'))).to.be.true);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/listings?limit=50" }
+        },
+        {
+          "name": "Recommended Listings (Delhi demand join)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('returns at most 5', () => pm.expect(body.data.length).to.be.at.most(5));",
+            "const turmericRow = body.data.find(r => r.crop_type === 'TURMERIC');",
+            "pm.test('turmeric row has demand_forecast_kg', () => pm.expect(turmericRow.demand_forecast_kg).to.not.be.null);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/listings/recommended?city=Delhi" }
+        },
+        {
+          "name": "Get Listing Detail",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('correct batch_code', () => pm.expect(pm.response.json().data.batch_code).to.match(/^MH-TUR-/));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/listings/{{mainListingId}}" }
+        },
+        {
+          "name": "Pause Listing",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status paused', () => pm.expect(pm.response.json().data.status).to.eql('paused'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"status\":\"paused\"}" }, "url": "{{baseUrl}}/api/listings/{{mainListingId}}/status" }
+        },
+        {
+          "name": "Reactivate Listing",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status active', () => pm.expect(pm.response.json().data.status).to.eql('active'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"status\":\"active\"}" }, "url": "{{baseUrl}}/api/listings/{{mainListingId}}/status" }
+        }
+      ]
+    },
+    {
+      "name": "4. Demand + Price + Simulation",
+      "item": [
+        {
+          "name": "Demand Forecast (Delhi Turmeric)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('stale flag is boolean', () => pm.expect(body.data.stale).to.be.a('boolean'));",
+            "pm.test('forecast array present', () => pm.expect(body.data.forecast).to.be.an('array'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/demand/forecast?crop_type=TURMERIC&city=Delhi&days=30" }
+        },
+        {
+          "name": "Multi-City Demand (partial-availability isolation)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('Delhi has data', () => pm.expect(body.data.Delhi.data.length).to.be.above(0));",
+            "pm.test('response never throws for missing city', () => pm.expect(body.data.Bangalore).to.not.be.undefined);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/demand/multi-city?crop_type=TURMERIC&cities=Delhi,Bangalore" }
+        },
+        {
+          "name": "Price Recommendation",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('recommended range is positive', () => pm.expect(body.data.recommended_low_paise).to.be.above(0));",
+            "pm.test('quality band PREMIUM', () => pm.expect(body.data.quality_score_band).to.eql('PREMIUM'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/price/recommendation?crop_type=TURMERIC&quality_score=94&city=Delhi" }
+        },
+        {
+          "name": "Market Rates",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('30 days of history', () => pm.expect(pm.response.json().data.history.length).to.eql(30));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/price/market-rates?crop_type=TURMERIC" }
+        },
+        {
+          "name": "Premium Calculator",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('uplift is positive', () => pm.expect(body.data.realization_uplift_paise).to.be.above(0));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/price/premium-calculator?quality_score=94&crop_type=TURMERIC&quantity_kg=200&destination_city=Delhi" }
+        },
+        {
+          "name": "Simulation — Invalid demand_spike_pct -> 400",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 400', () => pm.response.to.have.status(400));",
+            "pm.test('error code VALIDATION_ERROR', () => pm.expect(pm.response.json().error.code).to.eql('VALIDATION_ERROR'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"crop_type\":\"TURMERIC\",\"city\":\"Delhi\",\"demand_spike_pct\":-5,\"supply_disruption_pct\":10}" },
+            "url": "{{baseUrl}}/api/simulation/run" }
+        },
+        {
+          "name": "Simulation — Valid Run",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201', () => pm.response.to.have.status(201));",
+            "const body = pm.response.json();",
+            "pm.test('shortage_kg is a number', () => pm.expect(body.data.shortage_kg).to.be.a('number'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"crop_type\":\"TURMERIC\",\"city\":\"Delhi\",\"demand_spike_pct\":20,\"supply_disruption_pct\":10}" },
+            "url": "{{baseUrl}}/api/simulation/run" }
+        },
+        {
+          "name": "Simulation History (ADMIN only)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('at least 1 run', () => pm.expect(pm.response.json().pagination.total).to.be.above(0));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/api/simulation/history" }
+        },
+        {
+          "name": "Simulation History — FARMER 403",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 403', () => pm.response.to.have.status(403));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/simulation/history" }
+        }
+      ]
+    },
+    {
+      "name": "5. Orders",
+      "item": [
+        {
+          "name": "Order Below min_order_kg -> 409",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{consumerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"items\":[{\"listing_id\":\"{{mainListingId}}\",\"quantity_kg\":1}],\"delivery_address\":{\"line1\":\"1 Test St\",\"city\":\"Delhi\",\"state\":\"Delhi\",\"pincode\":\"110001\"}}" },
+            "url": "{{baseUrl}}/api/orders" },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 409', () => pm.response.to.have.status(409));",
+            "pm.test('error code MIN_ORDER_NOT_MET', () => pm.expect(pm.response.json().error.code).to.eql('MIN_ORDER_NOT_MET'));"
+          ]}}]
+        },
+        {
+          "name": "Order Above max_order_kg -> 409",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{consumerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"items\":[{\"listing_id\":\"{{mainListingId}}\",\"quantity_kg\":151}],\"delivery_address\":{\"line1\":\"1 Test St\",\"city\":\"Delhi\",\"state\":\"Delhi\",\"pincode\":\"110001\"}}" },
+            "url": "{{baseUrl}}/api/orders" },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 409', () => pm.response.to.have.status(409));",
+            "pm.test('error code MAX_ORDER_EXCEEDED', () => pm.expect(pm.response.json().error.code).to.eql('MAX_ORDER_EXCEEDED'));"
+          ]}}]
+        },
+        {
+          "name": "Order More Than Remaining Stock -> 409",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{consumerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"items\":[{\"listing_id\":\"{{mainListingId}}\",\"quantity_kg\":150}],\"delivery_address\":{\"line1\":\"1 Test St\",\"city\":\"Delhi\",\"state\":\"Delhi\",\"pincode\":\"110001\"}}" },
+            "url": "{{baseUrl}}/api/orders" },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201 (150kg is within stock and max_order_kg)', () => pm.response.to.have.status(201));",
+            "pm.environment.set('mainOrderId', pm.response.json().data.id);"
+          ]}}]
+        },
+        {
+          "name": "Second Order for Remaining 50kg -> Insufficient Stock",
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{bulkBuyerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"items\":[{\"listing_id\":\"{{mainListingId}}\",\"quantity_kg\":100}],\"delivery_address\":{\"line1\":\"Warehouse 1\",\"city\":\"Mumbai\",\"state\":\"Maharashtra\",\"pincode\":\"400001\"}}" },
+            "url": "{{baseUrl}}/api/orders" },
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 409 (only 50kg left, 100kg requested)', () => pm.response.to.have.status(409));",
+            "pm.test('error code INSUFFICIENT_STOCK', () => pm.expect(pm.response.json().error.code).to.eql('INSUFFICIENT_STOCK'));"
+          ]}}]
+        },
+        {
+          "name": "Get Order Detail (owner)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('has 1 item', () => pm.expect(pm.response.json().data.items.length).to.eql(1));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/orders/{{mainOrderId}}" }
+        },
+        {
+          "name": "Get Order Detail — Wrong Buyer -> 404",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 404', () => pm.response.to.have.status(404));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{bulkBuyerToken}}" }], "url": "{{baseUrl}}/api/orders/{{mainOrderId}}" }
+        },
+        {
+          "name": "Batch is now partially_sold, Escrow Held",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('batch status partially_sold (150 of 200kg sold, 50kg remains)', () => pm.expect(pm.response.json().data.status).to.eql('partially_sold'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/batches/{{mainBatchId}}" }
+        },
+        {
+          "name": "Cancel Order -> Stock Restored",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [
+            "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/batches', method: 'POST',",
+            "  header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "  body: { mode: 'raw', raw: JSON.stringify({ cluster_id: pm.environment.get('clusterId'), crop_type: 'TURMERIC', harvest_date: '2026-09-01', total_quantity_kg: 25 }) }",
+            "}, (e1, r1) => {",
+            "  const bid = r1.json().data.id;",
+            "  pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/batches/' + bid + '/status', method: 'PATCH',",
+            "    header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "    body: { mode: 'raw', raw: JSON.stringify({ status: 'pending_test' }) } }, () => {",
+            "    pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/quality/tests', method: 'POST',",
+            "      header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "      body: { mode: 'raw', raw: JSON.stringify({ batch_id: bid, tier: 'TIER1', result: 'PASS', purity_score: 88 }) } }, () => {",
+            "      pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/listings', method: 'POST',",
+            "        header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "        body: { mode: 'raw', raw: JSON.stringify({ batch_id: bid, price_per_kg_paise: 14000, min_order_kg: 1 }) } }, (e2, r2) => {",
+            "        pm.environment.set('cancelListingId', r2.json().data.id);",
+            "        pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/orders', method: 'POST',",
+            "          header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('consumerToken') },",
+            "          body: { mode: 'raw', raw: JSON.stringify({ items: [{ listing_id: r2.json().data.id, quantity_kg: 10 }], delivery_address: { line1: 'x', city: 'Delhi', state: 'Delhi', pincode: '110001' } }) } }, (e3, r3) => {",
+            "          pm.environment.set('cancelOrderId', r3.json().data.id);",
+            "        });",
+            "      });",
+            "    });",
+            "  });",
+            "});"
+          ]}}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status cancelled', () => pm.expect(pm.response.json().data.status).to.eql('cancelled'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{consumerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"reason\":\"newman test cancel\"}" }, "url": "{{baseUrl}}/api/orders/{{cancelOrderId}}/cancel" }
+        }
+      ]
+    },
+    {
+      "name": "6. QR Scan + Burn",
+      "item": [
+        {
+          "name": "Public Scan (no auth)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('bir_events array present', () => pm.expect(body.data.bir_events).to.be.an('array'));",
+            "pm.test('QRScanned event appended', () => pm.expect(body.data.bir_events.some(e => e.event_type === 'QRScanned')).to.be.true);"
+          ]}}],
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/qr/scan/{{mainQrHash}}" }
+        },
+        {
+          "name": "Scan Unknown QR -> 404",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 404', () => pm.response.to.have.status(404));",
+            "pm.test('error code QR_NOT_FOUND', () => pm.expect(pm.response.json().error.code).to.eql('QR_NOT_FOUND'));"
+          ]}}],
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/qr/scan/0000000000000000000000000000000000000000000000000000000000000000" }
+        },
+        {
+          "name": "Burn — First Call (owning buyer)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/qr/burn/{{mainQrHash}}" }
+        },
+        {
+          "name": "Burn — Second Call -> 409 (not 500)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 409', () => pm.response.to.have.status(409));",
+            "pm.test('error code QR_ALREADY_BURNED', () => pm.expect(pm.response.json().error.code).to.eql('QR_ALREADY_BURNED'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{consumerToken}}" }], "url": "{{baseUrl}}/api/qr/burn/{{mainQrHash}}" }
+        },
+        {
+          "name": "Generate QR Image (owner FARMER)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('base64 PNG data URL', () => pm.expect(pm.response.json().data.qr_image_base64).to.match(/^data:image\\/png;base64,/));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/qr/generate/{{mainBatchId}}" }
+        }
+      ]
+    },
+    {
+      "name": "7. Disputes",
+      "item": [
+        {
+          "name": "Dispute on Seeded 24-Day-Old Delivery -> 422 Window Closed",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [
+            "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/orders?limit=50', method: 'GET',",
+            "  header: { 'Authorization': 'Bearer ' + pm.environment.get('bulkBuyerToken') } }, (e, r) => {",
+            "  const delivered = r.json().data.find(o => o.status === 'delivered');",
+            "  if (delivered) pm.environment.set('oldDeliveredOrderId', delivered.id);",
+            "});"
+          ]}}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "if (!pm.environment.get('oldDeliveredOrderId')) { pm.test.skip('no old delivered order found for this buyer'); }",
+            "else {",
+            "  pm.test('status 422', () => pm.response.to.have.status(422));",
+            "  pm.test('error code DISPUTE_WINDOW_CLOSED', () => pm.expect(pm.response.json().error.code).to.eql('DISPUTE_WINDOW_CLOSED'));",
+            "}"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{bulkBuyerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"order_id\":\"{{oldDeliveredOrderId}}\",\"reason_category\":\"QUALITY_MISMATCH\",\"description\":\"newman test — window should be closed\"}" },
+            "url": "{{baseUrl}}/api/disputes" }
+        },
+        {
+          "name": "Dispute on Recent Delivery -> Succeeds",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [
+            "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/batches', method: 'POST',",
+            "  header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "  body: { mode: 'raw', raw: JSON.stringify({ cluster_id: pm.environment.get('clusterId'), crop_type: 'TURMERIC', harvest_date: '2026-09-01', total_quantity_kg: 12 }) }",
+            "}, (e1, r1) => {",
+            "  const bid = r1.json().data.id;",
+            "  pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/batches/' + bid + '/status', method: 'PATCH',",
+            "    header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "    body: { mode: 'raw', raw: JSON.stringify({ status: 'pending_test' }) } }, () => {",
+            "    pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/quality/tests', method: 'POST',",
+            "      header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "      body: { mode: 'raw', raw: JSON.stringify({ batch_id: bid, tier: 'TIER1', result: 'PASS', purity_score: 90 }) } }, () => {",
+            "      pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/listings', method: 'POST',",
+            "        header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "        body: { mode: 'raw', raw: JSON.stringify({ batch_id: bid, price_per_kg_paise: 15000, min_order_kg: 1 }) } }, (e2, r2) => {",
+            "        pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/orders', method: 'POST',",
+            "          header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('consumerToken') },",
+            "          body: { mode: 'raw', raw: JSON.stringify({ items: [{ listing_id: r2.json().data.id, quantity_kg: 12 }], delivery_address: { line1: 'x', city: 'Delhi', state: 'Delhi', pincode: '110001' } }) } }, (e3, r3) => {",
+            "          const orderId = r3.json().data.id;",
+            "          pm.environment.set('disputeOrderId', orderId);",
+            "          pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/orders/' + orderId + '/delivered', method: 'PATCH',",
+            "            header: { 'Authorization': 'Bearer ' + pm.environment.get('logisticsToken') } }, () => {});",
+            "        });",
+            "      });",
+            "    });",
+            "  });",
+            "});"
+          ]}}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201', () => pm.response.to.have.status(201));",
+            "pm.environment.set('mainDisputeId', pm.response.json().data.id);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{consumerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"order_id\":\"{{disputeOrderId}}\",\"reason_category\":\"QUANTITY_SHORT\",\"description\":\"newman test — received less than ordered\"}" },
+            "url": "{{baseUrl}}/api/disputes" }
+        },
+        {
+          "name": "Resolve Dispute with Partial Refund",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status resolved', () => pm.expect(pm.response.json().data.status).to.eql('resolved'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"resolution\":\"Newman test partial refund\",\"refund_amount_paise\":50000,\"outcome\":\"resolved\"}" },
+            "url": "{{baseUrl}}/api/disputes/{{mainDisputeId}}/resolve" }
+        }
+      ]
+    },
+    {
+      "name": "8. Logistics — Temperature Breach Flow",
+      "item": [
+        {
+          "name": "Setup: batch + order for breach test",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [] }}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('setup batch created', () => pm.response.to.have.status(201));",
+            "pm.environment.set('breachBatchId', pm.response.json().data.id);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"cluster_id\":\"{{clusterId}}\",\"crop_type\":\"TURMERIC\",\"harvest_date\":\"2026-09-01\",\"total_quantity_kg\":18}" },
+            "url": "{{baseUrl}}/api/batches" }
+        },
+        {
+          "name": "Setup: submit + pass + list + order",
+          "event": [{ "listen": "prerequest", "script": { "type": "text/javascript", "exec": [
+            "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/batches/' + pm.environment.get('breachBatchId') + '/status', method: 'PATCH',",
+            "  header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "  body: { mode: 'raw', raw: JSON.stringify({ status: 'pending_test' }) } }, () => {",
+            "  pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/quality/tests', method: 'POST',",
+            "    header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "    body: { mode: 'raw', raw: JSON.stringify({ batch_id: pm.environment.get('breachBatchId'), tier: 'TIER1', result: 'PASS', purity_score: 92 }) } }, () => {",
+            "    pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/listings', method: 'POST',",
+            "      header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('farmerToken') },",
+            "      body: { mode: 'raw', raw: JSON.stringify({ batch_id: pm.environment.get('breachBatchId'), price_per_kg_paise: 15000, min_order_kg: 1 }) } }, (e2, r2) => {",
+            "      pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/orders', method: 'POST',",
+            "        header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('consumerToken') },",
+            "        body: { mode: 'raw', raw: JSON.stringify({ items: [{ listing_id: r2.json().data.id, quantity_kg: 18 }], delivery_address: { line1: 'x', city: 'Delhi', state: 'Delhi', pincode: '110001' } }) } }, (e3, r3) => {",
+            "        pm.environment.set('breachOrderId', r3.json().data.id);",
+            "      });",
+            "    });",
+            "  });",
+            "});"
+          ]}}, { "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('setup complete', () => pm.expect(pm.environment.get('breachOrderId')).to.not.be.undefined);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/batches/{{breachBatchId}}" }
+        },
+        {
+          "name": "Log Temperature Breach",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 201', () => pm.response.to.have.status(201));",
+            "pm.test('breach_detected true', () => pm.expect(pm.response.json().data.breach_detected).to.be.true);"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{logisticsToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"batch_id\":\"{{breachBatchId}}\",\"temperature_c\":12.5,\"threshold_c\":8.0,\"vehicle_id\":\"NEWMAN-TEST-001\"}" },
+            "url": "{{baseUrl}}/api/logistics/temperature-log" }
+        },
+        {
+          "name": "Delivery Blocked -> 422 TEMPERATURE_BREACH_REVIEW",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 422', () => pm.response.to.have.status(422));",
+            "pm.test('error code TEMPERATURE_BREACH_REVIEW', () => pm.expect(pm.response.json().error.code).to.eql('TEMPERATURE_BREACH_REVIEW'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Authorization", "value": "Bearer {{logisticsToken}}" }], "url": "{{baseUrl}}/api/orders/{{breachOrderId}}/delivered" }
+        },
+        {
+          "name": "Admin Clears Breach",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"review_notes\":\"Newman test — verified safe on physical inspection.\"}" },
+            "url": "{{baseUrl}}/api/batches/{{breachBatchId}}/temperature-breach-clear" }
+        },
+        {
+          "name": "Delivery Now Succeeds — Escrow Released",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status delivered', () => pm.expect(pm.response.json().data.status).to.eql('delivered'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Authorization", "value": "Bearer {{logisticsToken}}" }], "url": "{{baseUrl}}/api/orders/{{breachOrderId}}/delivered" }
+        },
+        {
+          "name": "Logistics Dashboard",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('assigned_routes is a number', () => pm.expect(pm.response.json().data.assigned_routes).to.be.a('number'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{logisticsToken}}" }], "url": "{{baseUrl}}/api/logistics/dashboard" }
+        }
+      ]
+    },
+    {
+      "name": "9. Admin",
+      "item": [
+        {
+          "name": "Dashboard — IEI has all 5 metrics",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const iei = pm.response.json().data.iei;",
+            "['total_orders','avg_farmer_premium_rupees','avg_distance_saved_km','avg_logistics_saving_rupees','settled_under_24h'].forEach(k => {",
+            "  pm.test('iei has ' + k, () => pm.expect(iei).to.have.property(k));",
+            "});"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/api/admin/dashboard" }
+        },
+        {
+          "name": "Dashboard — FARMER 403",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 403', () => pm.response.to.have.status(403));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/admin/dashboard" }
+        },
+        {
+          "name": "List Batches (Admin, all FPOs)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('at least 10 batches total', () => pm.expect(pm.response.json().pagination.total).to.be.at.least(10));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/api/admin/batches?limit=100" }
+        },
+        {
+          "name": "List Users",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/api/admin/users" }
+        },
+        {
+          "name": "Escrow List",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const held = pm.response.json().data.find(e => e.status === 'held');",
+            "if (held) pm.environment.set('heldEscrowId', held.id);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/api/admin/escrow?limit=50" }
+        },
+        {
+          "name": "Escrow Release Without Reason -> 400",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "if (!pm.environment.get('heldEscrowId')) { pm.test.skip('no held escrow available'); }",
+            "else {",
+            "  pm.test('status 400', () => pm.response.to.have.status(400));",
+            "  pm.test('error code VALIDATION_ERROR', () => pm.expect(pm.response.json().error.code).to.eql('VALIDATION_ERROR'));",
+            "}"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "body": { "mode": "raw", "raw": "{}" }, "url": "{{baseUrl}}/api/admin/escrow/{{heldEscrowId}}/release" }
+        },
+        {
+          "name": "Escrow Release With Reason -> Audit Logged",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "if (!pm.environment.get('heldEscrowId')) { pm.test.skip('no held escrow available'); }",
+            "else {",
+            "  pm.test('status 200', () => pm.response.to.have.status(200));",
+            "  pm.test('status released', () => pm.expect(pm.response.json().data.status).to.eql('released'));",
+            "}"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"reason\":\"Newman test — manual release\"}" }, "url": "{{baseUrl}}/api/admin/escrow/{{heldEscrowId}}/release" }
+        },
+        {
+          "name": "Audit Logs Contain the Release",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "const body = pm.response.json();",
+            "pm.test('MANUAL_ESCROW_RELEASE action present', () => pm.expect(body.data.some(a => a.action === 'MANUAL_ESCROW_RELEASE')).to.be.true);"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/api/admin/audit-logs?limit=20" }
+        },
+        {
+          "name": "Trigger Trust Score Job",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('3 FPO scores computed', () => pm.expect(pm.response.json().data.fpo_scores_computed).to.eql(3));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/api/admin/jobs/trust-scores" }
+        },
+        {
+          "name": "Suspend + Reactivate a Test User",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status suspended', () => pm.expect(pm.response.json().data.status).to.eql('suspended'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"status\":\"suspended\",\"reason\":\"Newman test suspend\"}" }, "url": "{{baseUrl}}/api/admin/users/{{bulkBuyerUserId}}/status" }
+        },
+        {
+          "name": "Suspended User Cannot Log In",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 403', () => pm.response.to.have.status(403));",
+            "pm.test('error code ACCOUNT_SUSPENDED', () => pm.expect(pm.response.json().error.code).to.eql('ACCOUNT_SUSPENDED'));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"identifier\":\"9000000003\",\"password\":\"Test@1234\"}" }, "url": "{{baseUrl}}/api/auth/login" }
+        },
+        {
+          "name": "Reactivate Test User",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('status active', () => pm.expect(pm.response.json().data.status).to.eql('active'));"
+          ]}}],
+          "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"status\":\"active\",\"reason\":\"Newman test reactivate\"}" }, "url": "{{baseUrl}}/api/admin/users/{{bulkBuyerUserId}}/status" }
+        }
+      ]
+    },
+    {
+      "name": "10. DPI Mocks",
+      "item": [
+        {
+          "name": "AgriStack Farmer (mock)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('data_source AgriStack_mock_sandbox', () => pm.expect(pm.response.json().data.data_source).to.eql('AgriStack_mock_sandbox'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/dpi/agristack/farmer/NEWMAN-TEST-001" }
+        },
+        {
+          "name": "eNAM Prices (mock)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('data_source eNAM_mock_feed', () => pm.expect(pm.response.json().data.data_source).to.eql('eNAM_mock_feed'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{farmerToken}}" }], "url": "{{baseUrl}}/api/dpi/enam/prices?crop_type=TURMERIC&days=7" }
+        },
+        {
+          "name": "ONDC Listings (mock, ADMIN)",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('data_source ONDC_sandbox_adapter', () => pm.expect(pm.response.json().data.data_source).to.eql('ONDC_sandbox_adapter'));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }], "url": "{{baseUrl}}/api/dpi/ondc/listings" }
+        }
+      ]
+    },
+    {
+      "name": "11. WhatsApp Webhook",
+      "item": [
+        {
+          "name": "Price Query -> TwiML with real numbers",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200', () => pm.response.to.have.status(200));",
+            "pm.test('content-type text/xml', () => pm.expect(pm.response.headers.get('Content-Type')).to.include('text/xml'));",
+            "pm.test('response is valid XML with a Message', () => pm.expect(pm.response.text()).to.match(/<Message>.*<\\/Message>/));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+            "body": { "mode": "urlencoded", "urlencoded": [
+              { "key": "From", "value": "whatsapp:+919000000001" },
+              { "key": "Body", "value": "Delhi mein haldi ka rate kya hai" }
+            ]},
+            "url": "{{baseUrl}}/api/webhooks/whatsapp" }
+        },
+        {
+          "name": "Empty Body -> Graceful Fallback, Never 500",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 200 (never 500)', () => pm.response.to.have.status(200));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+            "body": { "mode": "urlencoded", "urlencoded": [{ "key": "From", "value": "whatsapp:+919000000001" }] },
+            "url": "{{baseUrl}}/api/webhooks/whatsapp" }
+        }
+      ]
+    },
+    {
+      "name": "12. RBAC Cross-Role Rejections",
+      "item": [
+        {
+          "name": "No Token -> 401",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 401', () => pm.response.to.have.status(401));"
+          ]}}],
+          "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/users/me" }
+        },
+        {
+          "name": "CONSUMER cannot create a batch -> 403",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 403', () => pm.response.to.have.status(403));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{consumerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"cluster_id\":\"{{clusterId}}\",\"crop_type\":\"TURMERIC\",\"harvest_date\":\"2026-09-01\",\"total_quantity_kg\":10}" },
+            "url": "{{baseUrl}}/api/batches" }
+        },
+        {
+          "name": "FARMER cannot place an order -> 403",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 403', () => pm.response.to.have.status(403));"
+          ]}}],
+          "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{farmerToken}}" }],
+            "body": { "mode": "raw", "raw": "{\"items\":[{\"listing_id\":\"{{mainListingId}}\",\"quantity_kg\":1}],\"delivery_address\":{\"line1\":\"x\",\"city\":\"Delhi\",\"state\":\"Delhi\",\"pincode\":\"110001\"}}" },
+            "url": "{{baseUrl}}/api/orders" }
+        },
+        {
+          "name": "LOGISTICS cannot access admin dashboard -> 403",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+            "pm.test('status 403', () => pm.response.to.have.status(403));"
+          ]}}],
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{logisticsToken}}" }], "url": "{{baseUrl}}/api/admin/dashboard" }
         }
       ]
     }

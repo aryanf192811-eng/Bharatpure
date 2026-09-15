@@ -371,5 +371,19 @@ _(Tasks after Phase 4 gate)_
 ## PHASE 0 NEWMAN RESULTS LOG
 | Date | Phase | Routes Tested | Pass | Fail | File |
 |---|---|---|---|---|---|
-| _(fill after each run)_ | | | | | |
+| 2026-09-15 | Auth smoke test | 8 auth routes + 1 RBAC smoke test | 20 | 0 | `docs/testing/phase-0-newman-2026-09-15.txt` |
+| 2026-09-15 | **Full regression (all 12 domains)** | 105 requests across Batches, Quality (TIER1/TIER2/B-sample/certificates), Listings, Demand/Price/Simulation, Orders (incl. concurrency-adjacent stock races), QR scan/burn, Disputes, Logistics (temperature breach), Admin (dashboard/escrow/audit/trust-score/user suspension), DPI mocks, WhatsApp webhook, RBAC cross-role rejections | 161 | 0 | `docs/testing/full-regression-newman-2026-09-15.txt` |
+
+### Bugs found and fixed by the full regression pass (2026-09-15)
+Per the user's explicit instruction to "test it rigorously until every test case, assertion of endpoints pass correctly" — four real bugs were found and fixed, none were pre-existing test flakiness:
+
+1. **`GET /api/clusters` didn't exist at all.** Batch creation requires `cluster_id` but nothing let a client discover valid ones. Built `cluster.service/controller/routes.js` from scratch, mounted in `app.js`.
+2. **`PATCH /api/batches/:batchId/status` didn't exist.** The `draft → pending_test` edge had no trigger anywhere in the API — all earlier manual testing this session silently relied on direct `psql UPDATE`. Built with an explicit `ALLOWED_TRANSITIONS` state-machine map matching BHARATPURE-DB.md's documented transitions.
+3. **`quality.service.js` `submitTest` made TIER2 (NABL) tests unreachable.** The status guard required `batch.status === 'pending_test'` for *any* tier, but both TIER1 outcomes (PASS and FAIL) immediately move the batch out of `pending_test` — so TIER2, which BHARATPURE-DB.md says "always supersedes TIER1", could never actually be submitted. Fixed: TIER1 still requires `pending_test`; TIER2 now requires a prior TIER1 test to exist (checked first, for the specific `INVALID_TIER2_WITHOUT_TIER1` 400) and the batch to be in `test_passed`/`test_failed` (the states TIER1 actually leaves it in).
+4. **`listing.service.js` `createListing` could never return `BATCH_ALREADY_LISTED`.** The batch-status check (`test_passed` required) ran before the active-listing check, but listing creation itself flips the batch to `listed` — so a second listing attempt always hit the generic `BATCH_NOT_READY` (422) instead of the documented `BATCH_ALREADY_LISTED` (409). Fixed by checking for an existing active listing first.
+5. **`qr.service.js` `scanQr` never showed a scan its own event.** The `QRScanned` BIR event was inserted *after* the query that returns the BIR event log to the caller, so every scan response was stale by exactly its own event. Fixed by inserting first, then querying.
+
+Also discovered (not a bug, an operational constraint worth recording): the login rate limiter (10 req/15min per IP, `auth.routes.js`) is shared across the whole collection's 6 logins-per-run, so re-running the full suite twice in a row against the same server process trips `429`s on the second pass purely from prior runs' logins. Since `express-rate-limit`'s default store is in-memory, restarting the server between runs resets it — not a code issue, just how the suite must be exercised.
+
+Committed as `fix: 4 real bugs found by the full-suite Postman regression — TIER2 unreachable, duplicate-listing check order, QR scan event ordering` and `test: full 12-domain Postman regression suite — 161/161 assertions passing`.
 ```
