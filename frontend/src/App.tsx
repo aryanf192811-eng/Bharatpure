@@ -31,7 +31,20 @@ import Login from '@/pages/auth/Login'
 import OtpVerification from '@/pages/auth/OtpVerification'
 import Register from '@/pages/auth/Register'
 import ResetPassword from '@/pages/auth/ResetPassword'
+import BatchCreateStep1 from '@/pages/farmer/BatchCreateStep1'
+import BatchCreateStep2 from '@/pages/farmer/BatchCreateStep2'
+import BatchCreateStep3 from '@/pages/farmer/BatchCreateStep3'
+import BatchDetail from '@/pages/farmer/BatchDetail'
+import BatchList from '@/pages/farmer/BatchList'
+import CertificateUpload from '@/pages/farmer/CertificateUpload'
+import ContractDetail from '@/pages/farmer/ContractDetail'
+import ContractsList from '@/pages/farmer/ContractsList'
+import FarmerDashboard from '@/pages/farmer/Dashboard'
+import Earnings from '@/pages/farmer/Earnings'
+import QualityTestResult from '@/pages/farmer/QualityTestResult'
+import TrustScore from '@/pages/farmer/TrustScore'
 import NotBuiltYet from '@/pages/NotBuiltYet'
+import Profile from '@/pages/shared/Profile'
 
 const FARMER_TABS: PWATab[] = [
   { label: 'Home', path: '/farmer/dashboard', icon: Home },
@@ -89,22 +102,19 @@ function App() {
       {/* Farmer PWA */}
       <Route element={<ProtectedRoute role="FARMER" />}>
         <Route element={<PWAShell title="BharatPure" tabs={FARMER_TABS} />}>
-          <Route path="/farmer/dashboard" element={<NotBuiltYet screen="Farmer Dashboard (07)" />} />
-          <Route path="/farmer/batches" element={<NotBuiltYet screen="Batch List (08)" />} />
-          <Route path="/farmer/batches/new/step-1" element={<NotBuiltYet screen="Batch Create Step 1 (09)" />} />
-          <Route path="/farmer/batches/new/step-2" element={<NotBuiltYet screen="Batch Create Step 2 (10)" />} />
-          <Route path="/farmer/batches/new/step-3" element={<NotBuiltYet screen="Batch Create Step 3 (11)" />} />
-          <Route path="/farmer/batches/:batchId" element={<NotBuiltYet screen="Batch Detail (12)" />} />
-          <Route path="/farmer/batches/:batchId/test-result" element={<NotBuiltYet screen="Quality Test Result (13)" />} />
-          <Route
-            path="/farmer/batches/:batchId/upload-certificate"
-            element={<NotBuiltYet screen="Certificate Upload (14)" />}
-          />
-          <Route path="/farmer/earnings" element={<NotBuiltYet screen="Earnings Dashboard (15)" />} />
-          <Route path="/farmer/contracts" element={<NotBuiltYet screen="Procurement Contracts List (16)" />} />
-          <Route path="/farmer/contracts/:contractId" element={<NotBuiltYet screen="Contract Detail (17)" />} />
-          <Route path="/farmer/trust-score" element={<NotBuiltYet screen="FPO Trust Score (18)" />} />
-          <Route path="/farmer/profile" element={<NotBuiltYet screen="Profile" />} />
+          <Route path="/farmer/dashboard" element={<FarmerDashboard />} />
+          <Route path="/farmer/batches" element={<BatchList />} />
+          <Route path="/farmer/batches/new/step-1" element={<BatchCreateStep1 />} />
+          <Route path="/farmer/batches/new/step-2" element={<BatchCreateStep2 />} />
+          <Route path="/farmer/batches/new/step-3" element={<BatchCreateStep3 />} />
+          <Route path="/farmer/batches/:batchId" element={<BatchDetail />} />
+          <Route path="/farmer/batches/:batchId/test-result" element={<QualityTestResult />} />
+          <Route path="/farmer/batches/:batchId/upload-certificate" element={<CertificateUpload />} />
+          <Route path="/farmer/earnings" element={<Earnings />} />
+          <Route path="/farmer/contracts" element={<ContractsList />} />
+          <Route path="/farmer/contracts/:contractId" element={<ContractDetail />} />
+          <Route path="/farmer/trust-score" element={<TrustScore />} />
+          <Route path="/farmer/profile" element={<Profile />} />
         </Route>
       </Route>
 
