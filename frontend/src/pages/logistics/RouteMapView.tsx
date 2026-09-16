@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Thermometer } from 'lucide-react'
 import { useState } from 'react'
 import { MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -7,7 +8,7 @@ import { toast } from 'sonner'
 import { logisticsApi } from '@/api/logistics.api'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { defaultMarkerIcon } from '@/lib/leafletIcons'
+import { coldStorageMarkerIcon, defaultMarkerIcon } from '@/lib/leafletIcons'
 
 export default function RouteMapView() {
   const { routeId } = useParams<{ routeId: string }>()
@@ -43,13 +44,16 @@ export default function RouteMapView() {
       <MapContainer center={center} zoom={11} className="size-full" scrollWheelZoom={false}>
         <TileLayer url={import.meta.env.VITE_MAPS_TILE_URL} attribution="&copy; OpenStreetMap" />
         {positions.length > 1 && <Polyline positions={positions} color="#1B4332" />}
-        {route.stops.map((stop) => (
-          <Marker key={stop.id} position={[stop.latitude, stop.longitude]} icon={defaultMarkerIcon}>
-            <Popup>
-              #{stop.sequence_number} &middot; {stop.stop_type} &middot; {stop.location_name}
-            </Popup>
-          </Marker>
-        ))}
+        {route.stops.map((stop) => {
+          const isColdStorageReroute = stop.stop_type === 'HUB' && Boolean(stop.batch_id)
+          return (
+            <Marker key={stop.id} position={[stop.latitude, stop.longitude]} icon={isColdStorageReroute ? coldStorageMarkerIcon : defaultMarkerIcon}>
+              <Popup>
+                #{stop.sequence_number} &middot; {isColdStorageReroute ? 'COLD STORAGE DROP' : stop.stop_type} &middot; {stop.location_name}
+              </Popup>
+            </Marker>
+          )
+        })}
       </MapContainer>
 
       <div
@@ -59,31 +63,46 @@ export default function RouteMapView() {
           <span className="mx-auto block h-1 w-10 rounded-full bg-earth-300" />
         </button>
         <div className="max-h-full overflow-y-auto px-4 pb-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
             <p className="text-sm font-semibold text-earth-900">
               {route.total_distance_km} km &middot; {route.vehicle_id}
             </p>
-            {route.status === 'planned' && (
-              <Button type="button" size="sm" disabled={startMutation.isPending} onClick={() => startMutation.mutate()}>
-                Start Route
-              </Button>
-            )}
+            <div className="flex items-center gap-2">
+              <Link
+                to={`/logistics/temperature-log?routeId=${routeId}`}
+                className="flex items-center gap-1 rounded-md bg-danger-bg px-2.5 py-1.5 text-xs font-semibold text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800"
+              >
+                <Thermometer className="size-3.5" /> Report Temp
+              </Link>
+              {route.status === 'planned' && (
+                <Button type="button" size="sm" disabled={startMutation.isPending} onClick={() => startMutation.mutate()}>
+                  Start Route
+                </Button>
+              )}
+            </div>
           </div>
           <div className="mt-3 flex flex-col gap-2">
-            {route.stops.map((stop) => (
-              <Link
-                key={stop.id}
-                to={`/logistics/routes/${routeId}/stops/${stop.id}`}
-                className={`flex items-center justify-between rounded-md p-2 text-sm ${
-                  stop.id === currentStop?.id ? 'bg-primary-100 font-semibold text-primary-800' : 'bg-earth-50 text-earth-700'
-                }`}
-              >
-                <span>
-                  #{stop.sequence_number} {stop.stop_type} &middot; {stop.location_name}
-                </span>
-                <span className="text-xs uppercase">{stop.completed_at ? 'completed' : 'pending'}</span>
-              </Link>
-            ))}
+            {route.stops.map((stop) => {
+              const isColdStorageReroute = stop.stop_type === 'HUB' && Boolean(stop.batch_id)
+              return (
+                <Link
+                  key={stop.id}
+                  to={`/logistics/routes/${routeId}/stops/${stop.id}`}
+                  className={`flex items-center justify-between rounded-md p-2 text-sm ${
+                    isColdStorageReroute
+                      ? 'bg-info-bg font-semibold text-info'
+                      : stop.id === currentStop?.id
+                        ? 'bg-primary-100 font-semibold text-primary-800'
+                        : 'bg-earth-50 text-earth-700'
+                  }`}
+                >
+                  <span>
+                    #{stop.sequence_number} {isColdStorageReroute ? '❄️ COLD STORAGE' : stop.stop_type} &middot; {stop.location_name}
+                  </span>
+                  <span className="text-xs uppercase">{stop.completed_at ? 'completed' : 'pending'}</span>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </div>

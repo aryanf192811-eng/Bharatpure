@@ -22,8 +22,8 @@ export default function StopDetail() {
 
   const completeMutation = useMutation({
     mutationFn: () => logisticsApi.completeStop(routeId!, stopId!),
-    onSuccess: () => {
-      toast.success('Stop marked complete.')
+    onSuccess: (res) => {
+      toast.success(res.data.cold_storage_review_resolved ? 'Batch cleared for delivery — cold chain restored.' : 'Stop marked complete.')
       queryClient.invalidateQueries({ queryKey: ['logistics', 'route', routeId] })
       navigate(`/logistics/routes/${routeId}`)
     },
@@ -38,6 +38,7 @@ export default function StopDetail() {
   if (!stop) return <p className="p-4 text-sm text-earth-500">Stop not found.</p>
 
   const isDelivery = stop.stop_type === 'DELIVERY'
+  const isColdStorageReroute = stop.stop_type === 'HUB' && Boolean(stop.batch_id)
   const canComplete = !isDelivery || (checks.sealed && checks.recipient)
 
   return (
@@ -47,8 +48,14 @@ export default function StopDetail() {
           stop.stop_type === 'PICKUP' ? 'bg-primary-100 text-primary-800' : stop.stop_type === 'DELIVERY' ? 'bg-success-bg text-success' : 'bg-info-bg text-info'
         }`}
       >
-        {stop.stop_type}
+        {isColdStorageReroute ? '❄️ Cold Storage Drop' : stop.stop_type}
       </span>
+
+      {isColdStorageReroute && (
+        <p className="text-sm text-earth-600">
+          Auto-added after a temperature breach. Completing this stop clears the batch for delivery.
+        </p>
+      )}
 
       <div className="rounded-md bg-white p-4 shadow-sm">
         <p className="flex items-center gap-1.5 text-sm font-semibold text-earth-900">

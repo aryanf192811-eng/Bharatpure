@@ -15,6 +15,7 @@ export interface RouteStop {
   id: string
   route_id: string
   order_id: string | null
+  batch_id: string | null
   stop_type: 'PICKUP' | 'DELIVERY' | 'HUB'
   sequence_number: number
   location_name: string | null
@@ -55,7 +56,9 @@ export const logisticsApi = {
 
   completeStop: (routeId: string, stopId: string, notes?: string) =>
     client
-      .patch<ApiSuccess<RouteStop>>(`/api/logistics/routes/${routeId}/stops/${stopId}/complete`, { notes })
+      .patch<
+        ApiSuccess<{ id: string; completed: boolean; order_delivery: unknown; cold_storage_review_resolved: boolean }>
+      >(`/api/logistics/routes/${routeId}/stops/${stopId}/complete`, { notes })
       .then((r) => r.data),
 
   logTemperature: (payload: {
@@ -68,6 +71,11 @@ export const logisticsApi = {
     location_lng?: number
   }) =>
     client
-      .post<ApiSuccess<{ breach_detected: boolean }>>('/api/logistics/temperature-log', payload)
+      .post<
+        ApiSuccess<{
+          breach_detected: boolean
+          reroute: { stop_id: string; facility_name: string; distance_km: number } | null
+        }>
+      >('/api/logistics/temperature-log', payload)
       .then((r) => r.data),
 }

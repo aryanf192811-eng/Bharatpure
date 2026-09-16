@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
-import { AlertTriangle, Thermometer } from 'lucide-react'
-import { useState } from 'react'
+import { AlertTriangle, MapPin, Snowflake, Thermometer } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { logisticsApi } from '@/api/logistics.api'
@@ -9,23 +10,51 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 export default function TemperatureLogEntry() {
+  const [searchParams] = useSearchParams()
+  const routeIdFromRoute = searchParams.get('routeId') ?? ''
+
   const [batchId, setBatchId] = useState('')
   const [vehicleId, setVehicleId] = useState('')
   const [temperature, setTemperature] = useState('')
   const [threshold, setThreshold] = useState('8.0')
   const [breach, setBreach] = useState<boolean | null>(null)
+  const [reroute, setReroute] = useState<{ facility_name: string; distance_km: number } | null>(null)
+  const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null)
+  const [positionDenied, setPositionDenied] = useState(false)
+
+  // Captured once on mount rather than gated behind a button -- a driver reporting a breach
+  // wants this to just happen, not be one more step. Silently no-ops if permission is denied or
+  // the browser doesn't support it; the reroute simply can't be computed without a position,
+  // same as if this field were never sent at all.
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      setPositionDenied(true)
+      return
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => setPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+      () => setPositionDenied(true),
+      { timeout: 8000 },
+    )
+  }, [])
 
   const mutation = useMutation({
     mutationFn: () =>
       logisticsApi.logTemperature({
         batch_id: batchId,
+        route_id: routeIdFromRoute || undefined,
         vehicle_id: vehicleId,
         temperature_c: Number(temperature),
         threshold_c: Number(threshold),
+        location_lat: position?.lat,
+        location_lng: position?.lng,
       }),
     onSuccess: (res) => {
       setBreach(res.data.breach_detected)
-      if (res.data.breach_detected) {
+      setReroute(res.data.reroute)
+      if (res.data.reroute) {
+        toast.warning(`Breach logged. Route updated: drop at ${res.data.reroute.facility_name}.`)
+      } else if (res.data.breach_detected) {
         toast.warning('Temperature breach logged and flagged for review.')
       } else {
         toast.success('Reading logged.')
@@ -41,6 +70,13 @@ export default function TemperatureLogEntry() {
   return (
     <div className="mx-auto flex max-w-[480px] flex-col gap-4 p-4">
       <h1 className="font-display text-2xl font-bold text-earth-900">Log Temperature Reading</h1>
+
+      {routeIdFromRoute && (
+        <p className="flex items-center gap-1.5 text-xs text-earth-500">
+          <MapPin className="size-3.5" />
+          Logging against your active route. {position ? 'Location captured.' : positionDenied ? 'Location unavailable — reroute suggestion needs it.' : 'Getting your location…'}
+        </p>
+      )}
 
       <div className="flex flex-col gap-4 rounded-md bg-white p-4 shadow-sm">
         <div>
@@ -75,7 +111,16 @@ export default function TemperatureLogEntry() {
         {mutation.isPending ? 'Logging...' : 'Log Reading'}
       </Button>
 
-      {breach === true && (
+      {breach === true && reroute && (
+        <div className="flex items-start gap-2 rounded-md bg-danger-bg p-3 text-sm text-danger">
+          <Snowflake className="size-5 shrink-0" />
+          <div>
+            <p className="font-semibold">Breach detected — route auto-updated.</p>
+            <p>Drop at {reroute.facility_name} ({reroute.distance_km}km away) added as your next stop.</p>
+          </div>
+        </div>
+      )}
+      {breach === true && !reroute && (
         <div className="flex items-center gap-2 rounded-md bg-danger-bg p-3 text-sm text-danger">
           <AlertTriangle className="size-5" />
           Temperature breach detected and logged. Ops team notified.
