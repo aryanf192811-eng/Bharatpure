@@ -1,16 +1,35 @@
 """
-Statistical heuristic standing in for BHARATPURE-AI.md's documented Prophet + LightGBM pipeline
--- see docs/research/ai-service-scope.md for why: that pipeline needs a 24-month synthetic
-training dataset and a festival calendar that were never generated, plus `prophet` is slow/fragile
-to install on Windows. This produces varied, input-dependent (not hardcoded) output using a
-deterministic seed per (crop, city, date) so repeated calls for the same inputs are stable, which
-matters since the Node caller upserts results into a cache keyed on (crop_type, city, forecast_date).
+Hybrid demand model: a real trained model for Turmeric/Mustard (real AGMARKNET history exists,
+see docs/research/demand-training-pipeline.md), a statistical heuristic for everything else
+(Honey has zero AGMARKNET records -- confirmed, not a temporary gap -- and any other/unknown crop
+has no training data at all). The heuristic below originally stood in for BHARATPURE-AI.md's
+documented Prophet + LightGBM pipeline -- see docs/research/ai-service-scope.md for why (that
+pipeline needed a 24-month synthetic dataset that was never generated, plus `prophet` is
+slow/fragile to install on Windows). It produces varied, input-dependent (not hardcoded) output
+using a deterministic seed per (crop, city, date) so repeated calls for the same inputs are
+stable, which matters since the Node caller upserts results into a cache keyed on (crop_type,
+city, forecast_date). It remains the permanent fallback: the trained path only activates when its
+artifact files actually loaded successfully.
 """
 import hashlib
 import math
+import os
 from datetime import date, timedelta
 
-MODEL_VERSION = "heuristic-v1"
+try:
+    import joblib
+except ImportError:
+    joblib = None  # trained path simply never activates; heuristic-only is still a fully valid mode
+
+HEURISTIC_MODEL_VERSION = "heuristic-v1"
+TRAINED_MODEL_VERSION = "agmarknet-hgbr-v1"
+MODEL_VERSION = HEURISTIC_MODEL_VERSION  # kept for any external reference to the old single constant
+
+ARTIFACTS_DIR = os.path.join(os.path.dirname(__file__), "artifacts")
+# Only crops with real, confirmed AGMARKNET data get a trained-model attempt -- see the training
+# pipeline research doc's supervisor addendum. Honey is deliberately absent: it has zero AGMARKNET
+# records (not a mandi-traded commodity), so there is nothing to train it on, ever.
+TRAINED_CROPS = ("TURMERIC", "MUSTARD")
 
 # Rough per-crop base daily demand (kg) for a mid-size Indian metro -- order-of-magnitude
 # plausible, not derived from real data (none exists in this prototype).
@@ -41,10 +60,82 @@ def _days_to_next_festival(target: date) -> int:
     return (min(upcoming) - target).days
 
 
+def _build_inference_features(target_date: date):
+    """Must exactly match scripts/train_demand_model.py's build_features() for a single date --
+    same feature set, same order-independent dict keys (sklearn takes a DataFrame at train time
+    and here a plain list matching the same column order, since a single-row inference doesn't
+    need pandas)."""
+    return [[
+        target_date.weekday(),
+        target_date.month,
+        target_date.timetuple().tm_yday,
+        1 if target_date.weekday() >= 5 else 0,
+        _days_to_next_festival(target_date),
+    ]]
+
+
 class DemandModel:
+    def __init__(self):
+        self._trained = {}  # crop -> {"p10": model, "p50": model, "p90": model}
+        if joblib is None:
+            return
+        for crop in TRAINED_CROPS:
+            crop_key = crop.lower()
+            try:
+                self._trained[crop] = {
+                    label: joblib.load(os.path.join(ARTIFACTS_DIR, f"{crop_key}_{label}.joblib"))
+                    for label in ("p10", "p50", "p90")
+                }
+            except (FileNotFoundError, OSError, EOFError):
+                # No artifact yet (or a corrupt one) -- this crop simply falls through to the
+                # heuristic in predict() below, exactly like price_model.py's missing-mock-file
+                # fallback. Never a startup failure.
+                self._trained.pop(crop, None)
+
+    def _predict_trained(self, crop: str, crop_type: str, city: str, target_date: date) -> dict:
+        models = self._trained[crop]
+        features = _build_inference_features(target_date)
+        p10 = float(models["p10"].predict(features)[0])
+        p50 = float(models["p50"].predict(features)[0])
+        p90 = float(models["p90"].predict(features)[0])
+        # Quantile models aren't guaranteed monotonic on a single point -- clamp so the range
+        # is never inverted before it reaches the API contract.
+        range_low, predicted_kg, range_high = sorted([max(0.0, p10), max(0.0, p50), max(0.0, p90)])
+
+        spread_ratio = (range_high - range_low) / predicted_kg if predicted_kg > 0 else 1.0
+        confidence = max(40.0, min(95.0, 90 - spread_ratio * 100))
+
+        days_to_festival = _days_to_next_festival(target_date)
+        drivers = [{"factor": "trained_seasonal_pattern", "contribution_pct": 55}]
+        if days_to_festival <= 7:
+            drivers.insert(0, {"factor": "festival_within_7d", "contribution_pct": 25})
+        elif days_to_festival <= 14:
+            drivers.insert(0, {"factor": "festival_within_14d", "contribution_pct": 15})
+        drivers.append({"factor": "day_of_week_pattern", "contribution_pct": 20})
+        total = sum(d["contribution_pct"] for d in drivers)
+        for d in drivers:
+            d["contribution_pct"] = round(d["contribution_pct"] / total * 100, 1)
+
+        return {
+            "crop_type": crop_type,
+            "city": city,
+            "forecast_date": target_date.isoformat(),
+            "predicted_kg": round(predicted_kg, 1),
+            "confidence_pct": round(confidence, 1),
+            "range_low_kg": round(range_low, 1),
+            "range_high_kg": round(range_high, 1),
+            "demand_drivers": drivers[:4],
+            "model_version": TRAINED_MODEL_VERSION,
+            "cold_start": False,
+        }
+
     def predict(self, crop_type: str, city: str, forecast_days: int) -> dict:
         crop = crop_type.upper()
         target_date = date.today() + timedelta(days=forecast_days)
+
+        if crop in self._trained:
+            return self._predict_trained(crop, crop_type, city, target_date)
+
         base = BASE_DEMAND_KG.get(crop, 400)
 
         days_to_festival = _days_to_next_festival(target_date)

@@ -10,3 +10,14 @@ ortools==9.15.6755
 psycopg2-binary==2.9.13
 python-dotenv==1.2.3
 httpx==0.28.1
+
+# Trained demand-model stack (Turmeric/Mustard only -- ai/models/demand_model.py falls back to
+# the heuristic for every other crop). Unlike the earlier prophet/lightgbm/xgboost attempt these
+# all have real cp314 Windows wheels as of this pinning -- confirmed via PyPI's release file list
+# before installing anything, not assumed. lightgbm/xgboost still have NO cp314 wheels (checked
+# the same way) -- that's why training uses sklearn's HistGradientBoostingRegressor(loss=
+# 'quantile') instead, a wheel-available substitute for the same quantile-regression approach.
+numpy==2.5.3
+pandas==3.0.5
+scikit-learn==1.9.1
+joblib==1.6.0
