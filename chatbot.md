@@ -368,6 +368,58 @@ _(Tasks after Phase 4 gate)_
 
 ---
 
+## PHASE 6 — SIH PITCH RESEARCH (Antigravity)
+
+> Research-only phase, no code changes. Subagent for this phase is **Antigravity**, not a coding agent — every task in this phase outputs a file under `docs/research/`, per the standing rule below, and is claimed/reported the same way as any other task on this board. Antigravity does not have this repo's prior conversation context, so each task's Spec is self-contained — read only the task you're claiming, you don't need the rest of this file's history to do the work, though skimming PHASE 0–5 above will tell you what's already built if it's useful background.
+>
+> **Project context, since you're new to this board:** BharatPure is a farm-to-consumer agritech platform built for SIH 2026, submitted against **Problem Statement 26033** ("Multiple Intermediaries Reduce Farmers' Earnings and Increase Consumer Prices"), issued by India's Ministry of Consumer Affairs, Food & Public Distribution. The PS background (confirmed via secondary sources, not yet primary sih.gov.in text) describes produce passing through 4–6 intermediary layers, farmers keeping only 30–50% of retail price, 15–25% post-harvest wastage from unoptimized logistics, and buyers unable to source verified-quality produce reliably. BharatPure positions itself as a "trust and decision infrastructure" layer: an AI Decision Engine (demand forecasting, quality-based pricing, route optimization — see `ai/`), a Trust Layer (an immutable per-batch event log called a Batch Identity Record, NABL lab certificates, QR-code traceability with anti-fraud "QR burn" on consumer purchase — see `backend/src/services/qr.service.js`), integration with government rails (AgriStack for identity, eNAM for price data, ONDC for commerce — currently mocked, see `backend/src/services/dpi.service.js`) rather than replacing them, and an accessible interface (installable offline-capable PWA + a WhatsApp bot — see `backend/src/services/whatsapp.service.js`).
+>
+> A prior research pass (web-search-based, not exhaustive) already covered: central platforms eNAM/AgriStack/ONDC-agri/Kisan Rath at a summary level, state platforms Karnataka ReMS/MP e-Uparjan/AP RBKs/TN Uzhavar Sandhai/Gujarat e-mandi at a summary level, and dataset sources data.gov.in's AGMARKNET mandi-price API / IMD district rainfall / Kaggle mandi-price CSVs at a summary level. **Do not re-derive these — build past them into the specific, verified depth each task below asks for.**
+
+### TASK-P6-001
+- **Title:** Verify PS 26033 primary source + real platform impact statistics
+- **Status:** QUEUED
+- **Owner:** subagent (Antigravity)
+- **Scope:** `docs/research/ps-26033-and-platform-impact-stats.md` (new file — nothing else)
+- **Spec:** Try to retrieve the actual sih.gov.in (or the official SIH 2026 portal) listing for PS 26033 directly — confirm or correct this title/background: "Multiple Intermediaries Reduce Farmers' Earnings and Increase Consumer Prices," issued by the Ministry of Consumer Affairs, Food & Public Distribution. If the official "expected solution" text can be found from a primary government source, capture it; if not, say so explicitly rather than presenting an unverified secondary source (e.g. another team's own README) as official. Then find citable, sourced statistics and case studies on real-world performance of eNAM (registered users, trade volume/GMV, farmer adoption rate, any independent study on whether it measurably improved farmer income), AgriStack (rollout pace, Farmer IDs issued vs. target, any documented gaps/criticism), and ONDC's agri network (transaction volume, growth trend, documented failure modes). Also look for academic/think-tank evaluations (ICRIER, NCAER, IFPRI, EPW papers) assessing whether these platforms measurably reduced intermediation or improved farmer realization — evidence a judge panel would weigh more than platform marketing copy.
+- **Acceptance Check:** `docs/research/ps-26033-and-platform-impact-stats.md` exists, every factual claim has a cited URL, and anything unverifiable is explicitly flagged as such rather than presented as fact.
+- **Result/Notes:** _(subagent fills this after completion — link the file, one-paragraph summary here, don't paste the findings into this board)_
+
+---
+
+### TASK-P6-002
+- **Title:** Concrete demand-forecasting training-data pipeline from AGMARKNET/IMD
+- **Status:** QUEUED
+- **Owner:** subagent (Antigravity)
+- **Scope:** `docs/research/demand-training-pipeline.md` (new file — nothing else; read-only against `ai/models/demand_model.py` and `ai/routers/demand.py` for context, do not modify them)
+- **Spec:** `ai/models/demand_model.py` currently uses a documented statistical heuristic (seasonal multiplier + festival-proximity boost + deterministic pseudo-random walk) instead of a trained model — a deliberate scope cut, not a bug (see `docs/research/ai-service-scope.md` for why). Pull a small real sample (a few weeks, 2-3 crops, a few markets) from data.gov.in's AGMARKNET mandi-price API (dataset catalog: "Current daily price of various commodities from various markets (Mandi)", resource id `9ef84268-d588-465a-a308-a864a43d0070`, base `https://api.data.gov.in/resource/{id}` — free registered API key required) and report on actual data quality: are market names/commodity names as inconsistent across states as expected? Propose a concrete, cleaned join-ready schema (crop_type, market, state, district, date, price fields, arrivals). Propose a concrete feature-engineering plan (lag features, rolling means, festival-proximity, IMD district-rainfall join) for training a demand-forecasting model that predicts `predicted_kg` + a confidence range for a crop/city, matching the existing heuristic's output shape (see `ai/models/demand_model.py`'s return fields for the exact contract to match). Flag any real blockers hit (rate limits, missing fields, auth friction) rather than a theoretical pipeline.
+- **Acceptance Check:** `docs/research/demand-training-pipeline.md` exists, includes at least one real pulled data sample (not fabricated), and the proposed output schema matches `demand_model.py`'s existing field names exactly (`predicted_kg`, `confidence_pct`, `range_low_kg`, `range_high_kg`, `demand_drivers`) so a future implementation task could swap it in without a contract change.
+- **Result/Notes:** _(subagent fills this after completion — link the file, one-paragraph summary here, don't paste the findings into this board)_
+
+---
+
+### TASK-P6-003
+- **Title:** ONDC/Beckn protocol real integration feasibility
+- **Status:** QUEUED
+- **Owner:** subagent (Antigravity)
+- **Scope:** `docs/research/ondc-beckn-integration-feasibility.md` (new file — nothing else; read-only against `backend/src/services/dpi.service.js` for what's currently mocked, do not modify it)
+- **Spec:** `dpi.service.js#getOndcListings` currently only reformats internal listings into an ONDC-catalog-shaped JSON — no live network calls, no registry subscription, no protocol transport layer. Research what a *real* ONDC Seller Network Participant registration actually requires end-to-end: the Beckn protocol API surface (`/search`, `/select`, `/init`, `/confirm`, `/status`, etc.), the registry subscription process, Ed25519 key-pair/signing requirements, and realistically how long/what a small team would need to get even a sandboxed (not production) real integration working before an SIH finals deadline. Is there a faster on-ramp than full production onboarding — a documented ONDC sandbox/staging environment for hackathon teams, an ONDC-provided test harness, or similar?
+- **Acceptance Check:** `docs/research/ondc-beckn-integration-feasibility.md` exists and ends with an explicit go/no-go recommendation: is a real (even sandboxed) ONDC integration realistic to attempt before SIH finals, or should the mock stay as-is with the gap honestly disclosed in the pitch — with reasoning either way, not just a description of the protocol.
+- **Result/Notes:** _(subagent fills this after completion — link the file, one-paragraph summary here, don't paste the findings into this board)_
+
+---
+
+### TASK-P6-004
+- **Title:** NABL certification economics at smallholder scale
+- **Status:** QUEUED
+- **Owner:** subagent (Antigravity)
+- **Scope:** `docs/research/nabl-certification-economics.md` (new file — nothing else)
+- **Spec:** BharatPure's Trust Layer depends on NABL (National Accreditation Board for Testing and Calibration Laboratories) lab certificates per batch (see `backend/src/services/quality.service.js`). A likely judge question: who pays for this at smallholder scale, and does it actually scale? Research actual NABL accredited agri-testing lab network density (how many labs, geographic spread relative to major crop-growing regions — especially Maharashtra/Rajasthan/Himachal Pradesh, BharatPure's three seeded demo states), typical per-sample testing cost for common crops (turmeric, mustard, honey — BharatPure's three demo crops), and whether any government subsidy/scheme already offsets this cost for small farmers or FPOs.
+- **Acceptance Check:** `docs/research/nabl-certification-economics.md` exists and includes a concrete per-sample cost figure (or a sourced range) for at least one of the three demo crops, plus an explicit answer to "does an existing subsidy cover this for smallholders, yes/no/partially" with a citation.
+- **Result/Notes:** _(subagent fills this after completion — link the file, one-paragraph summary here, don't paste the findings into this board)_
+
+---
+
 ## PHASE 0 NEWMAN RESULTS LOG
 | Date | Phase | Routes Tested | Pass | Fail | File |
 |---|---|---|---|---|---|
