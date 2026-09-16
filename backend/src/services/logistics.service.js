@@ -1,5 +1,6 @@
 const { pool } = require('../db');
 const logger = require('../utils/logger');
+const { haversineKm } = require('../utils/geo');
 
 const apiError = (statusCode, code, message) => {
   const err = new Error(message);
@@ -115,15 +116,86 @@ const completeStop = async (routeId, stopId, user, notes, markOrderDelivered) =>
     orderDeliveryResult = await markOrderDelivered(stop.order_id, user);
   }
 
-  logger.info({ action: 'STOP_COMPLETED', routeId, stopId, userId: user.id, stopType: stop.stop_type });
-  return { id: stopId, completed: true, order_delivery: orderDeliveryResult };
+  // Completing the cold-storage reroute stop resolves the review hold insertReroute's breach
+  // originally created -- otherwise TEMP_BREACH_REVIEW is a dead end nothing ever clears.
+  let coldStorageReviewResolved = false;
+  if (stop.stop_type === 'HUB' && stop.batch_id) {
+    const clearResult = await pool.query(
+      `UPDATE batches SET notes = NULL, updated_at = NOW() WHERE id = $1 AND notes = 'TEMP_BREACH_REVIEW' RETURNING id`,
+      [stop.batch_id],
+    );
+    if (clearResult.rows.length > 0) {
+      await addBirEvent(pool, stop.batch_id, 'ColdStorageRerouted', { route_id: routeId, stop_id: stopId, resolved: true }, user.id, user.role);
+      coldStorageReviewResolved = true;
+    }
+  }
+
+  logger.info({ action: 'STOP_COMPLETED', routeId, stopId, userId: user.id, stopType: stop.stop_type, coldStorageReviewResolved });
+  return { id: stopId, completed: true, order_delivery: orderDeliveryResult, cold_storage_review_resolved: coldStorageReviewResolved };
+};
+
+/**
+ * Auto-reroute: inserts a stop at the nearest active cold-storage facility into the route's
+ * not-yet-completed stops, right before whatever the driver's current next stop is. Returns null
+ * (a no-op, not an error) when there's nothing to reroute against -- no breach position data
+ * (location_lat/lng weren't sent) or no active facility exists -- since a reroute is a best-
+ * effort addition on top of the always-succeeding breach-logging path, not something that should
+ * ever block it.
+ *
+ * No time-based/multi-stop optimization here -- a single nearest-point lookup doesn't need the
+ * AI service's OR-Tools solver, that's reserved for actual multi-stop route planning.
+ */
+const insertReroute = async (client, routeId, batchId, breachLat, breachLng, actorUser) => {
+  if (breachLat == null || breachLng == null) return null;
+
+  const facilitiesResult = await client.query(
+    `SELECT id, name, latitude, longitude FROM cold_storage_facilities WHERE status = 'active'`,
+  );
+  if (facilitiesResult.rows.length === 0) return null;
+
+  let nearest = null;
+  let nearestDistanceKm = Infinity;
+  for (const facility of facilitiesResult.rows) {
+    const distanceKm = haversineKm(breachLat, breachLng, Number(facility.latitude), Number(facility.longitude));
+    if (distanceKm < nearestDistanceKm) {
+      nearestDistanceKm = distanceKm;
+      nearest = facility;
+    }
+  }
+
+  const pendingResult = await client.query(
+    `SELECT MIN(sequence_number) AS next_seq FROM route_stops WHERE route_id = $1 AND completed_at IS NULL`,
+    [routeId],
+  );
+  const nextSeq = pendingResult.rows[0].next_seq;
+  if (nextSeq === null) return null; // route has no pending stops left to reroute ahead of
+
+  await client.query(
+    `UPDATE route_stops SET sequence_number = sequence_number + 1 WHERE route_id = $1 AND completed_at IS NULL`,
+    [routeId],
+  );
+  const stopResult = await client.query(
+    `INSERT INTO route_stops (route_id, batch_id, stop_type, sequence_number, location_name, latitude, longitude)
+     VALUES ($1,$2,'HUB',$3,$4,$5,$6) RETURNING id`,
+    [routeId, batchId, Number(nextSeq), nearest.name, nearest.latitude, nearest.longitude],
+  );
+
+  const roundedDistanceKm = Math.round(nearestDistanceKm * 10) / 10;
+  await addBirEvent(
+    client, batchId, 'ColdStorageRerouted',
+    { route_id: routeId, stop_id: stopResult.rows[0].id, facility_id: nearest.id, facility_name: nearest.name, distance_km: roundedDistanceKm },
+    actorUser.id, actorUser.role,
+  );
+
+  return { stop_id: stopResult.rows[0].id, facility_name: nearest.name, distance_km: roundedDistanceKm };
 };
 
 /**
  * Logs a temperature reading. On breach: appends TemperatureBreachDetected, creates a
- * notification for ops, and flags the batch via notes='TEMP_BREACH_REVIEW' -- status stays
+ * notification for ops, flags the batch via notes='TEMP_BREACH_REVIEW' -- status stays
  * 'dispatched' (per BHARATPURE-DB.md's documented edge case), it's the notes flag that blocks
- * markDelivered() later, not a status change.
+ * markDelivered() later, not a status change -- and, when a route_id and current position are
+ * available, auto-reroutes the driver to the nearest cold-storage facility (see insertReroute).
  */
 const logTemperature = async (user, data) => {
   const breachDetected = data.temperature_c > data.threshold_c;
@@ -137,6 +209,7 @@ const logTemperature = async (user, data) => {
       [data.batch_id, data.route_id ?? null, data.temperature_c, data.threshold_c, breachDetected, data.vehicle_id ?? null, data.location_lat ?? null, data.location_lng ?? null],
     );
 
+    let reroute = null;
     if (breachDetected) {
       await addBirEvent(
         client, data.batch_id, 'TemperatureBreachDetected',
@@ -158,11 +231,15 @@ const logTemperature = async (user, data) => {
           ],
         );
       }
+
+      if (data.route_id) {
+        reroute = await insertReroute(client, data.route_id, data.batch_id, data.location_lat ?? null, data.location_lng ?? null, user);
+      }
     }
 
     await client.query('COMMIT');
-    logger.info({ action: 'TEMPERATURE_LOGGED', batchId: data.batch_id, breachDetected });
-    return { breach_detected: breachDetected };
+    logger.info({ action: 'TEMPERATURE_LOGGED', batchId: data.batch_id, breachDetected, rerouted: Boolean(reroute) });
+    return { breach_detected: breachDetected, reroute };
   } catch (err) {
     await client.query('ROLLBACK');
     logger.error({ action: 'TEMPERATURE_LOG_FAILED', batchId: data.batch_id, err: err.message });

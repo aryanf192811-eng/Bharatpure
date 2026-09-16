@@ -72,7 +72,12 @@ const logTemperature = async (req, res, next) => {
   }
   try {
     const result = await logisticsService.logTemperature(req.user, parsed.data);
-    return sendSuccess(res, result, 201, result.breach_detected ? 'Temperature breach detected and logged. Ops team notified.' : 'Temperature reading logged.');
+    const message = result.reroute
+      ? `Temperature breach detected. Ops team notified and route updated: drop at ${result.reroute.facility_name} (${result.reroute.distance_km}km away).`
+      : result.breach_detected
+        ? 'Temperature breach detected and logged. Ops team notified.'
+        : 'Temperature reading logged.';
+    return sendSuccess(res, result, 201, message);
   } catch (err) {
     return next(err);
   }

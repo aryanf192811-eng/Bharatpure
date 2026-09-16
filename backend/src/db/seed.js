@@ -60,6 +60,37 @@ const seedClusters = async (client) => {
   return { sangli, kota, kangra };
 };
 
+const upsertColdStorageFacility = async (client, { name, state, district, lat, lng, capacityKg }) => {
+  const existing = await client.query(`SELECT id FROM cold_storage_facilities WHERE name = $1`, [name]);
+  if (existing.rows.length > 0) return { id: existing.rows[0].id, created: false };
+  const result = await client.query(
+    `INSERT INTO cold_storage_facilities (name, state, district, latitude, longitude, capacity_kg)
+     VALUES ($1,$2,$3,$4,$5,$6) RETURNING id`,
+    [name, state, district, lat, lng, capacityKg],
+  );
+  return { id: result.rows[0].id, created: true };
+};
+
+// One facility near each seeded cluster (for a short, plausible reroute distance), plus one on
+// the Mumbai-Sangli corridor and one hub in each cluster's home state, so a breach anywhere near
+// the seeded routes/clusters has a genuinely nearby option rather than only a same-state capital.
+const seedColdStorageFacilities = async (client) => {
+  const facilities = [
+    { name: 'Sangli Cold Storage', state: 'Maharashtra', district: 'Sangli', lat: 16.8667, lng: 74.5667, capacityKg: 50000 },
+    { name: 'Kolhapur Cold Storage', state: 'Maharashtra', district: 'Kolhapur', lat: 16.7050, lng: 74.2433, capacityKg: 40000 },
+    { name: 'Pune Regional Cold Storage', state: 'Maharashtra', district: 'Pune', lat: 18.5204, lng: 73.8567, capacityKg: 100000 },
+    { name: 'Mumbai Cold Storage Hub', state: 'Maharashtra', district: 'Mumbai', lat: 19.0176, lng: 72.8562, capacityKg: 150000 },
+    { name: 'Kota Cold Storage', state: 'Rajasthan', district: 'Kota', lat: 25.1800, lng: 75.8300, capacityKg: 40000 },
+    { name: 'Jaipur Regional Cold Storage', state: 'Rajasthan', district: 'Jaipur', lat: 26.9124, lng: 75.7873, capacityKg: 90000 },
+    { name: 'Kangra Cold Storage', state: 'Himachal Pradesh', district: 'Kangra', lat: 32.1000, lng: 76.2500, capacityKg: 20000 },
+    { name: 'Chandigarh Regional Cold Storage', state: 'Punjab', district: 'Chandigarh', lat: 30.7333, lng: 76.7794, capacityKg: 60000 },
+  ];
+  for (const facility of facilities) {
+    // eslint-disable-next-line no-await-in-loop -- small, bounded list; sequential keeps it simple
+    await upsertColdStorageFacility(client, facility);
+  }
+};
+
 const seedUsers = async (client, clusters) => {
   const results = {};
 
@@ -372,6 +403,7 @@ const seed = async () => {
     const users = await seedUsers(client, clusters);
     await seedBatches(client, clusters, users);
     await seedDemandForecasts(client);
+    await seedColdStorageFacilities(client);
 
     const counts = await client.query(`
       SELECT
@@ -379,7 +411,8 @@ const seed = async () => {
         (SELECT COUNT(*) FROM users) AS users,
         (SELECT COUNT(*) FROM batches) AS batches,
         (SELECT COUNT(*) FROM bir_events) AS bir_events,
-        (SELECT COUNT(*) FROM demand_forecasts) AS demand_forecasts
+        (SELECT COUNT(*) FROM demand_forecasts) AS demand_forecasts,
+        (SELECT COUNT(*) FROM cold_storage_facilities) AS cold_storage_facilities
     `);
     logger.info({ action: 'SEED_COMPLETE', ...counts.rows[0] });
     console.log('Seed complete:', counts.rows[0]);
