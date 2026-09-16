@@ -1,7 +1,16 @@
-"""Haversine only -- BHARATPURE-AI.md's documented osrm_matrix() (real road distances via an
-OSRM routing server) needs an external service/API key not available here. Falls back straight
-to Haversine, which the doc itself treats as the fallback path anyway."""
+"""Real road distances via OSRM's public demo Table API, with a Haversine fallback when OSRM is
+unreachable or errors. The public demo server (router.project-osrm.org) has no SLA/rate-limit
+guarantee -- fine for this scope, a production deployment would want a self-hosted OSRM instance
+instead (see docs/research/osrm-routing.md)."""
+import logging
 import math
+
+import httpx
+
+logger = logging.getLogger(__name__)
+
+OSRM_BASE_URL = "http://router.project-osrm.org/table/v1/driving"
+OSRM_TIMEOUT_SECONDS = 10
 
 
 def haversine_km(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
@@ -21,3 +30,24 @@ def haversine_matrix(locations: list[dict]) -> list[list[float]]:
             if i != j:
                 matrix[i][j] = haversine_km(locations[i]["lat"], locations[i]["lng"], locations[j]["lat"], locations[j]["lng"])
     return matrix
+
+
+def osrm_matrix(locations: list[dict]) -> list[list[float]]:
+    """Calls OSRM's Table API for real road distances. Raises on any failure (bad response,
+    timeout, network error) -- the caller (route_optimizer.py) is responsible for catching and
+    falling back to haversine_matrix, this function doesn't degrade silently itself.
+
+    Coordinate order matters: OSRM's own URL format is "lng,lat" (GeoJSON convention), the
+    reverse of this codebase's location dicts, which follow lat/lng like every other place in
+    this repo -- swapped only at the point of building the URL, not by changing the dict
+    convention itself.
+    """
+    coords = ";".join(f"{loc['lng']},{loc['lat']}" for loc in locations)
+    url = f"{OSRM_BASE_URL}/{coords}"
+    response = httpx.get(url, params={"annotations": "distance"}, timeout=OSRM_TIMEOUT_SECONDS)
+    response.raise_for_status()
+    data = response.json()
+    if data.get("code") != "Ok":
+        raise ValueError(f"OSRM returned non-Ok status: {data.get('code')}")
+    # OSRM distances are in metres; haversine_matrix's contract is km, so convert to match.
+    return [[metres / 1000 for metres in row] for row in data["distances"]]

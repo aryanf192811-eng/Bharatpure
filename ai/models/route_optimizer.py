@@ -1,9 +1,13 @@
 """Real OR-Tools CVRP solver. Simplified from BHARATPURE-AI.md's documented CVRPTW (drops the
 time-window dimension -- the Node caller never sends time windows for any stop, so constraining
 on an all-day [0, 1440] window for every location would be a structural no-op anyway)."""
+import logging
+
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
-from utils.distance import haversine_matrix
+from utils.distance import haversine_matrix, osrm_matrix
+
+logger = logging.getLogger(__name__)
 
 COST_PAISE_PER_KM = 2200  # ~Rs 22/km operating cost, per BHARATPURE-AI.md
 BASELINE_DISTANCE_FACTOR = 1.354  # empirical: OR-Tools saves ~26% avg over a naive direct-route baseline
@@ -12,7 +16,11 @@ BASELINE_DISTANCE_FACTOR = 1.354  # empirical: OR-Tools saves ~26% avg over a na
 class RouteOptimizer:
     def solve(self, locations: list[dict], vehicle_type: str, num_vehicles: int, capacity_kg: float, depot_index: int = 0) -> dict:
         n_locs = len(locations)
-        dist_matrix = haversine_matrix(locations)
+        try:
+            dist_matrix = osrm_matrix(locations)
+        except Exception as e:  # noqa: BLE001 -- deliberately broad: any OSRM failure (network, timeout, bad response) falls back the same way
+            logger.warning(f"OSRM unavailable ({e}), falling back to Haversine")
+            dist_matrix = haversine_matrix(locations)
         dist_int = [[int(d * 1000) for d in row] for row in dist_matrix]  # metres, for integer arithmetic
         demands = [int(loc["demand_kg"] * 10) for loc in locations]
         capacities = [int(capacity_kg * 10)] * num_vehicles
