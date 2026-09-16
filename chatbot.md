@@ -425,6 +425,23 @@ _(Tasks after Phase 4 gate)_
 
 ---
 
+## PHASE 7 — REAL DEMAND-MODEL TRAINING DATA (Antigravity)
+
+> Continues directly from Phase 6's TASK-P6-002 finding: a live pull against data.gov.in's AGMARKNET API (real key, real records) confirmed genuine daily data exists for Turmeric (23 records/day) and Mustard (165 records/day) but **zero for Honey** (not a mandi-traded commodity — Honey stays on the existing heuristic permanently, not something this task should try to fix). That same pull also proved the live AGMARKNET resource only serves *today's* snapshot — a past-date filter is silently ignored rather than erroring — so it cannot backfill history by itself. This task's job is to get real historical depth from a different, better-suited source.
+>
+> As with Phase 6, Antigravity has no memory of this session — the spec below is self-contained.
+
+### TASK-P7-001
+- **Title:** Pull + clean historical Turmeric/Mustard price data from CEDA (Ashoka University)
+- **Status:** QUEUED
+- **Owner:** subagent (Antigravity)
+- **Scope:** `ai/data/turmeric_historical.csv`, `ai/data/mustard_historical.csv`, `docs/research/demand-training-data-cleaning.md` (new files only — do not modify anything under `ai/models/`, `ai/routers/`, or `ai/scripts/`, those are supervisor-owned for this phase)
+- **Spec:** BharatPure's AI Decision Engine (`ai/models/demand_model.py`) currently forecasts demand via a heuristic, not a trained model. The plan is to train a real model for Turmeric and Mustard only (Honey has no usable data source, confirmed — do not spend time looking for one). Register a free API token at CEDA's Agri-Market Data portal (`agmarknet.ceda.ashoka.edu.in` / documentation at `ceda.ashoka.edu.in`) — a cleaned, bulk-downloadable mirror of AGMARKNET data going back to 2000, free for non-commercial use with attribution. Pull as much historical daily price + arrivals data as the API reasonably allows for Turmeric and Mustard, national coverage, with extra density for Maharashtra (esp. Sangli district) for Turmeric and Rajasthan (esp. Kota district) for Mustard — these match BharatPure's own seeded demo clusters. Clean and standardize the data: state/commodity naming is confirmed inconsistent in the underlying AGMARKNET data (e.g. "Keralam" not "Kerala" is the real stored spelling for one state; variety-level and crop-level rows are sometimes mixed). Write one CSV per crop to `ai/data/` with columns: `date, state, district, market, crop_type, arrivals_quintals, min_price_rs_quintal, max_price_rs_quintal, modal_price_rs_quintal` (matches the schema in `docs/research/demand-training-pipeline.md`). Do not attempt an IMD rainfall join in this task — price/arrivals data only, rainfall is out of scope here. Document what you did, any data-quality issues you hit, and how many rows/what date range each CSV actually covers in `docs/research/demand-training-data-cleaning.md`.
+- **Acceptance Check:** both CSVs exist and are non-empty, contain at least a few hundred rows each, span multiple distinct months (not just one day — verify by checking the `date` column has real variety, not all one value), and column names match the target schema exactly (`date, state, district, market, crop_type, arrivals_quintals, min_price_rs_quintal, max_price_rs_quintal, modal_price_rs_quintal`).
+- **Result/Notes:** _(subagent fills this after completion — link the files, one-paragraph summary here, don't paste the CSV contents into this board)_
+
+---
+
 ## PHASE 0 NEWMAN RESULTS LOG
 | Date | Phase | Routes Tested | Pass | Fail | File |
 |---|---|---|---|---|---|
