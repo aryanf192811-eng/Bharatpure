@@ -495,6 +495,26 @@ _(Tasks after Phase 4 gate)_
 
 ---
 
+## PHASE 9 — "WOW FACTOR" INNOVATION RESEARCH (Antigravity)
+
+> As with Phase 6-8, self-contained, research-only, output to `docs/research/{topic}.md`. **Given the pattern found in every Phase 6-8 submission so far (a real, mostly-accurate document with 1-2 specific invented details layered on top) — every claim with a specific number, name, or quote in your output WILL be spot-checked against live search before being trusted. Don't state something as a confirmed fact unless you actually found it; say "couldn't verify" instead of inventing a plausible-sounding specific.** This isn't optional caution, it's now a standing expectation for every task on this board.
+>
+> **Context**: BharatPure (see summaries in Phase 6-8 above) already ships 6 SIH-pitch innovation features (Impact Receipt, Next-Season Crop Advisory, WhatsApp voice-note support, Micro-Credit Eligibility Score, real OSRM road-distance routing, auto-reroute on temperature breach) plus a demand-forecasting AI genuinely trained on real historical AGMARKNET/CEDA data for Turmeric and Mustard (not a heuristic — see `docs/research/demand-training-pipeline.md`). The question now: what's the single highest-leverage thing left to build to be a clear winning contender, not just a complete one.
+
+### TASK-P9-001
+- **Title:** Innovation-trend research: what would make judges say "wow," and what does SIH actually reward
+- **Status:** QUEUED
+- **Owner:** subagent (Antigravity)
+- **Scope:** `docs/research/winning-innovation-research.md` (new file)
+- **Spec:** Three research threads:
+  1. **Genuine agtech innovation trends** (India-specific and global) that BharatPure doesn't have yet and that a judge would recognize as technically impressive, not just "another feature": satellite/remote-sensing crop verification (e.g. ISRO Bhuvan's open crop-health/soil-moisture layers — is there a real, free, usable API for a hackathon-scale integration, or is it GIS-heavy and impractical in the time available), carbon-credit/sustainability tracking tied to verified farming practices, alternative-data farmer credit scoring beyond what BharatPure already has, blockchain-based provenance (and whether that's actually differentiated from BharatPure's existing event-sourced Batch Identity Record or just a buzzword version of the same idea), drone-based data collection, or anything else genuinely notable in recent (2024-2026) Indian agtech hackathon/startup showcases. Be honest about which of these are realistically buildable in days vs. which need weeks/a real team — this matters for the recommendation.
+  2. **Official SIH judging weightage**, if it's publicly documented anywhere (a percentage breakdown across innovation/feasibility/scalability/presentation, or similar) — not just the general pattern already found in Phase 8's research (live demo matters, technical depth matters), but any more specific/official rubric if one exists.
+  3. **Ministry of Consumer Affairs, Food & Public Distribution's own stated priorities** relevant to PS 26033 — any recent (2025-2026) press releases, policy statements, or public remarks from this specific ministry about intermediation/farmer-income/consumer-price issues, which would signal what a ministry-affiliated judge on this specific PS would care most about hearing addressed.
+- **Acceptance Check:** `docs/research/winning-innovation-research.md` exists, ends with a clear ranked list of 2-4 concrete feature/innovation candidates (not a vague list of trends) with an honest effort estimate for each, and every specific claim (a number, a named source, a quote) is either cited to something you actually found or explicitly marked unverified.
+- **Result/Notes:** _(subagent fills this after completion — link the file, one-paragraph summary here, don't paste the findings into this board)_
+
+---
+
 ## PHASE 0 NEWMAN RESULTS LOG
 | Date | Phase | Routes Tested | Pass | Fail | File |
 |---|---|---|---|---|---|
