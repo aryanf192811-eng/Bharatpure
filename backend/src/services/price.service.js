@@ -110,4 +110,19 @@ const getPremiumCalculator = async (qualityScore, cropType, quantityKg, city) =>
   };
 };
 
-module.exports = { getRecommendation, getMarketRates, getPremiumCalculator, computeLocalRecommendation, getCommodityPricePaise };
+// A proposed sale price this far below the AI's recommended_low_paise counts as a distress
+// sale -- the threshold that decides whether the WhatsApp bot's Distress Sale Shield (and the
+// listing-creation API's matching warning) fires. Ties to the government's own real, verified
+// priority of preventing distress sales (see docs/research/winning-innovation-research.md).
+const DISTRESS_THRESHOLD_PCT = 20;
+
+const checkDistressSale = (recommendedLowPaise, proposedPricePaise) => {
+  if (!recommendedLowPaise || proposedPricePaise == null) return { isDistress: false, gapPct: 0 };
+  const gapPct = ((recommendedLowPaise - proposedPricePaise) / recommendedLowPaise) * 100;
+  return { isDistress: gapPct >= DISTRESS_THRESHOLD_PCT, gapPct: Math.round(gapPct * 10) / 10 };
+};
+
+module.exports = {
+  getRecommendation, getMarketRates, getPremiumCalculator, computeLocalRecommendation,
+  getCommodityPricePaise, checkDistressSale,
+};

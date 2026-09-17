@@ -135,20 +135,14 @@ const completeStop = async (routeId, stopId, user, notes, markOrderDelivered) =>
 };
 
 /**
- * Auto-reroute: inserts a stop at the nearest active cold-storage facility into the route's
- * not-yet-completed stops, right before whatever the driver's current next stop is. Returns null
- * (a no-op, not an error) when there's nothing to reroute against -- no breach position data
- * (location_lat/lng weren't sent) or no active facility exists -- since a reroute is a best-
- * effort addition on top of the always-succeeding breach-logging path, not something that should
- * ever block it.
- *
- * No time-based/multi-stop optimization here -- a single nearest-point lookup doesn't need the
- * AI service's OR-Tools solver, that's reserved for actual multi-stop route planning.
+ * Nearest active cold-storage facility to a given point, a plain Haversine scan -- no time-based/
+ * multi-stop optimization, a single nearest-point lookup doesn't need the AI service's OR-Tools
+ * solver (that's reserved for actual multi-stop route planning). Takes either the pool or an
+ * active transaction client, since callers may or may not already be inside a transaction.
+ * Returns null (not an error) when there's no active facility at all.
  */
-const insertReroute = async (client, routeId, batchId, breachLat, breachLng, actorUser) => {
-  if (breachLat == null || breachLng == null) return null;
-
-  const facilitiesResult = await client.query(
+const findNearestActiveFacility = async (dbClient, lat, lng) => {
+  const facilitiesResult = await dbClient.query(
     `SELECT id, name, latitude, longitude FROM cold_storage_facilities WHERE status = 'active'`,
   );
   if (facilitiesResult.rows.length === 0) return null;
@@ -156,12 +150,29 @@ const insertReroute = async (client, routeId, batchId, breachLat, breachLng, act
   let nearest = null;
   let nearestDistanceKm = Infinity;
   for (const facility of facilitiesResult.rows) {
-    const distanceKm = haversineKm(breachLat, breachLng, Number(facility.latitude), Number(facility.longitude));
+    const distanceKm = haversineKm(lat, lng, Number(facility.latitude), Number(facility.longitude));
     if (distanceKm < nearestDistanceKm) {
       nearestDistanceKm = distanceKm;
       nearest = facility;
     }
   }
+  return { facility: nearest, distanceKm: Math.round(nearestDistanceKm * 10) / 10 };
+};
+
+/**
+ * Auto-reroute: inserts a stop at the nearest active cold-storage facility into the route's
+ * not-yet-completed stops, right before whatever the driver's current next stop is. Returns null
+ * (a no-op, not an error) when there's nothing to reroute against -- no breach position data
+ * (location_lat/lng weren't sent) or no active facility exists -- since a reroute is a best-
+ * effort addition on top of the always-succeeding breach-logging path, not something that should
+ * ever block it.
+ */
+const insertReroute = async (client, routeId, batchId, breachLat, breachLng, actorUser) => {
+  if (breachLat == null || breachLng == null) return null;
+
+  const nearestResult = await findNearestActiveFacility(client, breachLat, breachLng);
+  if (!nearestResult) return null;
+  const { facility: nearest, distanceKm: nearestDistanceKm } = nearestResult;
 
   const pendingResult = await client.query(
     `SELECT MIN(sequence_number) AS next_seq FROM route_stops WHERE route_id = $1 AND completed_at IS NULL`,
@@ -180,14 +191,13 @@ const insertReroute = async (client, routeId, batchId, breachLat, breachLng, act
     [routeId, batchId, Number(nextSeq), nearest.name, nearest.latitude, nearest.longitude],
   );
 
-  const roundedDistanceKm = Math.round(nearestDistanceKm * 10) / 10;
   await addBirEvent(
     client, batchId, 'ColdStorageRerouted',
-    { route_id: routeId, stop_id: stopResult.rows[0].id, facility_id: nearest.id, facility_name: nearest.name, distance_km: roundedDistanceKm },
+    { route_id: routeId, stop_id: stopResult.rows[0].id, facility_id: nearest.id, facility_name: nearest.name, distance_km: nearestDistanceKm },
     actorUser.id, actorUser.role,
   );
 
-  return { stop_id: stopResult.rows[0].id, facility_name: nearest.name, distance_km: roundedDistanceKm };
+  return { stop_id: stopResult.rows[0].id, facility_name: nearest.name, distance_km: nearestDistanceKm };
 };
 
 /**
@@ -249,4 +259,4 @@ const logTemperature = async (user, data) => {
   }
 };
 
-module.exports = { getDashboard, listRoutes, getRouteById, startRoute, completeStop, logTemperature };
+module.exports = { getDashboard, listRoutes, getRouteById, startRoute, completeStop, logTemperature, findNearestActiveFacility };

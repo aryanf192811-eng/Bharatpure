@@ -183,4 +183,4 @@ const getCreditEligibility = async (userId) => {
   return { latest: result.rows[0], history: result.rows.reverse() };
 };
 
-module.exports = { getProfile, getDashboard, getEarnings, getTrustScore, getCropAdvisories, getCreditEligibility };
+module.exports = { getProfile, getDashboard, getEarnings, getTrustScore, getCropAdvisories, getCreditEligibility, getFpoForUser };

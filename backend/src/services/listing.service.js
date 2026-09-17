@@ -2,6 +2,7 @@ const axios = require('axios');
 
 const { pool } = require('../db');
 const logger = require('../utils/logger');
+const priceService = require('./price.service');
 
 const apiError = (statusCode, code, message) => {
   const err = new Error(message);
@@ -94,8 +95,19 @@ const createListing = async (user, data) => {
 
     // Best-effort, post-commit, never blocks or fails the listing itself.
     const priceRecommendation = await fetchPriceRecommendation(batch.crop_type, batch.quality_score, data.city);
+    // Same Distress Sale Shield signal the WhatsApp bot surfaces on list_batch -- null whenever
+    // no recommendation was available, never blocks listing creation either.
+    const distressSaleWarning = priceRecommendation
+      ? priceService.checkDistressSale(priceRecommendation.recommended_low_paise, data.price_per_kg_paise)
+      : null;
 
-    return { id: listingResult.rows[0].id, batch_id: data.batch_id, price_per_kg_paise: data.price_per_kg_paise, price_recommendation: priceRecommendation };
+    return {
+      id: listingResult.rows[0].id,
+      batch_id: data.batch_id,
+      price_per_kg_paise: data.price_per_kg_paise,
+      price_recommendation: priceRecommendation,
+      distress_sale_warning: distressSaleWarning,
+    };
   } catch (err) {
     await client.query('ROLLBACK'); // safe no-op if BEGIN was never reached
     if (err.code && err.statusCode) throw err;

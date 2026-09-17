@@ -4,6 +4,8 @@ const { pool } = require('../db');
 const logger = require('../utils/logger');
 const demandService = require('./demand.service');
 const priceService = require('./price.service');
+const farmerService = require('./farmer.service');
+const logisticsService = require('./logistics.service');
 
 const SESSION_TTL_MINUTES = 30;
 const CROP_TYPES = ['TURMERIC', 'MUSTARD', 'HONEY', 'GROUNDNUT', 'GHEE', 'SPICES'];
@@ -42,6 +44,9 @@ Match the city name in any script or common transliteration appearing in the mes
 
 EXTRACT "batch_code": if a substring matches XX-XXX-NNNN-NNN, copy it exactly (preserve case and dashes) into batch_code. Otherwise omit this field or leave it empty.
 
+EXTRACT "proposed_price_rupees" and "proposed_price_unit" (only relevant for list_batch, but extract them whenever a price is stated regardless of intent):
+If the message states a rupee amount for selling/pricing a crop (e.g. "6000 rupaye quintal", "₹65/kg", "80 rupees per kilo"), copy the plain number into proposed_price_rupees exactly as stated -- do not convert units yourself, that happens elsewhere. Set proposed_price_unit to "per_kg" if the stated unit is per kg/kilo, "per_quintal" if per quintal/quintal, or "unclear" if a price is stated but no unit is given or the unit is ambiguous. If no price is mentioned at all, omit both fields (do not guess a price).
+
 DETERMINE "original_language":
 - hindi: the message contains Devanagari script characters (the Unicode range for Hindi letters/matras).
 - hinglish: the message is written in Latin/Roman letters but uses Hindi vocabulary or grammar (e.g. "haldi ka bhav kya hai", "mera order kab aayega", "kitna hai").
@@ -61,6 +66,8 @@ const INTENT_RESPONSE_SCHEMA = {
     crop_type: { type: Type.STRING, enum: [...CROP_TYPES, 'null'] },
     city: { type: Type.STRING, enum: [...CITIES, 'null'] },
     batch_code: { type: Type.STRING },
+    proposed_price_rupees: { type: Type.NUMBER },
+    proposed_price_unit: { type: Type.STRING, enum: ['per_kg', 'per_quintal', 'unclear'] },
     original_language: { type: Type.STRING, enum: ['hindi', 'english', 'hinglish'] },
     confidence: { type: Type.NUMBER },
   },
@@ -81,6 +88,11 @@ const classifyIntentLocally = (messageBody) => {
   const cropType = CROP_TYPES.find((c) => text.includes(c.toLowerCase())) ?? (text.includes('haldi') ? 'TURMERIC' : text.includes('sarson') ? 'MUSTARD' : text.includes('shahad') ? 'HONEY' : null);
   const city = CITIES.find((c) => text.includes(c.toLowerCase())) ?? null;
   const batchCodeMatch = messageBody.match(/[A-Z]{2}-[A-Z]{3}-\d{4}-\d{3}/);
+  // A plain "<number> <unit>" pattern -- deliberately simple, this is the no-Gemini fallback
+  // path, not a claim of real NLU. quintal/quintal-spelled-out beats a bare "kg" mention.
+  const priceMatch = text.match(/(\d+(?:\.\d+)?)\s*(rupaye|rupee|rs\.?|₹|paise)?\s*(quintal|quintl|kg|kilo)?/);
+  const proposedPriceRupees = priceMatch && /rupaye|rupee|rs\.?|₹/.test(text) ? Number(priceMatch[1]) : null;
+  const proposedPriceUnit = priceMatch?.[3]?.startsWith('quint') ? 'per_quintal' : priceMatch?.[3] ? 'per_kg' : 'unclear';
 
   let intent = 'support';
   if (/rate|price|bhav|कीमत|दाम/.test(text)) intent = 'price_query';
@@ -92,7 +104,11 @@ const classifyIntentLocally = (messageBody) => {
   const isHindiScript = /[ऀ-ॿ]/.test(messageBody);
   const original_language = isHindiScript ? 'hindi' : /haldi|bhav|kitna|kaisa/.test(text) ? 'hinglish' : 'english';
 
-  return { intent, crop_type: cropType, city, batch_code: batchCodeMatch?.[0] ?? null, original_language, confidence: 0.5 };
+  return {
+    intent, crop_type: cropType, city, batch_code: batchCodeMatch?.[0] ?? null,
+    proposed_price_rupees: proposedPriceRupees, proposed_price_unit: proposedPriceUnit,
+    original_language, confidence: 0.5,
+  };
 };
 
 // Sentinel returned when a voice note can't be classified at all -- either no GEMINI_API_KEY is
@@ -196,6 +212,23 @@ const generateResponse = async (intent, responseContext, language) => {
   }
 };
 
+// whatsapp_sessions.user_id is declared in the schema but was never actually set/read anywhere
+// in this file before now -- a WhatsApp phone number carried no link to a real farmer/FPO
+// identity at all. This is that link, resolved fresh per message rather than cached on the
+// session row (keeps it simple; a farmer's own phone->user mapping doesn't change mid-session).
+const resolveUserByPhone = async (phone) => {
+  const result = await pool.query(`SELECT id, role FROM users WHERE phone = $1`, [phone]);
+  return result.rows[0] ?? null;
+};
+
+// Indicative credit-line estimate for the Distress Sale Shield -- fpo_credit_scores has no real
+// rupee credit-limit column (only component scores + a band), so this is a documented, clearly-
+// labeled formula, not a real number from the DB: a band-based fraction of the batch's traditional
+// -channel value. INSUFFICIENT_DATA is deliberately absent from this map -- no credit line is
+// offered at all for a band that thin, same "not a loan offer" honesty as the app's own Trust
+// Score breakdown screen.
+const CREDIT_BAND_FRACTION = { HIGH: 0.6, MEDIUM: 0.4, LOW: 0.2 };
+
 const getOrCreateSession = async (phone) => {
   const result = await pool.query(
     `INSERT INTO whatsapp_sessions (phone, state, session_expires_at)
@@ -224,8 +257,74 @@ const getOrCreateSession = async (phone) => {
  * duplicating that logic here, and is a deliberate improvement over calling the AI service raw
  * as BHARATPURE-AI.md's prose literally describes.
  */
-const buildResponseContext = async (parsedIntent) => {
+const buildResponseContext = async (parsedIntent, phone) => {
   try {
+    if (parsedIntent.intent === 'list_batch' && parsedIntent.crop_type) {
+      const user = await resolveUserByPhone(phone);
+      if (!user) {
+        return 'This phone number is not linked to a registered farmer account yet. Ask the farmer to register on the BharatPure app first, then message again.';
+      }
+      const fpo = await farmerService.getFpoForUser(user.id).catch(() => null);
+      if (!fpo) {
+        return 'No FPO profile found for this farmer. Provide general guidance and suggest registering an FPO profile on the app.';
+      }
+      const batchResult = await pool.query(
+        parsedIntent.batch_code
+          ? `SELECT * FROM batches WHERE fpo_id = $1 AND batch_code = $2 AND deleted_at IS NULL LIMIT 1`
+          : `SELECT * FROM batches WHERE fpo_id = $1 AND crop_type = $2 AND deleted_at IS NULL
+             AND status IN ('test_passed','listed','partially_sold') ORDER BY created_at DESC LIMIT 1`,
+        parsedIntent.batch_code ? [fpo.id, parsedIntent.batch_code] : [fpo.id, parsedIntent.crop_type],
+      );
+      const batch = batchResult.rows[0];
+      if (!batch) {
+        return `No sellable ${parsedIntent.crop_type} batch found for this farmer. Provide general guidance on listing a batch on the app.`;
+      }
+
+      const rec = await priceService.getRecommendation(batch.crop_type, Number(batch.quality_score) || 70, parsedIntent.city);
+      const rangeText = `₹${(rec.recommended_low_paise / 100).toFixed(0)}-₹${(rec.recommended_high_paise / 100).toFixed(0)} per kg`;
+
+      if (parsedIntent.proposed_price_rupees == null) {
+        return `Batch ${batch.batch_code} (${batch.crop_type}): AI-recommended price is ${rangeText}. No price was proposed in the message -- share this range with the farmer.`;
+      }
+
+      // per_quintal needs no conversion at all: ₹/quintal and paise/kg are numerically identical
+      // (1 quintal = 100kg, 1 rupee = 100 paise -- the two implicit ×100s cancel). 'unclear' is
+      // treated as per_quintal, matching AGMARKNET/mandi convention, this platform's own real
+      // data source (see docs/research/demand-training-pipeline.md).
+      const proposedPricePaise = parsedIntent.proposed_price_unit === 'per_kg'
+        ? parsedIntent.proposed_price_rupees * 100
+        : parsedIntent.proposed_price_rupees;
+
+      const { isDistress, gapPct } = priceService.checkDistressSale(rec.recommended_low_paise, proposedPricePaise);
+      if (!isDistress) {
+        return `Batch ${batch.batch_code} (${batch.crop_type}): proposed price ₹${parsedIntent.proposed_price_rupees}/${parsedIntent.proposed_price_unit === 'per_kg' ? 'kg' : 'quintal'} looks fair -- AI-recommended range is ${rangeText}. Confirm to the farmer this is a reasonable price.`;
+      }
+
+      const clusterResult = await pool.query(`SELECT latitude, longitude FROM clusters WHERE id = $1`, [batch.cluster_id]);
+      const cluster = clusterResult.rows[0];
+      const nearest = cluster
+        ? await logisticsService.findNearestActiveFacility(pool, Number(cluster.latitude), Number(cluster.longitude))
+        : null;
+
+      let creditLine = '';
+      try {
+        const credit = await farmerService.getCreditEligibility(user.id);
+        const fraction = CREDIT_BAND_FRACTION[credit.latest.eligibility_band];
+        if (fraction) {
+          const estimatePaise = rec.commodity_price_paise * Number(batch.remaining_quantity_kg) * fraction;
+          creditLine = ` An indicative credit line of roughly ₹${Math.round(estimatePaise / 100).toLocaleString('en-IN')} may be available against this batch (not a loan offer, an estimate only).`;
+        }
+      } catch {
+        // 422 FPO_NOT_REGISTERED (already ruled out above) or 404 CREDIT_SCORE_NOT_COMPUTED --
+        // either way, degrade silently rather than block the distress-sale message.
+      }
+
+      const facilityLine = nearest
+        ? ` Nearest cold-storage option: ${nearest.facility.name}, ${nearest.distanceKm}km away -- holding the produce there instead may fetch a better price later.`
+        : '';
+
+      return `DISTRESS SALE WARNING for batch ${batch.batch_code} (${batch.crop_type}): proposed price ₹${parsedIntent.proposed_price_rupees}/${parsedIntent.proposed_price_unit === 'per_kg' ? 'kg' : 'quintal'} is ${gapPct}% below the AI-recommended range of ${rangeText}.${facilityLine}${creditLine} Explain this clearly to the farmer in their own language and let them decide -- do not pressure them either way.`;
+    }
     if (parsedIntent.intent === 'price_query' && parsedIntent.crop_type) {
       const rec = await priceService.getRecommendation(parsedIntent.crop_type, 90, parsedIntent.city);
       return `${parsedIntent.crop_type} recommended price in ${parsedIntent.city ?? 'your area'}: ₹${(rec.recommended_low_paise / 100).toFixed(0)}-₹${(rec.recommended_high_paise / 100).toFixed(0)} per kg (commodity rate: ₹${(rec.commodity_price_paise / 100).toFixed(0)}/kg, premium: ${rec.premium_pct}%).`;
@@ -273,7 +372,7 @@ const handleMessage = async (phone, messageBody, media = null) => {
       return replyText;
     }
 
-    const responseContext = await buildResponseContext(parsedIntent);
+    const responseContext = await buildResponseContext(parsedIntent, phone);
     const replyText = await generateResponse(parsedIntent.intent, responseContext, parsedIntent.original_language);
 
     await pool.query(
