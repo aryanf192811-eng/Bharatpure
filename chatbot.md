@@ -455,6 +455,42 @@ _(Tasks after Phase 4 gate)_
 
 ---
 
+## PHASE 8 — COMPETITIVE LANDSCAPE + SIH WINNING STRATEGY (Antigravity)
+
+> As with Phase 6/7, Antigravity has no memory of this session — each spec below is self-contained. Research-only, no code changes, same "output to `docs/research/{topic}.md`, don't paste findings into this board" standing rule as every other research phase.
+>
+> **What's already been researched (2026-09-16, prior session) — don't re-derive, build past it:**
+> - **Central government platforms**: eNAM (wholesale-only, no consumer reach, no logistics — 1.80 crore registered farmers, ₹4.84 lakh crore cumulative trade, but academic reviews note real price-integration gains lag due to mandi-monopoly resistance), AgriStack (identity-only, 10.31 crore Kisan IDs issued of an 11-crore target, no marketplace/pricing/quality layer), ONDC agri (network-level only, ~7,000 FPOs onboarded, still in a foundational/pilot stage — see `docs/research/ps-26033-and-platform-impact-stats.md`).
+> - **State government platforms** (researched in-session, not yet saved to a file — re-verify and save properly as part of this task, see TASK-P8-001's scope): Karnataka ReMS/Unified Market Platform (electronic auction, no logistics/consumer layer), Madhya Pradesh e-Uparjan (MSP procurement only, not open-market), Andhra Pradesh RBKs (physical-digital hybrid kiosks, no algorithmic pricing), Tamil Nadu Uzhavar Sandhai (physical direct-market model, no digital layer), Gujarat e-mandi (eNAM-integrated, not materially distinct).
+> - **PS 26033's real title/scope** (confirmed from secondary sources, not primary sih.gov.in text): "Multiple Intermediaries Reduce Farmers' Earnings and Increase Consumer Prices," Ministry of Consumer Affairs, Food & Public Distribution.
+> - **NABL certification economics** and **ONDC/Beckn integration feasibility** are both already fully researched — see `docs/research/nabl-certification-economics.md` and `docs/research/ondc-beckn-integration-feasibility.md`. Not in scope for this phase.
+>
+> **What's genuinely missing and this phase should fill:** private-sector competitors were never researched at all (only government platforms so far) — this is a real gap, since a judge is at least as likely to ask "why hasn't Ninjacart/DeHaat already solved this" as "why not just use eNAM." Also never researched: what other SIH teams are actually building for this same PS, and what concretely separates a Grand-Finale-winning SIH project from the rest.
+
+### TASK-P8-001
+- **Title:** Private-sector agritech competitor research + consolidated platform comparison
+- **Status:** QUEUED
+- **Owner:** subagent (Antigravity)
+- **Scope:** `docs/research/private-sector-competitors.md` (new file), `docs/research/platform-comparison-consolidated.md` (new file — merges this task's private-sector findings with the already-known central/state government findings summarized above into one single reference table, so there's one document to hand a judge or a teammate instead of three scattered ones)
+- **Spec:** BharatPure is a farm-to-consumer agritech platform for SIH 2026 PS 26033 (see context above). It positions itself as an "AI-powered trust and decision infrastructure": an AI Decision Engine (demand forecasting — now genuinely trained on real historical AGMARKNET/CEDA data for Turmeric and Mustard, see `docs/research/demand-training-pipeline.md`; quality-based pricing; OR-Tools route optimization), a Trust Layer (an immutable per-batch event log called a Batch Identity Record, NABL certificates, QR-code anti-fraud "QR burn" on consumer purchase), Open Commerce (consumes AgriStack/eNAM/ONDC rather than replacing them), and an Accessible Interface (installable offline-capable PWA + a WhatsApp bot with voice-note support via Gemini). Research India's major private-sector agritech companies that could reasonably be seen as covering similar ground: **Ninjacart** (B2B farm-to-retail supply chain), **DeHaat** (full-stack farmer platform: inputs, advisory, credit, market linkage), **WayCool Foods** (farm-to-retail, processing), **AgroStar** (farmer advisory + input marketplace, agri-fintech), **Kisan Network / KisanKonnect**, **Star Agribazaar**, **Arya.ag** (post-harvest financing/warehousing), **Samunnati** (agri value-chain financing), **Crofarm/Dehaat-adjacent B2B produce sourcing**, **ITC's eChoupal** (a long-running, well-known precedent worth including even though older). For each: what problem it actually solves, what stage/scale it's at (funding raised, farmers/FPOs reached if public), and — most importantly — whether it has anything resembling BharatPure's specific combination of (a) a public, consumer-facing quality/provenance trust mechanism per batch, (b) AI-driven demand forecasting + quality-based pricing, (c) logistics/cold-chain optimization with automatic rerouting, and (d) WhatsApp-first accessibility for farmers. Be honest if any of them already do something BharatPure claims as a differentiator — that's exactly the kind of finding worth surfacing before a judge does, not glossing over.
+- **Acceptance Check:** `docs/research/private-sector-competitors.md` covers at least 6 of the named companies with a real, cited (not vibes-based) assessment of overlap/gap vs BharatPure's four pillars; `docs/research/platform-comparison-consolidated.md` contains one single comparison table covering government (central + state) AND private-sector platforms side by side, plus a short "genuine, defensible differentiators" section and a "where a judge will push back" section (both already exist for government platforms from the prior session, summarized above — extend them to cover the private-sector findings too, don't just repeat the old ones verbatim).
+- **Result/Notes:** _(subagent fills this after completion — link the files, one-paragraph summary here, don't paste the findings into this board)_
+
+---
+
+### TASK-P8-002
+- **Title:** SIH 2026 PS 26033 competitive field + what makes a Grand-Finale-winning SIH project
+- **Status:** QUEUED
+- **Owner:** subagent (Antigravity)
+- **Scope:** `docs/research/sih-competitive-landscape.md` (new file)
+- **Spec:** Two distinct research threads for this one file:
+  1. **What other teams are building for this same PS.** Search GitHub, Devfolio/Unstop hackathon project listings, LinkedIn posts, and any other public source for teams working on SIH 2026 PS 26033 specifically ("Multiple Intermediaries Reduce Farmers' Earnings and Increase Consumer Prices"). A team called "KrishiSetu" was found referencing this PS in a prior research pass (their GitHub README) — that's a real lead, dig into what they've actually built if their repo/docs are public, and look for others too. Report what you find honestly, including if the field is sparse/hard to find — don't pad this section with generic "many teams are building agritech solutions" filler.
+  2. **What actually separates a Grand-Finale-winning SIH project from the rest.** Research SIH's own publicly documented judging criteria if available (innovation, technical feasibility, scalability, presentation, alignment to the PS), and — more valuably — look at past SIH winning teams/projects (any year) for concrete, specific patterns: did winning teams typically have a fully working live demo vs. slides-only, did they show real user/pilot traction before the finals, did they engage the sponsoring ministry/mentor deeply, did they have particularly strong technical depth in one area rather than broad shallow coverage, what did their pitch decks/presentations emphasize. Cite specific examples where you find them (a named past-winning team/project and what they actually did), not generic hackathon-pitching advice that could apply to any competition.
+- **Acceptance Check:** `docs/research/sih-competitive-landscape.md` exists, cites real sources for both threads, and explicitly distinguishes verified findings from "couldn't find public information on this" rather than filling gaps with generic advice presented as researched fact.
+- **Result/Notes:** _(subagent fills this after completion — link the file, one-paragraph summary here, don't paste the findings into this board)_
+
+---
+
 ## PHASE 0 NEWMAN RESULTS LOG
 | Date | Phase | Routes Tested | Pass | Fail | File |
 |---|---|---|---|---|---|
