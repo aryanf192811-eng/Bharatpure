@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { 'colors': { 'on-secondary-fixed-variant': '#5c4300', 'on-surface': '#241a07', 'surface': '#fff8f3', 'on-primary-container': '#a8e7c5', 'secondary-fixed': '#ffdea0', 'secondary-container': '#fdc74b', 'secondary-fixed-dim': '#f4be43', 'primary': '#0f5238', 'on-error-container': '#93000a', 'on-primary-fixed-variant': '#0e5138', 'on-surface-variant': '#404943', 'on-secondary-container': '#715300', 'on-background': '#241a07', 'on-error': '#ffffff', 'inverse-surface': '#3a2f1a', 'on-tertiary-container': '#ffcfc0', 'inverse-on-surface': '#ffefd6', 'tertiary-fixed-dim': '#ffb59d', 'surface-dim': '#ebd8b9', 'surface-tint': '#2c694e', 'on-primary': '#ffffff', 'on-secondary-fixed': '#261a00', 'error-container': '#ffdad6', 'primary-fixed-dim': '#95d4b3', 'tertiary-container': '#a63c15', 'inverse-primary': '#95d4b3', 'background': '#fff8f3', 'surface-container-lowest': '#ffffff', 'on-secondary': '#ffffff', 'outline': '#707973', 'outline-variant': '#bfc9c1', 'on-tertiary-fixed': '#390b00', 'tertiary': '#852600', 'on-primary-fixed': '#002114', 'error': '#ba1a1a', 'surface-container-low': '#fff2e0', 'surface-variant': '#f3e0c2', 'tertiary-fixed': '#ffdbd0', 'secondary': '#795900', 'primary-fixed': '#b1f0ce', 'on-tertiary-fixed-variant': '#842600', 'on-tertiary': '#ffffff', 'surface-container-high': '#f9e6c7', 'surface-container-highest': '#f3e0c2', 'primary-container': '#2d6a4f', 'surface-container': '#ffebcd', 'surface-bright': '#fff8f3' }, 'borderRadius': { 'DEFAULT': '0.25rem', 'lg': '0.5rem', 'xl': '0.75rem', 'full': '9999px' }, 'spacing': { 'space-xl': '2rem', 'space-lg': '1.5rem', 'space-md': '1rem', 'space-sm': '0.5rem', 'margin-desktop': '2.5rem', 'gutter-desktop': '1.5rem', 'gutter': '1rem', 'margin': '1rem', 'space-xs': '0.25rem' }, 'fontFamily': { 'data-sm': ['JetBrains Mono'], 'body-lg': ['Inter'], 'label-lg': ['Inter'], 'data-md': ['JetBrains Mono'], 'headline-lg-mobile': ['Inter'], 'headline-sm': ['Inter'], 'body-sm': ['Inter'], 'data-lg': ['JetBrains Mono'], 'label-sm': ['Inter'], 'headline-md': ['Inter'], 'headline-xl-mobile': ['Inter'], 'body-md': ['Inter'], 'headline-xl': ['Inter'], 'headline-lg': ['Inter'] }, 'fontSize': { 'data-sm': ['12px', { 'lineHeight': '16px', 'fontWeight': '500' }], 'body-lg': ['18px', { 'lineHeight': '28px', 'fontWeight': '400' }], 'label-lg': ['14px', { 'lineHeight': '20px', 'fontWeight': '600' }], 'data-md': ['15px', { 'lineHeight': '20px', 'fontWeight': '500' }], 'headline-lg-mobile': ['22px', { 'lineHeight': '30px', 'letterSpacing': '0em', 'fontWeight': '700' }], 'headline-sm': ['18px', { 'lineHeight': '24px', 'fontWeight': '600' }], 'body-sm': ['14px', { 'lineHeight': '20px', 'fontWeight': '400' }], 'data-lg': ['20px', { 'lineHeight': '26px', 'letterSpacing': '-0.01em', 'fontWeight': '600' }], 'label-sm': ['12px', { 'lineHeight': '16px', 'fontWeight': '600' }], 'headline-md': ['20px', { 'lineHeight': '28px', 'fontWeight': '700' }], 'headline-xl-mobile': ['28px', { 'lineHeight': '36px', 'letterSpacing': '-0.01em', 'fontWeight': '800' }], 'body-md': ['16px', { 'lineHeight': '24px', 'fontWeight': '400' }], 'headline-xl': ['36px', { 'lineHeight': '44px', 'letterSpacing': '-0.02em', 'fontWeight': '800' }], 'headline-lg': ['28px', { 'lineHeight': '36px', 'letterSpacing': '-0.01em', 'fontWeight': '700' }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(45,106,79,0.04)] pt-safe"><div class="h-20 px-space-md flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><img alt="BharatPure Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4brrbFAF4sOW3eE-y9vht-Sa3nZXb1YdpVjhLHbnGJHcwjOMztsln60TvRqzHYlkwa96aeKKS59lCxgZSKNdbJ2B1EtNgicCYVHhHdPWf3btJfxG3IRz7Cslld3Ni-9yMcItjNsyuemHRu_MuSWYkiX_c9N4D19UO49F4toYBOQa1sn3ZlLF4Kz6a8GA5bgbj7RBMwrrvObhsQteZusn4SzgOIFgX1Wb19-LcaOzdusOzgTrgY6cn"/><div class="flex flex-col"><div class="flex items-center gap-1"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">BharatPure</span><span class="material-symbols-outlined text-primary text-[18px]">verified</span></div><div class="flex items-center gap-1"><span class="font-label-sm text-label-sm text-on-surface-variant">SIH 2026</span><span class="text-outline-variant text-[10px]">•</span><span class="font-label-sm text-label-sm text-primary font-semibold">Dashboard</span></div></div></div><div class="flex items-center gap-space-xs"><button aria-label="Toggle Language" class="h-12 px-space-sm rounded-full bg-surface-container flex items-center gap-1 text-on-surface hover:bg-surface-variant transition-colors"><span class="material-symbols-outlined text-secondary text-[18px]">translate</span><span class="font-label-sm text-label-sm font-semibold">EN / हिं</span></button><a aria-label="WhatsApp Kisan Sahayata" class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed hover:bg-primary-fixed-dim transition-colors" href="https://wa.me/help"><span class="material-symbols-outlined text-[22px]">support_agent</span></a><div class="relative flex items-center"><div class="relative"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw6lxhcZwUlUnFikCWD-tWuPgSyWIzb7-2aOzyh_t2kaTfbusGtmU6soC_4lrelswSIJHObcXdec1w59xH3G37kNJtMkYkr0t-tj-ri4IoZto24MacPCL0vxzQvuYb4qre2nDYPOQU3g7Z66kWw7syHcBdEsxx2duzCqcNFmpujIKaFwg8UPStOw1FQIaNwqxwldeBSrS7iJR83MDVcwIOhPlcKg_jTEGCjSZ7-5dImpFPHws_8Lpg"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary-container rounded-full ring-2 ring-surface"></span></div><div class="absolute -bottom-2 -left-3 bg-secondary-container text-on-secondary-container px-1.5 py-0.5 rounded-full flex items-center gap-0.5 shadow-sm scale-90"><span class="material-symbols-outlined text-[12px] text-tertiary">local_fire_department</span><span class="font-data-sm text-data-sm font-bold">12</span></div></div></div></div></header><main class="flex flex-col relative w-full pt-20 pb-28 bg-surface"><div class="flex flex-col w-full px-margin space-y-space-md">
+<!-- Welcome & Vernacular Voice Assistant Bar -->
+<div class="flex flex-col space-y-space-xs mt-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">location_on</span>
+          Sahyadri Agro FPO, Nashik
+        </span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight truncate">
+          Namaste, Ramesh Ji
+        </h1>
+</div>
+<div class="flex items-center gap-1.5 bg-primary-fixed text-on-primary-fixed px-3 py-1.5 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="font-data-sm text-data-sm font-semibold">Active Hub</span>
+</div>
+</div>
+<!-- Voice / WhatsApp Interactive Pill -->
+<button class="w-full h-12 bg-surface-container-high rounded-full px-space-md flex items-center justify-between shadow-sm active:scale-[0.98] transition-transform" type="button">
+<div class="flex items-center gap-2">
+<span class="flex h-7 w-7 rounded-full bg-tertiary-container text-on-tertiary-container items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">mic</span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">
+          Bol kar batayein ya WhatsApp karein
+        </span>
+</div>
+<div class="flex items-center gap-1 text-primary">
+<span class="font-label-sm text-label-sm font-bold">Sahayak</span>
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+</div>
+</button>
+</div>
+<!-- Gamification Hero: Trust Score Gauge & Tier Status -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-sm">
+<div class="flex items-center justify-between gap-space-md">
+<!-- Trust Meter Circular SVG Ring -->
+<div class="relative flex items-center justify-center shrink-0 w-28 h-28">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary-container" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-dasharray="264" stroke-dashoffset="30.3" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-data-lg text-data-lg text-primary font-bold">885</span>
+<span class="font-data-sm text-data-sm text-on-surface-variant font-medium">/ 1000</span>
+</div>
+</div>
+<!-- Tier Details and Agrarian Reputation -->
+<div class="flex flex-col min-w-0 flex-1 space-y-1.5">
+<div class="inline-flex items-center gap-1.5 self-start px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container shadow-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-sm text-label-sm font-bold tracking-wide uppercase">Gold FPO Tier</span>
+</div>
+<div class="font-headline-sm text-headline-sm text-on-surface truncate">
+          Top 3% Producer
+        </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+          Highest buyer acceptance score across Maharashtra belt this quarter.
+        </p>
+</div>
+</div>
+<!-- Next Milestone Callout inside Card -->
+<div class="mt-space-sm bg-surface-container-highest rounded-lg p-space-sm flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">grain</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+<span class="font-semibold text-primary">3 more on-time NABL batches</span> to Platinum Tier (+1.5% escrow discount &amp; Instant Payout).
+      </p>
+</div>
+</div>
+<!-- Quality Streak Counter & 7-Day Matrix -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed-dim flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[18px] text-tertiary" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block">14 Batches Streak</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Consecutive Quality Passed</span>
+</div>
+</div>
+<span class="font-data-md text-data-md font-bold text-secondary-fixed-variant bg-surface-bright px-2 py-0.5 rounded-md">
+        100% PASS
+      </span>
+</div>
+<!-- 7-Day Dot Progress Indicator -->
+<div class="pt-space-xs">
+<div class="grid grid-cols-7 gap-1.5">
+<div class="flex flex-col items-center gap-1">
+<div class="w-full aspect-square rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Fri</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-full aspect-square rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Sat</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-full aspect-square rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Sun</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-full aspect-square rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Mon</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-full aspect-square rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Tue</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-full aspect-square rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Wed</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-full aspect-square rounded-lg bg-primary-fixed-dim flex items-center justify-center text-on-primary-fixed ring-2 ring-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<span class="font-label-sm text-[10px] text-primary font-bold">Today</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Milestone Badges Grid -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Farmer Achievements</h2>
+<span class="font-label-sm text-label-sm text-primary font-semibold">3 of 4 Active</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Badge 1: First Batch Sold -->
+<div class="bg-surface-container-high p-space-sm rounded-xl flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[18px] text-secondary" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<span class="font-label-sm text-[10px] uppercase font-bold text-secondary bg-secondary-container/40 px-1.5 py-0.5 rounded">Unlocked</span>
+</div>
+<div class="mt-space-sm">
+<span class="font-label-md text-label-lg text-on-surface block leading-tight">First Batch Sold</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Verified buyer payout</span>
+</div>
+</div>
+<!-- Badge 2: NABL Certified 100% -->
+<div class="bg-surface-container-high p-space-sm rounded-xl flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<span class="font-label-sm text-[10px] uppercase font-bold text-primary bg-primary-fixed/60 px-1.5 py-0.5 rounded">Grade A</span>
+</div>
+<div class="mt-space-sm">
+<span class="font-label-md text-label-lg text-on-surface block leading-tight">NABL 100%</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Zero assay failures</span>
+</div>
+</div>
+<!-- Badge 3: Zero Disputes -->
+<div class="bg-surface-container-high p-space-sm rounded-xl flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<span class="font-label-sm text-[10px] uppercase font-bold text-primary bg-primary-fixed-dim/40 px-1.5 py-0.5 rounded">Flawless</span>
+</div>
+<div class="mt-space-sm">
+<span class="font-label-md text-label-lg text-on-surface block leading-tight">Zero Disputes</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Escrow release &lt;2h</span>
+</div>
+</div>
+<!-- Badge 4: Locked (8/10) -->
+<div class="bg-surface-container-lowest p-space-sm rounded-xl flex flex-col justify-between opacity-85 shadow-xs">
+<div class="flex items-center justify-between">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+</div>
+<span class="font-data-sm text-data-sm text-outline font-semibold">8 / 10</span>
+</div>
+<div class="mt-space-sm space-y-1">
+<span class="font-label-md text-label-lg text-on-surface block leading-tight">10 Lots Shipped</span>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 80%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Price Intelligence & Demand Signal -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary text-[20px]">trending_up</span>
+<span class="font-label-lg text-label-lg text-on-surface">Mumbai NCR High Demand</span>
+</div>
+<span class="bg-primary-container text-on-primary-container font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">
+        +32% Net Gain
+      </span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface">
+        Wheat (Sharbati) Grade-A
+      </div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Procurement rally active for next 72 hrs</span>
+</div>
+<!-- Side-by-Side Mandi vs BharatPure Price Comparison -->
+<div class="grid grid-cols-2 gap-space-xs pt-space-xs">
+<div class="bg-surface-container-low rounded-lg p-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">BharatPure AI Fair Price</span>
+<span class="font-data-lg text-data-lg font-bold text-primary">₹2,850</span>
+<span class="font-data-sm text-data-sm text-on-surface-variant">/ Qtl</span>
+</div>
+<div class="bg-surface-container-highest rounded-lg p-space-sm">
+<span class="font-label-sm text-label-sm text-outline block">Local Nashik Mandi</span>
+<span class="font-data-lg text-data-lg font-semibold text-outline line-through">₹2,150</span>
+<span class="font-data-sm text-data-sm text-outline">/ Qtl</span>
+</div>
+</div>
+</div>
+<!-- Weather & Crop Advisory Card with Audio Playback -->
+<div class="bg-surface-container-high rounded-xl p-space-md shadow-sm flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed-dim flex items-center justify-center text-on-secondary-fixed shrink-0">
+<span class="material-symbols-outlined text-[22px] text-tertiary">partly_cloudy_day</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface">Weather Alert: Nashik Valley</span>
+<span class="font-data-sm text-data-sm font-semibold text-tertiary">Fri Rain Risk</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+        Cloudy overcast expected. Complete copper oxychloride spray before Friday 3:00 PM for mango orchards.
+      </p>
+<div class="mt-space-xs flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface rounded-full text-primary font-label-sm text-label-sm font-bold shadow-xs active:scale-95 transition-transform" id="playAudioBtn" type="button">
+<span class="material-symbols-outlined text-[16px]" id="audioIcon">volume_up</span>
+<span id="audioText">Sunein (Hindi)</span>
+</button>
+<span class="font-data-sm text-[11px] text-on-surface-variant">0:24 min</span>
+</div>
+</div>
+</div>
+<!-- Recent Batches List -->
+<div class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Recent Batches</h2>
+<a class="font-label-sm text-label-sm text-primary font-bold flex items-center gap-0.5" href="#">
+        View All (18)
+        <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<!-- Batch 1: In Transit -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-data-sm text-data-sm font-bold text-primary bg-primary-fixed px-2 py-0.5 rounded">
+          #BP-2026-904
+        </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">local_shipping</span>
+          Cold Transit
+        </span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Sharbati Wheat</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Volume: 45 Quintals</span>
+</div>
+<div class="text-right">
+<span class="font-data-lg text-data-lg font-bold text-on-surface block">₹1,28,250</span>
+<span class="font-label-sm text-label-sm text-primary font-medium flex items-center justify-end gap-0.5">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+            Escrow Secured
+          </span>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between">
+<span class="inline-flex items-center gap-1 text-[11px] font-medium text-primary bg-primary-fixed-dim/30 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+          NABL Grade A+ Certified
+        </span>
+<span class="font-data-sm text-[11px] text-on-surface-variant">ETA: Tomorrow 9 AM</span>
+</div>
+</div>
+<!-- Batch 2: Delivered & Disbursed -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-data-sm text-data-sm font-bold text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded">
+          #BP-2026-882
+        </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-fixed-dim text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+          Delivered &amp; Disbursed
+        </span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Alphonso Mangoes</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Volume: 120 Crates</span>
+</div>
+<div class="text-right">
+<span class="font-data-lg text-data-lg font-bold text-on-surface block">₹1,84,000</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">Bank A/c Credited</span>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between">
+<span class="inline-flex items-center gap-1 text-[11px] font-medium text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px]">receipt_long</span>
+          NABL Assayed Nashik Hub
+        </span>
+<span class="font-data-sm text-[11px] text-primary font-semibold">Instant Escrow Done</span>
+</div>
+</div>
+</div>
+<!-- Big Terracotta Touch-Friendly Action Button -->
+<div class="pt-space-sm pb-space-xs">
+<button class="w-full h-14 bg-tertiary text-on-tertiary rounded-xl px-space-md flex items-center justify-center gap-2.5 shadow-md active:translate-y-0.5 transition-transform" type="button">
+<span class="material-symbols-outlined text-[24px]">barcode_scanner</span>
+<span class="font-label-lg text-label-lg tracking-wide uppercase font-bold">
+        Register New Batch with AI Grade / नया बैच दर्ज करें
+      </span>
+</button>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for weather audio advisory
+  const audioBtn = document.getElementById('playAudioBtn');
+  const audioIcon = document.getElementById('audioIcon');
+  const audioText = document.getElementById('audioText');
+  let isPlaying = false;
+
+  if (audioBtn) {
+    audioBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        audioIcon.textContent = 'pause';
+        audioText.textContent = 'Rukiye (Playing...)';
+        audioBtn.classList.add('bg-primary', 'text-on-primary');
+        audioBtn.classList.remove('bg-surface', 'text-primary');
+      } else {
+        audioIcon.textContent = 'volume_up';
+        audioText.textContent = 'Sunein (Hindi)';
+        audioBtn.classList.remove('bg-primary', 'text-on-primary');
+        audioBtn.classList.add('bg-surface', 'text-primary');
+      }
+    });
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-4px_16px_rgba(45,106,79,0.06)]" data-active-classes="text-primary-container font-semibold"><div class="flex justify-around items-center h-20 px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] h-14 transition-all text-primary-container font-semibold" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[26px]">psychiatry</span><span class="font-label-sm text-label-sm mt-0.5">Dashboard</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-14 text-on-surface-variant transition-all" data-path="batches" href="#"><span class="material-symbols-outlined text-[26px]">qr_code_scanner</span><span class="font-label-sm text-label-sm mt-0.5">Batches</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-14 text-on-surface-variant transition-all" data-path="market" href="#"><span class="material-symbols-outlined text-[26px]">storefront</span><span class="font-label-sm text-label-sm mt-0.5">Market</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-14 text-on-surface-variant transition-all" data-path="impact" href="#"><span class="material-symbols-outlined text-[26px]">military_tech</span><span class="font-label-sm text-label-sm mt-0.5">Impact</span></a><a class="flex flex-col items-center justify-center min-w-[56px] h-14 text-on-surface-variant transition-all" data-path="credit" href="#"><span class="material-symbols-outlined text-[26px]">verified_user</span><span class="font-label-sm text-label-sm mt-0.5">Credit</span></a></div></nav></body></html>

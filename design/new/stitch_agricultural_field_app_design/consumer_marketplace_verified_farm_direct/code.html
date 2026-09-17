@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>BharatPure</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "background": "#fef9f1", "on-tertiary": "#ffffff", "inverse-primary": "#a5d0b9", "tertiary-fixed": "#ffdbd0", "surface": "#fef9f1", "primary-container": "#1b4332", "outline": "#717973", "primary-surface": "#F0FDF4", "surface-variant": "#e7e2da", "primary-fixed-dim": "#a5d0b9", "on-surface-variant": "#414844", "surface-container-highest": "#e7e2da", "on-surface": "#1d1c17", "on-tertiary-container": "#ff8359", "surface-dim": "#ded9d2", "tertiary-fixed-dim": "#ffb59d", "tertiary-container": "#711f00", "tertiary": "#4c1200", "primary-fixed": "#c1ecd4", "gold-subtle": "#FDF3D0", "gold-light": "#E9B949", "primary-subtle": "#D8F3DC", "surface-card": "#FFFFFF", "surface-container-lowest": "#ffffff", "surface-container-low": "#f8f3eb", "on-error": "#ffffff", "secondary-fixed": "#ffdea0", "surface-tint": "#3f6653", "primary-dark": "#0D2818", "on-secondary-fixed": "#261a00", "secondary": "#795900", "primary": "#012d1d", "outline-variant": "#c1c8c2", "primary-mid": "#2D6A4F", "on-secondary": "#ffffff", "warning": "#E8841A", "error-container": "#ffdad6", "text-primary": "#1C1408", "on-primary-fixed-variant": "#274e3d", "secondary-fixed-dim": "#f4be43", "surface-alt": "#F5F0E8", "on-tertiary-fixed-variant": "#842600", "inverse-on-surface": "#f5f0e8", "gold-dark": "#92650A", "gold-surface": "#FFFBEB", "on-primary-fixed": "#002114", "on-tertiary-fixed": "#390b00", "border-warm": "#E2D9CC", "primary-light": "#52B788", "on-primary": "#ffffff", "on-error-container": "#93000a", "on-background": "#1d1c17", "surface-container": "#f2ede5", "on-secondary-fixed-variant": "#5c4300", "surface-container-high": "#ece8e0", "surface-bright": "#fef9f1", "error": "#ba1a1a", "text-secondary": "#5C4F38", "on-primary-container": "#86af99", "on-secondary-container": "#715300", "text-muted": "#9B8B72", "secondary-container": "#fdc74b", "inverse-surface": "#32302b" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.75rem", "space-3xl": "4rem", "container-max": "80rem", "space-lg": "1.5rem", "space-2xs": "0.25rem", "gutter-desktop": "1.5rem", "space-xl": "2rem", "space-md": "1rem", "space-3xs": "0.125rem", "space-2xl": "3rem", "gutter-mobile": "1rem", "space-xs": "0.5rem" }, "fontFamily": { "body-md": ["Inter"], "display-lg": ["Playfair Display"], "body-sm": ["Inter"], "body-lg": ["Inter"], "headline-lg": ["Playfair Display"], "label-code-lg": ["JetBrains Mono"], "display-lg-mobile": ["Playfair Display"], "label-code-sm": ["JetBrains Mono"], "headline-md": ["Playfair Display"], "headline-sm": ["Playfair Display"], "title-lg": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "display-lg": ["48px", { "lineHeight": "56px", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }], "label-code-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }], "display-lg-mobile": ["34px", { "lineHeight": "42px", "fontWeight": "700" }], "label-code-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "title-lg": ["18px", { "lineHeight": "26px", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_12px_rgba(28,20,8,0.04)]"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X3A6Ba1buBfPbZrgU9bdXaAC0Z8IfPKT7OFetxgGFbxHGDniv_mti1_gua0Rba1dM6mtCqFSsZVS9DkJqTPdGInzc3m_etRmJaZ7VIVSUK7tQ3hegVtjJxGsH5ngLsSqC_5x8cjBHVgp_xIMGRjHqekOWL0NizLAoLLu4tqM_gPvrz2izFAlhBIw8IjBr6cAc9tQSbnEg_sN_CLHfGUGOw2yB4xgr07dHneWd8wYhiyHvwBDsv2CRWfkM"/><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-title-lg text-title-lg text-primary tracking-tight">BharatPure</span><span class="px-space-2xs py-space-3xs rounded-full bg-gold-surface text-gold-dark font-label-code-sm text-label-code-sm">NABL</span></div><span class="font-body-sm text-body-sm text-text-muted">Home</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center rounded-full text-primary hover:bg-surface-variant/40 transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-warning"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 w-full bg-surface pt-16 pb-28"><div class="flex flex-col w-full">
+<!-- Pincode & Delivery Context Bar -->
+<section class="px-gutter-mobile py-space-xs bg-surface-container-low flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0">location_on</span>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-2xs">
+<span class="font-body-sm text-body-sm text-text-primary font-semibold truncate">South Ext. II, New Delhi (110049)</span>
+<span class="material-symbols-outlined text-text-muted text-[16px]">expand_more</span>
+</div>
+<div class="flex items-center gap-space-3xs text-primary-mid">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-light"></span>
+<span class="font-label-code-sm text-label-code-sm">24h Cold Dispatch Guaranteed</span>
+</div>
+</div>
+</div>
+<button class="shrink-0 px-space-xs py-space-3xs rounded-full bg-surface-card shadow-sm text-text-secondary font-label-code-sm text-label-code-sm flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-primary text-[14px]">tune</span>
+<span>Filter</span>
+</button>
+</section>
+<!-- Search & Category Filters -->
+<section class="px-gutter-mobile pt-space-sm pb-space-xs flex flex-col gap-space-sm">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-[20px]">search</span>
+<input class="w-full pl-10 pr-10 py-space-xs bg-surface-card rounded-lg font-body-md text-body-md text-text-primary placeholder:text-text-muted shadow-sm focus:outline-none focus:bg-surface-container-lowest" placeholder="Search turmeric, cold-pressed oils, wild honey..." type="search"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+</button>
+</div>
+<!-- Category Pill Strip -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-space-2xs -mx-gutter-mobile px-gutter-mobile">
+<button class="px-space-sm py-space-3xs rounded-full bg-primary text-on-primary font-body-sm text-body-sm font-medium whitespace-nowrap shadow-sm flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>All Verified</span>
+</button>
+<button class="px-space-sm py-space-3xs rounded-full bg-surface-card text-text-secondary font-body-sm text-body-sm whitespace-nowrap shadow-sm hover:bg-surface-container-high transition-colors flex items-center gap-space-3xs">
+<span>🌾</span>
+<span>Spices</span>
+</button>
+<button class="px-space-sm py-space-3xs rounded-full bg-surface-card text-text-secondary font-body-sm text-body-sm whitespace-nowrap shadow-sm hover:bg-surface-container-high transition-colors flex items-center gap-space-3xs">
+<span>🍯</span>
+<span>Raw Honey</span>
+</button>
+<button class="px-space-sm py-space-3xs rounded-full bg-surface-card text-text-secondary font-body-sm text-body-sm whitespace-nowrap shadow-sm hover:bg-surface-container-high transition-colors flex items-center gap-space-3xs">
+<span>🌻</span>
+<span>Cold-Pressed Oils</span>
+</button>
+<button class="px-space-sm py-space-3xs rounded-full bg-surface-card text-text-secondary font-body-sm text-body-sm whitespace-nowrap shadow-sm hover:bg-surface-container-high transition-colors flex items-center gap-space-3xs">
+<span>🍚</span>
+<span>Heritage Rice</span>
+</button>
+</div>
+</section>
+<!-- Impact Transparency Callout -->
+<section class="px-gutter-mobile py-space-xs">
+<div class="bg-gold-surface p-space-sm rounded-xl flex items-center gap-space-sm shadow-sm">
+<div class="w-10 h-10 rounded-full bg-gold-subtle flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gold-dark text-[22px]">assured_workload</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-2xs">
+<span class="font-title-lg text-title-lg text-gold-dark">84 Paise Direct-to-Farmer</span>
+<span class="material-symbols-outlined text-primary-mid text-[16px]">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">
+          Of every rupee spent, 84p lands instantly into the FPO producer's verified cooperative bank account.
+        </p>
+</div>
+</div>
+</section>
+<!-- Harvest Produce Marketplace Feed -->
+<section class="px-gutter-mobile py-space-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-2xs">
+<h2 class="font-headline-sm text-headline-sm text-primary">Certified Farm Batches</h2>
+<span class="px-space-xs py-space-3xs rounded-full bg-primary-subtle text-primary-dark font-label-code-sm text-label-code-sm font-semibold">18 Fresh Lots</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-text-muted">NABL Tier-1</span>
+</div>
+<!-- Product Card 1: Salem Golden Turmeric -->
+<article class="bg-surface-card rounded-xl overflow-hidden shadow-sm flex flex-col transition-all active:scale-[0.99]">
+<div class="relative w-full h-52 overflow-hidden">
+<img alt="Sun-dried whole turmeric rhizomes overflowing from an artisanal ceramic bowl on a rustic aged oak surface" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XFMNCA_bhUJO76qsQwCTV24GqylJyHR2PY7kRtMRuced4JUAWzpEEI0fsgLwwcdqzZ3PXk15D72D-SxSAXnvIWPXMnMd2S_V6VAoNBUS4h2PK4eUL9B3gwU0zYgjBkm02BfZ7T7xerS2ih97f9yCnbaQeW5mG9rLE7CSCMpU5rVEgOX9iv2am0432RIy_hEkdCmqiOtxycO7S9Y9JwVgU5leE8obmmuvTCIgPjgFYc3aBCKOpXXm7ZN_g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-dark/80 via-transparent to-black/20"></div>
+<!-- Badges Overlay -->
+<div class="absolute top-3 left-3 flex flex-wrap gap-space-2xs">
+<span class="px-space-xs py-space-3xs rounded-md bg-surface-card/95 backdrop-blur-sm text-primary-dark font-label-code-sm text-label-code-sm font-semibold shadow-sm flex items-center gap-space-3xs">
+<span class="w-2 h-2 rounded-full bg-primary-light"></span>
+            Harvested 6 Days Ago
+          </span>
+<span class="px-space-xs py-space-3xs rounded-md bg-gold-surface text-gold-dark font-label-code-sm text-label-code-sm font-semibold shadow-sm">
+            NABL Grade A
+          </span>
+</div>
+<button class="absolute top-3 right-3 w-9 h-9 rounded-full bg-surface-card/90 backdrop-blur-sm flex items-center justify-center text-text-primary shadow-sm active:text-error">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<!-- Image Bottom Title Bar -->
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between text-on-primary">
+<div>
+<span class="font-label-code-sm text-label-code-sm text-gold-light uppercase tracking-wider">Lot #SLM-2024-098</span>
+<h3 class="font-headline-sm text-headline-sm leading-snug">Salem Golden Turmeric</h3>
+</div>
+<span class="px-space-xs py-space-3xs rounded bg-surface-card/20 backdrop-blur-md text-on-primary font-label-code-sm text-label-code-sm">
+            100% Sun-Cured
+          </span>
+</div>
+</div>
+<!-- Farmer Attribution & Lab Verification Body -->
+<div class="p-space-sm flex flex-col gap-space-sm">
+<!-- Farmer Pill Strip -->
+<div class="flex items-center justify-between bg-surface-container-low p-space-xs rounded-lg">
+<div class="flex items-center gap-space-xs min-w-0">
+<div class="relative shrink-0">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Dignified portrait of an Indian male farmer wearing a white khadi kurta and saffron turban, smiling warmly against lush green turmeric foliage in natural golden morning sunlight, earthy rustic colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFVBnqjjSMvUnRPkCb3T9SVYDZ3TPcmgc0csLB1z-wHuqN-Yyw7kE0sp5GDEcjJF-7wodVOz0JTnohYFAtPOFIXKBH560lm4FvZ-voCDgrKEwB0CzAUqZNDumEu0ogb8pSyTmr35TAEUCldCtHuEEjnOdNNTxpW4NEFKX73a9tSV2SndXfYRuWLbC4MR8CwARk6F6fTZp-9lQpnIGehWD6MOuUbcQXRyNpjz5vXe8vVbmzt47BWN0T"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[11px]">check</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-3xs">
+<span class="font-body-md text-body-md font-semibold text-text-primary truncate">Ravi Shinde</span>
+<span class="font-label-code-sm text-label-code-sm text-primary font-medium">Sangli FPO</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Sangli, Maharashtra • Farm ID #MH-994</span>
+</div>
+</div>
+<button class="shrink-0 px-space-xs py-space-3xs rounded bg-surface-card text-primary font-label-code-sm text-label-code-sm font-semibold shadow-sm">
+            View Story
+          </button>
+</div>
+<!-- Quality Metrics Indicator Progress Bar -->
+<div class="bg-surface-alt p-space-xs rounded-lg flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-primary-mid text-[16px]">biotech</span>
+<span class="font-label-code-sm text-label-code-sm text-text-primary font-semibold">NABL Quality Score</span>
+</div>
+<span class="font-label-code-lg text-label-code-lg font-bold text-primary">94<span class="text-text-muted text-body-sm font-normal">/100</span></span>
+</div>
+<!-- Progress track -->
+<div class="w-full h-2 rounded-full bg-surface-variant overflow-hidden">
+<div class="h-full rounded-full bg-gradient-to-r from-primary-mid to-primary-light" style="width: 94%;"></div>
+</div>
+<!-- Lab breakdown micro stats -->
+<div class="grid grid-cols-2 gap-space-xs pt-space-3xs">
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-text-muted">Curcumin Content</span>
+<span class="font-label-code-sm text-label-code-sm font-semibold text-primary">5.4% (Ultra-High)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-text-muted">Lead / Adulterant</span>
+<span class="font-label-code-sm text-label-code-sm font-semibold text-primary">0.00 ppm</span>
+</div>
+</div>
+</div>
+<!-- Price and CTA Row -->
+<div class="flex items-center justify-between pt-space-2xs">
+<div class="flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-label-code-lg text-headline-sm text-primary font-bold">₹188</span>
+<span class="font-label-code-sm text-label-code-sm text-text-muted">/ kg</span>
+<span class="font-body-sm text-body-sm text-text-muted line-through">₹240</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-primary-mid font-medium">Free 24h Delivery</span>
+</div>
+<button class="px-space-md py-space-xs rounded-full bg-primary text-on-primary font-body-md text-body-md font-semibold shadow-md active:bg-primary-mid transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px]">shopping_basket</span>
+<span>Add to Cart</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 2: Wild Forest Honey -->
+<article class="bg-surface-card rounded-xl overflow-hidden shadow-sm flex flex-col transition-all active:scale-[0.99]">
+<div class="relative w-full h-52 overflow-hidden">
+<img alt="Golden raw wild forest honey with wooden honey dipper drizzling liquid into an artisanal glass jar set amidst wild forest ferns and wildflowers" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XhGPrPkpOUnMbOKavEVthfxiv7VGt3uOZXowHhDcS3l9bOXhAVJrg-4aYC9DSq17zG0XKezkGQ3sM_NyA14o3RpbNtbGxUp6FofBlWf5g10xXKWSxhn8vJjGwJ5H5BS0fXWbGGLFS3kFsyz_fwwr80IyOzRhG6sW4mamXKLAHHSWqXHTZijYejo1g6-yxZcyAHQwNzBTLCnDASVnBPMKym0pWBUQgAInfmHcziQjwipAg0K8hSTMOsQw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-dark/80 via-transparent to-black/20"></div>
+<!-- Badges Overlay -->
+<div class="absolute top-3 left-3 flex flex-wrap gap-space-2xs">
+<span class="px-space-xs py-space-3xs rounded-md bg-surface-card/95 backdrop-blur-sm text-primary-dark font-label-code-sm text-label-code-sm font-semibold shadow-sm flex items-center gap-space-3xs">
+<span>🍯</span>
+            Unpasteurized &amp; Raw
+          </span>
+<span class="px-space-xs py-space-3xs rounded-md bg-gold-surface text-gold-dark font-label-code-sm text-label-code-sm font-semibold shadow-sm">
+            Zero Sugar Syrup
+          </span>
+</div>
+<button class="absolute top-3 right-3 w-9 h-9 rounded-full bg-surface-card/90 backdrop-blur-sm flex items-center justify-center text-text-primary shadow-sm active:text-error">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<!-- Title block -->
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between text-on-primary">
+<div>
+<span class="font-label-code-sm text-label-code-sm text-gold-light uppercase tracking-wider">Lot #KND-2024-411</span>
+<h3 class="font-headline-sm text-headline-sm leading-snug">Wild Forest Raw Honey</h3>
+</div>
+<span class="px-space-xs py-space-3xs rounded bg-surface-card/20 backdrop-blur-md text-on-primary font-label-code-sm text-label-code-sm">
+            Multifloral
+          </span>
+</div>
+</div>
+<!-- Farmer Attribution & Lab Verification Body -->
+<div class="p-space-sm flex flex-col gap-space-sm">
+<!-- Farmer Pill Strip -->
+<div class="flex items-center justify-between bg-surface-container-low p-space-xs rounded-lg">
+<div class="flex items-center gap-space-xs min-w-0">
+<div class="relative shrink-0">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Portrait of Anita Devi, a tribal woman beekeeper in traditional Odisha attire smiling proudly holding a small honey sample wooden box in front of sal and mahua forest trees" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPosE2uCYoIaFwtTeB8tSXhZePNweEtUgEINJIfSjttFT67bS1GC6-YP0JhNHkx5ptjKHoLX2wwlXNAPmZGoaxGdz6cWmEeWyeYagRtaSBl4zT6utdJKLjjZF20OxWjF1cBAHWZEXx7vVAJiOXfaOUf37JcAqCyhWs9c3fBmJbHqfNFzTU_VuF4Y5C8dNTjUqvo0a42L2R4vkwpk7IwsoAvbtD1WpM9YUBRMn2Po8mWD8qCy4xwaLP"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[11px]">check</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-3xs">
+<span class="font-body-md text-body-md font-semibold text-text-primary truncate">Anita Devi</span>
+<span class="font-label-code-sm text-label-code-sm text-primary font-medium">Kandhamal FPO</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Kandhamal, Odisha • Tribal Gathered</span>
+</div>
+</div>
+<button class="shrink-0 px-space-xs py-space-3xs rounded bg-surface-card text-primary font-label-code-sm text-label-code-sm font-semibold shadow-sm">
+            View Story
+          </button>
+</div>
+<!-- Quality Metrics Indicator Progress Bar -->
+<div class="bg-surface-alt p-space-xs rounded-lg flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-primary-mid text-[16px]">biotech</span>
+<span class="font-label-code-sm text-label-code-sm text-text-primary font-semibold">C4/C3 Carbon Ratio Test</span>
+</div>
+<span class="font-label-code-lg text-label-code-lg font-bold text-primary">96<span class="text-text-muted text-body-sm font-normal">/100</span></span>
+</div>
+<!-- Progress track -->
+<div class="w-full h-2 rounded-full bg-surface-variant overflow-hidden">
+<div class="h-full rounded-full bg-gradient-to-r from-secondary to-gold-light" style="width: 96%;"></div>
+</div>
+<!-- Lab breakdown micro stats -->
+<div class="grid grid-cols-2 gap-space-xs pt-space-3xs">
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-text-muted">Moisture Index</span>
+<span class="font-label-code-sm text-label-code-sm font-semibold text-primary">17.2% (Optimal)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-text-muted">Pollen Count</span>
+<span class="font-label-code-sm text-label-code-sm font-semibold text-primary">14,200/g</span>
+</div>
+</div>
+</div>
+<!-- Price and CTA Row -->
+<div class="flex items-center justify-between pt-space-2xs">
+<div class="flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-label-code-lg text-headline-sm text-primary font-bold">₹340</span>
+<span class="font-label-code-sm text-label-code-sm text-text-muted">/ 500g</span>
+<span class="font-body-sm text-body-sm text-text-muted line-through">₹420</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-primary-mid font-medium">Single Origin Batch</span>
+</div>
+<button class="px-space-md py-space-xs rounded-full bg-primary text-on-primary font-body-md text-body-md font-semibold shadow-md active:bg-primary-mid transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px]">shopping_basket</span>
+<span>Add to Cart</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product Card 3: Kachi Ghani Mustard Oil -->
+<article class="bg-surface-card rounded-xl overflow-hidden shadow-sm flex flex-col transition-all active:scale-[0.99]">
+<div class="relative w-full h-52 overflow-hidden">
+<img alt="Artisanal glass bottle of golden kachi ghani cold pressed mustard oil surrounded by blooming yellow mustard flowers and raw organic seeds" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1W8lfUEIQd9hnRLvUW_JmVk4_x65C6WNzBHMyb0n1gUOSMsYuB1snj6pfHnK1CraDafU5Wh6wviXFgKqnWCUrHUqEao97QuZRAqzOBSW_Epi5PRXnGlwqGGEE51Nexj-rlAxWUm45TUGg9iuY2H0MPmtMSXE1jhZNLNfb_yztOjyfu9DhM6E_H5iY-nLnmPeDq6X7b1ZBYLOQMDDzmDXFVQY_t7P4mIQzj4D4bJTVeggPaOA-dWyX762oo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-dark/80 via-transparent to-black/20"></div>
+<!-- Badges Overlay -->
+<div class="absolute top-3 left-3 flex flex-wrap gap-space-2xs">
+<span class="px-space-xs py-space-3xs rounded-md bg-surface-card/95 backdrop-blur-sm text-primary-dark font-label-code-sm text-label-code-sm font-semibold shadow-sm flex items-center gap-space-3xs">
+<span>🌱</span>
+            Traditional Wood Kolhu
+          </span>
+<span class="px-space-xs py-space-3xs rounded-md bg-gold-surface text-gold-dark font-label-code-sm text-label-code-sm font-semibold shadow-sm">
+            Cold Pressed
+          </span>
+</div>
+<button class="absolute top-3 right-3 w-9 h-9 rounded-full bg-surface-card/90 backdrop-blur-sm flex items-center justify-center text-text-primary shadow-sm active:text-error">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<!-- Title block -->
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between text-on-primary">
+<div>
+<span class="font-label-code-sm text-label-code-sm text-gold-light uppercase tracking-wider">Lot #ALW-2024-819</span>
+<h3 class="font-headline-sm text-headline-sm leading-snug">Kachi Ghani Mustard Oil</h3>
+</div>
+<span class="px-space-xs py-space-3xs rounded bg-surface-card/20 backdrop-blur-md text-on-primary font-label-code-sm text-label-code-sm">
+            Unrefined
+          </span>
+</div>
+</div>
+<!-- Farmer Attribution & Lab Verification Body -->
+<div class="p-space-sm flex flex-col gap-space-sm">
+<!-- Farmer Pill Strip -->
+<div class="flex items-center justify-between bg-surface-container-low p-space-xs rounded-lg">
+<div class="flex items-center gap-space-xs min-w-0">
+<div class="relative shrink-0">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Portrait of an experienced Rajasthani farmer with mustache and marigold yellow pagri standing by a traditional wooden oil expeller in Alwar, warm golden hour ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaVMpzFGdK8mQ0oxmmwTrN69E60G6X59tBUjGwPjrLTVDdj8CePNBca3Drhv4Nyam6USWRiI1vqEva9ChIqgViTSeBIJ7njlAfjFxGSzs419D-RDNX31KC2ZtkuPKZG6uVeekvfE2sY0gJmbhNhY7uScprjBRYLv8jO_zugl8Xdalv_nLGDph9f5-OeItp5WJDavCvQ0goinwY6PzlMEpu2vn4yJbjSEYzcM6zl-53oRi3ygqmqpkz"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[11px]">check</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-3xs">
+<span class="font-body-md text-body-md font-semibold text-text-primary truncate">Mohan Lal Gurjar</span>
+<span class="font-label-code-sm text-label-code-sm text-primary font-medium">Alwar Kisan Co.</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Alwar, Rajasthan • Cluster #RAJ-44</span>
+</div>
+</div>
+<button class="shrink-0 px-space-xs py-space-3xs rounded bg-surface-card text-primary font-label-code-sm text-label-code-sm font-semibold shadow-sm">
+            View Story
+          </button>
+</div>
+<!-- Quality Metrics Indicator Progress Bar -->
+<div class="bg-surface-alt p-space-xs rounded-lg flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-primary-mid text-[16px]">biotech</span>
+<span class="font-label-code-sm text-label-code-sm text-text-primary font-semibold">Pungency &amp; Purity</span>
+</div>
+<span class="font-label-code-lg text-label-code-lg font-bold text-primary">92<span class="text-text-muted text-body-sm font-normal">/100</span></span>
+</div>
+<!-- Progress track -->
+<div class="w-full h-2 rounded-full bg-surface-variant overflow-hidden">
+<div class="h-full rounded-full bg-gradient-to-r from-primary to-primary-light" style="width: 92%;"></div>
+</div>
+<!-- Lab breakdown micro stats -->
+<div class="grid grid-cols-2 gap-space-xs pt-space-3xs">
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-text-muted">Allyl Isothiocyanate</span>
+<span class="font-label-code-sm text-label-code-sm font-semibold text-primary">0.34% (Intense)</span>
+</div>
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-text-muted">Argemone Oil</span>
+<span class="font-label-code-sm text-label-code-sm font-semibold text-primary">Negative</span>
+</div>
+</div>
+</div>
+<!-- Price and CTA Row -->
+<div class="flex items-center justify-between pt-space-2xs">
+<div class="flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-label-code-lg text-headline-sm text-primary font-bold">₹220</span>
+<span class="font-label-code-sm text-label-code-sm text-text-muted">/ Litre</span>
+<span class="font-body-sm text-body-sm text-text-muted line-through">₹265</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-primary-mid font-medium">Extracted at &lt; 38°C</span>
+</div>
+<button class="px-space-md py-space-xs rounded-full bg-primary text-on-primary font-body-md text-body-md font-semibold shadow-md active:bg-primary-mid transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px]">shopping_basket</span>
+<span>Add to Cart</span>
+</button>
+</div>
+</div>
+</article>
+</section>
+<!-- Interactive Package QR Trace Sticky Action Card -->
+<section class="px-gutter-mobile pt-space-xs pb-space-lg">
+<div class="relative overflow-hidden rounded-xl bg-primary text-on-primary p-space-md shadow-lg flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-12 h-12 rounded-lg bg-surface-card/10 backdrop-blur-sm flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-gold-light text-[28px]">qr_code_scanner</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-lg text-title-lg text-gold-subtle truncate">Have a BharatPure Box?</span>
+<p class="font-body-sm text-body-sm text-primary-fixed-dim line-clamp-2">
+            Scan the holographic seal to unlock full GPS harvest logs, farmer payout receipt, and NABL lab PDF.
+          </p>
+</div>
+</div>
+<button class="shrink-0 w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-md active:scale-95 transition-transform ml-space-xs">
+<span class="material-symbols-outlined text-[22px]">arrow_forward</span>
+</button>
+</div>
+</section>
+</div>
+<script>
+  // Simple micro-interaction for Add to Cart feedback
+  document.querySelectorAll('button').forEach(btn => {
+    if (btn.innerText.includes('Add to Cart')) {
+      btn.addEventListener('click', (e) => {
+        const originalContent = btn.innerHTML;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done</span><span>Added</span>';
+        btn.classList.replace('bg-primary', 'bg-primary-mid');
+        setTimeout(() => {
+          btn.innerHTML = originalContent;
+          btn.classList.replace('bg-primary-mid', 'bg-primary');
+        }, 1600);
+      });
+    }
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_16px_rgba(28,20,8,0.06)]" data-active-classes="text-primary font-semibold"><div class="flex justify-around items-center h-20 px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-space-3xs transition-colors text-primary font-semibold" data-path="home" href="#"><span class="material-symbols-outlined text-[24px]">potted_plant</span><span class="font-body-sm text-body-sm tracking-tight">Home</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-space-3xs text-text-secondary hover:text-primary transition-colors" data-path="batches" href="#"><span class="material-symbols-outlined text-[24px]">inventory_2</span><span class="font-body-sm text-body-sm tracking-tight">Batches</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] -mt-4" data-path="trace-and-qr" href="#"><div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_4px_12px_rgba(1,45,29,0.25)]"><span class="material-symbols-outlined text-[26px]">qr_code_scanner</span></div><span class="font-body-sm text-body-sm tracking-tight text-primary mt-1">Trace &amp; QR</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-space-3xs text-text-secondary hover:text-primary transition-colors" data-path="credit" href="#"><span class="material-symbols-outlined text-[24px]">account_balance_wallet</span><span class="font-body-sm text-body-sm tracking-tight">Credit</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-space-3xs text-text-secondary hover:text-primary transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-[24px]">account_circle</span><span class="font-body-sm text-body-sm tracking-tight">Profile</span></a></div></nav></body></html>

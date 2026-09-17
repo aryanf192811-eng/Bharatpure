@@ -16,6 +16,8 @@ Thumbs.db
 npm-debug.log*
 .playwright-mcp/
 
-# Raw design export (large binary) — extracted contents are tracked under design/
+# Raw design exports (large binary) — extracted contents are tracked under design/
 stitch_agricultural_field_app_design.zip
+stitch_agricultural_field_app_design (1).zip
+stitch_bharatpure_agritech_marketplace_ui.zip
 stitch_export/

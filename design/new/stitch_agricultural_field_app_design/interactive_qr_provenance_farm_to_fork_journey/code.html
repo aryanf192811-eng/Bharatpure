@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>BharatPure</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "background": "#fef9f1", "on-tertiary": "#ffffff", "inverse-primary": "#a5d0b9", "tertiary-fixed": "#ffdbd0", "surface": "#fef9f1", "primary-container": "#1b4332", "outline": "#717973", "primary-surface": "#F0FDF4", "surface-variant": "#e7e2da", "primary-fixed-dim": "#a5d0b9", "on-surface-variant": "#414844", "surface-container-highest": "#e7e2da", "on-surface": "#1d1c17", "on-tertiary-container": "#ff8359", "surface-dim": "#ded9d2", "tertiary-fixed-dim": "#ffb59d", "tertiary-container": "#711f00", "tertiary": "#4c1200", "primary-fixed": "#c1ecd4", "gold-subtle": "#FDF3D0", "gold-light": "#E9B949", "primary-subtle": "#D8F3DC", "surface-card": "#FFFFFF", "surface-container-lowest": "#ffffff", "surface-container-low": "#f8f3eb", "on-error": "#ffffff", "secondary-fixed": "#ffdea0", "surface-tint": "#3f6653", "primary-dark": "#0D2818", "on-secondary-fixed": "#261a00", "secondary": "#795900", "primary": "#012d1d", "outline-variant": "#c1c8c2", "primary-mid": "#2D6A4F", "on-secondary": "#ffffff", "warning": "#E8841A", "error-container": "#ffdad6", "text-primary": "#1C1408", "on-primary-fixed-variant": "#274e3d", "secondary-fixed-dim": "#f4be43", "surface-alt": "#F5F0E8", "on-tertiary-fixed-variant": "#842600", "inverse-on-surface": "#f5f0e8", "gold-dark": "#92650A", "gold-surface": "#FFFBEB", "on-primary-fixed": "#002114", "on-tertiary-fixed": "#390b00", "border-warm": "#E2D9CC", "primary-light": "#52B788", "on-primary": "#ffffff", "on-error-container": "#93000a", "on-background": "#1d1c17", "surface-container": "#f2ede5", "on-secondary-fixed-variant": "#5c4300", "surface-container-high": "#ece8e0", "surface-bright": "#fef9f1", "error": "#ba1a1a", "text-secondary": "#5C4F38", "on-primary-container": "#86af99", "on-secondary-container": "#715300", "text-muted": "#9B8B72", "secondary-container": "#fdc74b", "inverse-surface": "#32302b" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.75rem", "space-3xl": "4rem", "container-max": "80rem", "space-lg": "1.5rem", "space-2xs": "0.25rem", "gutter-desktop": "1.5rem", "space-xl": "2rem", "space-md": "1rem", "space-3xs": "0.125rem", "space-2xl": "3rem", "gutter-mobile": "1rem", "space-xs": "0.5rem" }, "fontFamily": { "body-md": ["Inter"], "display-lg": ["Playfair Display"], "body-sm": ["Inter"], "body-lg": ["Inter"], "headline-lg": ["Playfair Display"], "label-code-lg": ["JetBrains Mono"], "display-lg-mobile": ["Playfair Display"], "label-code-sm": ["JetBrains Mono"], "headline-md": ["Playfair Display"], "headline-sm": ["Playfair Display"], "title-lg": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "display-lg": ["48px", { "lineHeight": "56px", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }], "label-code-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }], "display-lg-mobile": ["34px", { "lineHeight": "42px", "fontWeight": "700" }], "label-code-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "title-lg": ["18px", { "lineHeight": "26px", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_12px_rgba(28,20,8,0.04)]"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="A premium, clean brand logo emblem for BharatPure. A circular badge with golden wheat stalks framing a stylized green leaf sprouting from fertile soil, in rich forest green (#1B4332) and harvest gold (#C8971A), elegant minimalism, transparent background.. Design context: - Primary color: #1b4332
+- Font: playfairDisplay
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X3A6Ba1buBfPbZrgU9bdXaAC0Z8IfPKT7OFetxgGFbxHGDniv_mti1_gua0Rba1dM6mtCqFSsZVS9DkJqTPdGInzc3m_etRmJaZ7VIVSUK7tQ3hegVtjJxGsH5ngLsSqC_5x8cjBHVgp_xIMGRjHqekOWL0NizLAoLLu4tqM_gPvrz2izFAlhBIw8IjBr6cAc9tQSbnEg_sN_CLHfGUGOw2yB4xgr07dHneWd8wYhiyHvwBDsv2CRWfkM"/><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-title-lg text-title-lg text-primary tracking-tight">BharatPure</span><span class="px-space-2xs py-space-3xs rounded-full bg-gold-surface text-gold-dark font-label-code-sm text-label-code-sm">NABL</span></div><span class="font-body-sm text-body-sm text-text-muted">Trace &amp; Qr</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center rounded-full text-primary hover:bg-surface-variant/40 transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-warning"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 w-full bg-surface pt-16 pb-28"><div class="flex flex-col w-full">
+<div class="px-gutter-mobile pt-space-xs pb-space-2xl space-y-space-md">
+<!-- Hero Header / Verified Shield -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-lowest p-space-md shadow-[0_4px_20px_rgba(28,20,8,0.06)]">
+<div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-primary-subtle opacity-40 blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between gap-space-xs mb-space-sm">
+<div class="inline-flex items-center gap-space-2xs px-space-xs py-space-3xs rounded-full bg-primary-surface text-primary-mid">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-light opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-mid"></span>
+</span>
+<span class="font-label-code-sm text-label-code-sm tracking-wider uppercase font-semibold">Identity Record Verified</span>
+</div>
+<div class="flex items-center gap-space-3xs px-space-xs py-space-3xs rounded-full bg-gold-surface text-gold-dark">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span class="font-label-code-sm text-label-code-sm">Scan #1</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-primary flex-shrink-0 flex items-center justify-center text-on-primary shadow-[0_4px_12px_rgba(1,45,29,0.2)]">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-baseline gap-space-xs">
+<h1 class="font-headline-sm text-headline-sm text-text-primary tracking-tight truncate">Salem Super-Curcumin Turmeric</h1>
+</div>
+<div class="flex items-center gap-space-2xs mt-space-3xs">
+<span class="font-label-code-sm text-label-code-sm text-primary font-semibold">LOT #TRM-SAN-9022</span>
+<span class="text-text-muted text-[10px]">•</span>
+<span class="font-label-code-sm text-label-code-sm text-text-muted truncate">0x89f2...c41a</span>
+</div>
+</div>
+</div>
+<!-- Produce Thumbnail + Provenance Ribbon -->
+<div class="mt-space-md p-space-xs rounded-lg bg-surface-container-low flex items-center gap-space-sm">
+<div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="Close up shot of rustic earthen bowl containing whole organic golden-orange turmeric fingers on a weathered sunlit wooden table in an artisan spice facility, shallow depth of field, warm cinematic daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjn34nb66XNM9IL1_Y8UJ9wuIbgfhdbOfiTZ5qPWM2w7U5pvxNuo-RjivUIbmilBJWYLSGakadvuAySS8kfftZizJinihNVwYQSlpWENTPd-qsxpxeKjCF6sJeZdb0Heoyjt1Q3hacu5KwnvJ1RG12iMRKppl-xP4foqrhi3t8x3mnimCfMp6zMzKln5huZZRRZxZDhprlMkIM8uNvqujKAagoxo9PUmL7wZQVfcdRL0gZxUfjsUrO"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-space-2xs">
+<span class="px-space-2xs py-space-3xs rounded bg-gold-subtle text-gold-dark font-label-code-sm text-label-code-sm">GI TAG: SANGLI</span>
+<span class="px-space-2xs py-space-3xs rounded bg-primary-subtle text-primary-mid font-label-code-sm text-label-code-sm">A+ EXPORT</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary truncate mt-space-3xs">Single-origin organic rhizomes • Sealed vacuum barrier</p>
+</div>
+</div>
+</div>
+<!-- Live Journey Indicator Banner -->
+<div class="rounded-xl bg-primary text-on-primary p-space-md relative overflow-hidden shadow-[0_4px_16px_rgba(1,45,29,0.22)]">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-gold-light text-[20px]">explore</span>
+<span class="font-title-lg text-title-lg text-on-primary">Chain of Custody</span>
+</div>
+<span class="px-space-xs py-space-3xs rounded-full bg-primary-container text-on-primary-container font-label-code-sm text-label-code-sm">1,540 KM TRANSIT</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-primary-container">Cryptographically signed by each custodian node using tamper-proof hardware secure modules.</p>
+<!-- Stepper Summary Bar -->
+<div class="mt-space-md grid grid-cols-4 gap-space-2xs text-center">
+<div class="p-space-2xs rounded bg-primary-mid/40">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed">potted_plant</span>
+<p class="font-label-code-sm text-[10px] text-primary-fixed block truncate">Farm</p>
+</div>
+<div class="p-space-2xs rounded bg-primary-mid/40">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed">science</span>
+<p class="font-label-code-sm text-[10px] text-primary-fixed block truncate">Lab Assay</p>
+</div>
+<div class="p-space-2xs rounded bg-primary-mid/40">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed">ac_unit</span>
+<p class="font-label-code-sm text-[10px] text-primary-fixed block truncate">Cold EV</p>
+</div>
+<div class="p-space-2xs rounded bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">package_2</span>
+<p class="font-label-code-sm text-[10px] font-semibold block truncate">Delivered</p>
+</div>
+</div>
+</div>
+<!-- 4-Stage Vertical Journey Timeline -->
+<div class="relative space-y-space-md">
+<!-- STAGE 1: FARM HARVEST -->
+<div class="relative pl-8 group">
+<!-- Connecting Vertical Rail -->
+<div class="absolute left-3 top-8 bottom-0 w-0.5 bg-primary-mid"></div>
+<!-- Node Bullet -->
+<div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-primary-surface text-primary-mid flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">agriculture</span>
+</div>
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_2px_10px_rgba(28,20,8,0.04)]">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-primary font-semibold tracking-wider">STAGE 01 • HARVEST</span>
+<span class="font-label-code-sm text-label-code-sm text-text-muted">12 Oct 2026, 06:30 AM</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary mt-space-2xs">Sangli Terraced Farmlands</h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-space-3xs">Farmer: <strong class="text-text-primary">Ravi Shinde</strong> • Sangli Turmeric FPO</p>
+<div class="mt-space-sm p-space-sm rounded-lg bg-surface-container-low text-text-secondary space-y-space-xs font-body-sm text-body-sm">
+<p>“Hand-harvested at 64% soil moisture from terrace plot #44-B. Sun-cured on traditional raised bamboo aerated racks for 72 hours.”</p>
+<div class="flex flex-wrap items-center gap-space-2xs pt-space-2xs text-text-muted font-label-code-sm text-label-code-sm">
+<span class="inline-flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">pin_drop</span>
+                16.8524° N, 74.5815° E
+              </span>
+<span>•</span>
+<span class="text-primary font-medium">AgriStack ID: #MH-SAN-8812</span>
+</div>
+</div>
+<!-- Mini Farmer Snapshot -->
+<div class="mt-space-sm flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Portrait of a smiling Indian farmer wearing a traditional saffron turban standing proudly in lush green turmeric fields under warm morning golden sun." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB4zvQOcS39o_gTB3EBBWGk6-xV6jy2MlUW6IAE7Mb50aNRW76CsHx4W5Sj_ylHD46XhNk3Gy8dtKRBzL_x7TusQo3mdID3GbFwRA3FRrBhKPbJWcwCvs9OAfwFx-tKkuBzSHwuyerkG7u8fIr7wvo6JUUbiUEcIFcZpENY7y3LBTuqi0yCAWKdlXvQS7ThNmDghuz-tM1AHuk8GMClM8AGX6vJX_yyMdNpzMk7jqJLjHn3I_SpMv9"/>
+</div>
+<div class="min-w-0 flex-1">
+<span class="font-body-sm text-body-sm font-semibold text-text-primary block truncate">Kisan Certified Producer</span>
+<span class="font-label-code-sm text-label-code-sm text-text-muted block">Direct Procurement • Zero Middlemen</span>
+</div>
+<button class="px-space-xs py-space-3xs rounded-lg bg-surface-container text-text-primary text-body-sm font-medium flex items-center gap-space-3xs active:scale-95 transition-transform" id="viewGeoPinBtn">
+<span class="material-symbols-outlined text-[16px]">location_searching</span>
+<span>Pin</span>
+</button>
+</div>
+<!-- Hidden Geo Card Expandable via JS -->
+<div class="hidden mt-space-sm rounded-lg overflow-hidden" id="geoPinCard">
+<div class="w-full h-36 bg-cover bg-center rounded-lg" data-location="Sangli, Maharashtra" style=""></div>
+<div class="p-space-xs bg-surface-container text-text-muted font-label-code-sm text-label-code-sm flex justify-between">
+<span>Cadastral Plot #44-B</span>
+<span class="text-primary">Verified Satellite Polyline ✓</span>
+</div>
+</div>
+</div>
+</div>
+<!-- STAGE 2: NABL LAB ASSAY -->
+<div class="relative pl-8 group">
+<div class="absolute left-3 top-8 bottom-0 w-0.5 bg-primary-mid"></div>
+<div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-gold-surface text-gold-dark flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">biotech</span>
+</div>
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_2px_10px_rgba(28,20,8,0.04)]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-2xs">
+<span class="font-label-code-sm text-label-code-sm text-gold-dark font-semibold tracking-wider">STAGE 02 • CERTIFIED LAB</span>
+<span class="px-space-2xs py-space-3xs rounded bg-gold-surface text-gold-dark font-label-code-sm text-label-code-sm">NABL #TC-8891</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-text-muted">14 Oct, 02:15 PM</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary mt-space-2xs">Vasantdada Sugar &amp; Spices Institute</h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-space-3xs">Pune Analytical Central Hub • Accredited ISO/IEC 17025</p>
+<!-- Lab Metrics Grid -->
+<div class="mt-space-sm grid grid-cols-3 gap-space-xs text-center">
+<div class="p-space-xs rounded-lg bg-surface-container-low">
+<span class="font-label-code-sm text-[11px] text-text-muted block">Curcumin</span>
+<span class="font-label-code-lg text-label-code-lg text-primary font-bold block mt-space-3xs">5.42%</span>
+<span class="font-label-code-sm text-[10px] text-primary-mid">Std ≥ 3.0%</span>
+</div>
+<div class="p-space-xs rounded-lg bg-surface-container-low">
+<span class="font-label-code-sm text-[11px] text-text-muted block">Heavy Metals</span>
+<span class="font-label-code-lg text-label-code-lg text-primary font-bold block mt-space-3xs">ND</span>
+<span class="font-label-code-sm text-[10px] text-primary-mid">Not Detected</span>
+</div>
+<div class="p-space-xs rounded-lg bg-surface-container-low">
+<span class="font-label-code-sm text-[11px] text-text-muted block">Pesticides</span>
+<span class="font-label-code-lg text-label-code-lg text-primary font-bold block mt-space-3xs">0.0 ppm</span>
+<span class="font-label-code-sm text-[10px] text-primary-mid">100% Organic</span>
+</div>
+</div>
+<!-- Certificate Action -->
+<button class="mt-space-sm w-full py-space-xs px-space-sm rounded-lg bg-gold-surface text-gold-dark font-body-sm text-body-sm font-semibold flex items-center justify-center gap-space-2xs hover:bg-gold-subtle active:scale-[0.99] transition-all" id="certModalTrigger">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+<span>View Signed NABL Certificate (PDF)</span>
+</button>
+</div>
+</div>
+<!-- STAGE 3: COLD CHAIN & REEFER TRANSIT -->
+<div class="relative pl-8 group">
+<div class="absolute left-3 top-8 bottom-0 w-0.5 bg-primary-mid"></div>
+<div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-primary-surface text-primary-mid flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_2px_10px_rgba(28,20,8,0.04)]">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-primary font-semibold tracking-wider">STAGE 03 • TELEMETRY</span>
+<span class="font-label-code-sm text-label-code-sm text-text-muted">15–17 Oct 2026</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary mt-space-2xs">Cold-Chain EV Transit</h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-space-3xs">Fleet: EV Reefer #MH-12-BP-402 • Custodian: Amit Verma</p>
+<!-- Temperature Monitor & Sparkline -->
+<div class="mt-space-sm p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center justify-between mb-space-2xs">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-primary text-[18px]">thermostat</span>
+<span class="font-body-sm text-body-sm font-medium text-text-primary">Thermal Integrity Log</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm px-space-2xs py-space-3xs rounded bg-primary-surface text-primary-mid font-semibold">4.4°C AVG</span>
+</div>
+<!-- SVG Sparkline: Smooth temperature variation between 4.2°C and 4.8°C -->
+<div class="w-full h-14 relative flex items-end pt-2">
+<svg class="w-full h-full overflow-visible" fill="none" viewbox="0 0 300 40">
+<!-- Safe upper threshold line at 8C (relative y=2) -->
+<line stroke="#c1c8c2" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="300" y1="4" y2="4"></line>
+<text fill="#717973" font-family="JetBrains Mono" font-size="8" x="245" y="7">MAX 8.0°C</text>
+<!-- Fill area under curve -->
+<path d="M0,28 Q30,22 60,26 T120,24 T180,27 T240,23 T300,25 L300,40 L0,40 Z" fill="#D8F3DC" opacity="0.6"></path>
+<!-- Line curve -->
+<path d="M0,28 Q30,22 60,26 T120,24 T180,27 T240,23 T300,25" fill="none" stroke="#2D6A4F" stroke-linecap="round" stroke-width="2"></path>
+<!-- Live sensor ping dot at end -->
+<circle cx="300" cy="25" fill="#012d1d" r="3.5"></circle>
+<circle cx="300" cy="25" fill="#52B788" opacity="0.3" r="7"></circle>
+</svg>
+</div>
+<div class="flex items-center justify-between mt-space-2xs font-label-code-sm text-label-code-sm text-text-muted">
+<span>Range: 4.2°C – 4.8°C</span>
+<span class="text-primary-mid font-medium flex items-center gap-space-3xs">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                Zero thermal breach
+              </span>
+</div>
+</div>
+</div>
+</div>
+<!-- STAGE 4: SEALED DISPATCH & HUB UNBOXING -->
+<div class="relative pl-8 group">
+<div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">done_all</span>
+</div>
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_2px_10px_rgba(28,20,8,0.04)]">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-secondary font-semibold tracking-wider">STAGE 04 • FINAL HUB</span>
+<span class="font-label-code-sm text-label-code-sm text-text-muted">Today, 09:15 AM</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-text-primary mt-space-2xs">Palam Central Hub, Delhi NCR</h2>
+<p class="font-body-sm text-body-sm text-text-secondary mt-space-3xs">Consignment checked, tamper-evident seals intact. Handed over to consumer unboxing.</p>
+<div class="mt-space-sm p-space-xs rounded-lg bg-surface-container-low flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm text-text-muted">Packaging Seal Code</span>
+<span class="font-label-code-sm text-label-code-sm text-text-primary font-bold">#BP-SEAL-89921</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Triumphant Authentic Guarantee Badge -->
+<div class="rounded-2xl bg-surface-container-lowest p-space-lg text-center shadow-[0_6px_24px_rgba(28,20,8,0.06)] relative overflow-hidden">
+<div class="mx-auto w-20 h-20 rounded-full bg-primary-surface flex items-center justify-center relative mb-space-sm">
+<div class="absolute inset-0 rounded-full border border-gold-light/40 animate-pulse"></div>
+<div class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_4px_16px_rgba(1,45,29,0.3)]">
+<span class="material-symbols-outlined text-[34px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md text-text-primary tracking-tight">100% Farm-Direct Authenticity Guaranteed</h3>
+<p class="font-body-sm text-body-sm text-text-secondary max-w-xs mx-auto mt-space-2xs">
+        Lab-proven bioactive potency, fair farmer price realization, and complete cold-chain provenance verified on public ledger.
+      </p>
+</div>
+<!-- Interactive Burn QR Code Feature Card -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-[0_2px_12px_rgba(28,20,8,0.04)]" id="burnSection">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-tertiary-fixed text-tertiary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">local_fire_department</span>
+</div>
+<div class="min-w-0 flex-1">
+<h4 class="font-title-lg text-title-lg text-text-primary">Anti-Counterfeit QR Burn</h4>
+<p class="font-body-sm text-body-sm text-text-secondary mt-space-3xs">
+            To safeguard the farmer and prevent packaging reuse or counterfeit refilling, click below after cracking the tamper-seal.
+          </p>
+</div>
+</div>
+<div class="mt-space-md">
+<button class="w-full py-space-sm px-space-md rounded-lg bg-tertiary text-on-tertiary font-body-md text-body-md font-semibold flex items-center justify-center gap-space-xs hover:bg-tertiary-container active:scale-[0.98] transition-all shadow-sm" id="burnBtn">
+<span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+<span id="burnBtnText">I Have Opened the Package — Burn QR Code</span>
+</button>
+</div>
+<!-- Burned State Toast (Hidden initially) -->
+<div class="hidden mt-space-sm p-space-sm rounded-lg bg-primary-surface text-primary-mid flex items-center gap-space-xs" id="burnSuccessMessage">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+<div class="min-w-0 flex-1">
+<p class="font-body-sm text-body-sm font-semibold">QR Signature Permanently Retired</p>
+<p class="font-label-code-sm text-label-code-sm text-text-secondary">Token burned on ledger: Tx #0x77c4...b991</p>
+</div>
+</div>
+</div>
+<!-- Farmer Direct Tip / Thank You Note -->
+<div class="rounded-xl bg-gradient-to-br from-gold-surface via-surface-container-low to-gold-subtle p-space-md shadow-[0_2px_12px_rgba(28,20,8,0.04)]">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Warm candid portrait of farmer Ravi Shinde smiling gently against ripe harvest crops in Sangli, India, looking at camera with warmth and gratitude." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3u0uCJxiasX11wGOEPfiSJrIHLdwMODkLL90-pVo4VbEx21e7y2aWfdnqhiqrdwCk0kwJF0hncLfs7gif9zx5oupm78Sk_F_3t6GazJki0tRSpRPl5bEwK0Z3shsvPjT2BWPkjAu96ETl7eqx-_GDZyxQX94cetXhG3DoQyqzHiOjARZz1UVRtai1XrEioVhnhWoJfgEIpX2S7ShbQuaWFs3OH1CqiZqGkJoMFai8f9174-_eqLtx"/>
+</div>
+<div class="min-w-0 flex-1">
+<span class="font-label-code-sm text-label-code-sm text-gold-dark font-bold uppercase">Empower the Grower</span>
+<h4 class="font-headline-sm text-headline-sm text-text-primary">Thank Farmer Ravi Shinde</h4>
+<p class="font-body-sm text-body-sm text-text-secondary truncate">Direct payout via UPI Kisan Wallet</p>
+</div>
+</div>
+<div class="mt-space-md grid grid-cols-3 gap-space-xs">
+<button class="tip-option py-space-xs rounded-lg bg-surface-container-lowest text-text-primary font-label-code-md text-label-code-md font-semibold hover:bg-primary hover:text-on-primary active:scale-95 transition-all">
+          ₹10
+        </button>
+<button class="tip-option py-space-xs rounded-lg bg-surface-container-lowest text-text-primary font-label-code-md text-label-code-md font-semibold hover:bg-primary hover:text-on-primary active:scale-95 transition-all">
+          ₹25
+        </button>
+<button class="tip-option py-space-xs rounded-lg bg-surface-container-lowest text-text-primary font-label-code-md text-label-code-md font-semibold hover:bg-primary hover:text-on-primary active:scale-95 transition-all">
+          ₹50
+        </button>
+</div>
+<div class="mt-space-sm flex gap-space-xs">
+<input class="flex-1 bg-surface-container-lowest rounded-lg px-space-sm py-space-xs font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary" id="farmerMessage" placeholder="Leave a thank you message..." type="text"/>
+<button class="px-space-md py-space-xs bg-primary text-on-primary rounded-lg font-body-sm text-body-sm font-semibold flex items-center justify-center gap-space-3xs active:scale-95 transition-transform" id="sendGratitudeBtn">
+<span>Send</span>
+<span class="material-symbols-outlined text-[16px]">send</span>
+</button>
+</div>
+<!-- Gratitude Feedback Message -->
+<div class="hidden mt-space-xs p-space-2xs rounded bg-primary-subtle text-primary-mid text-center font-body-sm text-body-sm font-medium" id="gratitudeToast">
+        🙏 Gratitude &amp; tip sent directly to Ravi's Kisan account!
+      </div>
+</div>
+</div>
+<!-- NABL Modal Overlay (Self-contained) -->
+<div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-space-gutter-mobile" id="certModal">
+<div class="w-full max-w-sm bg-surface-container-lowest rounded-xl p-space-md shadow-2xl relative">
+<button class="absolute top-3 right-3 text-text-muted hover:text-text-primary" id="closeCertModal">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+<div class="flex items-center gap-space-xs mb-space-sm">
+<span class="material-symbols-outlined text-gold-dark text-[24px]">verified</span>
+<div>
+<h3 class="font-title-lg text-title-lg text-text-primary">NABL Assay Report</h3>
+<p class="font-label-code-sm text-label-code-sm text-text-muted">Certificate ID: #NABL-PUN-2026-994</p>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low space-y-space-2xs text-body-sm text-body-sm text-text-secondary font-label-code-sm">
+<div class="flex justify-between"><span>Methodology:</span><span class="font-semibold text-text-primary">HPLC / GC-MS</span></div>
+<div class="flex justify-between"><span>Accreditation:</span><span class="font-semibold text-text-primary">ISO/IEC 17025</span></div>
+<div class="flex justify-between"><span>Sample Lot:</span><span class="font-semibold text-text-primary">#TRM-SAN-9022</span></div>
+<div class="flex justify-between"><span>Cryptographic Sig:</span><span class="font-semibold text-primary truncate max-w-[120px]">e3b0c44298fc1c14</span></div>
+</div>
+<div class="mt-space-md flex gap-space-xs">
+<button class="flex-1 py-space-xs rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-semibold flex items-center justify-center gap-space-2xs" id="downloadPdfSim">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Download PDF</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+    // Geo Pin Toggle Micro-interaction
+    const viewGeoPinBtn = document.getElementById('viewGeoPinBtn');
+    const geoPinCard = document.getElementById('geoPinCard');
+    if (viewGeoPinBtn && geoPinCard) {
+      viewGeoPinBtn.addEventListener('click', () => {
+        geoPinCard.classList.toggle('hidden');
+        viewGeoPinBtn.classList.toggle('bg-primary');
+        viewGeoPinBtn.classList.toggle('text-on-primary');
+      });
+    }
+
+    // NABL Certificate Modal Micro-interaction
+    const certModalTrigger = document.getElementById('certModalTrigger');
+    const certModal = document.getElementById('certModal');
+    const closeCertModal = document.getElementById('closeCertModal');
+    const downloadPdfSim = document.getElementById('downloadPdfSim');
+
+    if (certModalTrigger && certModal && closeCertModal) {
+      certModalTrigger.addEventListener('click', () => certModal.classList.remove('hidden'));
+      closeCertModal.addEventListener('click', () => certModal.classList.add('hidden'));
+      certModal.addEventListener('click', (e) => {
+        if (e.target === certModal) certModal.classList.add('hidden');
+      });
+      if (downloadPdfSim) {
+        downloadPdfSim.addEventListener('click', () => {
+          downloadPdfSim.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span><span>Downloaded</span>';
+          setTimeout(() => certModal.classList.add('hidden'), 700);
+        });
+      }
+    }
+
+    // Interactive Burn QR Micro-interaction
+    const burnBtn = document.getElementById('burnBtn');
+    const burnBtnText = document.getElementById('burnBtnText');
+    const burnSuccessMessage = document.getElementById('burnSuccessMessage');
+
+    if (burnBtn && burnSuccessMessage && burnBtnText) {
+      burnBtn.addEventListener('click', () => {
+        burnBtn.disabled = true;
+        burnBtn.classList.add('opacity-75');
+        burnBtnText.innerText = 'Burning on Ledger...';
+        
+        setTimeout(() => {
+          burnBtn.classList.remove('bg-tertiary', 'hover:bg-tertiary-container');
+          burnBtn.classList.add('bg-surface-variant', 'text-on-surface-variant', 'cursor-not-allowed');
+          burnBtnText.innerText = 'QR Code Successfully Burned';
+          burnSuccessMessage.classList.remove('hidden');
+        }, 900);
+      });
+    }
+
+    // Farmer Direct Tip / Thank You Note Interaction
+    const tipOptions = document.querySelectorAll('.tip-option');
+    tipOptions.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        tipOptions.forEach(b => {
+          b.classList.remove('bg-primary', 'text-on-primary');
+          b.classList.add('bg-surface-container-lowest', 'text-text-primary');
+        });
+        btn.classList.add('bg-primary', 'text-on-primary');
+        btn.classList.remove('bg-surface-container-lowest', 'text-text-primary');
+      });
+    });
+
+    const sendGratitudeBtn = document.getElementById('sendGratitudeBtn');
+    const gratitudeToast = document.getElementById('gratitudeToast');
+    const farmerMessage = document.getElementById('farmerMessage');
+
+    if (sendGratitudeBtn && gratitudeToast && farmerMessage) {
+      sendGratitudeBtn.addEventListener('click', () => {
+        gratitudeToast.classList.remove('hidden');
+        farmerMessage.value = '';
+        farmerMessage.placeholder = 'Message sent!';
+        setTimeout(() => {
+          gratitudeToast.classList.add('hidden');
+        }, 3500);
+      });
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_16px_rgba(28,20,8,0.06)]" data-active-classes="text-primary font-semibold"><div class="flex justify-around items-center h-20 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-space-3xs text-text-secondary hover:text-primary transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-[24px]">potted_plant</span><span class="font-body-sm text-body-sm tracking-tight">Home</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-space-3xs text-text-secondary hover:text-primary transition-colors" data-path="batches" href="#"><span class="material-symbols-outlined text-[24px]">inventory_2</span><span class="font-body-sm text-body-sm tracking-tight">Batches</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] -mt-4" data-path="trace-and-qr" href="#"><div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_4px_12px_rgba(1,45,29,0.25)]"><span class="material-symbols-outlined text-[26px]">qr_code_scanner</span></div><span class="font-body-sm text-body-sm tracking-tight text-primary mt-1">Trace &amp; QR</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-space-3xs text-text-secondary hover:text-primary transition-colors" data-path="credit" href="#"><span class="material-symbols-outlined text-[24px]">account_balance_wallet</span><span class="font-body-sm text-body-sm tracking-tight">Credit</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] gap-space-3xs text-text-secondary hover:text-primary transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-[24px]">account_circle</span><span class="font-body-sm text-body-sm tracking-tight">Profile</span></a></div></nav></body></html>
