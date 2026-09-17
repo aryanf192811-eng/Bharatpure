@@ -3,6 +3,17 @@
 
 ---
 
+## 2026-09-17 — Session 10: Mustard's arrivals-data gap closed — both trained crops now fully real
+
+### What happened
+Picked up exactly where Session 9 left off: Mustard had real price data but no real arrivals data (the training target), so it stayed on the heuristic. The 3 originally-broken Rajasthan districts (Kota/Alwar/Bharatpur) were re-checked first on a fresh day — still broken (re-confirmed via an isolated curl, a genuine CEDA-side server issue, not pursued further) — then pulled the alternate mustard-belt districts identified yesterday instead: Madhya Pradesh (Bhind, Gwalior) and Uttar Pradesh (Mathura, Etah). Real arrivals data landed: 2,396 of 4,122 total Mustard rows now have it, across 5 districts.
+
+Retrained `ai/scripts/train_demand_model.py`: Mustard now has 3 real trained artifacts (989 real distinct dates, 2,396 raw rows), same as Turmeric's pattern from yesterday. Verified live end-to-end — direct `predict()` call, the real running AI service, and the full Node cache-write path all correctly return `model_version: "agmarknet-hgbr-v1"` for Mustard now. Honey remains permanently on the heuristic (confirmed against two independent data sources across the last two sessions — not a gap to revisit). Full Postman regression 189/189 passing.
+
+**`chatbot.md`'s TASK-P7-001 is now fully VERIFIED for both crops in its original scope — no further follow-up queued.**
+
+---
+
 ## 2026-09-16 — Session 9: real trained demand model (Turmeric) + a supervisor/Antigravity dual-agent workflow
 
 ### What happened
