@@ -1,11 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Download } from 'lucide-react'
+import { Download, TrendingUp } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { batchApi } from '@/api/batch.api'
+import { farmerApi } from '@/api/farmer.api'
 import { listingApi } from '@/api/listing.api'
+import { priceApi } from '@/api/price.api'
 import { qualityApi } from '@/api/quality.api'
 import { BatchStatusPill } from '@/components/shared/BatchStatusPill'
 import { BIRTimeline } from '@/components/shared/BIRTimeline'
@@ -14,6 +16,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getCropPhoto } from '@/lib/cropImagery'
+
+const formatRupees = (paise: number) => `₹${(paise / 100).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`
 
 const STATUS_HERO_BG: Record<string, string> = {
   draft: 'bg-earth-100',
@@ -59,6 +63,17 @@ export default function BatchDetail() {
     queryKey: ['batch', batchId, 'certificates'],
     queryFn: () => qualityApi.getCertificatesForBatch(batchId!),
     enabled: !!batchId,
+  })
+  // Impact Receipt needs the REAL settled price for this batch (not a hypothetical current
+  // recommendation) -- earnings rows only exist once at least one order_item has actually
+  // escrow-released for this batch, so an empty match here correctly means "nothing to show yet"
+  // rather than showing a fabricated number.
+  const { data: earningsRes } = useQuery({ queryKey: ['farmer', 'earnings', 'all'], queryFn: () => farmerApi.earnings() })
+  const earningsRow = earningsRes?.data.find((r) => r.batch_id === batchId)
+  const { data: commodityRes } = useQuery({
+    queryKey: ['price', 'recommendation', batchId],
+    queryFn: () => priceApi.recommendation({ crop_type: batchRes!.data.crop_type, quality_score: Number(batchRes!.data.quality_score) || 70, city: 'Delhi' }),
+    enabled: !!batchRes,
   })
 
   const submitForTesting = useMutation({
@@ -128,6 +143,60 @@ export default function BatchDetail() {
           <p className="mt-1 font-display text-lg font-bold text-earth-900">{batch.remaining_quantity_kg} kg</p>
         </div>
       </div>
+
+      {earningsRow && commodityRes?.data && (() => {
+        const realizedPaise = earningsRow.total_paise
+        const commodityBaselinePaise = Math.round(commodityRes.data.commodity_price_paise * earningsRow.quantity_sold_kg)
+        const upliftPaise = realizedPaise - commodityBaselinePaise
+        if (commodityBaselinePaise <= 0) return null
+        const upliftPct = (upliftPaise / commodityBaselinePaise) * 100
+        const barMax = Math.max(realizedPaise, commodityBaselinePaise) || 1
+        return (
+          <div className="flex flex-col gap-3 rounded-md bg-white p-4 shadow-md">
+            <div className="flex items-center gap-1.5">
+              <TrendingUp className="size-4 text-primary-700" />
+              <p className="font-mono text-xs font-semibold uppercase tracking-wider text-earth-500">Impact Receipt</p>
+            </div>
+            {upliftPaise > 0 ? (
+              <>
+                <p className="font-display text-3xl font-bold text-primary-800">
+                  +{formatRupees(upliftPaise)} <span className="text-base font-semibold text-earth-500">extra earned</span>
+                </p>
+                <p className="text-xs text-earth-700">
+                  {upliftPct.toFixed(1)}% above the traditional mandi rate for {earningsRow.quantity_sold_kg} kg of {earningsRow.crop_type}
+                </p>
+              </>
+            ) : (
+              <p className="text-sm text-earth-700">
+                Realized {formatRupees(realizedPaise)} for {earningsRow.quantity_sold_kg} kg of {earningsRow.crop_type}.
+              </p>
+            )}
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-medium text-primary-700">BharatPure Escrow</span>
+                  <span className="font-mono font-semibold text-earth-900">{formatRupees(realizedPaise)}</span>
+                </div>
+                <div className="h-2 w-full overflow-hidden rounded-full bg-earth-100">
+                  <div className="h-full rounded-full bg-primary-600" style={{ width: `${(realizedPaise / barMax) * 100}%` }} />
+                </div>
+              </div>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-earth-500">Commodity Baseline Rate</span>
+                  <span className="font-mono text-earth-700">{formatRupees(commodityBaselinePaise)}</span>
+                </div>
+                <div className="h-2 w-full overflow-hidden rounded-full bg-earth-100">
+                  <div className="h-full rounded-full bg-earth-500" style={{ width: `${(commodityBaselinePaise / barMax) * 100}%` }} />
+                </div>
+              </div>
+            </div>
+            <p className="text-xs text-earth-500">
+              Commodity baseline is the reference eNAM mandi rate for {earningsRow.crop_type}, no middleman cut applied. Your realized amount is what actually settled to escrow for this batch.
+            </p>
+          </div>
+        )
+      })()}
 
       {batch.status === 'draft' && (
         <Button type="button" size="lg" disabled={submitForTesting.isPending} onClick={() => submitForTesting.mutate()}>
