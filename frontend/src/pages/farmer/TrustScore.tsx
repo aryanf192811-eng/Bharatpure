@@ -4,6 +4,24 @@ import { Landmark } from 'lucide-react'
 import { farmerApi } from '@/api/farmer.api'
 import { TrustScoreRing } from '@/components/shared/TrustScoreRing'
 import { Skeleton } from '@/components/ui/skeleton'
+import { getFarmerTier, getNextTierMilestone, TIER_LABELS } from '@/lib/gamification'
+
+// Real weights from trust-score.job.js's credit-score formula (0.40/0.30/0.20/0.10) -- shown
+// verbatim rather than as a vague "your score is based on several factors" line, matching this
+// page's existing "no hidden criteria" honesty.
+const CREDIT_WEIGHTS = {
+  trust: 40,
+  repayment: 30,
+  volume: 20,
+  disputes: 10,
+}
+
+// Same HIGH/MEDIUM cutoffs trust-score.job.js uses (75/50) -- not a separate invented scale.
+const nextCreditBandMilestone = (score: number, band: string): { label: string; pointsToGo: number } | null => {
+  if (band === 'HIGH') return null
+  if (band === 'MEDIUM') return { label: 'High Eligibility', pointsToGo: Math.max(0, Math.ceil(75 - score)) }
+  return { label: 'Medium Eligibility', pointsToGo: Math.max(0, Math.ceil(50 - score)) }
+}
 
 const BAND_STYLES: Record<string, string> = {
   HIGH: 'bg-success-bg text-success',
@@ -18,12 +36,27 @@ const BAND_LABELS: Record<string, string> = {
   INSUFFICIENT_DATA: 'Not Enough History Yet',
 }
 
-function MetricBar({ label, value, inverted = false }: { label: string; value: number; inverted?: boolean }) {
+function MetricBar({
+  label,
+  value,
+  inverted = false,
+  weightPct,
+}: {
+  label: string
+  value: number
+  inverted?: boolean
+  weightPct?: number
+}) {
   const good = inverted ? value <= 20 : value >= 70
   return (
     <div>
       <div className="flex items-center justify-between text-sm">
-        <span className="text-earth-700">{label}</span>
+        <span className="text-earth-700">
+          {label}
+          {weightPct !== undefined && (
+            <span className="ml-1 font-mono text-xs text-earth-400">(Wt: {weightPct}%)</span>
+          )}
+        </span>
         <span className={`font-semibold ${good ? 'text-success' : 'text-earth-900'}`}>{value.toFixed(1)}%</span>
       </div>
       <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-earth-100">
@@ -52,12 +85,27 @@ export default function TrustScore() {
   }
 
   const t = data.data
+  const score = Number(t.computed_score)
+  const tier = getFarmerTier(score)
+  const milestone = getNextTierMilestone(score)
 
   return (
     <div className="mx-auto flex max-w-[480px] flex-col items-center gap-6 p-4">
       <h1 className="self-start font-display text-2xl font-bold tracking-tight text-earth-900">Your Trust Score</h1>
 
-      <TrustScoreRing score={Number(t.computed_score)} size="lg" />
+      <div className="flex flex-col items-center gap-2">
+        <TrustScoreRing score={score} size="lg" />
+        <span className="w-fit rounded-full bg-gold-100 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-gold-800">
+          {TIER_LABELS[tier]}
+        </span>
+        {milestone ? (
+          <p className="text-xs text-earth-700">
+            <span className="font-semibold text-earth-900">{milestone.pointsToGo.toFixed(0)} more points</span> to {TIER_LABELS[milestone.nextTier]}
+          </p>
+        ) : (
+          <p className="text-xs font-semibold text-primary-700">Top tier reached — Platinum FPO</p>
+        )}
+      </div>
 
       <div className="flex w-full flex-col gap-4 rounded-md bg-white p-4 shadow-sm">
         <MetricBar label="Fulfillment Rate" value={Number(t.fulfillment_rate)} />
@@ -86,9 +134,19 @@ export default function TrustScore() {
           </div>
           {creditRes.data.latest.eligibility_band !== 'INSUFFICIENT_DATA' && (
             <>
-              <MetricBar label="Trust Score" value={Number(creditRes.data.latest.trust_score_component)} />
-              <MetricBar label="Payment Reliability" value={Number(creditRes.data.latest.repayment_proxy_component)} />
-              <MetricBar label="Batch Volume" value={Number(creditRes.data.latest.batch_volume_component)} />
+              <MetricBar label="Trust Score" value={Number(creditRes.data.latest.trust_score_component)} weightPct={CREDIT_WEIGHTS.trust} />
+              <MetricBar label="Payment Reliability" value={Number(creditRes.data.latest.repayment_proxy_component)} weightPct={CREDIT_WEIGHTS.repayment} />
+              <MetricBar label="Batch Volume" value={Number(creditRes.data.latest.batch_volume_component)} weightPct={CREDIT_WEIGHTS.volume} />
+              <MetricBar label="Dispute-Free Record" value={Number(creditRes.data.latest.dispute_penalty_component)} weightPct={CREDIT_WEIGHTS.disputes} />
+              {(() => {
+                const next = nextCreditBandMilestone(Number(creditRes.data.latest.computed_score), creditRes.data.latest.eligibility_band)
+                if (!next) return <p className="text-xs font-semibold text-primary-700">Top eligibility band reached.</p>
+                return (
+                  <p className="text-xs text-earth-700">
+                    <span className="font-semibold text-earth-900">{next.pointsToGo.toFixed(0)} more points</span> to {next.label}
+                  </p>
+                )
+              })()}
             </>
           )}
           <p className="text-xs text-earth-500">
