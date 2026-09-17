@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 interface BatchDraftState {
   clusterId: string
@@ -28,11 +29,18 @@ const initial = {
   pesticideUse: 'None' as const,
 }
 
-// Ephemeral, in-memory wizard state shared across the 3 batch-create routes (Step 1/2/3 are
-// separate pages, not a single-page stepper) -- per BHARATPURE-UI.md, "data persists across
-// steps (React state, not API calls)". Reset once the wizard completes or is abandoned.
-export const useBatchDraftStore = create<BatchDraftState>()((set) => ({
-  ...initial,
-  set: (fields) => set(fields),
-  reset: () => set(initial),
-}))
+// Wizard state shared across the 3 batch-create routes (Step 1/2/3 are separate pages, not a
+// single-page stepper) -- per BHARATPURE-UI.md, "data persists across steps (React state, not
+// API calls)". Persisted to sessionStorage (not localStorage) so an accidental refresh mid-wizard
+// doesn't lose the draft, while an abandoned draft still doesn't linger past the browser tab
+// closing. reset() clears it once the wizard completes or is explicitly abandoned.
+export const useBatchDraftStore = create<BatchDraftState>()(
+  persist(
+    (set) => ({
+      ...initial,
+      set: (fields) => set(fields),
+      reset: () => set(initial),
+    }),
+    { name: 'bharatpure-batch-draft', storage: createJSONStorage(() => sessionStorage) },
+  ),
+)

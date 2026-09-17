@@ -38,9 +38,14 @@ export function getCropPhoto(cropType: string | undefined, seed = 0): string {
 }
 
 export const HERO_IMAGES = {
-  /** Wide golden-hour turmeric field, Sangli Maharashtra -- matches the seeded FPO exactly. */
-  turmericField:
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuAXnaCwsn5mI1h-y7CI0KgwkhTPHVoPxChEVuu4gKAKNXLiUOr1lisMRc_Fv7igTEzOxGlUifPXKhgk4uTgWyXHxCeGAEujiFiS-6kv5tFZ2E9ejdgsV8rn9E28KQOIUzkfgoXpTt-lrSSNFs9SMH_iDXn9mUDJsYTN-9j6Qs86_pLHVN5BgB4ja36txk3_T-WvXaxWcygBZx7Nf0_Jj_j9rSS4RCcRnwHFzVXfzxkSm2a0Fo5tnL6w',
+  /**
+   * Real Indian farmer working a green paddy field (Unsplash, free-to-use license). Replaced the
+   * original Stitch-placeholder here -- that one turned out to be a stock "smart farm dashboard"
+   * mockup photo with UI-overlay graphics baked into the image itself, not a clean field shot, and
+   * looked visibly wrong under the AuthLayout/Landing gradient. Verified by loading it directly at
+   * 2400px before wiring in.
+   */
+  turmericField: 'https://images.unsplash.com/photo-1770892123242-c876a0a343f5?q=80&w=2400&auto=format&fit=crop',
   farmerPortrait:
     'https://lh3.googleusercontent.com/aida-public/AB6AXuC2-eu-_ZRnRxeCOUj4kSYzvzxKDOVZY9xhXlDkvfIHqzJc2scH7i9qze59nh0fzm3sP21cq0Ul-JxEJp4XH2gGucSS37c0Sr_wLH-1jmwnOvl61OshlxuT-ulIolsYol3saFP7aaIqxoj-ahP-wAxOwDUDVUBlwWBL9lKvDoUgA1OSOVcsuiy1QB1w9v4ihczD9_GP_9Q36BXlHhzcNtQb-qIGDQAms79TJBQCJ9Gl2Mf72Vu7Sc4q',
   driverPortrait:
