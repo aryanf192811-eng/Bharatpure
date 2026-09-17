@@ -9,6 +9,7 @@
     "migrate:down": "node-pg-migrate down -m src/db/migrations",
     "db:seed": "node src/db/seed.js",
     "db:reset": "node scripts/reset-db.js",
+    "jobs:run": "node scripts/run-jobs.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

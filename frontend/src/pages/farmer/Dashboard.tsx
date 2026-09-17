@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import {
   ArrowRight,
+  Award,
   ChevronRight,
   FileText,
+  Flame,
+  Lock,
   Minus,
   PackagePlus,
-  Sparkles,
   TrendingUp,
   Wallet,
 } from 'lucide-react'
@@ -13,7 +15,9 @@ import { Link } from 'react-router-dom'
 
 import { farmerApi } from '@/api/farmer.api'
 import { BatchStatusPill } from '@/components/shared/BatchStatusPill'
+import { TrustScoreRing } from '@/components/shared/TrustScoreRing'
 import { Skeleton } from '@/components/ui/skeleton'
+import { computeBadges, computeVisibleStreak, getFarmerTier, getNextTierMilestone, TIER_LABELS } from '@/lib/gamification'
 import { HERO_IMAGES } from '@/lib/cropImagery'
 import type { BatchStatus } from '@/types/batch.types'
 
@@ -22,6 +26,9 @@ const formatRupees = (paise: number) => `₹${(paise / 100).toLocaleString('en-I
 export default function FarmerDashboard() {
   const { data: profile } = useQuery({ queryKey: ['farmer', 'profile'], queryFn: farmerApi.profile })
   const { data: dashboard, isLoading } = useQuery({ queryKey: ['farmer', 'dashboard'], queryFn: farmerApi.dashboard })
+  // 404s until the nightly trust-score job has run at least once -- the gamification block below
+  // degrades to trust_score alone (still real, from the dashboard payload) when this is absent.
+  const { data: trustRes } = useQuery({ queryKey: ['farmer', 'trust-score'], queryFn: farmerApi.trustScore, retry: false })
 
   if (isLoading || !dashboard) {
     return (
@@ -51,26 +58,73 @@ export default function FarmerDashboard() {
         </div>
       </div>
 
-      {/* Trust score ribbon */}
-      <div className="flex items-center justify-between gap-2 rounded-md bg-gold-50 p-3 shadow-sm">
-        <div className="flex items-center gap-2">
-          <div className="flex size-8 items-center justify-center rounded bg-gold-100 text-gold-800">
-            <Sparkles className="size-4" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-earth-900">
-              Trust Score: {d.trust_score !== null ? d.trust_score.toFixed(1) : '—'}{' '}
-              <span className="font-mono text-xs font-medium text-earth-500">/100</span>
+      {/* Gamified trust tier */}
+      {d.trust_score !== null && (() => {
+        const score = d.trust_score
+        const tier = getFarmerTier(score)
+        const milestone = getNextTierMilestone(score)
+        const streak = computeVisibleStreak(d.recent_batches)
+        const badges = computeBadges(trustRes?.data, d)
+        const unlockedCount = badges.filter((b) => b.unlocked).length
+
+        return (
+          <div className="flex flex-col gap-4 rounded-md bg-white p-4 shadow-md">
+            <div className="flex items-center gap-4">
+              <TrustScoreRing score={score} />
+              <div className="flex flex-1 flex-col gap-1">
+                <span className="w-fit rounded-full bg-gold-100 px-2.5 py-0.5 font-mono text-xs font-bold uppercase tracking-wider text-gold-800">
+                  {TIER_LABELS[tier]}
+                </span>
+                {milestone ? (
+                  <p className="text-xs leading-snug text-earth-700">
+                    <span className="font-semibold text-earth-900">{milestone.pointsToGo.toFixed(0)} more trust points</span> to{' '}
+                    {TIER_LABELS[milestone.nextTier]}
+                  </p>
+                ) : (
+                  <p className="text-xs font-semibold text-primary-700">Top tier reached — Platinum FPO</p>
+                )}
+                <Link
+                  to="/farmer/trust-score"
+                  className="mt-1 flex w-fit items-center gap-0.5 font-mono text-xs font-medium uppercase tracking-wider text-primary-800 hover:text-primary-700"
+                >
+                  Full breakdown <ArrowRight className="size-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {streak > 0 && (
+              <div className="flex items-center gap-2 rounded bg-gold-50 px-3 py-2">
+                <Flame className="size-4 shrink-0 text-terracotta-600" />
+                <p className="text-xs font-semibold text-earth-900">
+                  {streak} batch{streak === 1 ? '' : 'es'} in a row passed quality — keep it going
+                </p>
+              </div>
+            )}
+
+            <div className="grid grid-cols-2 gap-2">
+              {badges.map((badge) => (
+                <div
+                  key={badge.id}
+                  title={badge.description}
+                  className={`flex items-center gap-2 rounded p-2 ${badge.unlocked ? 'bg-primary-50' : 'bg-earth-100'}`}
+                >
+                  {badge.unlocked ? (
+                    <Award className="size-4 shrink-0 text-primary-700" />
+                  ) : (
+                    <Lock className="size-4 shrink-0 text-earth-400" />
+                  )}
+                  <span className={`text-xs font-medium leading-tight ${badge.unlocked ? 'text-earth-900' : 'text-earth-500'}`}>
+                    {badge.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="text-center font-mono text-xs uppercase tracking-wider text-earth-500">
+              {unlockedCount} of {badges.length} achievements unlocked
             </p>
           </div>
-        </div>
-        <Link
-          to="/farmer/trust-score"
-          className="flex items-center gap-0.5 rounded bg-white/70 px-2 py-1 font-mono text-xs font-medium uppercase tracking-wider text-primary-800 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800"
-        >
-          Breakdown <ArrowRight className="size-3.5" />
-        </Link>
-      </div>
+        )
+      })()}
 
       {/* Demand signals */}
       <div className="flex flex-col gap-2">

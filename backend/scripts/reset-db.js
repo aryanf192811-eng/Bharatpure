@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const { pool } = require('../src/db');
 const { seed } = require('../src/db/seed');
+const { runOnce: runJobsOnce } = require('./run-jobs');
 const logger = require('../src/utils/logger');
 
 // Truncates every application table (everything except node-pg-migrate's own bookkeeping
@@ -27,6 +28,10 @@ const resetDb = async () => {
     client.release();
   }
   await seed();
+  // Without this, fresh-seeded FPOs have a null trust_score and no crop_advisories until the
+  // 2am/2:30am IST cron jobs next run -- silently blanking the dashboard's gamification block
+  // and advisory cards for anyone testing or demoing right after a reset.
+  await runJobsOnce();
 };
 
 if (require.main === module) {
