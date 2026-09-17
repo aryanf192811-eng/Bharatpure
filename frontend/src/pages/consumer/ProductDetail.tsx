@@ -95,7 +95,11 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-16 mx-auto max-w-[480px] p-4">
+      {/* sticky, not fixed -- fixed positions relative to the true browser viewport, which
+          misbehaves inside embedded/iframe preview contexts (button can render off-screen even
+          though it's "there"); sticky positions relative to PWAShell's own scrolling <main>,
+          which is reliable everywhere this app is viewed. */}
+      <div className="sticky bottom-16 mx-auto w-full max-w-[480px] bg-gradient-to-t from-earth-50 via-earth-50 to-transparent p-4 pt-8">
         <Button
           type="button"
           size="lg"

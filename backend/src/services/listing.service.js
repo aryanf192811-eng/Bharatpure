@@ -167,10 +167,11 @@ const listListings = async (user, { cropType, city, minQuality, page = 1, limit 
   const countResult = await pool.query(`SELECT COUNT(*) FROM listings l JOIN batches b ON b.id = l.batch_id WHERE ${conditions.join(' AND ')}`, params);
   const dataResult = await pool.query(
     `SELECT l.id, l.batch_id, l.price_per_kg_paise, l.min_order_kg, l.max_order_kg, l.listing_type, l.status,
-            b.batch_code, b.crop_type, b.quality_score,
+            b.batch_code, b.crop_type, b.quality_score, fpo.fpo_name,
             df.predicted_kg AS demand_forecast_kg, df.confidence_pct AS demand_confidence_pct
      FROM listings l
      JOIN batches b ON b.id = l.batch_id
+     LEFT JOIN fpo_profiles fpo ON fpo.id = b.fpo_id
      LEFT JOIN LATERAL (
        SELECT predicted_kg, confidence_pct FROM demand_forecasts
        WHERE crop_type = b.crop_type AND ($${cityIdx}::text IS NULL OR city = $${cityIdx})
@@ -279,10 +280,11 @@ const updateListingStatus = async (listingId, user, status) => {
  */
 const getRecommended = async (user, city) => {
   const result = await pool.query(
-    `SELECT l.id, l.batch_id, l.price_per_kg_paise, b.batch_code, b.crop_type, b.quality_score,
+    `SELECT l.id, l.batch_id, l.price_per_kg_paise, b.batch_code, b.crop_type, b.quality_score, fpo.fpo_name,
             df.predicted_kg AS demand_forecast_kg, df.confidence_pct AS demand_confidence_pct
      FROM listings l
      JOIN batches b ON b.id = l.batch_id
+     LEFT JOIN fpo_profiles fpo ON fpo.id = b.fpo_id
      LEFT JOIN LATERAL (
        SELECT predicted_kg, confidence_pct FROM demand_forecasts
        WHERE crop_type = b.crop_type AND ($1::text IS NULL OR city = $1) AND forecast_date >= CURRENT_DATE

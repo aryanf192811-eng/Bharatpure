@@ -11,6 +11,7 @@ export interface Listing {
   batch_code: string
   crop_type: string
   quality_score: number | null
+  fpo_name: string | null
   demand_forecast_kg?: number | null
   demand_confidence_pct?: number | null
 }
