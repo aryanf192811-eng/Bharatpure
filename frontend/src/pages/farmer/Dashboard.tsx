@@ -68,11 +68,11 @@ export default function FarmerDashboard() {
         const unlockedCount = badges.filter((b) => b.unlocked).length
 
         return (
-          <div className="flex flex-col gap-4 rounded-md bg-white p-4 shadow-md">
+          <div className="flex flex-col gap-4 rounded-lg border border-gold-400/40 bg-gradient-to-br from-gold-50 via-white to-primary-50 p-4 shadow-lg">
             <div className="flex items-center gap-4">
               <TrustScoreRing score={score} />
               <div className="flex flex-1 flex-col gap-1">
-                <span className="w-fit rounded-full bg-gold-100 px-2.5 py-0.5 font-mono text-xs font-bold uppercase tracking-wider text-gold-800">
+                <span className="w-fit rounded-full border border-gold-400 bg-gold-100 px-2.5 py-0.5 font-mono text-xs font-bold uppercase tracking-wider text-gold-800 shadow-sm">
                   {TIER_LABELS[tier]}
                 </span>
                 {milestone ? (
@@ -93,7 +93,7 @@ export default function FarmerDashboard() {
             </div>
 
             {streak > 0 && (
-              <div className="flex items-center gap-2 rounded bg-gold-50 px-3 py-2">
+              <div className="flex items-center gap-2 rounded-md border border-gold-400/60 bg-gold-100 px-3 py-2 shadow-sm">
                 <Flame className="size-4 shrink-0 text-terracotta-600" />
                 <p className="text-xs font-semibold text-earth-900">
                   {streak} batch{streak === 1 ? '' : 'es'} in a row passed quality — keep it going
@@ -106,10 +106,12 @@ export default function FarmerDashboard() {
                 <div
                   key={badge.id}
                   title={badge.description}
-                  className={`flex items-center gap-2 rounded p-2 ${badge.unlocked ? 'bg-primary-50' : 'bg-earth-100'}`}
+                  className={`flex items-center gap-2 rounded-md p-2 shadow-sm ${
+                    badge.unlocked ? 'border border-gold-400/60 bg-white' : 'border border-earth-200 bg-earth-100'
+                  }`}
                 >
                   {badge.unlocked ? (
-                    <Award className="size-4 shrink-0 text-primary-700" />
+                    <Award className="size-4 shrink-0 text-gold-600" />
                   ) : (
                     <Lock className="size-4 shrink-0 text-earth-400" />
                   )}

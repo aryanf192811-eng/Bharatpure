@@ -162,7 +162,7 @@ const verifyOtp = async (phone, otp, purpose, meta = {}) => {
   const client = await pool.connect();
   try {
     const userResult = await client.query(
-      `SELECT id, otp_hash, otp_expires_at, role, status FROM users WHERE phone = $1 AND otp_purpose = $2`,
+      `SELECT id, otp_hash, otp_expires_at, role, status, full_name FROM users WHERE phone = $1 AND otp_purpose = $2`,
       [phone, purpose],
     );
     if (userResult.rows.length === 0) {
@@ -204,7 +204,9 @@ const verifyOtp = async (phone, otp, purpose, meta = {}) => {
     await client.query('COMMIT');
 
     logger.info({ action: 'OTP_VERIFIED', userId: user.id, purpose });
-    return { userId: user.id, role: user.role, ...tokens };
+    // status is returned as the literal post-UPDATE value ('active'), not the pre-update row read
+    // above, since that UPDATE is what this same call just committed.
+    return { userId: user.id, role: user.role, fullName: user.full_name, status: 'active', ...tokens };
   } catch (err) {
     // ROLLBACK is a safe no-op if BEGIN was never reached (e.g. the OTP_INVALID/EXPIRED/
     // NOT_FOUND paths above return before opening a transaction) — Postgres just warns
@@ -227,7 +229,7 @@ const login = async (identifier, password, meta = {}) => {
   const client = await pool.connect();
   try {
     const userResult = await client.query(
-      `SELECT id, password_hash, role, status FROM users WHERE ${isEmail ? 'email' : 'phone'} = $1`,
+      `SELECT id, password_hash, role, status, full_name FROM users WHERE ${isEmail ? 'email' : 'phone'} = $1`,
       [identifier],
     );
     if (userResult.rows.length === 0) {
@@ -253,7 +255,7 @@ const login = async (identifier, password, meta = {}) => {
     await client.query('COMMIT');
 
     logger.info({ action: 'USER_LOGIN', userId: user.id });
-    return { userId: user.id, role: user.role, ...tokens };
+    return { userId: user.id, role: user.role, fullName: user.full_name, status: user.status, ...tokens };
   } catch (err) {
     await client.query('ROLLBACK'); // safe no-op if BEGIN was never reached
     if (err.code && err.statusCode) throw err;

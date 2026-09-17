@@ -1,6 +1,7 @@
 const { z } = require('zod');
 
 const notificationService = require('../services/notification.service');
+const userService = require('../services/user.service');
 const { sendSuccess, sendError, sendPaginated } = require('../utils/response');
 
 const listQuerySchema = z.object({
@@ -9,7 +10,14 @@ const listQuerySchema = z.object({
   limit: z.coerce.number().int().positive().max(100).default(20),
 });
 
-const me = (req, res) => sendSuccess(res, { id: req.user.id, role: req.user.role });
+const me = async (req, res, next) => {
+  try {
+    const profile = await userService.getProfile(req.user.id);
+    return sendSuccess(res, profile);
+  } catch (err) {
+    return next(err);
+  }
+};
 
 const listNotifications = async (req, res, next) => {
   const parsed = listQuerySchema.safeParse(req.query);

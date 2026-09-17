@@ -51,7 +51,11 @@ const verifyOtp = async (req, res, next) => {
     const { phone, otp, purpose } = parsed.data;
     const result = await authService.verifyOtp(phone, otp, purpose, requestMeta(req));
     res.cookie(REFRESH_COOKIE_NAME, result.refreshToken, cookieOptions());
-    return sendSuccess(res, { accessToken: result.accessToken, user: { id: result.userId, role: result.role } }, 200);
+    return sendSuccess(
+      res,
+      { accessToken: result.accessToken, user: { id: result.userId, role: result.role, full_name: result.fullName, status: result.status } },
+      200,
+    );
   } catch (err) {
     return next(err);
   }
@@ -66,7 +70,11 @@ const login = async (req, res, next) => {
     const { identifier, password } = parsed.data;
     const result = await authService.login(identifier, password, requestMeta(req));
     res.cookie(REFRESH_COOKIE_NAME, result.refreshToken, cookieOptions());
-    return sendSuccess(res, { accessToken: result.accessToken, user: { id: result.userId, role: result.role } }, 200);
+    return sendSuccess(
+      res,
+      { accessToken: result.accessToken, user: { id: result.userId, role: result.role, full_name: result.fullName, status: result.status } },
+      200,
+    );
   } catch (err) {
     return next(err);
   }

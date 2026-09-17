@@ -1,10 +1,11 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import type { LucideIcon } from 'lucide-react'
-import { Bell } from 'lucide-react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Bell, Leaf } from 'lucide-react'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 
 import { userApi } from '@/api/user.api'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { useAuthStore } from '@/stores/auth.store'
 
 export interface PWATab {
   label: string
@@ -77,12 +78,44 @@ function NotificationBell() {
   )
 }
 
+function ProfileAvatar({ profilePath }: { profilePath: string }) {
+  const user = useAuthStore((s) => s.user)
+  const initials = user?.full_name
+    ? user.full_name
+        .split(' ')
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((part) => part[0]?.toUpperCase())
+        .join('')
+    : ''
+
+  return (
+    <Link
+      to={profilePath}
+      aria-label="Your profile"
+      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary-100 font-mono text-xs font-bold text-primary-800 transition-shadow hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2"
+    >
+      {initials || <span className="sr-only">Profile</span>}
+    </Link>
+  )
+}
+
 export function PWAShell({ title, tabs }: PWAShellProps) {
+  const profileTab = tabs.find((tab) => tab.label === 'Profile')
+
   return (
     <div className="mx-auto flex min-h-screen max-w-[480px] flex-col bg-earth-50">
-      <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center justify-between border-b border-earth-200 bg-white px-4">
-        <p className="font-display text-lg font-bold text-primary-800">{title}</p>
-        <NotificationBell />
+      <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center justify-between border-b border-gold-400/50 bg-white px-4 shadow-sm">
+        <Link to={tabs[0]?.path ?? '/'} className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2">
+          <div className="flex size-7 items-center justify-center rounded-full bg-primary-800 p-1 text-white">
+            <Leaf className="size-4" />
+          </div>
+          <p className="font-display text-lg font-bold text-primary-800">{title}</p>
+        </Link>
+        <div className="flex items-center gap-1">
+          <NotificationBell />
+          {profileTab && <ProfileAvatar profilePath={profileTab.path} />}
+        </div>
       </header>
 
       <main className="flex-1 overflow-y-auto pb-20">

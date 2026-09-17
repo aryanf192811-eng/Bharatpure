@@ -57,10 +57,13 @@ function MetricBar({
             <span className="ml-1 font-mono text-xs text-earth-400">(Wt: {weightPct}%)</span>
           )}
         </span>
-        <span className={`font-semibold ${good ? 'text-success' : 'text-earth-900'}`}>{value.toFixed(1)}%</span>
+        <span className={`font-mono font-semibold ${good ? 'text-success' : 'text-earth-900'}`}>{value.toFixed(1)}%</span>
       </div>
-      <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-earth-100">
-        <div className={`h-full rounded-full ${good ? 'bg-success' : 'bg-primary-600'}`} style={{ width: `${Math.min(value, 100)}%` }} />
+      <div className="mt-1.5 h-2.5 w-full overflow-hidden rounded-full bg-earth-100 shadow-inner">
+        <div
+          className={`h-full rounded-full bg-gradient-to-r ${good ? 'from-primary-500 to-primary-700' : 'from-primary-700 to-primary-800'}`}
+          style={{ width: `${Math.min(value, 100)}%` }}
+        />
       </div>
     </div>
   )
@@ -93,21 +96,21 @@ export default function TrustScore() {
     <div className="mx-auto flex max-w-[480px] flex-col items-center gap-6 p-4">
       <h1 className="self-start font-display text-2xl font-bold tracking-tight text-earth-900">Your Trust Score</h1>
 
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex w-full flex-col items-center gap-3 rounded-lg border border-gold-400/40 bg-gradient-to-br from-gold-50 via-white to-primary-50 p-6 shadow-lg">
         <TrustScoreRing score={score} size="lg" />
-        <span className="w-fit rounded-full bg-gold-100 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-gold-800">
+        <span className="w-fit rounded-full border border-gold-400 bg-gold-100 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-gold-800 shadow-sm">
           {TIER_LABELS[tier]}
         </span>
         {milestone ? (
-          <p className="text-xs text-earth-700">
+          <p className="rounded-full bg-white/70 px-3 py-1 text-xs text-earth-700 shadow-sm">
             <span className="font-semibold text-earth-900">{milestone.pointsToGo.toFixed(0)} more points</span> to {TIER_LABELS[milestone.nextTier]}
           </p>
         ) : (
-          <p className="text-xs font-semibold text-primary-700">Top tier reached — Platinum FPO</p>
+          <p className="rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-primary-700 shadow-sm">Top tier reached — Platinum FPO</p>
         )}
       </div>
 
-      <div className="flex w-full flex-col gap-4 rounded-md bg-white p-4 shadow-sm">
+      <div className="flex w-full flex-col gap-4 rounded-md border border-border bg-white p-4 shadow-md">
         <MetricBar label="Fulfillment Rate" value={Number(t.fulfillment_rate)} />
         <MetricBar label="Quality Consistency" value={Number(t.quality_consistency)} />
         <MetricBar label="On-time Delivery" value={Number(t.on_time_delivery_rate)} />

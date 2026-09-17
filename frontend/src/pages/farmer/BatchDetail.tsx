@@ -152,7 +152,7 @@ export default function BatchDetail() {
         const upliftPct = (upliftPaise / commodityBaselinePaise) * 100
         const barMax = Math.max(realizedPaise, commodityBaselinePaise) || 1
         return (
-          <div className="flex flex-col gap-3 rounded-md bg-white p-4 shadow-md">
+          <div className="flex flex-col gap-3 rounded-lg border border-gold-400/40 bg-gradient-to-br from-gold-50 via-white to-primary-50 p-4 shadow-lg">
             <div className="flex items-center gap-1.5">
               <TrendingUp className="size-4 text-primary-700" />
               <p className="font-mono text-xs font-semibold uppercase tracking-wider text-earth-500">Impact Receipt</p>
