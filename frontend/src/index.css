@@ -66,12 +66,14 @@
   --radius-md: 12px;
   --radius-lg: 16px;
 
-  /* Shadow / elevation scale */
-  --shadow-sm: 0 1px 2px rgba(28,20,8,.06);
-  --shadow-md: 0 4px 12px rgba(28,20,8,.08);
-  --shadow-lg: 0 8px 24px rgba(28,20,8,.12);
-  --shadow-xl: 0 16px 40px rgba(28,20,8,.16);
-  --shadow-inner: inset 0 2px 4px rgba(28,20,8,.06);
+  /* Shadow / elevation scale -- green-tinted (primary-900 base) rather than neutral brown-black,
+     per the platform-wide "green border/shadow" theme request: same softness/depth per level,
+     just retinted toward the brand green instead of a warm neutral. */
+  --shadow-sm: 0 1px 2px rgba(13,40,24,.08);
+  --shadow-md: 0 4px 12px rgba(13,40,24,.10);
+  --shadow-lg: 0 8px 24px rgba(13,40,24,.14);
+  --shadow-xl: 0 16px 40px rgba(13,40,24,.18);
+  --shadow-inner: inset 0 2px 4px rgba(13,40,24,.08);
 }
 
 @theme inline {
@@ -121,8 +123,10 @@
   --accent-foreground: #1B4332;
   --destructive: #C4522A;
   --destructive-foreground: #FFFFFF;
-  --border: #E2D9CC;
-  --input: #E2D9CC;
+  /* Green-tinted border/input (was earth-200 tan, #E2D9CC) -- same lightness/weight, shifted to
+     a sage green so every card/input/divider platform-wide reads as green, not neutral brown. */
+  --border: #C9DFCE;
+  --input: #C9DFCE;
   --ring: #1B4332;
   --sidebar: #FFFFFF;
   --sidebar-foreground: #1C1408;
@@ -130,7 +134,7 @@
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #F5F0E8;
   --sidebar-accent-foreground: #1B4332;
-  --sidebar-border: #E2D9CC;
+  --sidebar-border: #C9DFCE;
   --sidebar-ring: #1B4332;
 }
 
@@ -151,8 +155,9 @@
   --accent-foreground: #F0FDF4;
   --destructive: #E8795F;
   --destructive-foreground: #0D2818;
-  --border: rgba(255,255,255,.12);
-  --input: rgba(255,255,255,.15);
+  /* Green-tinted (primary-400 base) instead of plain white-alpha, matching the light-mode border update. */
+  --border: rgba(116,198,157,.18);
+  --input: rgba(116,198,157,.22);
   --ring: #74C69D;
   --sidebar: #1B4332;
   --sidebar-foreground: #F0FDF4;
@@ -160,7 +165,7 @@
   --sidebar-primary-foreground: #0D2818;
   --sidebar-accent: #2D6A4F;
   --sidebar-accent-foreground: #F0FDF4;
-  --sidebar-border: rgba(255,255,255,.12);
+  --sidebar-border: rgba(116,198,157,.18);
   --sidebar-ring: #74C69D;
 }
 

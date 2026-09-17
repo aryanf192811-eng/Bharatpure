@@ -12,14 +12,16 @@ interface AuthLayoutProps {
 export function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
-      <div className="relative hidden flex-col justify-center overflow-hidden px-12 py-16 text-white md:flex md:w-2/5">
+      <div className="relative hidden flex-col overflow-hidden text-white md:flex md:w-2/5">
         <img src={HERO_IMAGES.turmericField} alt="" aria-hidden="true" className="absolute inset-0 size-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary-900/95 via-primary-800/85 to-primary-900/60" />
-        <div className="relative z-10 mb-6 flex size-14 items-center justify-center rounded-full bg-white p-2">
-          <Leaf className="size-7 text-primary-800" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary-900/70 via-transparent to-transparent" />
+        <div className="relative z-10 flex items-center gap-3 px-8 py-8">
+          <div className="flex size-12 items-center justify-center rounded-full bg-white p-2 shadow-lg">
+            <Leaf className="size-6 text-primary-800" />
+          </div>
+          <h1 className="font-display text-2xl font-black tracking-tight drop-shadow-md">BharatPure</h1>
         </div>
-        <h1 className="relative z-10 font-display text-3xl font-black tracking-tight">BharatPure</h1>
-        <p className="relative z-10 mt-3 max-w-xs text-primary-100">
+        <p className="relative z-10 mt-auto max-w-xs px-12 py-16 text-primary-50 drop-shadow-md">
           India&apos;s Farm-to-Market Trust Network — every batch verified, every price fair.
         </p>
       </div>
