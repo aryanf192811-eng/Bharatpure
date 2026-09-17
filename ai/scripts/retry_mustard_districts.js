@@ -1,8 +1,11 @@
-// One-off retry for the Mustard districts that fully timed out in pull_ceda_data.js's first
-// run (Kota, Alwar, Bharatpur, Ganganagar -- all Rajasthan) -- gentler pacing (3s vs 1.5s) since
-// the server was clearly struggling under the first run's load. Appends real rows onto the
-// existing ai/data/mustard_historical.csv rather than overwriting it (Hisar's 606 real rows from
-// the first run must not be lost).
+// Round 2 (2026-09-17): the original 4 Rajasthan districts (Kota/Alwar/Bharatpur/Ganganagar)
+// stayed broken on CEDA's end even on a fresh day (confirmed via a direct curl retry before
+// running this) -- Kota specifically returns a genuine server-side "Error accessing the prices
+// from the database" (HTTP 500), not a timeout, so this round targets alternate mustard-belt
+// districts instead of re-hammering the same broken ones: Madhya Pradesh (Morena/Bhind/Gwalior/
+// Shivpuri) and Uttar Pradesh (Mathura/Agra/Etah), identified but not yet pulled as of yesterday.
+// Gentler pacing (3s) since the server has proven flaky under any load. Appends onto the existing
+// ai/data/mustard_historical.csv (606 real Hisar price rows) rather than overwriting it.
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
@@ -51,10 +54,10 @@ async function post(urlPath, body) {
 }
 
 const DISTRICTS = [
-  { stateId: 8, stateName: 'Rajasthan', districtId: 127, districtName: 'Kota' },
-  { stateId: 8, stateName: 'Rajasthan', districtId: 104, districtName: 'Alwar' },
-  { stateId: 8, stateName: 'Rajasthan', districtId: 105, districtName: 'Bharatpur' },
-  { stateId: 8, stateName: 'Rajasthan', districtId: 99, districtName: 'Ganganagar' },
+  { stateId: 23, stateName: 'Madhya Pradesh', districtId: 419, districtName: 'Morena' },
+  { stateId: 9, stateName: 'Uttar Pradesh', districtId: 145, districtName: 'Mathura' },
+  { stateId: 9, stateName: 'Uttar Pradesh', districtId: 146, districtName: 'Agra' },
+  { stateId: 9, stateName: 'Uttar Pradesh', districtId: 201, districtName: 'Etah' },
 ];
 const COMMODITY_ID = 12; // Mustard
 const CROP_TYPE = 'MUSTARD';
