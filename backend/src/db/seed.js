@@ -38,9 +38,18 @@ const upsertUser = async (client, { phone, email, role, fullName }) => {
   return { id: result.rows[0].id, created: true };
 };
 
-const addBirEvent = (client, batchId, eventType, eventData = {}, actorId = null, actorRole = 'SYSTEM') =>
+// daysAgo backdates created_at (NOW() - INTERVAL 'N days') so a batch's BIR timeline reads as a
+// real multi-day journey instead of every event landing in the same second -- every call below
+// previously omitted it, so a freshly seeded batch showed its entire history (harvest, lab
+// dispatch, cert, listing...) stamped with one identical timestamp, which is exactly what a
+// synthetic-looking demo looks like. daysAgo is always a trusted integer literal from this file,
+// never external input, so interpolating it into the INTERVAL literal is safe (pg has no clean
+// parameterized-interval syntax).
+const addBirEvent = (client, batchId, eventType, eventData = {}, actorId = null, actorRole = 'SYSTEM', daysAgo = null) =>
   client.query(
-    `INSERT INTO bir_events (batch_id, event_type, event_data, actor_id, actor_role) VALUES ($1,$2,$3,$4,$5)`,
+    daysAgo === null
+      ? `INSERT INTO bir_events (batch_id, event_type, event_data, actor_id, actor_role) VALUES ($1,$2,$3,$4,$5)`
+      : `INSERT INTO bir_events (batch_id, event_type, event_data, actor_id, actor_role, created_at) VALUES ($1,$2,$3,$4,$5,NOW() - INTERVAL '${Number(daysAgo)} days')`,
     [batchId, eventType, JSON.stringify(eventData), actorId, actorRole],
   );
 
@@ -193,21 +202,21 @@ const seedBatches = async (client, clusters, users) => {
     harvestDate: '2026-08-20', totalKg: 2500, remainingKg: 2500, qualityScore: 94, status: 'listed',
   });
   if (b014) {
-    await addBirEvent(client, b014, 'BatchCreated', { batch_code: 'MH-TUR-2026-014' }, users.sangliFarmer.userId, 'FARMER');
-    await addBirEvent(client, b014, 'HarvestDataLogged', { harvest_date: '2026-08-20' }, users.sangliFarmer.userId, 'FARMER');
-    await addBirEvent(client, b014, 'NABLTestDispatched', { lab: 'AgriQuality Labs, Pune' });
+    await addBirEvent(client, b014, 'BatchCreated', { batch_code: 'MH-TUR-2026-014' }, users.sangliFarmer.userId, 'FARMER', 12);
+    await addBirEvent(client, b014, 'HarvestDataLogged', { harvest_date: '2026-08-20' }, users.sangliFarmer.userId, 'FARMER', 12);
+    await addBirEvent(client, b014, 'NABLTestDispatched', { lab: 'AgriQuality Labs, Pune' }, null, 'SYSTEM', 11);
     const test = await client.query(
       `INSERT INTO quality_tests (batch_id, tier, result, purity_score, test_parameters, lab_name, lab_accreditation, tested_at)
        VALUES ($1,'TIER2','PASS',94,$2,'AgriQuality Labs, Pune','NABL-T-1234',NOW() - INTERVAL '10 days') RETURNING id`,
       [b014, JSON.stringify({ curcumin_pct: 4.2, lead_ppm: 0.8, moisture_pct: 9.1 })],
     );
-    await addBirEvent(client, b014, 'NABLCertificateLinked', { purity_score: 94 });
+    await addBirEvent(client, b014, 'NABLCertificateLinked', { purity_score: 94 }, null, 'SYSTEM', 9);
     await client.query(
       `INSERT INTO quality_certificates (batch_id, quality_test_id, cert_number, cert_url, file_size_bytes, issued_at, uploaded_by)
        VALUES ($1,$2,'NABL-CERT-2026-0014','/uploads/certs/nabl-cert-2026-0014.pdf',482300,'2026-08-28',$3)`,
       [b014, test.rows[0].id, users.sangliFarmer.userId],
     );
-    await addBirEvent(client, b014, 'BatchListed', { price_per_kg_paise: 18800 });
+    await addBirEvent(client, b014, 'BatchListed', { price_per_kg_paise: 18800 }, null, 'SYSTEM', 8);
     await client.query(
       `INSERT INTO listings (batch_id, listed_by, price_per_kg_paise, min_order_kg, max_order_kg, listing_type)
        VALUES ($1,$2,18800,0.5,NULL,'OPEN')`,
@@ -223,9 +232,9 @@ const seedBatches = async (client, clusters, users) => {
     harvestDate: '2026-09-01', totalKg: 1800, remainingKg: 1800, qualityScore: 89, status: 'pending_test',
   });
   if (b015) {
-    await addBirEvent(client, b015, 'BatchCreated', { batch_code: 'MH-TUR-2026-015' }, users.sangliFarmer.userId, 'FARMER');
-    await addBirEvent(client, b015, 'HarvestDataLogged', { harvest_date: '2026-09-01' }, users.sangliFarmer.userId, 'FARMER');
-    await addBirEvent(client, b015, 'RapidTestInitiated', { tier: 'TIER1' });
+    await addBirEvent(client, b015, 'BatchCreated', { batch_code: 'MH-TUR-2026-015' }, users.sangliFarmer.userId, 'FARMER', 2);
+    await addBirEvent(client, b015, 'HarvestDataLogged', { harvest_date: '2026-09-01' }, users.sangliFarmer.userId, 'FARMER', 2);
+    await addBirEvent(client, b015, 'RapidTestInitiated', { tier: 'TIER1' }, null, 'SYSTEM', 1);
   }
 
   // RJ-MUS-2026-003 — mustard oil, 1.2t, purity 91, listed @ Rs142/kg
@@ -234,15 +243,15 @@ const seedBatches = async (client, clusters, users) => {
     harvestDate: '2026-07-15', totalKg: 1200, remainingKg: 1200, qualityScore: 91, status: 'listed',
   });
   if (b003) {
-    await addBirEvent(client, b003, 'BatchCreated', { batch_code: 'RJ-MUS-2026-003' }, users.kotaFarmer.userId, 'FARMER');
-    await addBirEvent(client, b003, 'HarvestDataLogged', { harvest_date: '2026-07-15' }, users.kotaFarmer.userId, 'FARMER');
+    await addBirEvent(client, b003, 'BatchCreated', { batch_code: 'RJ-MUS-2026-003' }, users.kotaFarmer.userId, 'FARMER', 16);
+    await addBirEvent(client, b003, 'HarvestDataLogged', { harvest_date: '2026-07-15' }, users.kotaFarmer.userId, 'FARMER', 16);
     await client.query(
       `INSERT INTO quality_tests (batch_id, tier, result, purity_score, test_parameters, tested_at)
        VALUES ($1,'TIER1','PASS',91,$2,NOW() - INTERVAL '15 days')`,
       [b003, JSON.stringify({ erucic_acid_pct: 2.1, moisture_pct: 6.4 })],
     );
-    await addBirEvent(client, b003, 'RapidTestPassed', { purity_score: 91 });
-    await addBirEvent(client, b003, 'BatchListed', { price_per_kg_paise: 14200 });
+    await addBirEvent(client, b003, 'RapidTestPassed', { purity_score: 91 }, null, 'SYSTEM', 15);
+    await addBirEvent(client, b003, 'BatchListed', { price_per_kg_paise: 14200 }, null, 'SYSTEM', 14);
     await client.query(
       `INSERT INTO listings (batch_id, listed_by, price_per_kg_paise, min_order_kg, max_order_kg, listing_type)
        VALUES ($1,$2,14200,1.0,NULL,'OPEN')`,
@@ -256,21 +265,21 @@ const seedBatches = async (client, clusters, users) => {
     harvestDate: '2026-06-10', totalKg: 800, remainingKg: 800, qualityScore: 97, status: 'listed',
   });
   if (b007) {
-    await addBirEvent(client, b007, 'BatchCreated', { batch_code: 'HP-HON-2026-007' }, users.kangraFarmer.userId, 'FARMER');
-    await addBirEvent(client, b007, 'HarvestDataLogged', { harvest_date: '2026-06-10' }, users.kangraFarmer.userId, 'FARMER');
-    await addBirEvent(client, b007, 'NABLTestDispatched', { lab: 'FoodSafe NMR Labs, Delhi', method: 'NMR' });
+    await addBirEvent(client, b007, 'BatchCreated', { batch_code: 'HP-HON-2026-007' }, users.kangraFarmer.userId, 'FARMER', 21);
+    await addBirEvent(client, b007, 'HarvestDataLogged', { harvest_date: '2026-06-10' }, users.kangraFarmer.userId, 'FARMER', 21);
+    await addBirEvent(client, b007, 'NABLTestDispatched', { lab: 'FoodSafe NMR Labs, Delhi', method: 'NMR' }, null, 'SYSTEM', 20);
     const test = await client.query(
       `INSERT INTO quality_tests (batch_id, tier, result, purity_score, test_parameters, lab_name, lab_accreditation, tested_at)
        VALUES ($1,'TIER2','PASS',97,$2,'FoodSafe NMR Labs, Delhi','NABL-T-5566',NOW() - INTERVAL '20 days') RETURNING id`,
       [b007, JSON.stringify({ method: 'NMR', adulteration_pct: 0.4, moisture_pct: 17.2 })],
     );
-    await addBirEvent(client, b007, 'NABLCertificateLinked', { purity_score: 97 });
+    await addBirEvent(client, b007, 'NABLCertificateLinked', { purity_score: 97 }, null, 'SYSTEM', 19);
     await client.query(
       `INSERT INTO quality_certificates (batch_id, quality_test_id, cert_number, cert_url, file_size_bytes, issued_at, uploaded_by)
        VALUES ($1,$2,'NABL-CERT-2026-0007','/uploads/certs/nabl-cert-2026-0007.pdf',397100,'2026-06-25',$3)`,
       [b007, test.rows[0].id, users.kangraFarmer.userId],
     );
-    await addBirEvent(client, b007, 'BatchListed', { price_per_kg_paise: 38000 });
+    await addBirEvent(client, b007, 'BatchListed', { price_per_kg_paise: 38000 }, null, 'SYSTEM', 18);
     await client.query(
       `INSERT INTO listings (batch_id, listed_by, price_per_kg_paise, min_order_kg, max_order_kg, listing_type)
        VALUES ($1,$2,38000,0.25,NULL,'OPEN')`,
@@ -285,15 +294,15 @@ const seedBatches = async (client, clusters, users) => {
     rejectionReason: 'Lead content (3.4 ppm) exceeds the FSSAI safe limit (2.5 ppm) for spices.',
   });
   if (b016) {
-    await addBirEvent(client, b016, 'BatchCreated', { batch_code: 'MH-TUR-2026-016' }, users.sangliFarmer.userId, 'FARMER');
-    await addBirEvent(client, b016, 'HarvestDataLogged', { harvest_date: '2026-08-05' }, users.sangliFarmer.userId, 'FARMER');
-    await addBirEvent(client, b016, 'NABLTestDispatched', { lab: 'AgriQuality Labs, Pune' });
+    await addBirEvent(client, b016, 'BatchCreated', { batch_code: 'MH-TUR-2026-016' }, users.sangliFarmer.userId, 'FARMER', 13);
+    await addBirEvent(client, b016, 'HarvestDataLogged', { harvest_date: '2026-08-05' }, users.sangliFarmer.userId, 'FARMER', 13);
+    await addBirEvent(client, b016, 'NABLTestDispatched', { lab: 'AgriQuality Labs, Pune' }, null, 'SYSTEM', 12);
     await client.query(
       `INSERT INTO quality_tests (batch_id, tier, result, purity_score, test_parameters, lab_name, lab_accreditation, tested_at)
        VALUES ($1,'TIER2','FAIL',42,$2,'AgriQuality Labs, Pune','NABL-T-1234',NOW() - INTERVAL '12 days')`,
       [b016, JSON.stringify({ curcumin_pct: 3.1, lead_ppm: 3.4, moisture_pct: 11.8 })],
     );
-    await addBirEvent(client, b016, 'BatchRejected', { reason: 'Lead ppm above FSSAI limit', lead_ppm: 3.4 });
+    await addBirEvent(client, b016, 'BatchRejected', { reason: 'Lead ppm above FSSAI limit', lead_ppm: 3.4 }, null, 'SYSTEM', 12);
   }
 
   // RJ-MUS-2026-004 — mustard oil, 2.0t, delivered, sold to the seeded bulk buyer
@@ -306,15 +315,15 @@ const seedBatches = async (client, clusters, users) => {
     const quantityKg = 2000;
     const subtotalPaise = Math.round(quantityKg * pricePerKgPaise);
 
-    await addBirEvent(client, b004, 'BatchCreated', { batch_code: 'RJ-MUS-2026-004' }, users.kotaFarmer.userId, 'FARMER');
-    await addBirEvent(client, b004, 'HarvestDataLogged', { harvest_date: '2026-05-20' }, users.kotaFarmer.userId, 'FARMER');
+    await addBirEvent(client, b004, 'BatchCreated', { batch_code: 'RJ-MUS-2026-004' }, users.kotaFarmer.userId, 'FARMER', 61);
+    await addBirEvent(client, b004, 'HarvestDataLogged', { harvest_date: '2026-05-20' }, users.kotaFarmer.userId, 'FARMER', 61);
     await client.query(
       `INSERT INTO quality_tests (batch_id, tier, result, purity_score, test_parameters, tested_at)
        VALUES ($1,'TIER1','PASS',88,$2,NOW() - INTERVAL '60 days')`,
       [b004, JSON.stringify({ erucic_acid_pct: 2.4, moisture_pct: 6.9 })],
     );
-    await addBirEvent(client, b004, 'RapidTestPassed', { purity_score: 88 });
-    await addBirEvent(client, b004, 'BatchListed', { price_per_kg_paise: pricePerKgPaise });
+    await addBirEvent(client, b004, 'RapidTestPassed', { purity_score: 88 }, null, 'SYSTEM', 60);
+    await addBirEvent(client, b004, 'BatchListed', { price_per_kg_paise: pricePerKgPaise }, null, 'SYSTEM', 58);
     const listing = await client.query(
       `INSERT INTO listings (batch_id, listed_by, price_per_kg_paise, min_order_kg, max_order_kg, listing_type, status)
        VALUES ($1,$2,$3,10,NULL,'BULK_ONLY','sold_out') RETURNING id`,
@@ -334,15 +343,15 @@ const seedBatches = async (client, clusters, users) => {
        VALUES ($1,$2,$3,$4,$5,$6,NOW() - INTERVAL '26 days')`,
       [order.rows[0].id, listing.rows[0].id, b004, quantityKg, pricePerKgPaise, subtotalPaise],
     );
-    await addBirEvent(client, b004, 'OrderAllocated', { order_id: order.rows[0].id, quantity_kg: quantityKg });
-    await addBirEvent(client, b004, 'DispatchedToHub', {});
-    await addBirEvent(client, b004, 'DeliveredToConsumer', { order_id: order.rows[0].id });
+    await addBirEvent(client, b004, 'OrderAllocated', { order_id: order.rows[0].id, quantity_kg: quantityKg }, null, 'SYSTEM', 26);
+    await addBirEvent(client, b004, 'DispatchedToHub', {}, null, 'SYSTEM', 25);
+    await addBirEvent(client, b004, 'DeliveredToConsumer', { order_id: order.rows[0].id }, null, 'SYSTEM', 24);
     await client.query(
       `INSERT INTO escrow_transactions (order_id, amount_paise, status, payment_reference, held_at, released_at, release_triggered_by)
        VALUES ($1,$2,'released','UPI-SEED-DEMO-0004',NOW() - INTERVAL '26 days',NOW() - INTERVAL '24 days','BIR_EVENT')`,
       [order.rows[0].id, subtotalPaise],
     );
-    await addBirEvent(client, b004, 'EscrowReleased', { amount_paise: subtotalPaise });
+    await addBirEvent(client, b004, 'EscrowReleased', { amount_paise: subtotalPaise }, null, 'SYSTEM', 24);
   }
 };
 

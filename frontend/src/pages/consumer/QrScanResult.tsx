@@ -67,15 +67,20 @@ export default function QrScanResult() {
 
   return (
     <div className="mx-auto flex max-w-[480px] flex-col gap-5 pb-10">
-      <div className="flex flex-col items-center gap-1 bg-primary-800 px-4 py-6 text-center text-white">
-        <BadgeCheck className="size-8 text-gold-100" />
-        <p className="font-display text-lg font-bold">BATCH VERIFIED</p>
+      <div className="flex flex-col items-center gap-1 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 px-4 py-8 text-center text-white shadow-lg">
+        <div className="flex size-14 items-center justify-center rounded-full bg-white/15 shadow-sm">
+          <BadgeCheck className="size-8 text-gold-100" />
+        </div>
+        <p className="mt-2 font-display text-xl font-bold tracking-tight">Verified Batch Identity</p>
         <p className="font-mono text-xs text-primary-100">{batch.batch_code}</p>
+        <p className="mt-2 max-w-[280px] break-all rounded bg-white/10 px-2 py-1 font-mono text-[10px] text-primary-100">
+          BIR #{batch.qr_hash?.slice(0, 24)}...
+        </p>
         <p className="mt-1 text-xs text-primary-100">{batch.qr_burned_at ? 'QR Burned ✓' : 'QR not yet burned'}</p>
       </div>
 
       <div className="flex flex-col gap-4 px-4">
-        <div className="rounded-md bg-white p-4 shadow-sm">
+        <div className="rounded-md border border-border bg-white p-4 shadow-sm">
           <p className="text-sm font-semibold text-earth-900">{batch.fpo_name ?? 'Verified FPO'}</p>
           <p className="flex items-center gap-1 text-xs text-earth-500">
             <MapPin className="size-3.5" /> {batch.district}, {batch.state}
@@ -84,19 +89,19 @@ export default function QrScanResult() {
         </div>
 
         {batch.quality_score && (
-          <div className="rounded-md bg-success-bg p-4">
+          <div className="rounded-md border border-success/20 bg-success-bg p-4">
             <p className="text-sm font-semibold text-earth-900">Quality Verified</p>
             <QualityBadge score={Number(batch.quality_score)} tier={batch.test_result === 'PASS' ? 'NABL' : 'Rapid'} />
           </div>
         )}
 
-        <div>
-          <p className="mb-2 text-sm font-semibold text-earth-900">Journey Timeline</p>
+        <div className="rounded-md border border-border bg-white p-4 shadow-sm">
+          <p className="mb-3 text-sm font-semibold text-earth-900">Farm-to-Fork Journey</p>
           <BIRTimeline events={batch.bir_events ?? []} />
         </div>
 
         {!batch.qr_burned_at && (
-          <div className="rounded-md border border-earth-200 bg-white p-4">
+          <div className="rounded-md border border-border bg-white p-4 shadow-sm">
             <p className="text-sm font-semibold text-earth-900">Burn QR on Opening</p>
             <p className="mt-1 text-xs text-earth-700">
               When you open the package, burn the QR to prevent reuse by others.

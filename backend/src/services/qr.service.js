@@ -32,7 +32,7 @@ const scanQr = async (qrHash, meta = {}) => {
   const result = await pool.query(
     `SELECT
        b.id AS batch_id, b.batch_code, b.crop_type, b.harvest_date, b.quality_score, b.status,
-       b.qr_burned_at,
+       b.qr_hash, b.qr_burned_at,
        c.name AS cluster_name, c.district, c.state, c.latitude, c.longitude,
        fpo.fpo_name,
        qt.tier AS test_tier, qt.result AS test_result, qt.purity_score, qt.test_parameters,
