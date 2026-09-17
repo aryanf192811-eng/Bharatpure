@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
@@ -32,8 +32,21 @@ export default function BatchCreateStep3() {
     enabled: !!draft.cropType,
   })
 
-  if (!draft.clusterId) {
-    navigate('/farmer/batches/new/step-1', { replace: true })
+  // Guards a cold visit with no draft (redirect belongs in an effect, not render -- see
+  // BatchCreateStep2's identical comment). submittedRef additionally suppresses this on the
+  // *expected* clusterId-goes-empty transition: createBatch's own draft.reset() would otherwise
+  // race its own navigate-to-detail-page call, and depending on timing this guard's navigate
+  // could fire after it and win, silently bouncing the farmer back to step-1 right after a
+  // successful submit -- reproduced and confirmed via real network calls (batch created 201,
+  // status updated 200, yet the URL ended up back at step-1) before this flag was added.
+  const submittedRef = useRef(false)
+  useEffect(() => {
+    if (!draft.clusterId && !submittedRef.current) {
+      navigate('/farmer/batches/new/step-1', { replace: true })
+    }
+  }, [draft.clusterId, navigate])
+
+  if (!draft.clusterId && !submittedRef.current) {
     return null
   }
 
@@ -53,6 +66,7 @@ export default function BatchCreateStep3() {
       } else {
         toast.success('Batch saved as draft.')
       }
+      submittedRef.current = true
       draft.reset()
       navigate(`/farmer/batches/${created.data.id}`, { replace: true })
     } catch {

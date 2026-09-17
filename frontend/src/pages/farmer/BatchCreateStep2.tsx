@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
@@ -12,8 +13,17 @@ export default function BatchCreateStep2() {
   const navigate = useNavigate()
   const draft = useBatchDraftStore()
 
+  // Redirect-if-no-draft has to live in an effect, not the render body -- calling navigate()
+  // (a setState on the router) while this component is still rendering is exactly the
+  // "Cannot update a component while rendering a different component" React warning, and it
+  // races the *next* screen's own render against this one's.
+  useEffect(() => {
+    if (!draft.clusterId) {
+      navigate('/farmer/batches/new/step-1', { replace: true })
+    }
+  }, [draft.clusterId, navigate])
+
   if (!draft.clusterId) {
-    navigate('/farmer/batches/new/step-1', { replace: true })
     return null
   }
 
