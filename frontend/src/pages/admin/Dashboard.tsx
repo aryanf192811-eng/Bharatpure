@@ -22,12 +22,17 @@ export default function AdminDashboard() {
   const d = data.data
   const stats = [
     { label: 'Total FPOs', value: d.total_fpos, icon: Building2 },
-    { label: 'Total Batches', value: d.total_batches, icon: Package },
+    { label: 'Active Batches', value: d.active_batches, icon: Package },
     { label: 'Active Listings', value: d.active_listings, icon: Package },
     { label: 'Total Orders', value: d.total_orders, icon: Receipt },
     { label: 'Escrow Held', value: formatRupees(d.escrow_held_paise), icon: Wallet },
     { label: 'Demand Alerts', value: d.demand_alerts.length, icon: AlertTriangle },
   ]
+
+  // price_intelligence/delivery_routes have no data anywhere in this codebase yet, so these two
+  // IEI fields genuinely come back null -- rendered as "Not enough data yet" instead of the
+  // literal string "null" that `${null} km` was producing.
+  const NOT_ENOUGH_DATA = 'Not enough data yet'
 
   return (
     <div className="flex flex-col gap-8">
@@ -56,9 +61,24 @@ export default function AdminDashboard() {
         <h2 className="font-display text-xl font-bold text-earth-900">Intermediation Efficiency Index</h2>
         <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
           <IEIMetric label="Total Orders" before="—" after={String(d.iei.total_orders)} delta="tracked" />
-          <IEIMetric label="Avg. Farmer Premium" before="commodity rate" after={`₹${d.iei.avg_farmer_premium_rupees}/kg`} delta="+premium" />
-          <IEIMetric label="Avg. Distance Saved" before="baseline route" after={`${d.iei.avg_distance_saved_km} km`} delta="-distance" />
-          <IEIMetric label="Avg. Logistics Saving" before="baseline cost" after={`₹${d.iei.avg_logistics_saving_rupees}`} delta="-cost" />
+          <IEIMetric
+            label="Avg. Farmer Premium"
+            before={d.iei.avg_farmer_premium_rupees === null ? '' : 'commodity rate'}
+            after={d.iei.avg_farmer_premium_rupees === null ? NOT_ENOUGH_DATA : `₹${d.iei.avg_farmer_premium_rupees}/kg`}
+            delta={d.iei.avg_farmer_premium_rupees === null ? '' : '+premium'}
+          />
+          <IEIMetric
+            label="Avg. Distance Saved"
+            before={d.iei.avg_distance_saved_km === null ? '' : 'baseline route'}
+            after={d.iei.avg_distance_saved_km === null ? NOT_ENOUGH_DATA : `${d.iei.avg_distance_saved_km} km`}
+            delta={d.iei.avg_distance_saved_km === null ? '' : '-distance'}
+          />
+          <IEIMetric
+            label="Avg. Logistics Saving"
+            before={d.iei.avg_logistics_saving_rupees === null ? '' : 'baseline cost'}
+            after={d.iei.avg_logistics_saving_rupees === null ? NOT_ENOUGH_DATA : `₹${d.iei.avg_logistics_saving_rupees}`}
+            delta={d.iei.avg_logistics_saving_rupees === null ? '' : '-cost'}
+          />
           <IEIMetric label="Settled Under 24h" before="4-7 days" after={`${d.iei.settled_under_24h} orders`} delta="-80%" />
         </div>
         <p className="mt-3 text-xs text-earth-500">Based on modelled estimates from prototype data.</p>

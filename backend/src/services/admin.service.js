@@ -64,9 +64,10 @@ const getIei = async ({ from, to, cropType }) => {
 };
 
 const getDashboard = async () => {
-  const [fpoCount, batchCount, orderCount, escrowHeld, disputeCount, demandAlerts, iei] = await Promise.all([
+  const [fpoCount, batchCount, activeListingCount, orderCount, escrowHeld, disputeCount, demandAlerts, iei] = await Promise.all([
     pool.query(`SELECT COUNT(*) FROM fpo_profiles`),
     pool.query(`SELECT COUNT(*) FROM batches WHERE deleted_at IS NULL AND status NOT IN ('draft')`),
+    pool.query(`SELECT COUNT(*) FROM listings WHERE status = 'active' AND deleted_at IS NULL`),
     pool.query(`SELECT COUNT(*) FROM orders`),
     pool.query(`SELECT COALESCE(SUM(amount_paise), 0) FROM escrow_transactions WHERE status = 'held'`),
     pool.query(`SELECT COUNT(*) FROM disputes WHERE status NOT IN ('resolved', 'dismissed')`),
@@ -81,6 +82,7 @@ const getDashboard = async () => {
   return {
     total_fpos: Number(fpoCount.rows[0].count),
     active_batches: Number(batchCount.rows[0].count),
+    active_listings: Number(activeListingCount.rows[0].count),
     total_orders: Number(orderCount.rows[0].count),
     escrow_held_paise: Number(escrowHeld.rows[0].coalesce),
     open_disputes: Number(disputeCount.rows[0].count),

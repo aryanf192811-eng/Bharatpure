@@ -4,15 +4,19 @@ import type { Batch } from '@/types/batch.types'
 
 export interface AdminDashboard {
   total_fpos: number
-  total_batches: number
+  active_batches: number
   active_listings: number
   total_orders: number
   escrow_held_paise: number
+  open_disputes: number
   iei: {
     total_orders: number
-    avg_farmer_premium_rupees: number
-    avg_distance_saved_km: number
-    avg_logistics_saving_rupees: number
+    // price_intelligence/delivery_routes are never populated anywhere in this codebase yet
+    // (see admin.service.js#getIei's own comment) -- these two genuinely come back null until
+    // that data exists, not just in edge cases.
+    avg_farmer_premium_rupees: number | null
+    avg_distance_saved_km: number | null
+    avg_logistics_saving_rupees: number | null
     settled_under_24h: number
   }
   demand_alerts: Array<{ crop_type: string; city: string; shortage_kg: number }>
