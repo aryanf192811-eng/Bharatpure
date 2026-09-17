@@ -368,7 +368,8 @@ A task that produces research but doesn't write this file is incomplete. The fil
 
 - Every route gets a Postman request in `backend/postman/-collection.json` as it ships.
 - A `backend/postman/-environment.json` holds `baseUrl` + `authToken` variables. All requests use `{{baseUrl}}` and `{{authToken}}`.
-- At end of each phase: `newman run backend/postman/-collection.json -e backend/postman/-environment.json --bail` — result logged to `docs/testing/phase-N-newman-YYYY-MM-DD.txt`.
+- At end of each phase: `newman run backend/postman/-collection.json -e backend/postman/-environment.json --delay-request 650` — result logged to `docs/testing/phase-N-newman-YYYY-MM-DD.txt`. The `--delay-request` is required: the collection's ~116 requests otherwise outrun the global rate limiter (100 req/min, `app.js`) within its own run and produce false 429 failures that look like a regression but aren't — always check a failure is a genuine wrong-value assertion, not a cascaded 429, before treating it as a bug.
+- The collection runs against the real dev database (`bharatpure_dev`) and really mutates it (batches change status, listings/orders/escrow rows get created) — there is no separate test database (the app DB role lacks `CREATEDB`). **Run `npm run db:reset` (in `backend/`) after any newman run or manual API testing** to truncate every table and re-seed clean demo data — never leave the dev DB in a test-polluted state before a demo. `npm run db:seed` alone is idempotent and safe to re-run any time (upserts, never duplicates) but does not undo mutations testing made to already-seeded rows, only `db:reset`'s truncate does that.
 - Manual click-through before demo: written checklist in `docs/testing/demo-rehearsal.md`.
 
 ---
@@ -564,7 +565,8 @@ Consumer QR scan must work offline (cached BIR data for recently scanned batches
 |---|---|
 | Server state (API data) | TanStack Query — always. Never Zustand for API responses. |
 | Auth (user, token, role) | Zustand `auth.store.ts` — persisted to localStorage |
-| Cart (consumer orders) | Zustand `cart.store.ts` |
+| Cart (consumer orders) | Zustand `cart.store.ts` — persisted to localStorage |
+| Batch-create wizard draft | Zustand `batchDraft.store.ts` — persisted to sessionStorage (survives a refresh mid-wizard, doesn't outlive the tab) |
 | Forms | React Hook Form + Zod — always |
 | Ephemeral UI (modal open, tab active) | `useState` — never Zustand for this |
 | Route state | React Router `useLocation` / `useSearchParams` |

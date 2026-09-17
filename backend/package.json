@@ -7,6 +7,8 @@
     "start": "node src/server.js",
     "migrate:up": "node-pg-migrate up -m src/db/migrations",
     "migrate:down": "node-pg-migrate down -m src/db/migrations",
+    "db:seed": "node src/db/seed.js",
+    "db:reset": "node scripts/reset-db.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
