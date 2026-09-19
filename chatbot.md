@@ -521,6 +521,38 @@ _(Tasks after Phase 4 gate)_
 
 ---
 
+## PHASE 10 — BRAG VIDEO PRODUCTION (Antigravity)
+
+> **Handoff note:** this phase is being run by the user directly with Antigravity, not relayed through this Claude Code session (token budget on this side is nearly exhausted). Recorded here anyway, same as every other phase, so the task has a durable spec and the result is traceable — paste `TASK-P10-001` below straight into Antigravity as its brief.
+>
+> **Context Antigravity needs (it has no memory of this repo's build history):** BharatPure is a Smart India Hackathon 2026 entry for PS 26033 ("Multiple intermediaries reduce farmers' earnings and increase consumer prices," Ministry of Consumer Affairs, Food & Public Distribution). It is a real, working, end-to-end platform — not a mockup — with a Postgres backend, a FastAPI AI Decision Engine (a genuinely trained demand-forecasting model for two crops), a React PWA, and a Gemini-powered WhatsApp bot. **`README.md` at the repo root is the single source of truth for what this platform actually does and how it compares to competitors — read it in full before writing anything else.** Every claim in the video must trace back to something stated in that README; do not invent a feature, statistic, or integration that isn't there.
+
+### TASK-P10-001
+- **Title:** Produce a ~2-minute "brag" launch video for BharatPure, built entirely from Stitch-generated screens
+- **Status:** QUEUED
+- **Owner:** subagent (Antigravity)
+- **Scope:** New video asset(s) + a short shot-list doc under `docs/brag-video/` (new directory). **Zero changes anywhere else in the repo** — see hard constraints below.
+
+- **Hard constraints (non-negotiable):**
+  1. **No codebase changes, anywhere.** Do not edit, create, or delete any file under `backend/`, `frontend/`, `ai/`, or any existing `docs/` file. Do not run migrations, seed scripts, or the live app for the purpose of this task. Do not touch `chatbot.md` except to report back in this same task's `Result/Notes` field. This is a pure content-production task layered on top of a finished, working codebase — treat the rest of the repo as read-only reference material.
+  2. **Every screen shown in the video must be generated fresh via the Stitch MCP tool, strictly.** Do not screenshot the running app. Do not hand-write HTML/CSS mockups. Do not reuse the existing `design/evolved/` or `design/new/` Stitch exports already in this repo as-is (look at them for the real brand system — colors, fonts, the leaf logo, the farmer/consumer photography style — but generate new Stitch screens purpose-built for video framing, not reused product screenshots). If Stitch MCP is unavailable or fails, stop and report the blocker in `Result/Notes` — do not silently substitute a different screen-generation method.
+  3. **Ground every visual and every line of on-screen/spoken copy in `README.md`.** No generic "streamline your workflow" language. Use BharatPure's own real numbers (189/189 tests passing, 36 database tables, real trained AI for Turmeric and Mustard, 22 BIR event types, zero-commission listings) and its own real feature names (Distress Sale Shield, Batch Identity Record, Impact Receipt, Trust Score tiers). Where the README itself flags something as a mock (AgriStack, ONDC), either don't show it or show it honestly labeled — never present a sandboxed mock as a live government integration.
+
+- **Deliverable structure:** 3-4 video segments, each roughly 30 seconds, assembled (or delivered separately with clear ordering) into one continuous experience of **at least 2 minutes total**. Suggested narrative arc — adapt if a better structure serves the material, but keep the total in range and keep each segment's purpose distinct:
+  1. **The problem (~30s):** the PS 26033 hook — multiple intermediaries, a farmer selling low, a consumer paying high, no traceability. End on the BharatPure name/logo as the answer.
+  2. **The farmer side (~30s):** the gamified Farmer Dashboard (Trust Score ring + tier, streak, badges), the AI price recommendation, and the Distress Sale Shield WhatsApp moment (bot catches a below-market price, points to cold storage + credit) — this is the flagship feature per the README, it should be the visual centerpiece of the whole video.
+  3. **The consumer/trust side (~30s):** QR scan → the Verified Batch Identity timeline (real BIR events, farm to delivery), the zero-commission listing card, escrow-protected checkout.
+  4. **Impact + close (~30-45s):** the comparison-table story in one or two beats (open network vs. walled gardens, portable trust vs. platform-locked trust), a real number or two (189/189 tests, 2 real trained AI models, 83 endpoints — pick 2-3, don't dump all of them), then the BharatPure name, tagline ("every batch verified, every price fair"), and a clean outro.
+
+- **Acceptance Check:**
+  - `docs/brag-video/` exists with the rendered video file(s) and a `shot-list.md` mapping each segment to the specific README section/feature it depicts and confirming which Stitch screens were generated for it.
+  - Total runtime ≥ 2:00.
+  - Every on-screen number or named feature can be pointed to a specific line in `README.md`.
+  - `git status` on the rest of the repo (everything outside `docs/brag-video/`) is clean — confirms the "no codebase changes" constraint held.
+- **Result/Notes:** _(fill in here when done — what got generated, where the video landed, any blockers hit with Stitch MCP, and the final runtime)_
+
+---
+
 ## PHASE 0 NEWMAN RESULTS LOG
 | Date | Phase | Routes Tested | Pass | Fail | File |
 |---|---|---|---|---|---|
