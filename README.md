@@ -74,6 +74,36 @@ The single feature this project is built around, because it maps directly onto t
 
 This ties three things that already existed independently (AI price recommendation, the cold-storage facility network built for cold-chain auto-reroute, and the Micro-Credit Eligibility Score) into one coherent WhatsApp moment — no new infrastructure, no new external dependency, 100% demo-able live on a phone.
 
+```mermaid
+sequenceDiagram
+    participant Farmer
+    participant Twilio as Twilio Webhook
+    participant Gemini as Gemini NLU
+    participant Price as price.service.js
+    participant Logistics as logistics.service.js
+    participant Credit as farmer.service.js
+
+    Farmer->>Twilio: "haldi bechna hai 100 rupaye kilo"
+    Twilio->>Gemini: classify intent + extract price/unit
+    Gemini-->>Twilio: intent=list_batch, price=100, unit=per_kg
+    Twilio->>Price: getRecommendation(crop, quality_score)
+    Price-->>Twilio: recommended_low_paise / recommended_high_paise
+    Twilio->>Price: checkDistressSale(recommended_low, proposed)
+    Price-->>Twilio: isDistress, gapPct
+
+    alt gapPct >= 20% (distress)
+        Twilio->>Logistics: findNearestActiveFacility(cluster lat/lng)
+        Logistics-->>Twilio: nearest cold-storage facility + distance
+        Twilio->>Credit: getCreditEligibility(farmer)
+        Credit-->>Twilio: band + indicative estimate (or none, gracefully)
+        Twilio-->>Farmer: gap %, nearest storage, credit estimate — farmer decides
+    else price is fair
+        Twilio-->>Farmer: "looks fair" confirmation, no pressure either way
+    end
+```
+
+*(Every box in this diagram is real, shipped code — `whatsapp.service.js`'s `list_batch` branch, `price.service.js#checkDistressSale`, `logistics.service.js#findNearestActiveFacility`, `farmer.service.js#getCreditEligibility` — not a conceptual sketch.)*
+
 ---
 
 ## How BharatPure compares
@@ -126,6 +156,86 @@ BharatPure/
 
 Three independently-runnable services, one shared Postgres database. The Node backend never calls the AI service synchronously for anything a farmer is blocked on — every AI-dependent route has a documented, tested fallback (a formula-replicated price calculation, a cached-or-null demand read) so the AI service being down degrades functionality, never crashes it.
 
+### System architecture
+
+```mermaid
+flowchart TB
+    subgraph Clients["Clients"]
+        PWA["React PWA\nFarmer · Consumer · Logistics"]
+        Web["Web Console\nBulk Buyer · Admin"]
+        WA["WhatsApp\n(via Twilio)"]
+    end
+
+    subgraph Backend["Node.js Backend — Express, 83 endpoints / 18 domains"]
+        API["REST API + Auth\nJWT, refresh-token theft detection"]
+        Jobs["Nightly cron\nTrust Score · Credit Score · Crop Advisory"]
+    end
+
+    DB[("PostgreSQL\n36 tables")]
+
+    subgraph AI["AI Decision Engine — FastAPI (Python)"]
+        Demand["Demand Model\ntrained: Turmeric, Mustard\nheuristic: every other crop"]
+        Price["Price Model\nformula-based"]
+        Route["Route Optimizer\nOR-Tools CVRP"]
+    end
+
+    CEDA["CEDA Agri-Market API\n(real training data)"]
+    OSRM["OSRM\n(real road distances)"]
+    Gemini["Google Gemini\n(WhatsApp NLU + voice)"]
+    Mocks["AgriStack / eNAM / ONDC\n(sandboxed mocks, honestly labeled)"]
+
+    PWA --> API
+    Web --> API
+    WA -->|webhook| API
+    API <--> DB
+    API -->|"graceful fallback\nif unreachable"| AI
+    AI <--> DB
+    Route --> OSRM
+    Demand -.trained offline on.-> CEDA
+    API --> Gemini
+    API -.-> Mocks
+    Jobs --> DB
+```
+
+### Batch lifecycle — event-sourced, not a mutable status field
+
+Every transition below fires a real, append-only **BIR event** (22 types total) rather than just flipping a column — the log is the source of truth, `batches.status` is a derived convenience field.
+
+```mermaid
+stateDiagram-v2
+    [*] --> draft: BatchCreated
+    draft --> pending_test: submitted for testing
+    pending_test --> test_passed: RapidTestPassed / NABLCertificateLinked
+    pending_test --> test_failed: RapidTestFailed
+    test_failed --> pending_test: B-sample referee re-test (BSampleSealed)
+    test_passed --> listed: BatchListed
+    listed --> partially_sold: OrderAllocated (partial quantity)
+    partially_sold --> sold: OrderAllocated (remaining quantity)
+    listed --> sold: OrderAllocated (full quantity)
+    sold --> dispatched: DispatchedToHub
+    dispatched --> delivered: DeliveredToConsumer + EscrowReleased
+    delivered --> rejected_post_delivery: DisputeRaised (upheld)
+```
+
+### Core data model (simplified)
+
+The real schema is 36 tables; this is the subset that carries the money and the trust:
+
+```mermaid
+erDiagram
+    USERS ||--o| FPO_PROFILES : has
+    FPO_PROFILES ||--o{ BATCHES : owns
+    CLUSTERS ||--o{ BATCHES : "grown in"
+    BATCHES ||--o{ BIR_EVENTS : "append-only log"
+    BATCHES ||--o| QUALITY_TESTS : "tested by"
+    BATCHES ||--o{ LISTINGS : "listed as"
+    LISTINGS ||--o{ ORDER_ITEMS : "ordered via"
+    ORDERS ||--o{ ORDER_ITEMS : contains
+    ORDERS ||--o| ESCROW_TRANSACTIONS : "secured by"
+    FPO_PROFILES ||--o| FPO_TRUST_SCORES : "scored by"
+    FPO_PROFILES ||--o| FPO_CREDIT_SCORES : "scored by"
+```
+
 ### Tech stack
 
 | Layer | Technology |
@@ -149,6 +259,18 @@ Three independently-runnable services, one shared Postgres database. The Node ba
 | Crops with real trained AI models | 2 (Turmeric, Mustard) — trained on 2,131 and 4,122 real rows respectively, pulled live from CEDA's Agri-Market API |
 | Backend regression suite | 189/189 assertions passing |
 | Roles supported | Farmer/FPO, Consumer, Bulk Buyer, Logistics driver, Government Admin |
+
+---
+
+## Notable engineering decisions
+
+The kind of detail that only shows up if someone actually reads the code, not just the pitch:
+
+- **Race-condition-safe stock deduction, not a `SELECT` then `UPDATE`.** Placing an order does a single conditional `UPDATE batches SET remaining_quantity_kg = remaining_quantity_kg - $qty WHERE id = $id AND remaining_quantity_kg >= $qty` inside the escrow transaction — zero rows updated means insufficient stock, atomically, with no separate lock step and no window for two simultaneous buyers to both "win" the last of a batch. Verified with a real concurrency test: two genuinely simultaneous requests for the last available quantity, not two sequential ones — one gets `201`, one gets `409 INSUFFICIENT_STOCK`, exactly one order exists afterward.
+- **Refresh-token theft detection, not just expiry.** Every refresh token is single-use and rotates on refresh. If an already-*revoked* token is presented again — the signature of a stolen, replayed token — every other active session for that user is revoked immediately, forcing a full re-login everywhere, not just silently rejecting the one request.
+- **Hybrid AI dispatch that tells you which model answered.** `demand_model.py` tries a real trained model first (`TRAINED_CROPS = ("TURMERIC", "MUSTARD")`) and only falls through to the heuristic when no trained artifact exists for that crop — and the API response's `model_version` field (`agmarknet-hgbr-v1` vs `heuristic-v1`) makes that distinction visible to the caller instead of quietly blending real predictions with guesses.
+- **AI-outage-first design, not AI-outage-as-afterthought.** Every route that touches the AI service was built and tested against the AI service being *down* before being tested against it being up — price recommendation replicates the exact same formula in Node as a fallback, demand forecasting degrades to a cached-or-null read rather than blocking. A live demo where the AI microservice hiccups degrades, it doesn't 500.
+- **Append-only trust, enforced at the schema level.** `bir_events` has no `updated_at` or `deleted_at` column at all, on purpose — corrections are new rows, never edits, so the audit trail can't be quietly rewritten even by a bug.
 
 ---
 
