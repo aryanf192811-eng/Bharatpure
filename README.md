@@ -14,6 +14,12 @@
 
 ---
 
+## 🎥 Demo Video
+
+**[Watch the BharatPure Demo Video here](https://drive.google.com/drive/folders/1DHKPXfrg4ZHuv9_cIliXAJqr4vWgzv8f)**
+
+---
+
 ## The problem this solves
 
 > **"Multiple intermediaries reduce farmers' earnings and increase consumer prices."**
