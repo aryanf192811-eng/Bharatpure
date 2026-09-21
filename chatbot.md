@@ -546,7 +546,39 @@ _(Tasks after Phase 4 gate)_
   1. **No codebase changes, anywhere.** Do not edit, create, or delete any file under `backend/`, `frontend/`, `ai/`, or any existing `docs/` file. Do not run migrations, seed scripts, or mutate the live app's data. Do not touch `chatbot.md` except to report back in this same task's `Result/Notes` field.
   2. **Use the five real screenshots above as the UI footage — do not replace them with Stitch-generated or hand-drawn mockups.** Stitch (or any other generation tool) may still be used for non-UI elements only — title cards, transitions, background motion, the outro logo treatment — anything that isn't standing in for an actual app screen.
   3. **Ground every visual and every line of on-screen/spoken copy in `README.md`.** No generic "streamline your workflow" language. Use BharatPure's own real numbers (189/189 tests passing, 36 database tables, real trained AI for Turmeric and Mustard, 22 BIR event types, zero-commission listings) and its own real feature names (Distress Sale Shield, Batch Identity Record, Impact Receipt, Trust Score tiers). Where the README itself flags something as a mock (AgriStack, ONDC), either don't show it or show it honestly labeled — never present a sandboxed mock as a live government integration.
-  4. **The Distress Sale Shield has no screenshot** (it's a WhatsApp conversation, no Twilio number is live in this dev environment) — represent it with on-screen typography of the actual verified bot reply, not a fabricated phone-UI mockup: proposed price ₹100/kg, 32.8% below the AI-recommended range, real nearest facility named (Sangli Cold Storage, 2.2km), real credit estimate. Don't invent a fake WhatsApp chat bubble UI.
+  4. **The Distress Sale Shield has no live-app screenshot** (it's a WhatsApp conversation, no Twilio number is live in this dev environment). A static visual for this feature is instead being generated via Stitch from a prompt built directly off a fresh, live `handleMessage()` call made on 2026-09-21 (batch `MH-TUR-2026-014`, Turmeric, quality 94, farmer message `"haldi bechna hai 120 rupaye kilo"`) — real verified reply: proposed price ₹120/kg is 31.6% below the AI-recommended range of ₹175–₹194/kg, nearest facility Sangli Cold Storage (2.2km). No credit-eligibility line was returned on this call (degraded gracefully — no FPO credit score computed for this farmer), so the visual must not include a fabricated credit figure. Whether used as video typography or a WhatsApp-style mockup, every number above must be reproduced exactly — don't invent a fake chat UI beyond what's asked for in the Stitch prompt.
+
+> **Stitch prompt for the Distress Sale Shield static visual** (for `README.md`'s screenshots section, and reusable as video typography source material — see constraint 4 above for the verified data this is built from):
+>
+> ```
+> Generate a realistic WhatsApp mobile chat screenshot, portrait orientation, 1080x2340px,
+> standard WhatsApp light theme (cream chat background, standard WhatsApp green #075E54
+> header bar and #DCF8C6 sent-bubble green) — must look like a genuine phone screenshot,
+> not a stylized illustration.
+>
+> Header: contact name "BharatPure Sahayak", small green leaf-in-circle avatar logo,
+> "online" status text beneath the name. Standard WhatsApp status bar and back arrow.
+>
+> Message 1 (sent by the user, right-aligned, green bubble, double gray checkmarks,
+> timestamp 9:14 PM):
+> "haldi bechna hai 120 rupaye kilo"
+>
+> Message 2 (received, left-aligned, white bubble, from BharatPure Sahayak,
+> timestamp 9:14 PM) — reproduce this text exactly, no changes to any number or name:
+> "Namaste! DISTRESS SALE WARNING for batch MH-TUR-2026-014 (TURMERIC): proposed price
+> Rs.120/kg is 31.6% below the AI-recommended range of Rs.175-Rs.194 per kg. Nearest
+> cold-storage option: Sangli Cold Storage, 2.2km away -- holding the produce there
+> instead may fetch a better price later. Explain this clearly to the farmer in their
+> own language and let them decide -- do not pressure them either way."
+>
+> Below that bubble, inside the same chat thread, add a small pill-shaped badge reading
+> "Distress Sale Shield - Active" in BharatPure's brand green (#2E7D32), styled like a
+> WhatsApp quick-reply/list-message attachment, not a browser overlay.
+>
+> Standard WhatsApp input bar at the bottom (emoji icon, text field placeholder "Message",
+> camera icon, mic icon). No other UI chrome. Do not add, remove, or reword any number,
+> price, distance, or place name from the two messages above.
+> ```
 
 - **Deliverable structure:** 3-4 video segments, each roughly 30 seconds, assembled (or delivered separately with clear ordering) into one continuous experience of **at least 2 minutes total**. Suggested narrative arc — adapt if a better structure serves the material, but keep the total in range and keep each segment's purpose distinct:
   1. **The problem (~30s):** the PS 26033 hook — multiple intermediaries, a farmer selling low, a consumer paying high, no traceability. End on the BharatPure name/logo as the answer.

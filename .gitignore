@@ -21,3 +21,24 @@ stitch_agricultural_field_app_design.zip
 stitch_agricultural_field_app_design (1).zip
 stitch_bharatpure_agritech_marketplace_ui.zip
 stitch_export/
+
+# SIH submission deck working files (personal prep, not repo/app assets — only the
+# small real UI screenshots under SIH-Slides-HD/screenshots/ are tracked for README use)
+SIH-Slides-HD/*.png
+Untitled presentation*.md
+Untitled presentation*.pdf
+
+# Brag/demo video production workspace (Antigravity) — final video goes to YouTube
+# per the distribution plan in chatbot.md; the 60MB+ working output doesn't belong in git
+docs/brag-video/
+brag-videoTEMP_MPY_wvf_snd.mp4
+section_architecture_*.jpg
+section_feasibility_*.jpg
+section_tech_stack_*.jpg
+
+# Leftover local tooling (Real-ESRGAN portable binary used for one-off slide upscaling)
+.tools/
+
+# Misc scratch files
+share.zip
+test.html

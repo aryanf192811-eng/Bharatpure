@@ -110,6 +110,22 @@ sequenceDiagram
 
 *(Every box in this diagram is real, shipped code — `whatsapp.service.js`'s `list_batch` branch, `price.service.js#checkDistressSale`, `logistics.service.js#findNearestActiveFacility`, `farmer.service.js#getCreditEligibility` — not a conceptual sketch.)*
 
+**A real, live example** (called directly against the running backend, not scripted for effect) — farmer on batch `MH-TUR-2026-014` (Turmeric, quality score 94) sends *"haldi bechna hai 120 rupaye kilo"*:
+
+> Namaste! DISTRESS SALE WARNING for batch MH-TUR-2026-014 (TURMERIC): proposed price ₹120/kg is 31.6% below the AI-recommended range of ₹175–₹194 per kg. Nearest cold-storage option: Sangli Cold Storage, 2.2km away — holding the produce there instead may fetch a better price later. Explain this clearly to the farmer in their own language and let them decide — do not pressure them either way.
+
+---
+
+## Screenshots
+
+Real, unstaged captures from the running app — not mockups.
+
+| | |
+|---|---|
+| ![Farmer Dashboard](SIH-Slides-HD/screenshots/farmer-dashboard.png) **Farmer Dashboard** — gamified Trust Score ring, streak, achievement badges | ![Trust Score](SIH-Slides-HD/screenshots/trust-score.png) **Trust Score breakdown** — real component weights driving the ring above |
+| ![QR Trace](SIH-Slides-HD/screenshots/qr-trace.png) **Verified Batch Identity** — the full BIR timeline behind a QR scan, real hash, real staggered timestamps | ![Consumer Browse](SIH-Slides-HD/screenshots/consumer-browse.png) **Consumer marketplace** — quality bars, real FPO names, zero-commission pricing |
+| ![Impact Receipt](SIH-Slides-HD/screenshots/impact-receipt.png) **Impact Receipt** — a real settled Mustard batch, +₹80,000 uplift over the traditional mandi baseline | The Distress Sale Shield above is WhatsApp-only (no live Twilio number in this dev environment), so it's shown as a real verified conversation transcript rather than a screenshot |
+
 ---
 
 ## How BharatPure compares
